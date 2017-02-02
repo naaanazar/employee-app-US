@@ -132,14 +132,8 @@ class Employee
     /**
      * @return User
      */
-    public function getUser($id)
+    public function getUser()
     {
-        $entityManager = new MvcEvent();
-        $entityManager = $entityManager->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
-
-        $repo = $entityManager->getRepository(User::class);
-        $this->user = $repo->find($id);
-
         return $this->user;
     }
 
