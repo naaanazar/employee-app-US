@@ -25,7 +25,6 @@ class User
      * @var string
      * @ORM\Column(type="string")
      */
-
     private $name;
 
     /**
@@ -42,7 +41,7 @@ class User
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $role;
 
@@ -116,6 +115,15 @@ class User
     public function setRole($role)
     {
         $this->role = $role;
+    }
+
+    /**
+     * @param $password
+     * @return string
+     */
+    public static function hashPassword($password)
+    {
+        return sha1(sha1($password . md5(strrev($password))));
     }
 
 }
