@@ -3,6 +3,7 @@
 namespace Application\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Class Employee
@@ -95,7 +96,7 @@ class Employee
     private $weeklyHoursAvailable;
 
     /**
-     * @var datetime
+     * @var /Datetime
      * @ORM\Column(name="startDate", type="datetime",  nullable=true)
      */
     private $startDate;
@@ -111,5 +112,259 @@ class Employee
      * @ORM\Column(name="hourly_rate", scale=5, precision=2, type="decimal",  nullable=true)
      */
     private $hourlyRate;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddressLine()
+    {
+        return $this->addressLine;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser($id)
+    {
+        $entityManager = new MvcEvent();
+        $entityManager = $entityManager->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
+
+        $repo = $entityManager->getRepository(User::class);
+        $this->user = $repo->find($id);
+
+        return $this->user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobilePhone()
+    {
+        return $this->mobilePhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLandlinePhone()
+    {
+        return $this->landlinePhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isExperience()
+    {
+        return $this->experience;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAreaAround()
+    {
+        return $this->areaAround;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDrivingLicence()
+    {
+        return $this->drivingLicence;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCarAvailable()
+    {
+        return $this->carAvailable;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContractType()
+    {
+        return $this->contractType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeeklyHoursAvailable()
+    {
+        return $this->weeklyHoursAvailable;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHourlyRate()
+    {
+        return $this->hourlyRate;
+    }
+
+    /**
+     * @param string $addressLine
+     */
+    public function setAddressLine($addressLine)
+    {
+        $this->addressLine = $addressLine;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @param string $fullName
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+    }
+
+    /**
+     * @param string $mobilePhone
+     */
+    public function setMobilePhone($mobilePhone)
+    {
+        $this->mobilePhone = $mobilePhone;
+    }
+
+    /**
+     * @param string $landlinePhone
+     */
+    public function setLandlinePhone($landlinePhone)
+    {
+        $this->landlinePhone = $landlinePhone;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param boolean $experience
+     */
+    public function setExperience($experience)
+    {
+        $this->experience = $experience;
+    }
+
+    /**
+     * @param int $areaAround
+     */
+    public function setAreaAround($areaAround)
+    {
+        $this->areaAround = $areaAround;
+    }
+
+    /**
+     * @param boolean $drivingLicence
+     */
+    public function setDrivingLicence($drivingLicence)
+    {
+        $this->drivingLicence = $drivingLicence;
+    }
+
+    /**
+     * @param boolean $carAvailable
+     */
+    public function setCarAvailable($carAvailable)
+    {
+        $this->carAvailable = $carAvailable;
+    }
+
+    /**
+     * @param string $contractType
+     */
+    public function setContractType($contractType)
+    {
+        $this->contractType = $contractType;
+    }
+
+    /**
+     * @param int $weeklyHoursAvailable
+     */
+    public function setWeeklyHoursAvailable($weeklyHoursAvailable)
+    {
+        $this->weeklyHoursAvailable = $weeklyHoursAvailable;
+    }
+
+    /**
+     * @param mixed $startDate
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @param string $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @param mixed $hourlyRate
+     */
+    public function setHourlyRate($hourlyRate)
+    {
+        $this->hourlyRate = $hourlyRate;
+    }
 
 }
