@@ -60,25 +60,25 @@ class Employee
 
     /**
      * @var boolean
-     * @ORM\Column(name="experience", length=1, type="boolean") // ?
+     * @ORM\Column(name="experience", type="boolean")
      */
     private $experience;
 
     /**
      * @var int
-     * @ORM\Column(name="area_around", length=10 type="integer",  nullable=true)
+     * @ORM\Column(name="area_around", length=10, type="integer",  nullable=true)
      */
     private $areaAround;
 
     /**
      * @var boolean
-     * @ORM\Column(name="driving_licence", length=1, type="boolean") // ?
+     * @ORM\Column(name="driving_licence", type="boolean")
      */
     private $drivingLicence;
 
     /**
      * @var boolean
-     * @ORM\Column(name="car_available", length=1, type="boolean") // ?
+     * @ORM\Column(name="car_available", type="boolean")
      */
     private $carAvailable;
 
@@ -95,7 +95,7 @@ class Employee
     private $weeklyHoursAvailable;
 
     /**
-     * @var date
+     * @var datetime
      * @ORM\Column(name="startDate", type="datetime",  nullable=true)
      */
     private $startDate;
@@ -108,7 +108,7 @@ class Employee
 
     /**
      * @var
-     * @ORM\Column(name="hourly_rate", precision=2, type="decimal",  nullable=true)
+     * @ORM\Column(name="hourly_rate", scale=5, precision=2, type="decimal",  nullable=true)
      */
     private $hourlyRate;
 
