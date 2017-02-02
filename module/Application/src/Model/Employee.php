@@ -3,7 +3,6 @@
 namespace Application\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\Mvc\MvcEvent;
 
 /**
  * Class Employee
@@ -109,7 +108,7 @@ class Employee
 
     /**
      * @var
-     * @ORM\Column(name="hourly_rate", scale=5, precision=2, type="decimal",  nullable=true)
+     * @ORM\Column(name="hourly_rate", precision=5, scale=2, type="decimal",  nullable=true)
      */
     private $hourlyRate;
 
