@@ -62,7 +62,7 @@ class Employee
      * @var boolean
      * @ORM\Column(name="experience", type="boolean")
      */
-    private $experience;
+    private $experience = false;
 
     /**
      * @var int
@@ -74,13 +74,13 @@ class Employee
      * @var boolean
      * @ORM\Column(name="driving_licence", type="boolean")
      */
-    private $drivingLicence;
+    private $drivingLicence = false;
 
     /**
      * @var boolean
      * @ORM\Column(name="car_available", type="boolean")
      */
-    private $carAvailable;
+    private $carAvailable = false;
 
     /**
      * @var string
