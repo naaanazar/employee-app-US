@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -18,5 +19,15 @@ class IndexController extends AbstractController
     public function indexAction()
     {
         return new ViewModel();
+    }
+
+    /**
+     * Change language actions
+     */
+    public function langAction()
+    {
+        $storage = new Container('language');
+        $storage->offsetSet('language', $this->getRequest()->getQuery('language', 'en_US'));
+        $this->redirect()->toUrl($this->getRequest()->getHeader('Referer')->uri()->getPath());
     }
 }

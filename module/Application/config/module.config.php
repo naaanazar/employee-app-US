@@ -62,5 +62,23 @@ return [
             __DIR__ . '/../view',
         ],
     ],
-
+    'service_manager' => [
+        'factories' => [
+            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+        ],
+    ],
+    'translator' => [
+        'locale' => 'en_US',
+        'translation_file_patterns' => [
+            [
+                'type'     => 'gettext',
+                'base_dir' => __DIR__ . '/../locale',
+                'pattern'  => '%s.mo',
+            ],
+        ],
+    ],
+    'locales' => [
+        'en_US' => 'English',
+        'de_DE' => 'Deutsch',
+    ]
 ];
