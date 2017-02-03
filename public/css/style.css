@@ -31,3 +31,156 @@ div.container a.navbar-brand > img {
     margin-right: 4px;
     margin-top: -2px;
 }
+
+
+/*employee form*/
+.application-input{
+    border: 1px solid #91BF2D;
+}
+.application-label{
+    color: #8f8f8f;
+}
+
+
+/*button-sign-in*/
+.button-sign-in {
+    color: #ffffff;
+    background-color: #91BF2D;
+    border-color: #85AF29;
+}
+
+.button-sign-in:hover,
+.button-sign-in:focus,
+.button-sign-in:active,
+.button-sign-in.active,
+.open .dropdown-toggle.button-sign-in {
+    color: #ffffff;
+    background-color: #C3E180;
+    border-color: #85AF29;
+}
+
+.button-sign-in:active,
+.button-sign-in.active,
+.open .dropdown-toggle.button-sign-in {
+    background-image: none;
+}
+
+.button-sign-in.disabled,
+.button-sign-in[disabled],
+fieldset[disabled] .button-sign-in,
+.button-sign-in.disabled:hover,
+.button-sign-in[disabled]:hover,
+fieldset[disabled] .button-sign-in:hover,
+.button-sign-in.disabled:focus,
+.button-sign-in[disabled]:focus,
+fieldset[disabled] .button-sign-in:focus,
+.button-sign-in.disabled:active,
+.button-sign-in[disabled]:active,
+fieldset[disabled] .button-sign-in:active,
+.button-sign-in.disabled.active,
+.button-sign-in[disabled].active,
+fieldset[disabled] .button-sign-in.active {
+    background-color: #91BF2D;
+    border-color: #85AF29;
+}
+
+.button-sign-in .badge {
+    color: #91BF2D;
+    background-color: #ffffff;
+}
+
+
+/*button sign on*/
+.button-sign-on {
+    color: #91BF21;
+    background-color: #ffffff;
+    border-color: #536E17;
+}
+
+.button-sign-on:hover,
+.button-sign-on:focus,
+.button-sign-on:active,
+.button-sign-on.active,
+.open .dropdown-toggle.button-sign-on {
+    color: #ffffff;
+    background-color: #8EBA1F;
+    border-color: #536E17;
+}
+
+.button-sign-on:active,
+.button-sign-on.active,
+.open .dropdown-toggle.button-sign-on {
+    background-image: none;
+}
+
+.button-sign-on.disabled,
+.button-sign-on[disabled],
+fieldset[disabled] .button-sign-on,
+.button-sign-on.disabled:hover,
+.button-sign-on[disabled]:hover,
+fieldset[disabled] .button-sign-on:hover,
+.button-sign-on.disabled:focus,
+.button-sign-on[disabled]:focus,
+fieldset[disabled] .button-sign-on:focus,
+.button-sign-on.disabled:active,
+.button-sign-on[disabled]:active,
+fieldset[disabled] .button-sign-on:active,
+.button-sign-on.disabled.active,
+.button-sign-on[disabled].active,
+fieldset[disabled] .button-sign-on.active {
+    background-color: #F0F8E0;
+    border-color: #536E17;
+}
+
+.button-sign-on .badge {
+    color: #F0F8E0;
+    background-color: #91BF21;
+}
+
+
+/*button save*/
+.batton-save {
+    color: #FFFFFF;
+    background-color: #91BF2D;
+    border-color: #6D8F22;
+}
+
+.batton-save:hover,
+.batton-save:focus,
+.batton-save:active,
+.batton-save.active,
+.open .dropdown-toggle.batton-save {
+    color: #FFFFFF;
+    background-color: #A4D241;
+    border-color: #6D8F22;
+}
+
+.batton-save:active,
+.batton-save.active,
+.open .dropdown-toggle.batton-save {
+    background-image: none;
+}
+
+.batton-save.disabled,
+.batton-save[disabled],
+fieldset[disabled] .batton-save,
+.batton-save.disabled:hover,
+.batton-save[disabled]:hover,
+fieldset[disabled] .batton-save:hover,
+.batton-save.disabled:focus,
+.batton-save[disabled]:focus,
+fieldset[disabled] .batton-save:focus,
+.batton-save.disabled:active,
+.batton-save[disabled]:active,
+fieldset[disabled] .batton-save:active,
+.batton-save.disabled.active,
+.batton-save[disabled].active,
+fieldset[disabled] .batton-save.active {
+    background-color: #91BF2D;
+    border-color: #6D8F22;
+}
+
+.batton-save .badge {
+    color: #91BF2D;
+    background-color: #FFFFFF;
+}
