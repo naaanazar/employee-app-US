@@ -26,7 +26,7 @@ class UserController extends AbstractController
         /** @var Request $request */
         $request = $this->getRequest();
 
-        if (true === $request->isPost()) {
+        if (true === $request->isPost() && true === $request->isXmlHttpRequest()) {
 
             $form = new Login(
                 [
@@ -56,7 +56,7 @@ class UserController extends AbstractController
         /** @var Request $request */
         $request = $this->getRequest();
 
-        if (true === $request->isPost()) {
+        if (true === $request->isPost() && true === $request->isXmlHttpRequest()) {
 
             $form = new Register(
                 [
