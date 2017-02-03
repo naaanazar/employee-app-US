@@ -4,10 +4,20 @@
             <div class="form-group">
                 <label for="email_field">Email</label>
                 <input type="text" name="email" id="email_field" class="form-control">
+                <?php if (true === isset($this->messages['email'])) : ?>
+                    <?php foreach ($this->messages['email'] as $message) : ?>
+                        <span class="label label-danger"><?= $message ?></span>
+                    <?php endforeach ?>
+                <?php endif; ?>
             </div>
             <div class="form-group">
                 <label for="password_field">Password</label>
                 <input type="password" name="password" id="password_field" class="form-control">
+                <?php if (true === isset($this->messages['password'])) : ?>
+                    <?php foreach ($this->messages['password'] as $message) : ?>
+                        <span class="label label-danger"><?= $message ?></span>
+                    <?php endforeach ?>
+                <?php endif; ?>
             </div>
             <div class="text-right">
                 <button class="btn btn-default">Log in</button>
