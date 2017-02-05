@@ -23,20 +23,42 @@ class EmployeeController extends AbstractController
     }
 
     /**
-     * @return JsonModel
+     * @return JsonModel|array
      */
-    public function jsonAction()
+    public function storeAction()
     {
-        $json = new JsonModel();
-        $json->setVariables(
-            [
-                'key' => 'value',
-                'key2' => 'value',
-                'key4' => 'value',
-            ]
-        );
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
 
-        return $json;
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+
+
+        } else {
+            return $this->notFoundAction();
+        }
+    }
+
+    /**
+     * Show one Employee action
+     */
+    public function showAction()
+    {
+        echo 1;
+
+        if (true === $this->getRequest()) {
+
+        }
+
+//        $this->getEntityManager()->find(Employee::class, $this->getRequest());
+
+//        if ($this->getRequest())
     }
 
 }

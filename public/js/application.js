@@ -1,8 +1,11 @@
-window.onload = function () {
-    jQuery(document).on('submit', 'form.async', function (event) {
-        event.defaultPrevented = true;
+jQuery(document).on('submit', 'form.async', function (event) {
+    event.defaultPrevented = true;
 
+    var form = jQuery(this);
 
-        return false;
+    jQuery.post(form.attr('action'), form.serializeArray(), function (response) {
+        console.log(response);
     });
-};
+
+    return false;
+});

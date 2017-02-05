@@ -18,7 +18,11 @@ class IndexController extends AbstractController
      */
     public function indexAction()
     {
-        return new ViewModel();
+        $this->redirect()
+            ->toRoute(
+                'employee',
+                ['action' => 'index']
+            );
     }
 
     /**

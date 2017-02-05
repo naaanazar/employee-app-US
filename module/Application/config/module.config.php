@@ -1,7 +1,6 @@
 <?php
 namespace Application;
 
-use Application\Controller\EmployeeController;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -39,6 +38,19 @@ return [
                     ],
                 ],
             ],
+            'show-employee' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => 'employee/:id',
+                    'defaults' => [
+                        'controller' => Controller\EmployeeController::class,
+                        'action'     => 'show'
+                    ],
+                    'constraints' => [
+                        'id' => '[0-9]+'
+                    ]
+                ]
+            ],
             'employee' => [
                 'type' => Segment::class,
                 'options' => [
@@ -48,7 +60,7 @@ return [
                         'action' => 'index'
                     ],
                 ],
-            ]
+            ],
         ],
     ],
     'controllers' => [

@@ -6,6 +6,7 @@ use Application\Back\Form\Login;
 use Application\Back\Form\Register;
 use Application\Model\User;
 use Zend\Http\Request;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -21,12 +22,12 @@ class UserController extends AbstractController
      */
     public function loginAction()
     {
-        $view = new ViewModel();
-
         /** @var Request $request */
         $request = $this->getRequest();
 
         if (true === $request->isPost() && true === $request->isXmlHttpRequest()) {
+
+            $json = new JsonModel();
 
             $form = new Login(
                 [
@@ -37,13 +38,15 @@ class UserController extends AbstractController
             $data = $request->getPost();
 
             if ($form->setData($data)->isValid() === true) {
-                $this->redirect()->toRoute('home');
+                $json->setVariable('redirect', $this->url()->fromRoute('home'));
             } else {
-                $view->setVariable('messages', $form->getMessages());
+                $json->setVariable('errors', $form->getMessages());
             }
+
+            return $json;
         }
 
-        return $view;
+        return new ViewModel();
     }
 
     /**
@@ -51,12 +54,12 @@ class UserController extends AbstractController
      */
     public function registerAction()
     {
-        $view = new ViewModel();
-
         /** @var Request $request */
         $request = $this->getRequest();
 
         if (true === $request->isPost() && true === $request->isXmlHttpRequest()) {
+
+            $json = new JsonModel();
 
             $form = new Register(
                 [
@@ -64,6 +67,7 @@ class UserController extends AbstractController
                     'entityManager' => $this->getEntityManager()
                 ]
             );
+
             $data = $request->getPost();
 
             if ($form->setData($data)->isValid() === true) {
@@ -77,13 +81,15 @@ class UserController extends AbstractController
                 $this->getEntityManager()->persist($user);
                 $this->getEntityManager()->flush();
 
-                $this->redirect()->toRoute('user', ['action' => 'login']);
+                $json->setVariable('message', $this->translate('Successfully registered'));
             } else {
-                $view->setVariable('messages', $form->getMessages());
+                $json->setVariable('errors', $form->getMessages());
             }
+
+            return $json;
         }
 
-        return $view;
+        return new ViewModel();
     }
     
 }
