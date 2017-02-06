@@ -2,7 +2,12 @@
 
 namespace Application\Back\Form;
 
+use Application\Back\Form\Element\Name;
+use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
+use Zend\Form\Element\Number;
+use Zend\Form\Element\Select;
+use Zend\Form\Element\Text;
 use Zend\Form\Form;
 
 /**
@@ -18,12 +23,122 @@ class Employee extends Form
 
         $this->add(
             [
+                'type' => Name::class,
+                'name' => 'name'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Name::class,
+                'name' => 'surname'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'city'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'address'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Number::class,
+                'name' => 'zip'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'mobile_phone'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'landline_phone'
+            ]
+        );
+
+        $this->add(
+            [
                 'type' => Email::class,
                 'name' => 'email'
             ]
         );
 
-        // Todo: actualize with model
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'area_around'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'contract_type'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'weekly_hours'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'start_date'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'comments'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'hourly_rate'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'experience'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'driving_license'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Text::class,
+                'name' => 'car_available'
+            ]
+        );
     }
 
 }

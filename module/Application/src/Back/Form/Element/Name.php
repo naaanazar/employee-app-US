@@ -24,7 +24,7 @@ class Name extends Element implements InputProviderInterface
             'validators' => [
                 new StringLength(
                     [
-                        'min' => 4,
+                        'min' => 2,
                         'max' => 48
                     ]
                 ),
