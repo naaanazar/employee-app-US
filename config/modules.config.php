@@ -15,4 +15,5 @@ return [
     'Application',
     'DoctrineModule',
     'DoctrineORMModule',
+    'Zend\I18n'
 ];
