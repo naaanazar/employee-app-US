@@ -49,10 +49,10 @@ msgstr "Value range allowed from %d to %d"
 
 #. FORM: Create employee.
 msgid "Create employee"
-msgstr ""
+msgstr "Create employee"
 
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 msgid "No"
 msgstr ""

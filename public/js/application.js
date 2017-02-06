@@ -9,3 +9,9 @@ jQuery(document).on('submit', 'form.async', function (event) {
 
     return false;
 });
+
+jQuery(document).on('change', '#select-language', function () {
+
+        $("#select-language").submit();
+
+});

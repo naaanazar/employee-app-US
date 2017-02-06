@@ -22,3 +22,7 @@ msgstr "Zuhause"
 
 msgid "Successfully registered"
 msgstr "Erfolgreich registriert"
+
+
+msgid "Create employee"
+msgstr "Mitarbeiter erstellen"
