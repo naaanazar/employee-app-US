@@ -43,3 +43,93 @@ msgstr "Email is not valid"
 
 msgid "Value range allowed from %d to %d"
 msgstr "Value range allowed from %d to %d"
+
+
+
+
+#. FORM: Create employee.
+msgid "Create employee"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Surname"
+msgstr ""
+
+msgid "City"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "ZIP"
+msgstr ""
+
+msgid "Mobile phone number"
+msgstr ""
+
+msgid "Landline number"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Area around home adress willing to work"
+msgstr ""
+
+msgid "any distance"
+msgstr ""
+
+msgid "Type of contract"
+msgstr ""
+
+msgid "Minijob"
+msgstr ""
+
+msgid "Part-time"
+msgstr ""
+
+msgid "Full-time"
+msgstr ""
+
+msgid "Self-employed"
+msgstr ""
+
+msgid "Weekly hours available"
+msgstr ""
+
+msgid "Start day"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+msgid "Hourly rate"
+msgstr ""
+
+msgid "Experience in the job"
+msgstr ""
+
+msgid "Driving licence"
+msgstr ""
+
+msgid "Car available"
+msgstr ""
+
+msgid "Upload user photo"
+msgstr ""
+
+msgid "Attachments"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+

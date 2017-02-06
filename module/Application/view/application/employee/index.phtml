@@ -1,79 +1,84 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <form class="" method="post">
+        <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="async">
             <div class="row">
                 <legend  style="color:#8f8f8f">Create employee</legend>
             </div>
             <div class="form-group">
-                <label class="control-label application-label" for="name_field">Name</label>
-                <input id="name_field" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?></label>
+                <input id="name_field" name="name" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="surname_field">Surname</label>
-                <input id="surname_field" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="surname_field"><?= $this->translate('Surname') ?></label>
+                <input id="surname_field" name="surname" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="surname_field">Street with number</label>
-                <input id="" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="city_field"><?= $this->translate('City') ?></label>
+                <input id="city_field" name="city" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="zip_field">ZIP</label>
-                <input id="zip_field" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="address_field"><?= $this->translate('Address') ?></label>
+                <input id="address_field" name="address" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="city_field">City</label>
-                <input id="city_field" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="zip_field"><?= $this->translate('ZIP') ?></label>
+                <input id="zip_field" name="zip" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="email_field">Email</label>
-                <input id="email_field" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="mobile_phone_field"><?= $this->translate('Mobile phone number') ?></label>
+                <input id="mobile_phone_field" name="mobilePhone" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="experience_field">Experience</label>
-                <input id="experience_field" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="landline_number_field"><?= $this->translate('Landline number') ?></label>
+                <input id="landline_number_field" name="landlinePhone" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="area_around_field">Area around</label>
-                <select id="area_around_field" class="form-control application-input">
+                <label class="control-label application-label" for="email_field"><?= $this->translate('Email') ?></label>
+                <input id="email_field" name="email" type="text" placeholder="" class="form-control input-md application-input">
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label application-label" for="area_around_field"><?= $this->translate('Area around home address willing to work') ?></label>
+                <select id="area_around_field" name="areaAround" class="form-control application-input">
                     <option value="1">1 km</option>
                     <option value="5">5 km</option>
                     <option value="10">10 km</option>
                     <option value="20">20 km</option>
                     <option value="30">30 km</option>
-                    <option value="">any distance</option>
-                </select>
-                <span class="help-block">area around home adress willing to work</span>
-
-            </div>
-
-            <div class="form-group">
-                <label class="control-label application-label" for="contact_type_field">Type of contact</label>
-                <select id="contact_type_field" class="form-control application-input">
-                    <option>Minijob</option>
-                    <option>Part-time</option>
-                    <option>Full-time</option>
-                    <option>Self-employed</option>
+                    <option value=""><?= $this->translate('any distance') ?></option>
                 </select>
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="weekly_hours_field">Weekly hours available</label>
-                <select id="weekly_hours_field" class="form-control application-input">
+                <label class="control-label application-label" for="contact_type_field"><?= $this->translate('Type of contract') ?></label>
+                <select id="contact_type_field" name="contractType" class="form-control application-input">
+                    <option><?= $this->translate('Minijob') ?></option>
+                    <option><?= $this->translate('Part-time') ?></option>
+                    <option><?= $this->translate('Full-time') ?></option>
+                    <option><?= $this->translate('Self-employed') ?></option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label application-label" for="weekly_hours_field"><?= $this->translate('Weekly hours available') ?></label>
+                <select id="weekly_hours_field" name="weeklyHoursAvailable" class="form-control application-input">
                     <option value="10">10h</option>
                     <option value="20">20h</option>
                     <option value="30">30h</option>
@@ -83,50 +88,58 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="start_day_field">Start Day</label>
-                <input id="start_day_field" name="" type="date" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="start_day_field"><?= $this->translate('Start day') ?></label>
+                <input id="start_day_field" name="startDate" type="date" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="commenst_field">Comments</label>
-                <textarea id="commenst_field" name="" class="form-control application-input"  rows="4"></textarea>
+                <label class="control-label application-label" for="commenst_field"><?= $this->translate('Comments') ?></label>
+                <textarea id="commenst_field" name="comments" class="form-control application-input"  rows="4" style="resize: vertical;"></textarea>
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="hourly_rate_field">Hourly rate</label>
-                <input id="hourly_rate_field" name="" type="text" placeholder="" class="form-control input-md application-input">
+                <label class="control-label application-label" for="hourly_rate_field"><?= $this->translate('Hourly rate') ?></label>
+                <input id="hourly_rate_field" name="hourlyRate" type="text" placeholder="" class="form-control input-md application-input">
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="driving_licence_field">Driving licence</label>
-                <input type="checkbox" name="" id="driving_licence_field" >
+                <label class="control-label application-label" for="experience_field"><?= $this->translate('Experience in the job') ?></label>
+                <select id="experience_field" name="" class="form-control application-input">
+                    <option value="1"><?= $this->translate('Yes') ?></option>
+                    <option value="0"><?= $this->translate('No') ?></option>
+                </select>
 
             </div>
 
             <div class="form-group">
-                <label class="control-label application-label" for="car_available_field">Car available</label>
-                <input type="checkbox" name="" id="car_available_field" >
+                <label class="control-label application-label" for="driving_licence_field"><?= $this->translate('Driving licence') ?></label>
+                <input type="checkbox" name="drivingLicence" id="driving_licence_field" >
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label application-label" for="car_available_field"><?= $this->translate('Car available') ?></label>
+                <input type="checkbox" name="carAvailable" id="car_available_field" >
 
             </div>
 
             <div class="form-group">
                 <label class="btn button-sign-in btn-file">
-                    Upload user photo <input type="file" name="" id="avatar_field" accept="image/*" style="display: none;">
+                    <?= $this->translate('Upload user photo') ?> <input type="file" name="" id="avatar_field" accept="image/*" style="display: none;">
                 </label>
 
                 <label class="btn button-sign-in btn-file">
-                    Attachments <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">
+                    <?= $this->translate('Attachments') ?> <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">
                 </label>
 
             </div>
 
             <div class="form-group">
-
                 <div class="text-right" >
-                    <button class="btn batton-save btn-lg">Save</button>
+                    <button class="btn batton-save btn-lg"><?= $this->translate('Save') ?></button>
 
                 </div>
             </div>
