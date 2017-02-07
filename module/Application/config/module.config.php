@@ -1,6 +1,8 @@
 <?php
 namespace Application;
 
+use Application\Back\Translator\Translator;
+use Interop\Container\ContainerInterface;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -91,7 +93,13 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            'translator' => function (ContainerInterface $serviceManager) {
+                // Configure the translator
+                $config = $serviceManager->get('config');
+                $trConfig = isset($config['translator']) ? $config['translator'] : [];
+                $translator = Translator::factory($trConfig);
+                return $translator;
+            },
         ],
     ],
     'translator' => [
