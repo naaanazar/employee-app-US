@@ -14,6 +14,11 @@ class Login extends Form
 {
 
     /**
+     * @var null|int
+     */
+    private $identity;
+
+    /**
      * Login constructor.
      * @param array $options
      */
@@ -35,10 +40,21 @@ class Login extends Form
                 'options' => [
                     'email'         => $this->getOption('email'),
                     'entityManager' => $this->getOption('entityManager'),
-                    'check'         => \Application\Back\Form\Validator\Password::CHECK_LOGIN
+                    'check'         => \Application\Back\Form\Validator\Password::CHECK_LOGIN,
+                    'form'          => $this
                 ]
             ]
         );
+    }
+
+    public function getIdentity()
+    {
+        return $this->identity;
+    }
+
+    public function setIdentity($identity)
+    {
+        $this->identity = $identity;
     }
 
 }

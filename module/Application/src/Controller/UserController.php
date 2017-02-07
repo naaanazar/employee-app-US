@@ -16,6 +16,13 @@ use Zend\View\Model\ViewModel;
 class UserController extends AbstractController
 {
 
+    public function init()
+    {
+        if ($this->getUser() !== null) {
+            $this->redirect()->toRoute('home');
+        }
+    }
+
     /**
      * Login action
      * @return ViewModel
@@ -35,10 +42,12 @@ class UserController extends AbstractController
                     'entityManager' => $this->getEntityManager()
                 ]
             );
+
             $data = $request->getPost();
 
             if ($form->setData($data)->isValid() === true) {
                 $json->setVariable('redirect', $this->url()->fromRoute('home'));
+                $this->getAuth()->getStorage()->write($form->getIdentity());
             } else {
                 $json->setVariable('errors', $form->getMessages());
             }

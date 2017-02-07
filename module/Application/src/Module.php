@@ -36,8 +36,7 @@ class Module
      */
     public function getServiceConfig()
     {
-        return [
-        ];
+        return include __DIR__ . '/../config/service.config.php';
     }
 
     /**

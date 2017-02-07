@@ -7,6 +7,7 @@ jQuery(document).on('submit', 'form.async', function (event) {
         console.log(response.errors);
 
         Validate.showErrorsMassages(response.errors);
+        Validate.redirect(response.redirect);
     });
 
     return false;
@@ -31,6 +32,12 @@ var Validate = {
                     });
                 }
             }
+        }
+    },
+
+    redirect: function (url) {
+        if (url !== undefined) {
+            window.location.assign(url);
         }
     }
 };

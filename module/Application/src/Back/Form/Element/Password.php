@@ -27,7 +27,8 @@ class Password extends Element implements InputProviderInterface
                     [
                         'email'         => $this->getOption('email'),
                         'entityManager' => $this->getOption('entityManager'),
-                        'check'         => $this->getOption('check')
+                        'check'         => $this->getOption('check'),
+                        'form'          => $this->getOption('form')
                     ]
                 ),
                 (new StringLength(['min' => 6, 'max' => 48]))
