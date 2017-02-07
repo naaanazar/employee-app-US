@@ -22,14 +22,14 @@ class Area
     private $id;
 
     /**
-     * @var float
-     * @ORM\Column(name="distance_km", precision=7, scale=2, type="decimal",  nullable=true)
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $value;
 
     /**
      * @var int
-     * @ORM\Column(name="distance_m", length=10, type="integer",  nullable=true)
+     * @ORM\Column(name="int_value", length=10, type="integer",  nullable=true)
      */
     private $intValue;
 
@@ -42,7 +42,7 @@ class Area
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getValue()
     {
@@ -58,7 +58,7 @@ class Area
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return $this
      */
     public function setValue($value)

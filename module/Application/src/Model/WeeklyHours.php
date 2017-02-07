@@ -23,15 +23,15 @@ class WeeklyHours
 
     /**
      * @var string
-     * @ORM\Column(name="weekly_hours", length=1023, type="string", nullable=true)
+     * @ORM\Column(name="value", length=63, type="string", nullable=true)
      */
     private $value;
 
     /**
      * @var int
-     * @ORM\Column(name="weekly_time_seconds", length=8, type="integer",  nullable=true)
+     * @ORM\Column(name="int_value", length=8, type="integer",  nullable=true)
      */
-    private $ntValue;
+    private $intValue;
 
     /**
      * @return int
@@ -54,7 +54,7 @@ class WeeklyHours
      */
     public function getNtValue()
     {
-        return $this->ntValue;
+        return $this->intValue;
     }
 
     /**
@@ -69,12 +69,12 @@ class WeeklyHours
     }
 
     /**
-     * @param int $ntValue
+     * @param int $intValue
      * @return $this
      */
-    public function setNtValue($ntValue)
+    public function setNtValue($intValue)
     {
-        $this->ntValue = $ntValue;
+        $this->intValue = $intValue;
 
         return $this;
     }

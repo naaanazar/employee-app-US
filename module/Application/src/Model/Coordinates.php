@@ -23,22 +23,22 @@ class Coordinates
 
     /**
      * @var float
-     * @ORM\Column(name="lat", precision=21, scale=18, type="decimal",  nullable=true)
+     * @ORM\Column(precision=21, scale=18, type="decimal",  nullable=true)
      */
-    private $lattitude;
+    private $latitude;
 
     /**
      * @var float
-     * @ORM\Column(name="lng", precision=21, scale=18, type="decimal",  nullable=true)
+     * @ORM\Column(precision=21, scale=18, type="decimal",  nullable=true)
      */
     private $longitude;
 
     /**
-     * @var EmploteeId
+     * @var Employee
      * @ORM\ManyToOne(targetEntity="Employee")
-     * @ORM\JoinColumn(name="emplotee_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
      */
-    private $emploteeId;
+    private $employee;
 
     /**
      * @return int
@@ -51,9 +51,9 @@ class Coordinates
     /**
      * @return float
      */
-    public function getLattitude()
+    public function getLatitude()
     {
-        return $this->lattitude;
+        return $this->latitude;
     }
 
     /**
@@ -65,20 +65,20 @@ class Coordinates
     }
 
     /**
-     * @return EmploteeId
+     * @return Employee
      */
-    public function getEmploteeId()
+    public function getEmployeeId()
     {
-        return $this->emploteeId;
+        return $this->employee;
     }
 
     /**
-     * @param float $lattitude
+     * @param $latitude
      * @return $this
      */
-    public function setLattitude($lattitude)
+    public function setLatitude($latitude)
     {
-        $this->lattitude = $lattitude;
+        $this->latitude = $latitude;
 
         return $this;
     }
@@ -95,12 +95,12 @@ class Coordinates
     }
 
     /**
-     * @param $emploteeId
+     * @param Employee $emplotee
      * @return $this
      */
-    public function setEmploteeId($emploteeId)
+    public function setEmploteeId(Employee $emplotee)
     {
-        $this->emploteeId = $emploteeId;
+        $this->employee = $emplotee;
 
         return $this;
     }

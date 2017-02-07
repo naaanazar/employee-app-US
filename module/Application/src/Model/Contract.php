@@ -23,13 +23,13 @@ class Contract
 
     /**
      * @var string
-     * @ORM\Column(name="contract_name", length=1023, type="string", nullable=true)
+     * @ORM\Column(length=255, type="string", nullable=true)
      */
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(name="code", length=1023, type="string", nullable=true)
+     * @ORM\Column(length=255, type="string", nullable=true)
      */
     private $code;
 
