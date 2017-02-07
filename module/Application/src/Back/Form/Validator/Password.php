@@ -52,9 +52,6 @@ class Password extends AbstractValidator
             $entityManager = $this->getOption('entityManager');
             $check = $this->getOption('check');
 
-            /** @var Login $form */
-            $form = $this->getOption('form');
-
             if (true === $entityManager instanceof EntityManager) {
                 /** @var EntityManager $entityManager*/
 
@@ -73,6 +70,8 @@ class Password extends AbstractValidator
 
                 switch (true) {
                     case $user !== null && $check === static::CHECK_LOGIN:
+                        /** @var Login $form */
+                        $form = $this->getOption('form');
                         $form->setIdentity($user->getId());
                         $result = true;
                         break;
