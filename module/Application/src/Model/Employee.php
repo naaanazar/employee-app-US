@@ -62,7 +62,7 @@ class Employee
      * @var boolean
      * @ORM\Column(name="experience", type="boolean")
      */
-    private $experience;
+    private $experience = false;
 
     /**
      * @var int
@@ -74,13 +74,13 @@ class Employee
      * @var boolean
      * @ORM\Column(name="driving_licence", type="boolean")
      */
-    private $drivingLicence;
+    private $drivingLicence = false;
 
     /**
      * @var boolean
      * @ORM\Column(name="car_available", type="boolean")
      */
-    private $carAvailable;
+    private $carAvailable = false;
 
     /**
      * @var string
@@ -107,7 +107,7 @@ class Employee
     private $comments;
 
     /**
-     * @var
+     * @var float
      * @ORM\Column(name="hourly_rate", precision=5, scale=2, type="decimal",  nullable=true)
      */
     private $hourlyRate;
@@ -242,122 +242,167 @@ class Employee
 
     /**
      * @param string $addressLine
+     * @return $this
      */
     public function setAddressLine($addressLine)
     {
         $this->addressLine = $addressLine;
+
+        return $this;
     }
 
     /**
      * @param User $user
+     * @return $this
      */
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
     }
 
     /**
      * @param string $fullName
+     * @return $this
      */
     public function setFullName($fullName)
     {
         $this->fullName = $fullName;
+
+        return $this;
     }
 
     /**
      * @param string $mobilePhone
+     * @return $this
      */
     public function setMobilePhone($mobilePhone)
     {
         $this->mobilePhone = $mobilePhone;
+
+        return $this;
     }
 
     /**
      * @param string $landlinePhone
+     * @return $this
      */
     public function setLandlinePhone($landlinePhone)
     {
         $this->landlinePhone = $landlinePhone;
+
+        return $this;
     }
 
     /**
      * @param string $email
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
      * @param boolean $experience
+     * @return $this
      */
     public function setExperience($experience)
     {
         $this->experience = $experience;
+
+        return $this;
     }
 
     /**
      * @param int $areaAround
+     * @return $this
      */
     public function setAreaAround($areaAround)
     {
         $this->areaAround = $areaAround;
+
+        return $this;
     }
 
     /**
      * @param boolean $drivingLicence
+     * @return $this
      */
     public function setDrivingLicence($drivingLicence)
     {
         $this->drivingLicence = $drivingLicence;
+
+        return $this;
     }
 
     /**
      * @param boolean $carAvailable
+     * @return $this
      */
     public function setCarAvailable($carAvailable)
     {
         $this->carAvailable = $carAvailable;
+
+        return $this;
     }
 
     /**
      * @param string $contractType
+     * @return $this
      */
     public function setContractType($contractType)
     {
         $this->contractType = $contractType;
+
+        return $this;
     }
 
     /**
      * @param int $weeklyHoursAvailable
+     * @return $this
      */
     public function setWeeklyHoursAvailable($weeklyHoursAvailable)
     {
         $this->weeklyHoursAvailable = $weeklyHoursAvailable;
+
+        return $this;
     }
 
     /**
      * @param mixed $startDate
+     * @return $this
      */
     public function setStartDate($startDate)
     {
         $this->startDate = $startDate;
+
+        return $this;
     }
 
     /**
      * @param string $comments
+     * @return $this
      */
     public function setComments($comments)
     {
         $this->comments = $comments;
+
+        return $this;
     }
 
     /**
      * @param mixed $hourlyRate
+     * @return $this
      */
     public function setHourlyRate($hourlyRate)
     {
         $this->hourlyRate = $hourlyRate;
+
+        return $this;
     }
 
 }
