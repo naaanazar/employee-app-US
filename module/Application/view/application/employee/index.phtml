@@ -76,9 +76,12 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group ">
                 <label class="control-label application-label" for="start_day_field"><?= $this->translate('Start day') ?>*</label>
-                <input id="start_day_field" name="start_date" type="date" placeholder="" class="form-control input-md application-input">
+
+                <div class="input-group date" id="start_day_field_picker">
+                    <input type="text" id="start_day_field" name="start_date" class="form-control input-md application-input"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
             </div>
 
             <div class="form-group">

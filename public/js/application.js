@@ -18,6 +18,18 @@ jQuery(document).on('change', '#select-language', function () {
 
 });
 
+jQuery( document ).ready(function() {
+
+    jQuery('input .input-group.date').datepicker({});
+
+    $("#start_day_field_picker").datepicker({
+            autoclose: true,
+            todayBtn: "linked",
+            todayHighlight: true
+        }
+    )
+});
+
 
 var Validate = {
     showErrorsMassages: function(errors) {
