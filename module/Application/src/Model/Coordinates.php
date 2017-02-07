@@ -23,13 +23,13 @@ class Coordinates
 
     /**
      * @var float
-     * @ORM\Column(name="lat", precision=20, scale=18, type="decimal",  nullable=true)
+     * @ORM\Column(name="lat", precision=21, scale=18, type="decimal",  nullable=true)
      */
     private $lattitude;
 
     /**
      * @var float
-     * @ORM\Column(name="lng", precision=20, scale=18, type="decimal",  nullable=true)
+     * @ORM\Column(name="lng", precision=21, scale=18, type="decimal",  nullable=true)
      */
     private $longitude;
 
