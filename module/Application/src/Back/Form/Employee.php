@@ -2,9 +2,17 @@
 
 namespace Application\Back\Form;
 
-use Application\Back\Form\Element\Name;
-use Application\Back\Form\Element\Employee\TextRequired;
+use Application\Back\Form\Element\Employee\Name;
+use Application\Back\Form\Element\Employee\Surname;
+use Application\Back\Form\Element\Employee\City;
+use Application\Back\Form\Element\Employee\Address;
+use Application\Back\Form\Element\Employee\MobileNumber;
+use Application\Back\Form\Element\Employee\LandlineNumber;
 use Application\Back\Form\Element\Employee\ZIP;
+use Application\Back\Form\Element\Employee\DrivingLicence;
+use Application\Back\Form\Element\Employee\CarAvailable;
+use Application\Back\Form\Element\Employee\Comments;
+use Application\Back\Form\Element\Employee\Experience;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\Number;
@@ -32,21 +40,21 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Name::class,
+                'type' => Surname::class,
                 'name' => 'surname'
             ]
         );
 
         $this->add(
             [
-                'type' => TextRequired::class,
+                'type' => City::class,
                 'name' => 'city'
             ]
         );
 
         $this->add(
             [
-                'type' => TextRequired::class,
+                'type' => Address::class,
                 'name' => 'address'
             ]
         );
@@ -60,14 +68,14 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => TextRequired::class,
+                'type' => MobileNumber::class,
                 'name' => 'mobile_phone'
             ]
         );
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => LandlineNumber::class,
                 'name' => 'landline_phone'
             ]
         );
@@ -109,7 +117,7 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => Comments::class,
                 'name' => 'comments'
             ]
         );
@@ -123,21 +131,21 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => Experience::class,
                 'name' => 'experience'
             ]
         );
 
         $this->add(
             [
-                'type' => Checkbox::class,
+                'type' => DrivingLicence::class,
                 'name' => 'driving_license'
             ]
         );
 
         $this->add(
             [
-                'type' => Checkbox::class,
+                'type' => CarAvailable::class,
                 'name' => 'car_available'
             ]
         );

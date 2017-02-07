@@ -3,15 +3,16 @@
 namespace Application\Back\Form\Element\Employee;
 
 use Application\Module;
+use Application\Back\Form\Validator\StringLength;
 use Zend\Form\Element;
 use Zend\InputFilter\InputProviderInterface;
-use Zend\Validator\StringLength;
+
 
 /**
  * Class Password
  * @package Application\Back\Form\Element
  */
-class TextRequired extends Element implements InputProviderInterface
+class Comments extends Element implements InputProviderInterface
 {
 
     /**
@@ -24,14 +25,7 @@ class TextRequired extends Element implements InputProviderInterface
         $validator = new StringLength(
             [
                 'min' => 2,
-                'max' => 48
-            ]
-        );
-
-        $validator->setMessages(
-            [
-                StringLength::TOO_SHORT => Module::translator()->translate('The \'%value%\' is too short'),
-                StringLength::TOO_LONG  => Module::translator()->translate('The \'%value%\' is too long')
+                'max' => 100
             ]
         );
 
@@ -45,10 +39,9 @@ class TextRequired extends Element implements InputProviderInterface
      */
     public function getInputSpecification()
     {
-
         return [
             'name' => $this->getName(),
-            'required' => true,
+            'required' => false,
             'validators' => $this->getValidators(),
         ];
     }

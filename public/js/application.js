@@ -28,6 +28,7 @@ var Validate = {
                 if (errors[field] !== undefined){
                     $.each(errors[field], function( index, massage ) {
                       jQuery("input[name='" + field + "']").after('<span class="label errors-block label-danger">' + massage + '</span>');
+                        jQuery("select[name='" + field + "']").after('<span class="label errors-block label-danger">' + massage + '</span>');
                     });
                 }
             }
