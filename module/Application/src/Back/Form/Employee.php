@@ -3,6 +3,8 @@
 namespace Application\Back\Form;
 
 use Application\Back\Form\Element\Name;
+use Application\Back\Form\Element\Employee\TextRequired;
+use Application\Back\Form\Element\Employee\ZIP;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\Number;
@@ -37,28 +39,28 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => TextRequired::class,
                 'name' => 'city'
             ]
         );
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => TextRequired::class,
                 'name' => 'address'
             ]
         );
 
         $this->add(
             [
-                'type' => Number::class,
+                'type' => ZIP::class,
                 'name' => 'zip'
             ]
         );
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => TextRequired::class,
                 'name' => 'mobile_phone'
             ]
         );
@@ -128,14 +130,14 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => Checkbox::class,
                 'name' => 'driving_license'
             ]
         );
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => Checkbox::class,
                 'name' => 'car_available'
             ]
         );
