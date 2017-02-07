@@ -19,6 +19,10 @@ jQuery(document).on('change', '#select-language', function () {
 
 });
 
+jQuery('document').ready(function () {
+   $('.nav-stacked').find('a[href="' + window.location.href + '"]').parent().addClass('active')
+});
+
 
 var Validate = {
     showErrorsMassages: function(errors) {
