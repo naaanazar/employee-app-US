@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\Back\Form\Login;
 use Application\Back\Form\Register;
+use Application\Model\RegisterKey;
 use Application\Model\User;
 use Zend\Http\Request;
 use Zend\View\Model\JsonModel;
@@ -59,12 +60,24 @@ class UserController extends AbstractController
     }
 
     /**
-     * @return ViewModel
+     * @return ViewModel|array
      */
     public function registerAction()
     {
         /** @var Request $request */
         $request = $this->getRequest();
+
+        if (false === ($registerKey = $this->params('key', false))) {
+            $this->notFoundAction();
+        } else {
+            $repo = $this->getEntityManager()->getRepository(RegisterKey::class);
+
+            if (($registerKey = $repo->findOneBy(['value' => $registerKey])) === null
+                || $registerKey->isUsed() === true
+            ) {
+                $this->notFoundAction();
+            }
+        }
 
         if (true === $request->isPost() && true === $request->isXmlHttpRequest()) {
 
@@ -90,6 +103,12 @@ class UserController extends AbstractController
                 $this->getEntityManager()->persist($user);
                 $this->getEntityManager()->flush();
 
+                $registerKey->setUsed(true);
+                $registerKey->setUser($user);
+
+                $this->getEntityManager()->persist($registerKey);
+                $this->getEntityManager()->flush();
+
                 $json->setVariable('message', $this->translate('Successfully registered'));
             } else {
                 $json->setVariable('errors', $form->getMessages());
@@ -99,6 +118,18 @@ class UserController extends AbstractController
         }
 
         return new ViewModel();
+    }
+
+    /**
+     * @return void
+     */
+    public function logoutAction()
+    {
+        $this->getAuth()
+            ->getStorage()
+            ->clear();
+
+        $this->redirect()->toRoute('user', ['action' => 'login']);
     }
     
 }
