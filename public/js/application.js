@@ -20,7 +20,7 @@ jQuery(document).on('change', '#select-language', function () {
 
 jQuery( document ).ready(function() {
 
-    jQuery('input .input-group.date').datepicker({});
+    jQuery('body .input-group.date').datepicker({});
 
     $("#start_day_field_picker").datepicker({
             autoclose: true,

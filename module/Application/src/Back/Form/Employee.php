@@ -13,6 +13,9 @@ use Application\Back\Form\Element\Employee\DrivingLicence;
 use Application\Back\Form\Element\Employee\CarAvailable;
 use Application\Back\Form\Element\Employee\Comments;
 use Application\Back\Form\Element\Employee\Experience;
+use Application\Back\Form\Element\Employee\AreaAround;
+use Application\Back\Form\Element\Employee\ContractType;
+use Application\Back\Form\Element\Employee\WeeklyHours;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\Number;
@@ -89,22 +92,31 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Text::class,
-                'name' => 'area_around'
+                'type' => AreaAround::class,
+                'name' => 'area_around',
+                'options' => [
+                    'entityManager' => $this->getOption('entityManager'),
+                ]
             ]
         );
 
         $this->add(
             [
-                'type' => Text::class,
-                'name' => 'contract_type'
+                'type' => ContractType::class,
+                'name' => 'contract_type',
+                'options' => [
+                    'entityManager' => $this->getOption('entityManager'),
+                ]
             ]
         );
 
         $this->add(
             [
-                'type' => Text::class,
-                'name' => 'weekly_hours'
+                'type' => WeeklyHours::class,
+                'name' => 'weekly_hours',
+                'options' => [
+                    'entityManager' => $this->getOption('entityManager'),
+                ]
             ]
         );
 

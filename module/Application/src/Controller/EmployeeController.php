@@ -42,7 +42,9 @@ class EmployeeController extends AbstractController
             );
 
             $data = $this->getRequest()->getPost()->toArray();
-            $form = new Employee([]);
+            $form = new Employee([
+                'entityManager' => $this->getEntityManager()
+            ]);
             $form->setData($data);
 
             if (false === $form->isValid()) {
