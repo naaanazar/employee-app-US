@@ -28,6 +28,18 @@ class Employee
     private $addressLine;
 
     /**
+     * @var string
+     * @ORM\Column(length=1023, type="string", nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var int
+     * @ORM\Column(length=10, type="integer",  nullable=true)
+     */
+    private $zip;
+
+    /**
      * @var User
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -126,6 +138,22 @@ class Employee
     public function getAddressLine()
     {
         return $this->addressLine;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @return int
+     */
+    public function getZip()
+    {
+        return $this->zip;
     }
 
     /**
@@ -401,6 +429,28 @@ class Employee
     public function setHourlyRate($hourlyRate)
     {
         $this->hourlyRate = $hourlyRate;
+
+        return $this;
+    }
+
+    /**
+     * @param $city
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @param $zip
+     * @return $this
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
 
         return $this;
     }
