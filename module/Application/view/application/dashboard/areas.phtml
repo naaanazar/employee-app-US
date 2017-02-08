@@ -4,7 +4,15 @@
         <th>Text Value</th>
         <th>Value in seconds</th>
     </tr>
-    <tr>
-<!--        --><?php //foreach ($this->) : ?>
-    </tr>
+        <?php foreach ($this->paginator as $area) : ?>
+            <tr>
+                <?php /** @var \Application\Model\Area $area */ ?>
+                <td><?= $area->getId() ?></td>
+                <td><?= $area->getValue() ?></td>
+                <td><?= $area->getIntValue() ?></td>
+            </tr>
+            <?php endforeach; ?>
 </table>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>

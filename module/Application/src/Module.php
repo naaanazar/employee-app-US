@@ -3,6 +3,8 @@
 namespace Application;
 
 use Application\View\Helper\Locale;
+use Application\View\Helper\Route;
+use Doctrine\ORM\EntityManager;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
@@ -21,7 +23,15 @@ class Module
      */
     const VERSION = '0.0.1-alpha';
 
-    private static $translator = null;
+    /**
+     * @var null|\Application\Back\Translator\Translator
+     */
+    private static $translator;
+
+    /**
+     * @var null|EntityManager
+     */
+    private static $entityManager;
 
     /**
      * @return array
@@ -43,13 +53,7 @@ class Module
      * @return array
      */
     public function getViewHelperConfig() {
-        return array(
-            'factories' => array(
-                'locale' => function(ServiceManager $serviceManager) {
-                    return new Locale($serviceManager);
-                },
-            )
-        );
+        return include __DIR__ . '/../config/service.config.php';
     }
 
     /**
@@ -58,6 +62,7 @@ class Module
     public function onBootstrap(MvcEvent $event)
     {
         $this->setTranslator($event);
+        $this->setEntityManager($event);
     }
 
     /**
@@ -66,6 +71,14 @@ class Module
     public static function translator()
     {
         return static::$translator;
+    }
+
+    /**
+     * @return EntityManager|null
+     */
+    public static function entityManager()
+    {
+        return static::$entityManager;
     }
 
     /**
@@ -82,6 +95,17 @@ class Module
         AbstractValidator::setDefaultTranslator($translator);
         static::$translator = $translator;
         $serviceManager->get('ViewHelperManager')->get('translate')->setTranslator($translator);
+    }
+
+    /**
+     * @param MvcEvent $event
+     */
+    public function setEntityManager(MvcEvent $event)
+    {
+        static::$entityManager = $event
+            ->getApplication()
+            ->getServiceManager()
+            ->get('Doctrine\ORM\EntityManager');
     }
 
 }

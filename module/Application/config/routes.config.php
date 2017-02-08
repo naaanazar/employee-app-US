@@ -62,10 +62,11 @@ return [
     'dashboard' => [
         'type' => Segment::class,
         'options' => [
-            'route' => '/dashboard[/:action]',
+            'route' => '/dashboard[/:action][/page/:page]',
             'defaults' => [
                 'controller' => Controller\DashboardController::class,
-                'action' => 'index'
+                'action' => 'index',
+                'page'   => 1
             ],
         ],
     ]
