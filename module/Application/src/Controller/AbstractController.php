@@ -39,10 +39,7 @@ abstract class AbstractController extends AbstractActionController
      */
     public function getEntityManager()
     {
-        return $this->getEvent()
-            ->getApplication()
-            ->getServiceManager()
-            ->get('Doctrine\ORM\EntityManager');
+        return Module::entityManager();
     }
 
     /**
