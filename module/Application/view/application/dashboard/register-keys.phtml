@@ -1,0 +1,27 @@
+<form action="<?= $this->url('dashboard', ['action' => 'register-keys']) ?>" class="async">
+    <input type="hidden" name="add" value="1">
+    <button>Generate new</button>
+</form>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Link</th>
+        <th>Used</th>
+        <th>User</th>
+    </tr>
+    <?php foreach ($this->paginator as $registerKey) : ?>
+        <?php /** @var \Application\Model\RegisterKey $registerKey */ ?>
+        <tr>
+            <td><?= $registerKey->getId() ?></td>
+            <td><?= $this->url('user', ['action' => 'register', 'key' => $registerKey->getValue()], ['force_canonical' => true]) ?></td>
+            <td><?= $registerKey->isUsed() ? 'Yes' : 'No' ?></td>
+            <td><?= $registerKey->getUser() === null ? 'Not used yet' : $registerKey->getUser()->getName() ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>

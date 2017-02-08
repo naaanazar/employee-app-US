@@ -2,44 +2,36 @@
 
 namespace Application\Back\Form\Element\Employee;
 
+use Application\Module;
+use Application\Back\Form\Validator\StringLength;
 use Zend\Form\Element;
 use Zend\InputFilter\InputProviderInterface;
-use Zend\Validator\StringLength;
-use Application\Back\Form\Validator\RegexValidator;
 
 
 /**
  * Class Password
  * @package Application\Back\Form\Element
  */
-class ZIP extends Element implements InputProviderInterface
+class City extends Element implements InputProviderInterface
 {
-    /**
-     * @var array
-     */
-    protected $validators;
 
     /**
-     * Get validator
-     *
-     * @return \Zend\Validator\ValidatorInterface[]
+     * @return array
      */
-    protected function getValidators()
+    public function getValidators()
     {
-
         $validators = [];
 
-        $validators[] = new RegexValidator('(^-?\d*(\.\d+)?$)');
-
-        $validators[] = new StringLength(
+        $validator = new StringLength(
             [
                 'min' => 2,
-                'max' => 10
+                'max' => 100
             ]
         );
 
-        $this->validators = $validators;
-        return $this->validators;
+        $validators[] = $validator;
+
+        return $validators;
     }
 
     /**
@@ -47,12 +39,12 @@ class ZIP extends Element implements InputProviderInterface
      */
     public function getInputSpecification()
     {
+
         return [
             'name' => $this->getName(),
             'required' => true,
             'validators' => $this->getValidators(),
         ];
     }
-
 
 }

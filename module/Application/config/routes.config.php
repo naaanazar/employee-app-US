@@ -29,7 +29,7 @@ return [
     'user' => [
         'type' => Segment::class,
         'options' => [
-            'route' => '/user[/:action]',
+            'route' => '/user[/:action][/:key]',
             'defaults' => [
                 'controller' => Controller\UserController::class,
                 'action' => 'index'
