@@ -53,7 +53,7 @@ class Module
      * @return array
      */
     public function getViewHelperConfig() {
-        return include __DIR__ . '/../config/service.config.php';
+        return include __DIR__ . '/../config/view.config.php';
     }
 
     /**

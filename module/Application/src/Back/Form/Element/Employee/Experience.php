@@ -4,42 +4,32 @@ namespace Application\Back\Form\Element\Employee;
 
 use Zend\Form\Element;
 use Zend\InputFilter\InputProviderInterface;
-use Zend\Validator\StringLength;
-use Application\Back\Form\Validator\RegexValidator;
+use Application\Back\Form\Validator\InArrayValidator;
 
 
 /**
  * Class Password
  * @package Application\Back\Form\Element
  */
-class ZIP extends Element implements InputProviderInterface
+class Experience extends Element implements InputProviderInterface
 {
-    /**
-     * @var array
-     */
-    protected $validators;
+
 
     /**
      * Get validator
      *
-     * @return \Zend\Validator\ValidatorInterface[]
+     * @return array
      */
     protected function getValidators()
     {
-
         $validators = [];
 
-        $validators[] = new RegexValidator('(^-?\d*(\.\d+)?$)');
+        $validators[] = new InArrayValidator([
+            'haystack' => [1, 0],
+            'strict'   => false
+        ]);
 
-        $validators[] = new StringLength(
-            [
-                'min' => 2,
-                'max' => 10
-            ]
-        );
-
-        $this->validators = $validators;
-        return $this->validators;
+        return $validators;
     }
 
     /**
