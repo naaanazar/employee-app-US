@@ -22,11 +22,7 @@ class ContractType extends Element implements InputProviderInterface
             'name' => $this->getName(),
             'required' => true,
             'validators' => [
-                new \Application\Back\Form\Validator\ContractType(
-                    [
-                        'entityManager' => $this->getOption('entityManager'),
-                    ]
-                ),
+                new \Application\Back\Form\Validator\ContractType(),
             ],
         ];
     }

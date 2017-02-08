@@ -2,6 +2,7 @@
 
 namespace Application\Back\Form\Validator;
 
+use Application\Module;
 use Application\Model\WeeklyHours as WHours;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -35,7 +36,7 @@ class WeeklyHours extends AbstractValidator
         $result = false;
 
         try {
-            $entityManager = $this->getOption('entityManager');
+            $entityManager = Module::entityManager();
 
             if (true === $entityManager instanceof EntityManager) {
                 /** @var EntityManager $entityManager*/

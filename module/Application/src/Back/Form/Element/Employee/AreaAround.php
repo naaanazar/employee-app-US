@@ -22,11 +22,7 @@ class AreaAround extends Element implements InputProviderInterface
             'name' => $this->getName(),
             'required' => true,
             'validators' => [
-                new \Application\Back\Form\Validator\AreaAround(
-                    [
-                        'entityManager' => $this->getOption('entityManager'),
-                    ]
-                ),
+                new \Application\Back\Form\Validator\AreaAround(),
             ],
         ];
     }

@@ -22,11 +22,7 @@ class WeeklyHours extends Element implements InputProviderInterface
             'name' => $this->getName(),
             'required' => true,
             'validators' => [
-                new \Application\Back\Form\Validator\WeeklyHours(
-                    [
-                        'entityManager' => $this->getOption('entityManager'),
-                    ]
-                ),
+                new \Application\Back\Form\Validator\WeeklyHours(),
             ],
         ];
     }
