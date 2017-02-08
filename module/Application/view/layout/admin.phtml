@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <?= $this->headTitle('Employee Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->render('layout/header/meta') ?>
+    <?= $this->render('layout/header/styles') ?>
+    <?= $this->render('layout/header/scripts') ?>
+    <title>Admin area</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-2">
+        <?= $this->render('layout/menu/dashboard') ?>
+    </div>
+    <div class="col-md-10">
+        <?= $this->content ?>
+    </div>
+</div>
+    <?= $this->inlineScript()
+    ->prependFile($this->basePath('js/bootstrap-datepicker.js'))?>
+</body>
+</html>

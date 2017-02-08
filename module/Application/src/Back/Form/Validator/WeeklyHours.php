@@ -35,7 +35,6 @@ class WeeklyHours extends AbstractValidator
         $result = false;
 
         try {
-
             $entityManager = $this->getOption('entityManager');
 
             if (true === $entityManager instanceof EntityManager) {

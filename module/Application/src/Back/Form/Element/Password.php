@@ -2,6 +2,7 @@
 
 namespace Application\Back\Form\Element;
 
+use Application\Module;
 use Zend\Form\Element;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\StringLength;
@@ -26,10 +27,11 @@ class Password extends Element implements InputProviderInterface
                     [
                         'email'         => $this->getOption('email'),
                         'entityManager' => $this->getOption('entityManager'),
-                        'check'         => $this->getOption('check')
+                        'check'         => $this->getOption('check'),
+                        'form'          => $this->getOption('form')
                     ]
                 ),
-                new StringLength(['min' => 6, 'max' => 48])
+                (new StringLength(['min' => 6, 'max' => 48]))
             ],
         ];
     }

@@ -7,6 +7,7 @@ use Zend\I18n\Translator\Translator;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Session\Container;
+use Zend\Validator\AbstractValidator;
 
 /**
  * Class Module
@@ -35,8 +36,7 @@ class Module
      */
     public function getServiceConfig()
     {
-        return [
-        ];
+        return include __DIR__ . '/../config/service.config.php';
     }
 
     /**
@@ -79,6 +79,7 @@ class Module
         $locale = $storage->offsetExists('language') ? $storage->offsetGet('language') : 'en_US';
 
         $translator = $serviceManager->get('translator')->setLocale($locale);
+        AbstractValidator::setDefaultTranslator($translator);
         static::$translator = $translator;
         $serviceManager->get('ViewHelperManager')->get('translate')->setTranslator($translator);
     }

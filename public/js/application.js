@@ -7,6 +7,7 @@ jQuery(document).on('submit', 'form.async', function (event) {
         console.log(response.errors);
 
         Validate.showErrorsMassages(response.errors);
+        Validate.redirect(response.redirect);
     });
 
     return false;
@@ -18,7 +19,8 @@ jQuery(document).on('change', '#select-language', function () {
 
 });
 
-jQuery( document ).ready(function() {
+jQuery('document').ready(function () {
+   $('.nav-stacked').find('a[href="' + window.location.href + '"]').parent().addClass('active')
 
     jQuery('body .input-group.date').datepicker({});
 
@@ -44,6 +46,12 @@ var Validate = {
                     });
                 }
             }
+        }
+    },
+
+    redirect: function (url) {
+        if (url !== undefined) {
+            window.location.assign(url);
         }
     }
 };

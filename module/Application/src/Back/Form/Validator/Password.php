@@ -2,6 +2,7 @@
 
 namespace Application\Back\Form\Validator;
 
+use Application\Back\Form\Login;
 use Application\Model\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -69,6 +70,9 @@ class Password extends AbstractValidator
 
                 switch (true) {
                     case $user !== null && $check === static::CHECK_LOGIN:
+                        /** @var Login $form */
+                        $form = $this->getOption('form');
+                        $form->setIdentity($user->getId());
                         $result = true;
                         break;
                     case $user === null && $check === static::CHECK_REGISTER:

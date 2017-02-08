@@ -1,73 +1,20 @@
 <?php
 namespace Application;
 
-use Zend\Router\Http\Literal;
-use Zend\Router\Http\Segment;
+use Application\Back\Translator\Translator;
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
-        'routes' => [
-            'home' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route' => '/',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'index',
-                    ],
-                ],
-            ],
-            'index' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'index'
-                    ],
-                ],
-            ],
-            'user' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/user[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\UserController::class,
-                        'action' => 'index'
-                    ],
-                ],
-            ],
-            'show-employee' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => 'employee/:id',
-                    'defaults' => [
-                        'controller' => Controller\EmployeeController::class,
-                        'action'     => 'show'
-                    ],
-                    'constraints' => [
-                        'id' => '[0-9]+'
-                    ]
-                ]
-            ],
-            'employee' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/employee[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\EmployeeController::class,
-                        'action' => 'index'
-                    ],
-                ],
-            ],
-        ],
+        'routes' => include 'routes.config.php',
     ],
     'controllers' => [
         'factories' => [
             Controller\UserController::class => InvokableFactory::class,
             Controller\IndexController::class => InvokableFactory::class,
             Controller\EmployeeController::class => InvokableFactory::class,
+            Controller\DashboardController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [
@@ -91,7 +38,13 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            'translator' => function (ContainerInterface $serviceManager) {
+                // Configure the translator
+                $config = $serviceManager->get('config');
+                $trConfig = isset($config['translator']) ? $config['translator'] : [];
+                $translator = Translator::factory($trConfig);
+                return $translator;
+            },
         ],
     ],
     'translator' => [
