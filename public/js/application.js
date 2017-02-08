@@ -22,11 +22,12 @@ jQuery(document).on('change', '#select-language', function () {
 jQuery('document').ready(function () {
    $('.nav-stacked').find('a[href="' + window.location.href + '"]').parent().addClass('active')
 
-    jQuery('body .input-group.date').datepicker({});
+    jQuery('input .input-group.date').datepicker({});
 
     $("#start_day_field_picker").datepicker({
             autoclose: true,
             todayBtn: "linked",
+            format: 'yyyy-mm-dd',
             todayHighlight: true
         }
     )
