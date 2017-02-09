@@ -1,9 +1,7 @@
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <legend  style="color:#8f8f8f"><?= $this->translate('Create employee'); ?></legend>
+    <div class="col-md-6">
         <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="async">
-            <div class="row">
-                <legend  style="color:#8f8f8f"><?= $this->translate('Create employee'); ?></legend>
-            </div>
             <div class="form-group">
                 <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
                 <input id="name_field" name="name" type="text" placeholder="" class="form-control input-md application-input">
@@ -126,5 +124,8 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-md-6">
+        <div class="well" style="min-height: 600px"></div>
     </div>
 </div>
