@@ -60,19 +60,19 @@ class DashboardController extends AbstractController
 
         } else {
 
-        $paginator = new Paginator(
-            new Doctrine(Area::class)
-        );
+            $paginator = new Paginator(
+                new Doctrine(Area::class)
+            );
 
-        $paginator->setItemCountPerPage(20);
-        $paginator->setCurrentPageNumber($this->params('page', 1));
+            $paginator->setItemCountPerPage(20);
+            $paginator->setCurrentPageNumber($this->params('page', 1));
 
-        $view = new ViewModel();
-        $view->setVariables(
-            [
-                'paginator' => $paginator
-            ]
-        );
+            $view = new ViewModel();
+            $view->setVariables(
+                [
+                    'paginator' => $paginator
+                ]
+            );
 
         return $view;
         }
