@@ -102,8 +102,9 @@ class Employee
     private $carAvailable = false;
 
     /**
-     * @var string
-     * @ORM\Column(name="contract_type", length=511, type="string", nullable=true)
+     * @var Contract
+     * @ORM\ManyToOne(targetEntity="Contract")
+     * @ORM\JoinColumn(name="contract_id", referencedColumnName="id")
      */
     private $contractType;
 
@@ -245,7 +246,7 @@ class Employee
     }
 
     /**
-     * @return string
+     * @return Contract
      */
     public function getContractType()
     {
@@ -373,7 +374,7 @@ class Employee
     }
 
     /**
-     * @param int $areaAround
+     * @param Area $areaAround
      * @return $this
      */
     public function setAreaAround($areaAround)
@@ -406,7 +407,7 @@ class Employee
     }
 
     /**
-     * @param string $contractType
+     * @param Contract $contractType
      * @return $this
      */
     public function setContractType($contractType)
@@ -417,7 +418,7 @@ class Employee
     }
 
     /**
-     * @param int $weeklyHoursAvailable
+     * @param WeeklyHours $weeklyHoursAvailable
      * @return $this
      */
     public function setWeeklyHoursAvailable($weeklyHoursAvailable)
