@@ -1,24 +1,47 @@
-<div class="row">
-    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class="async col-md-3 collapse" id="add-area-around">
-        <div class="form-group">
-            <label class="control-label application-label" for="area_value"><?= $this->translate('Set Area Around') ?>*</label>
-            <input id="area_value" name="area_value" type="text" placeholder="km" class="form-control input-md application-input" required/>
+<form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class="async" >
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group ">
+                <input id="name_search" name="name" type="text" placeholder="<?= $this->translate('Name') ?>" class="form-control input-md application-input" required/>
+            </div>
         </div>
-        <button>Create area</button>
-    </form>
-</div>
-<a type="button" class="row" data-toggle="collapse" data-target="#add-area-around">+ Set area around</a>
+        <a type="button" class="row" data-toggle="collapse" data-target="#add-area-around">Advanced</a>
+    </div>
+
+    <div class="collapse" id="add-area-around" >
+dfgdfgdfg
+    </div>
+
+    <div class="form-group">
+        <button>Search</button>
+    </div>
+</form>
+
+
 <table class="table">
     <tr>
         <th>#</th>
-        <th>Text Value</th>
-        <th>Value in meters</th>
+        <th>Name</th>
+        <th>Mobile Phone</th>
+        <th>Address</th>
     </tr>
-    <?php foreach ($this->paginator as $WH) : ?>
+    <?php foreach ($this->paginator as $employee) : ?>
         <tr>
-            <?php /** @var \Application\Model\Area $area */ ?>
-            <td><?= $WH->getId() ?></td>
+            <?php /** @var \Application\Model\Employee $employee */ ?>
+            <td><?= $employee->getId() ?></td>
+            <td>
+                <a
+                    href="#"
+                    class="modal-action"
+                    data-action="<?= $this->url('show-employee', ['id' => $employee->getId()] ) ?>"
+                    data-element="#modal-action"
+                    >
+                    <?= $employee->getName() ?>
+                </a>
+            </td>
 
+            <td><?= $employee->getMobilePhone() ?></td>
+            <td><?= $employee->getAddress() ?></td>
         </tr>
     <?php endforeach; ?>
 
