@@ -2,134 +2,126 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-03 14:45+0200\n"
-"PO-Revision-Date: 2017-02-05 18:28+0000\n"
 "Last-Translator: \n"
-"Language-Team: English (USA)\n"
-"Language: en-US\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Loco-Source-Locale: en_UA\n"
-"X-Generator: Loco - https://localise.biz/\n"
-"X-Poedit-Basepath: ../../..\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Loco-Parser: loco_parse_po"
+"Language-Team: English\n"
 
-msgid "Home"
-msgstr "Main page"
+msgid "Successfully registered"
+msgstr "Successfully registered"
 
-msgid "Sign in"
-msgstr "Sign in"
+msgid "Set Area Around"
+msgstr "Set Area Around"
 
-msgid "Sign up"
-msgstr "Sign up"
+msgid "Set Contract Type"
+msgstr "Set Contract Type"
 
-msgid "Email"
-msgstr "Email"
+msgid "Not used yet"
+msgstr "Not used yet"
+
+msgid "Set Weekly hours"
+msgstr "Set Weekly hours"
 
 msgid "Name"
 msgstr "Name"
 
-msgid "Password"
-msgstr "Password"
+msgid "Surname"
+msgstr "Surname"
 
-msgid "Log out"
-msgstr "Log out"
+msgid "City"
+msgstr "City"
 
-msgid "Email is not valid"
-msgstr "Email is not valid"
+msgid "Address"
+msgstr "Address"
 
-msgid "Value range allowed from %d to %d"
-msgstr "Value range allowed from %d to %d"
+msgid "ZIP"
+msgstr "ZIP"
 
+msgid "Mobile phone number"
+msgstr "Mobile phone number"
 
+msgid "Landline number"
+msgstr "Landline number"
 
+msgid "Email"
+msgstr "Email"
 
-#. FORM: Create employee.
-msgid "Create employee"
-msgstr "Create employee"
+msgid "Area around home address willing to work"
+msgstr "Area around home address willing to work"
+
+msgid "any distance"
+msgstr "any distance"
+
+msgid "Type of contract"
+msgstr "Type of contract"
+
+msgid "Self-employed"
+msgstr "Self-employed"
+
+msgid "Weekly hours available"
+msgstr "Weekly hours available"
+
+msgid "Start day"
+msgstr "Start day"
+
+msgid "Comments"
+msgstr "Comments"
+
+msgid "Hourly rate"
+msgstr "Hourly rate"
+
+msgid "Experience in the job"
+msgstr "Experience in the job"
 
 msgid "Yes"
 msgstr "Yes"
 
 msgid "No"
-msgstr ""
-
-msgid "Name"
-msgstr ""
-
-msgid "Surname"
-msgstr ""
-
-msgid "City"
-msgstr ""
-
-msgid "Address"
-msgstr ""
-
-msgid "ZIP"
-msgstr ""
-
-msgid "Mobile phone number"
-msgstr ""
-
-msgid "Landline number"
-msgstr ""
-
-msgid "Email"
-msgstr ""
-
-msgid "Area around home adress willing to work"
-msgstr ""
-
-msgid "any distance"
-msgstr ""
-
-msgid "Type of contract"
-msgstr ""
-
-msgid "Minijob"
-msgstr ""
-
-msgid "Part-time"
-msgstr ""
-
-msgid "Full-time"
-msgstr ""
-
-msgid "Self-employed"
-msgstr ""
-
-msgid "Weekly hours available"
-msgstr ""
-
-msgid "Start day"
-msgstr ""
-
-msgid "Comments"
-msgstr ""
-
-msgid "Hourly rate"
-msgstr ""
-
-msgid "Experience in the job"
-msgstr ""
+msgstr "No"
 
 msgid "Driving licence"
-msgstr ""
+msgstr "Driving licence"
 
 msgid "Car available"
-msgstr ""
+msgstr "Car available"
 
 msgid "Upload user photo"
-msgstr ""
+msgstr "Upload user photo"
 
 msgid "Attachments"
-msgstr ""
+msgstr "Attachments"
 
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
+msgid "Main"
+msgstr "Main"
+
+msgid "Exit from dashboard"
+msgstr "Exit from dashboard"
+
+msgid "Search employee"
+msgstr "Search employee"
+
+msgid "Configure Around Areas"
+msgstr "Configure Around Areas"
+
+msgid "Configure Contract Type"
+msgstr "Configure Contract Type"
+
+msgid "Configure Weekly Hours"
+msgstr "Configure Weekly Hours"
+
+msgid "Configure Register keys"
+msgstr "Configure Register keys"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Search"
+msgstr "Search"
 

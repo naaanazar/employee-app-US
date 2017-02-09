@@ -59,6 +59,7 @@ return [
     ],
     'locales' => [
         'en_US' => 'English',
+        'uk_UA' => 'Українська',
         'de_DE' => 'Deutsch',
     ]
 ];
