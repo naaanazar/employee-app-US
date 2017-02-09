@@ -27,22 +27,12 @@ class EmployeeController extends AbstractController
     {
         $view = new ViewModel();
 
-        $view->setVariable('contract',
-            $this->getEntityManager()
-                ->getRepository(Contract::class)
-                ->findAll()
-        );
-
-        $view->setVariable('area',
-            $this->getEntityManager()
-                ->getRepository(Area::class)
-                ->findAll()
-        );
-
-        $view->setVariable('WH',
-            $this->getEntityManager()
-                ->getRepository(WeeklyHours::class)
-                ->findAll()
+        $view->setVariables(
+            [
+                'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll()
+            ]
         );
 
         return $view;
@@ -71,32 +61,46 @@ class EmployeeController extends AbstractController
             if (false === $form->isValid()) {
                 $response->setVariable('errors', $form->getMessages());
             } else {
-                $employee = new EmployeeModel();
-                $employee->setName($form->get('name')->getValue());
-                $employee->setSurname($form->get('name')->getValue());
-                $employee->setAddress($form->get('address')->getValue());
-                $employee->setCity($form->get('city')->getValue());
-                $employee->setZip($form->get('zip')->getValue());
-                $employee->setMobilePhone($form->get('mobile_phone')->getValue());
-                $employee->setLandlinePhone($form->get('landline_phone')->getValue());
-                // todo: After model create change to actual
 
+                /** @var Area $areaAround */
                 $areaAround = $this->getEntityManager()
                     ->getRepository(Area::class)
                     ->find($form->get('area_around')->getValue());
 
-                $employee->setAreaAround($areaAround);
-                // todo: After model create change to actual
-                $employee->setContractType($form->get('contract_type')->getValue());
-                // todo: After model create change to actual
-                $employee->setContractType($form->get('weekly_hours')->getValue());
-                // todo: change to actual
-                $employee->setStartDate((new \DateTime()));
-                $employee->setComments($form->get('comments')->getValue());
-                $employee->setHourlyRate($form->get('hourly_rate')->getValue());
-                $employee->setExperience((bool)$form->get('experience')->getValue());
-                $employee->setCarAvailable((bool)$form->get('car_available')->getValue());
-                $employee->setDrivingLicence((bool)$form->get('driving_license')->getValue());
+                /** @var Contract $contractType */
+                $contractType = $this->getEntityManager()
+                    ->getRepository(Contract::class)
+                    ->find($form->get('contract_type')->getValue());
+
+                /** @var WeeklyHours $weeklyHours */
+                $weeklyHours = $this->getEntityManager()
+                    ->getRepository(WeeklyHours::class)
+                    ->find($form->get('weekly_hours')->getValue());
+
+                $employee = new EmployeeModel();
+
+                $employee->setName           ($form->get('name')->getValue())
+                    ->setSurname             ($form->get('surname')->getValue())
+                    ->setEmail               ($form->get('email')->getValue())
+                    ->setAddress             ($form->get('address')->getValue())
+                    ->setCity                ($form->get('city')->getValue())
+                    ->setZip                 ($form->get('zip')->getValue())
+                    ->setMobilePhone         ($form->get('mobile_phone')->getValue())
+                    ->setLandlinePhone       ($form->get('landline_phone')->getValue())
+                    ->setAreaAround          ($areaAround)
+                    ->setContract            ($contractType)
+                    ->setWeeklyHoursAvailable($weeklyHours)
+                    ->setStartDate           ((new \DateTime($form->get('start_date')->getValue())))
+                    ->setComments            ($form->get('comments')->getValue())
+                    ->setHourlyRate          ($form->get('hourly_rate')->getValue())
+                    ->setExperience          ((bool)$form->get('experience')->getValue())
+                    ->setCarAvailable        ((bool)$form->get('car_available')->getValue())
+                    ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue());
+
+                if (null !== $this->getUser()) {
+                    $employee->setUser($this->getUser());
+                }
+
                 $this->getEntityManager()->persist($employee);
                 $this->getEntityManager()->flush();
                 $response->setVariable('id', $employee->getId());

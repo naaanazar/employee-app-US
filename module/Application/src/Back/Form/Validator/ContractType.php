@@ -24,7 +24,7 @@ class ContractType extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = [
-        self::NOT_FOUND => 'Incorect value'
+        self::NOT_FOUND => /*translate*/'Incorrect value'/*translate*/
     ];
 
     /**
@@ -36,26 +36,14 @@ class ContractType extends AbstractValidator
         $result = false;
 
         try {
+            $contract = Module::entityManager()
+                ->getRepository(Contract::class)
+                ->find($value);
 
-            $entityManager = Module::entityManager();
-
-            if (true === $entityManager instanceof EntityManager) {
-                /** @var EntityManager $entityManager*/
-
-                /** @var EntityRepository $repository */
-                $repository = $entityManager->getRepository(Contract::class);
-
-                $criteria = [
-                    'name'    => $value,
-                ];
-
-                $res = $repository->findOneBy($criteria);
-
-                if($res !== null){
-                    $result = true;
-                } else {
-                    $this->error(static::NOT_FOUND);
-                }
+            if($contract !== null){
+                $result = true;
+            } else {
+                $this->error(static::NOT_FOUND);
             }
         } catch (\Exception $exception) {
             $this->error(static::EXCEPTION);

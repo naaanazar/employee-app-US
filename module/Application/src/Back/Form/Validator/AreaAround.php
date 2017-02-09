@@ -24,7 +24,7 @@ class AreaAround extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = [
-        self::NOT_FOUND => 'Incorect value'
+        self::NOT_FOUND => /*translate*/'Incorrect value'/*translate*/
     ];
 
     /**

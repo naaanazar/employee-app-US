@@ -13,5 +13,4 @@ use Zend\Validator\InArray;
 
 class InArrayValidator extends InArray
 {
-
 }

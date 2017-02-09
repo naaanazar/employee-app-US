@@ -70,9 +70,6 @@ return [
                 'controller' => Controller\EmployeeController::class,
                 'action' => 'index'
             ],
-            'constraints' => [
-                'action' => '(?!show)'
-            ]
         ],
     ],
     'dashboard' => [

@@ -1,9 +1,7 @@
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <legend  style="color:#8f8f8f"><?= $this->translate('Create employee'); ?></legend>
+    <div class="col-md-6">
         <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="async">
-            <div class="row">
-                <legend  style="color:#8f8f8f">Create employee</legend>
-            </div>
             <div class="form-group">
                 <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
                 <input id="name_field" name="name" type="text" placeholder="" class="form-control input-md application-input">
@@ -47,36 +45,30 @@
             <div class="form-group">
                 <label class="control-label application-label" for="area_around_field"><?= $this->translate('Area around home address willing to work') ?>*</label>
                 <select id="area_around_field" name="area_around" class="form-control application-input">
-                    <?php
-                        foreach($area as $key){
-                            echo "<option>" . $key->getValue() . "</option>";
-                        }
-                    ?>
-                    <option value=""><?= $this->translate('any distance') ?></option>
+                    <?php foreach ($this->areas as $area) : ?>
+                        <?php /** @var \Application\Model\Area $area */ ?>
+                        <option value="<?= $area->getId() ?>"><?= $area->getValue() ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="contact_type_field"><?= $this->translate('Type of contract') ?>*</label>
                 <select id="contact_type_field" name="contract_type" class="form-control application-input">
-                    <?php
-                        foreach($contract as $key)
-                        {
-                            echo "<option>" . $key->getName() . "</option>";
-                        }
-                    ?>
-                    <option><?= $this->translate('Self-employed') ?></option>
+                    <?php foreach ($this->contracts as $contract) : ?>
+                        <?php /** @var \Application\Model\Contract $contract */ ?>
+                        <option value="<?= $contract->getId() ?>"><?= $contract->getName() ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="weekly_hours_field"><?= $this->translate('Weekly hours available') ?>*</label>
                 <select id="weekly_hours_field" name="weekly_hours" class="form-control application-input">
-                    <?php
-                        foreach($WH as $key){
-                            echo "<option>" . $key->getValue() . "</option>";
-                        }
-                    ?>
+                    <?php foreach ($this->weeklyHours as $weeklyHour) : ?>
+                        <?php /** @var \Application\Model\WeeklyHours $weeklyHour */ ?>
+                        <option value="<?= $weeklyHour->getId() ?>"><?= $weeklyHour->getValue() ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -132,5 +124,8 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-md-6">
+        <div class="well" style="min-height: 600px"></div>
     </div>
 </div>

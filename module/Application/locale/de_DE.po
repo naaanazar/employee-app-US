@@ -5,6 +5,9 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
 
+msgid "Value is required and can't be empty"
+msgstr "Wert ist erforderlich und kann nicht leer sein"
+
 msgid "Successfully registered"
 msgstr "Erfolgreich registriert"
 
@@ -19,6 +22,9 @@ msgstr "Noch nicht verwendet"
 
 msgid "Set Weekly hours"
 msgstr "Wöchentliche Stunden"
+
+msgid "Create employee"
+msgstr ""Erstellen Sie für Mitarbeiter"
 
 msgid "Name"
 msgstr "Name"
@@ -47,14 +53,8 @@ msgstr "E-Mail"
 msgid "Area around home address willing to work"
 msgstr "Bereich, rund um Haus-Adresse bereit zu arbeiten"
 
-msgid "any distance"
-msgstr "jede Entfernung"
-
 msgid "Type of contract"
 msgstr "Art des Vertrages"
-
-msgid "Self-employed"
-msgstr "Selbstständige"
 
 msgid "Weekly hours available"
 msgstr "Wöchentliche Stunden zur Verfügung"

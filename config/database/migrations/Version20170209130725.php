@@ -21,7 +21,8 @@ class Version20170209130725 extends AbstractMigration
         $this->addSql('
             ALTER TABLE employees ADD area_id INT DEFAULT NULL,
             ADD weekly_hours_id INT DEFAULT NULL,
-            DROP area_around, DROP weekly_hours_available
+            DROP area_around,
+            DROP weekly_hours_available
         ');
         $this->addSql('ALTER TABLE employees ADD CONSTRAINT FK_BA82C300BD0F409C FOREIGN KEY (area_id) REFERENCES areas (id)');
         $this->addSql('ALTER TABLE employees ADD CONSTRAINT FK_BA82C300B31209DB FOREIGN KEY (weekly_hours_id) REFERENCES weekly_hours (id)');

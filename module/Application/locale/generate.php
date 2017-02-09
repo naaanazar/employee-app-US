@@ -8,7 +8,9 @@ $dirs = [
     __DIR__ . '/../'
 ];
 
-$toTranslate = [];
+$toTranslate = [
+    'Value is required and can\'t be empty'
+];
 
 $translatorApiUri = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
 $translatorKey = 'trnsl.1.1.20170209T132126Z.979b34845c1404ed.ff6376236a7cb7d04ca03d8267e05fb8cc6fb12c';
