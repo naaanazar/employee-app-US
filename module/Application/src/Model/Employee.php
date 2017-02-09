@@ -83,8 +83,9 @@ class Employee
     private $experience = false;
 
     /**
-     * @var int
-     * @ORM\Column(name="area_around", length=10, type="integer",  nullable=true)
+     * @var Area
+     * @ORM\ManyToOne(targetEntity="Area")
+     * @ORM\JoinColumn(name="area_id", referencedColumnName="id")
      */
     private $areaAround;
 
@@ -101,14 +102,16 @@ class Employee
     private $carAvailable = false;
 
     /**
-     * @var string
-     * @ORM\Column(name="contract_type", length=511, type="string", nullable=true)
+     * @var Contract
+     * @ORM\ManyToOne(targetEntity="Contract")
+     * @ORM\JoinColumn(name="contract_id", referencedColumnName="id")
      */
     private $contractType;
 
     /**
-     * @var int
-     * @ORM\Column(name="weekly_hours_available", length=10, type="integer",  nullable=true)
+     * @var WeeklyHours
+     * @ORM\ManyToOne(targetEntity="WeeklyHours")
+     * @ORM\JoinColumn(name="weekly_hours_id", referencedColumnName="id")
      */
     private $weeklyHoursAvailable;
 
@@ -219,7 +222,7 @@ class Employee
     }
 
     /**
-     * @return int
+     * @return Area
      */
     public function getAreaAround()
     {
@@ -243,7 +246,7 @@ class Employee
     }
 
     /**
-     * @return string
+     * @return Contract
      */
     public function getContractType()
     {
@@ -251,7 +254,7 @@ class Employee
     }
 
     /**
-     * @return int
+     * @return WeeklyHours
      */
     public function getWeeklyHoursAvailable()
     {
@@ -371,7 +374,7 @@ class Employee
     }
 
     /**
-     * @param int $areaAround
+     * @param Area $areaAround
      * @return $this
      */
     public function setAreaAround($areaAround)
@@ -404,7 +407,7 @@ class Employee
     }
 
     /**
-     * @param string $contractType
+     * @param Contract $contractType
      * @return $this
      */
     public function setContractType($contractType)
@@ -415,7 +418,7 @@ class Employee
     }
 
     /**
-     * @param int $weeklyHoursAvailable
+     * @param WeeklyHours $weeklyHoursAvailable
      * @return $this
      */
     public function setWeeklyHoursAvailable($weeklyHoursAvailable)
