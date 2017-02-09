@@ -52,7 +52,7 @@ class WeeklyHours
     /**
      * @return int
      */
-    public function getNtValue()
+    public function getIntValue()
     {
         return $this->intValue;
     }
@@ -72,7 +72,7 @@ class WeeklyHours
      * @param int $intValue
      * @return $this
      */
-    public function setNtValue($intValue)
+    public function setIntValue($intValue)
     {
         $this->intValue = $intValue;
 

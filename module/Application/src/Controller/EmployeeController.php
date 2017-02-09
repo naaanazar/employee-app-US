@@ -4,6 +4,9 @@ namespace Application\Controller;
 
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
+use Application\Model\Contract;
+use Application\Model\Area;
+use Application\Model\WeeklyHours;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
@@ -22,7 +25,27 @@ class EmployeeController extends AbstractController
      */
     public function indexAction()
     {
-        return new ViewModel();
+        $view = new ViewModel();
+
+        $view->setVariable('contract',
+            $this->getEntityManager()
+                ->getRepository(Contract::class)
+                ->findAll()
+        );
+
+        $view->setVariable('area',
+            $this->getEntityManager()
+                ->getRepository(Area::class)
+                ->findAll()
+        );
+
+        $view->setVariable('WH',
+            $this->getEntityManager()
+                ->getRepository(WeeklyHours::class)
+                ->findAll()
+        );
+
+        return $view;
     }
 
     /**
