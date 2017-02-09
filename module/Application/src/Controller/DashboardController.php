@@ -2,11 +2,13 @@
 
 namespace Application\Controller;
 
+use Application\Back\Form\Employee;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
 use Application\Model\WeeklyHours;
+use Application\Model\Employee as EmployeeM;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Zend\Paginator\Paginator;
@@ -27,6 +29,23 @@ class DashboardController extends AbstractController
 
     public function searchAction()
     {
+
+        $paginator = new Paginator(
+            new Doctrine(EmployeeM::class)
+        );
+
+        $paginator->setItemCountPerPage(20);
+        $paginator->setCurrentPageNumber($this->params('page', 1));
+
+        $view = new ViewModel();
+        $view->setVariables(
+            [
+                'paginator' => $paginator
+            ]
+        );
+
+
+        return $view;
 
     }
 
