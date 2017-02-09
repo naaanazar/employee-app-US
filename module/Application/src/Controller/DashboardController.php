@@ -30,21 +30,52 @@ class DashboardController extends AbstractController
 
     public function areasAction()
     {
-        $paginator = new Paginator(
-            new Doctrine(Area::class)
-        );
+        if (true === $this->getRequest()->isPost()
+            && true === $this->getRequest()->isXmlHttpRequest()
+            && null !== $this->getRequest()->getPost('area_value')
+        ){
 
-        $paginator->setItemCountPerPage(20);
-        $paginator->setCurrentPageNumber($this->params('page', 1));
+            $value = $this->getRequest()->getPost('area_value');
+            $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * 1000;
 
-        $view = new ViewModel();
-        $view->setVariables(
-            [
-                'paginator' => $paginator
-            ]
-        );
+            $json = new JsonModel();
+            $area = new Area();
+            $area->setIntValue($intValue);
+            $area->setValue($value);
+
+            try {
+                $this->getEntityManager()->persist($area);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable(
+                    'redirect',
+                    $this->url()->fromRoute('dashboard', ['action' => 'areas']));
+            } catch (ORMInvalidArgumentException $exception) {
+                $json->setVariable('message', 'Invalid data to save area around');
+            } catch (OptimisticLockException $exception) {
+                $json->setVariable('message', 'Can not save area around to database');
+            }
+
+            return $json;
+
+        } else {
+
+            $paginator = new Paginator(
+                new Doctrine(Area::class)
+            );
+
+            $paginator->setItemCountPerPage(20);
+            $paginator->setCurrentPageNumber($this->params('page', 1));
+
+            $view = new ViewModel();
+            $view->setVariables(
+                [
+                    'paginator' => $paginator
+                ]
+            );
 
         return $view;
+        }
     }
 
     public function registerKeysAction()

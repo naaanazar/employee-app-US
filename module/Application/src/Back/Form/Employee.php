@@ -16,6 +16,7 @@ use Application\Back\Form\Element\Employee\Experience;
 use Application\Back\Form\Element\Employee\AreaAround;
 use Application\Back\Form\Element\Employee\ContractType;
 use Application\Back\Form\Element\Employee\WeeklyHours;
+use Application\Back\Form\Element\Employee\StartDay;
 use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\Number;
@@ -122,7 +123,7 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Text::class,
+                'type' => StartDay::class,
                 'name' => 'start_date'
             ]
         );
