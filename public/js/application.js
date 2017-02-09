@@ -42,7 +42,7 @@ var Validate = {
             for (var field in errors) {
                 if (errors[field] !== undefined){
                     $.each(errors[field], function( index, massage ) {
-                      jQuery("input[name='" + field + "']").after('<span class="label errors-block label-danger">' + massage + '</span>');
+                      jQuery("input[name='" + field + "']").closest('.form-group').append('<span class="label errors-block label-danger">' + massage + '</span>');
                         jQuery("select[name='" + field + "']").after('<span class="label errors-block label-danger">' + massage + '</span>');
                     });
                 }
