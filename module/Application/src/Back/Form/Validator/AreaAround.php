@@ -36,26 +36,15 @@ class AreaAround extends AbstractValidator
         $result = false;
 
         try {
+            /** @var EntityRepository $repository */
+            $repository = Module::entityManager()->getRepository(Area::class);
 
-            $entityManager = Module::entityManager();
+            $areaAround = $repository->find($value);
 
-            if (true === $entityManager instanceof EntityManager) {
-                /** @var EntityManager $entityManager*/
-
-                /** @var EntityRepository $repository */
-                $repository = $entityManager->getRepository(Area::class);
-
-                $criteria = [
-                    'value'    => $value,
-                ];
-
-                $res = $repository->findOneBy($criteria);
-
-                if($res !== null){
-                    $result = true;
-                } else {
-                    $this->error(static::NOT_FOUND);
-                }
+            if($areaAround !== null){
+                $result = true;
+            } else {
+                $this->error(static::NOT_FOUND);
             }
         } catch (\Exception $exception) {
             $this->error(static::EXCEPTION);
