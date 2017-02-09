@@ -36,6 +36,20 @@ return [
                 'action' => 'index'
             ],
         ],
+        'constraints' => [
+            'action' => '(?!show)'
+        ]
+    ],
+    'show-user' => [
+        'type'    => Regex::class,
+        'options' => [
+            'regex' => '/user/(?<id>[0-9]+)',
+            'defaults' => [
+                'controller' => Controller\UserController::class,
+                'action'     => 'show'
+            ],
+            'spec' => '/user/%id%'
+        ]
     ],
     'show-employee' => [
         'type'    => Regex::class,
