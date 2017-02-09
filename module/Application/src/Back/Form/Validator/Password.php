@@ -33,9 +33,9 @@ class Password extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = [
-        self::FOUND     => 'User with same email found',
-        self::NOT_FOUND => 'Invalid email or/and password',
-        self::EXCEPTION => 'Some error occurred while logging in',
+        self::FOUND     => /*translate*/'User with same email found'/*translate*/,
+        self::NOT_FOUND => /*translate*/'Invalid email or/and password'/*translate*/,
+        self::EXCEPTION => /*translate*/'Some error occurred while logging in'/*translate*/,
     ];
 
     /**

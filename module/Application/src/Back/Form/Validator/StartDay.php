@@ -16,5 +16,4 @@ use Zend\Validator\Date;
  */
 class StartDay extends Date
 {
-
 }

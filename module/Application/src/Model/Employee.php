@@ -106,7 +106,7 @@ class Employee
      * @ORM\ManyToOne(targetEntity="Contract")
      * @ORM\JoinColumn(name="contract_id", referencedColumnName="id")
      */
-    private $contractType;
+    private $contract;
 
     /**
      * @var WeeklyHours
@@ -248,9 +248,9 @@ class Employee
     /**
      * @return Contract
      */
-    public function getContractType()
+    public function getContract()
     {
-        return $this->contractType;
+        return $this->contract;
     }
 
     /**
@@ -410,9 +410,9 @@ class Employee
      * @param Contract $contractType
      * @return $this
      */
-    public function setContractType($contractType)
+    public function setContract($contractType)
     {
-        $this->contractType = $contractType;
+        $this->contract = $contractType;
 
         return $this;
     }

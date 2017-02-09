@@ -3,9 +3,7 @@
 namespace Application\Back\Form\Validator;
 
 use Application\Module;
-use Application\Model\WeeklyHours as WHours;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
+use Application\Model\WeeklyHours as WeeklyHoursModel;
 use Zend\Validator\AbstractValidator;
 
 /**
@@ -24,7 +22,7 @@ class WeeklyHours extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = [
-        self::NOT_FOUND => 'Incorect value'
+        self::NOT_FOUND => /*translate*/'Incorrect value'/*translate*/
     ];
 
     /**
@@ -36,25 +34,15 @@ class WeeklyHours extends AbstractValidator
         $result = false;
 
         try {
-            $entityManager = Module::entityManager();
 
-            if (true === $entityManager instanceof EntityManager) {
-                /** @var EntityManager $entityManager*/
+            $weeklyHours = Module::entityManager()
+                ->getRepository(WeeklyHoursModel::class)
+                ->find($value);
 
-                /** @var EntityRepository $repository */
-                $repository = $entityManager->getRepository(WHours::class);
-
-                $criteria = [
-                    'value'    => $value,
-                ];
-
-                $res = $repository->findOneBy($criteria);
-
-                if($res !== null){
-                    $result = true;
-                } else {
-                    $this->error(static::NOT_FOUND);
-                }
+            if($weeklyHours !== null){
+                $result = true;
+            } else {
+                $this->error(static::NOT_FOUND);
             }
         } catch (\Exception $exception) {
             $this->error(static::EXCEPTION);

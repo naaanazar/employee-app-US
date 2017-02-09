@@ -5,6 +5,9 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: Українська\n"
 
+msgid "Value is required and can't be empty"
+msgstr "Необхідне значення не може бути порожнім"
+
 msgid "Successfully registered"
 msgstr "Успішно Зареєстрований"
 
@@ -19,6 +22,9 @@ msgstr "Поки не використовував"
 
 msgid "Set Weekly hours"
 msgstr "Набір годин на тиждень"
+
+msgid "Create employee"
+msgstr "Створити співробітника"
 
 msgid "Name"
 msgstr "Назва"
@@ -47,14 +53,8 @@ msgstr "Електронної пошти"
 msgid "Area around home address willing to work"
 msgstr "Районі будинку адресу, бажаючих працювати"
 
-msgid "any distance"
-msgstr "будь відстань"
-
 msgid "Type of contract"
 msgstr "Тип контракту"
-
-msgid "Self-employed"
-msgstr "Самозайняті"
 
 msgid "Weekly hours available"
 msgstr "Щотижневий годин"
