@@ -3,6 +3,7 @@
 namespace Application;
 
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Regex;
 use Zend\Router\Http\Segment;
 
 return [
@@ -35,18 +36,30 @@ return [
                 'action' => 'index'
             ],
         ],
+        'constraints' => [
+            'action' => '(?!show)'
+        ]
+    ],
+    'show-user' => [
+        'type'    => Regex::class,
+        'options' => [
+            'regex' => '/user/(?<id>[0-9]+)',
+            'defaults' => [
+                'controller' => Controller\UserController::class,
+                'action'     => 'show'
+            ],
+            'spec' => '/user/%id%'
+        ]
     ],
     'show-employee' => [
-        'type'    => Segment::class,
+        'type'    => Regex::class,
         'options' => [
-            'route' => 'employee/:id',
+            'regex' => '/employee/(?<id>[0-9]+)',
             'defaults' => [
                 'controller' => Controller\EmployeeController::class,
                 'action'     => 'show'
             ],
-            'constraints' => [
-                'id' => '[0-9]+'
-            ]
+            'spec' => '/employee/%id%'
         ]
     ],
     'employee' => [
@@ -57,6 +70,9 @@ return [
                 'controller' => Controller\EmployeeController::class,
                 'action' => 'index'
             ],
+            'constraints' => [
+                'action' => '(?!show)'
+            ]
         ],
     ],
     'dashboard' => [

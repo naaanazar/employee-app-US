@@ -23,9 +23,21 @@ class Employee
 
     /**
      * @var string
-     * @ORM\Column(name="address_line", length=1023, type="string", nullable=true)
+     * @ORM\Column(name="address", length=1023, type="string", nullable=true)
      */
-    private $addressLine;
+    private $address;
+
+    /**
+     * @var string
+     * @ORM\Column(length=1023, type="string", nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var int
+     * @ORM\Column(length=10, type="integer",  nullable=true)
+     */
+    private $zip;
 
     /**
      * @var User
@@ -36,9 +48,15 @@ class Employee
 
     /**
      * @var string
-     * @ORM\Column(name="full_name", length=511, type="string", nullable=true)
+     * @ORM\Column(length=511, type="string", nullable=true)
      */
-    private $fullName;
+    private $name;
+
+    /**
+     * @var string
+     * @ORM\Column(length=511, type="string", nullable=true)
+     */
+    private $surname;
 
     /**
      * @var string
@@ -123,9 +141,25 @@ class Employee
     /**
      * @return string
      */
-    public function getAddressLine()
+    public function getAddress()
     {
-        return $this->addressLine;
+        return $this->address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @return int
+     */
+    public function getZip()
+    {
+        return $this->zip;
     }
 
     /**
@@ -139,9 +173,17 @@ class Employee
     /**
      * @return string
      */
-    public function getFullName()
+    public function getName()
     {
-        return $this->fullName;
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->surname;
     }
 
     /**
@@ -241,12 +283,12 @@ class Employee
     }
 
     /**
-     * @param string $addressLine
+     * @param string $address
      * @return $this
      */
-    public function setAddressLine($addressLine)
+    public function setAddress($address)
     {
-        $this->addressLine = $addressLine;
+        $this->address = $address;
 
         return $this;
     }
@@ -263,12 +305,23 @@ class Employee
     }
 
     /**
-     * @param string $fullName
+     * @param string $name
      * @return $this
      */
-    public function setFullName($fullName)
+    public function setName($name)
     {
-        $this->fullName = $fullName;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @param $surname
+     * @return $this
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
 
         return $this;
     }
@@ -401,6 +454,28 @@ class Employee
     public function setHourlyRate($hourlyRate)
     {
         $this->hourlyRate = $hourlyRate;
+
+        return $this;
+    }
+
+    /**
+     * @param $city
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @param $zip
+     * @return $this
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
 
         return $this;
     }

@@ -4,9 +4,9 @@ namespace Application\Controller;
 
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
-use Zend\Form\Element\DateTime;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\PhpRenderer;
 
 /**
  * Class EmployeeController
@@ -49,25 +49,11 @@ class EmployeeController extends AbstractController
                 $response->setVariable('errors', $form->getMessages());
             } else {
                 $employee = new EmployeeModel();
-                $employee->setFullName(
-                    implode(
-                        ' ',
-                        [
-                            $form->get('name')->getValue(),
-                            $form->get('surname')->getValue()
-                        ]
-                    )
-                );
-                $employee->setAddressLine(
-                    implode(
-                        ', ',
-                        [
-                            $form->get('city')->getValue(),
-                            $form->get('address')->getValue(),
-                            $form->get('zip')->getValue()
-                        ]
-                    )
-                );
+                $employee->setName($form->get('name')->getValue());
+                $employee->setSurname($form->get('name')->getValue());
+                $employee->setAddress($form->get('address')->getValue());
+                $employee->setCity($form->get('city')->getValue());
+                $employee->setZip($form->get('zip')->getValue());
                 $employee->setMobilePhone($form->get('mobile_phone')->getValue());
                 $employee->setLandlinePhone($form->get('landline_phone')->getValue());
                 // todo: After model create change to actual
@@ -96,18 +82,43 @@ class EmployeeController extends AbstractController
 
     /**
      * Show one Employee action
+     *
+     * @return ViewModel
      */
     public function showAction()
     {
-        echo 1;
+        $id = $this->params('id');
+        $view = new ViewModel();
+        $view->setTemplate('application/employee/show.phtml');
 
-        if (true === $this->getRequest()) {
+        if (null === $id
+            || null === (
+                $employee = $this->getEntityManager()
+                    ->getRepository(EmployeeModel::class)
+                    ->find($id)
+            )
+        ) {
+            $this->notFoundAction();
+        } else {
+            $view->setVariable('employee', $employee);
 
+            if (true === $this->getRequest()->isXmlHttpRequest()) {
+                /** @var PhpRenderer $renderer */
+                $renderer = $this->getEvent()
+                    ->getApplication()
+                    ->getServiceManager()
+                    ->get('Zend\View\Renderer\PhpRenderer');
+
+                return (new JsonModel())
+                    ->setVariables(
+                        [
+                            'html' => $renderer->render($view)
+                        ]
+                    );
+            }
         }
 
-//        $this->getEntityManager()->find(Employee::class, $this->getRequest());
-
-//        if ($this->getRequest())
+        return $view;
     }
 
 }

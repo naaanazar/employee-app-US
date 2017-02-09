@@ -9,6 +9,7 @@ use Application\Model\User;
 use Zend\Http\Request;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\PhpRenderer;
 
 /**
  * Class UserController
@@ -17,7 +18,7 @@ use Zend\View\Model\ViewModel;
 class UserController extends AbstractController
 {
 
-    public function init()
+    public function restrictLoggedIn()
     {
         if ($this->getUser() !== null) {
             $this->redirect()->toRoute('home');
@@ -30,6 +31,8 @@ class UserController extends AbstractController
      */
     public function loginAction()
     {
+        $this->restrictLoggedIn();
+
         /** @var Request $request */
         $request = $this->getRequest();
 
@@ -64,6 +67,8 @@ class UserController extends AbstractController
      */
     public function registerAction()
     {
+        $this->restrictLoggedIn();
+
         /** @var Request $request */
         $request = $this->getRequest();
 
@@ -130,6 +135,47 @@ class UserController extends AbstractController
             ->clear();
 
         $this->redirect()->toRoute('user', ['action' => 'login']);
+    }
+
+    /**
+     * Show one Employee action
+     *
+     * @return ViewModel
+     */
+    public function showAction()
+    {
+        $id = $this->params('id');
+        $view = new ViewModel();
+        $view->setTemplate('application/user/show.phtml');
+
+        if (null === $id
+            || null === (
+            $employee = $this->getEntityManager()
+                ->getRepository(User::class)
+                ->find($id)
+            )
+        ) {
+            $this->notFoundAction();
+        } else {
+            $view->setVariable('user', $employee);
+
+            if (true === $this->getRequest()->isXmlHttpRequest()) {
+                /** @var PhpRenderer $renderer */
+                $renderer = $this->getEvent()
+                    ->getApplication()
+                    ->getServiceManager()
+                    ->get('Zend\View\Renderer\PhpRenderer');
+
+                return (new JsonModel())
+                    ->setVariables(
+                        [
+                            'html' => $renderer->render($view)
+                        ]
+                    );
+            }
+        }
+
+        return $view;
     }
     
 }
