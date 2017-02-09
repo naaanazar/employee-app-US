@@ -83,8 +83,9 @@ class Employee
     private $experience = false;
 
     /**
-     * @var int
-     * @ORM\Column(name="area_around", length=10, type="integer",  nullable=true)
+     * @var Area
+     * @ORM\ManyToOne(targetEntity="Area")
+     * @ORM\JoinColumn(name="area_id", referencedColumnName="id")
      */
     private $areaAround;
 
@@ -107,8 +108,9 @@ class Employee
     private $contractType;
 
     /**
-     * @var int
-     * @ORM\Column(name="weekly_hours_available", length=10, type="integer",  nullable=true)
+     * @var WeeklyHours
+     * @ORM\ManyToOne(targetEntity="WeeklyHours")
+     * @ORM\JoinColumn(name="weekly_hours_id", referencedColumnName="id")
      */
     private $weeklyHoursAvailable;
 
@@ -219,7 +221,7 @@ class Employee
     }
 
     /**
-     * @return int
+     * @return Area
      */
     public function getAreaAround()
     {
@@ -251,7 +253,7 @@ class Employee
     }
 
     /**
-     * @return int
+     * @return WeeklyHours
      */
     public function getWeeklyHoursAvailable()
     {
