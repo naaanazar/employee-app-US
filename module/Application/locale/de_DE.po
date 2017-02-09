@@ -2,27 +2,126 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-03 14:45+0200\n"
-"PO-Revision-Date: 2017-02-05 09:47+0000\n"
 "Last-Translator: \n"
-"Language-Team: German (Germany)\n"
-"Language: de-DE\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Loco-Source-Locale: en_UA\n"
-"X-Generator: Loco - https://localise.biz/\n"
-"X-Poedit-Basepath: ../../..\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Loco-Parser: loco_parse_po"
-
-msgid "Home"
-msgstr "Zuhause"
+"Language-Team: Deutsch\n"
 
 msgid "Successfully registered"
 msgstr "Erfolgreich registriert"
 
+msgid "Set Area Around"
+msgstr "Set Bereich Um"
 
-msgid "Create employee"
-msgstr "Mitarbeiter erstellen"
+msgid "Set Contract Type"
+msgstr "Set Contract Type"
+
+msgid "Not used yet"
+msgstr "Noch nicht verwendet"
+
+msgid "Set Weekly hours"
+msgstr "Wöchentliche Stunden"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Surname"
+msgstr "Familienname"
+
+msgid "City"
+msgstr "Stadt"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "ZIP"
+msgstr "ZIP"
+
+msgid "Mobile phone number"
+msgstr "Handy-Nummer"
+
+msgid "Landline number"
+msgstr "Festnetznummer"
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Area around home address willing to work"
+msgstr "Bereich, rund um Haus-Adresse bereit zu arbeiten"
+
+msgid "any distance"
+msgstr "jede Entfernung"
+
+msgid "Type of contract"
+msgstr "Art des Vertrages"
+
+msgid "Self-employed"
+msgstr "Selbstständige"
+
+msgid "Weekly hours available"
+msgstr "Wöchentliche Stunden zur Verfügung"
+
+msgid "Start day"
+msgstr "Start-Tag"
+
+msgid "Comments"
+msgstr "Kommentare"
+
+msgid "Hourly rate"
+msgstr "Stundensatz"
+
+msgid "Experience in the job"
+msgstr "Erfahrung in der Arbeit"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Keine"
+
+msgid "Driving licence"
+msgstr "Fahrerlaubnis"
+
+msgid "Car available"
+msgstr "Auto zur Verfügung"
+
+msgid "Upload user photo"
+msgstr "Hochladen user-Foto"
+
+msgid "Attachments"
+msgstr "Anlagen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Main"
+msgstr "Main"
+
+msgid "Exit from dashboard"
+msgstr "Ausfahrt aus dem dashboard"
+
+msgid "Search employee"
+msgstr "Suche Mitarbeiter"
+
+msgid "Configure Around Areas"
+msgstr "Konfigurieren, Um Gebiete Mit"
+
+msgid "Configure Contract Type"
+msgstr "Konfigurieren Vertrag Geben"
+
+msgid "Configure Weekly Hours"
+msgstr "Konfigurieren Stunden"
+
+msgid "Configure Register keys"
+msgstr "Konfigurieren Register Tasten"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Search"
+msgstr "Suche"
+

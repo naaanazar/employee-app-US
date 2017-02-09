@@ -1,0 +1,127 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Українська\n"
+
+msgid "Successfully registered"
+msgstr "Успішно Зареєстрований"
+
+msgid "Set Area Around"
+msgstr "Набір Області Навколо"
+
+msgid "Set Contract Type"
+msgstr "Встановити Тип Договору"
+
+msgid "Not used yet"
+msgstr "Поки не використовував"
+
+msgid "Set Weekly hours"
+msgstr "Набір годин на тиждень"
+
+msgid "Name"
+msgstr "Назва"
+
+msgid "Surname"
+msgstr "Прізвище"
+
+msgid "City"
+msgstr "Місто"
+
+msgid "Address"
+msgstr "Адреса"
+
+msgid "ZIP"
+msgstr "Блискавка"
+
+msgid "Mobile phone number"
+msgstr "Номер мобільного телефону"
+
+msgid "Landline number"
+msgstr "Міський номер"
+
+msgid "Email"
+msgstr "Електронної пошти"
+
+msgid "Area around home address willing to work"
+msgstr "Районі будинку адресу, бажаючих працювати"
+
+msgid "any distance"
+msgstr "будь відстань"
+
+msgid "Type of contract"
+msgstr "Тип контракту"
+
+msgid "Self-employed"
+msgstr "Самозайняті"
+
+msgid "Weekly hours available"
+msgstr "Щотижневий годин"
+
+msgid "Start day"
+msgstr "День початку"
+
+msgid "Comments"
+msgstr "Коментарі"
+
+msgid "Hourly rate"
+msgstr "Погодинна ставка"
+
+msgid "Experience in the job"
+msgstr "Досвід роботи"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "No"
+msgstr "Немає"
+
+msgid "Driving licence"
+msgstr "Водійські права"
+
+msgid "Car available"
+msgstr "Доступний автомобіль"
+
+msgid "Upload user photo"
+msgstr "Завантажити фото користувачів"
+
+msgid "Attachments"
+msgstr "Вкладення"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Main"
+msgstr "Головна"
+
+msgid "Exit from dashboard"
+msgstr "Вихід з приладової панелі"
+
+msgid "Search employee"
+msgstr "Працівник пошук"
+
+msgid "Configure Around Areas"
+msgstr "Налаштувати Навколо"
+
+msgid "Configure Contract Type"
+msgstr "Налаштувати Тип Договору"
+
+msgid "Configure Weekly Hours"
+msgstr "Налаштування Годин На Тиждень"
+
+msgid "Configure Register keys"
+msgstr "Налаштувати ключі в реєстрі"
+
+msgid "Home"
+msgstr "Вдома"
+
+msgid "Logout"
+msgstr "Вихід"
+
+msgid "Dashboard"
+msgstr "Приладовій панелі"
+
+msgid "Search"
+msgstr "Пошук"
+
