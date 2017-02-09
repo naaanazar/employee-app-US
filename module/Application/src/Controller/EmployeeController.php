@@ -80,7 +80,12 @@ class EmployeeController extends AbstractController
                 $employee->setMobilePhone($form->get('mobile_phone')->getValue());
                 $employee->setLandlinePhone($form->get('landline_phone')->getValue());
                 // todo: After model create change to actual
-                $employee->setAreaAround($form->get('area_around')->getValue());
+
+                $areaAround = $this->getEntityManager()
+                    ->getRepository(Area::class)
+                    ->find($form->get('area_around')->getValue());
+
+                $employee->setAreaAround($areaAround);
                 // todo: After model create change to actual
                 $employee->setContractType($form->get('contract_type')->getValue());
                 // todo: After model create change to actual
