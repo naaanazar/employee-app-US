@@ -47,11 +47,11 @@
             <div class="form-group">
                 <label class="control-label application-label" for="area_around_field"><?= $this->translate('Area around home address willing to work') ?>*</label>
                 <select id="area_around_field" name="area_around" class="form-control application-input">
-                    <option value="1">1 km</option>
-                    <option value="5">5 km</option>
-                    <option value="10">10 km</option>
-                    <option value="20">20 km</option>
-                    <option value="30">30 km</option>
+                    <?php
+                        foreach($area as $key){
+                            echo "<option>" . $key->getValue() . "</option>";
+                        }
+                    ?>
                     <option value=""><?= $this->translate('any distance') ?></option>
                 </select>
             </div>
@@ -59,9 +59,12 @@
             <div class="form-group">
                 <label class="control-label application-label" for="contact_type_field"><?= $this->translate('Type of contract') ?>*</label>
                 <select id="contact_type_field" name="contract_type" class="form-control application-input">
-                    <option><?= $this->translate('Minijob') ?></option>
-                    <option><?= $this->translate('Part-time') ?></option>
-                    <option><?= $this->translate('Full-time') ?></option>
+                    <?php
+                        foreach($contract as $key)
+                        {
+                            echo "<option>" . $key->getName() . "</option>";
+                        }
+                    ?>
                     <option><?= $this->translate('Self-employed') ?></option>
                 </select>
             </div>
@@ -69,10 +72,11 @@
             <div class="form-group">
                 <label class="control-label application-label" for="weekly_hours_field"><?= $this->translate('Weekly hours available') ?>*</label>
                 <select id="weekly_hours_field" name="weekly_hours" class="form-control application-input">
-                    <option value="10">10h</option>
-                    <option value="20">20h</option>
-                    <option value="30">30h</option>
-                    <option value="40">40h</option>
+                    <?php
+                        foreach($WH as $key){
+                            echo "<option>" . $key->getValue() . "</option>";
+                        }
+                    ?>
                 </select>
             </div>
 
