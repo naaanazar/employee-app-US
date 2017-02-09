@@ -29,8 +29,8 @@ class EmployeeController extends AbstractController
 
         $view->setVariable('contract',
             $this->getEntityManager()
-            ->getRepository(Contract::class)
-            ->findAll()
+                ->getRepository(Contract::class)
+                ->findAll()
         );
 
         $view->setVariable('area',
