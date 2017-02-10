@@ -8,6 +8,9 @@ use Doctrine\ORM\EntityManager;
 use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
+use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+use Zend\View\Renderer\RendererInterface;
 
 /**
  * Class AbstractController
@@ -31,7 +34,22 @@ abstract class AbstractController extends AbstractActionController
     {
         $e->getViewModel()->setVariable('user', $this->getUser());
         $this->init();
-        return parent::onDispatch($e);
+
+        $result = parent::onDispatch($e);
+
+        if (true === $this->getRequest()->isXmlHttpRequest()
+            && get_class($result) === ViewModel::class
+        ) {
+            $result = new JsonModel(
+                [
+                    'html' => $this->getRenderer()->render($result)
+                ]
+            );
+
+            $e->setResult($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -69,6 +87,20 @@ abstract class AbstractController extends AbstractActionController
     public function translate($string)
     {
         return Module::translator()->translate($string);
+    }
+
+    /**
+     * @param string $rendererName
+     * @return RendererInterface
+     */
+    public function getRenderer($rendererName = 'PhpRenderer')
+    {
+        $renderer = $this->getEvent()
+            ->getApplication()
+            ->getServiceManager()
+            ->get('Zend\View\Renderer\\' . $rendererName);
+
+        return $renderer;
     }
 
 }

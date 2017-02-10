@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Coordinates
  * @package Application\Model
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Model\Repository\CoordinatesRepository")
  * @ORM\Table(name="coordinates")
  */
 class Coordinates
@@ -67,7 +67,7 @@ class Coordinates
     /**
      * @return Employee
      */
-    public function getEmployeeId()
+    public function getEmployee()
     {
         return $this->employee;
     }
@@ -95,12 +95,12 @@ class Coordinates
     }
 
     /**
-     * @param Employee $emplotee
+     * @param Employee $employee
      * @return $this
      */
-    public function setEmploteeId(Employee $emplotee)
+    public function setEmployee(Employee $employee)
     {
-        $this->employee = $emplotee;
+        $this->employee = $employee;
 
         return $this;
     }
