@@ -2,6 +2,7 @@
 
 namespace Application\Back\Form;
 
+use Application\Back\Form\Element\Employee\Coordinate;
 use Application\Back\Form\Element\Employee\Name;
 use Application\Back\Form\Element\Employee\Surname;
 use Application\Back\Form\Element\Employee\City;
@@ -160,6 +161,26 @@ class Employee extends Form
             [
                 'type' => CarAvailable::class,
                 'name' => 'car_available'
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Coordinate::class,
+                'name' => 'longitude',
+                'options' => [
+                    'type' => Coordinate::TYPE_LONGITUDE
+                ]
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => Coordinate::class,
+                'name' => 'latitude',
+                'options' => [
+                    'type' => Coordinate::TYPE_LATITUDE
+                ]
             ]
         );
     }
