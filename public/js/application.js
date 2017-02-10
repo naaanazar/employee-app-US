@@ -43,7 +43,13 @@ jQuery('document').ready(function () {
 
     jQuery('input .input-group.date').datepicker({});
 
-    $("#start_day_field_picker").datepicker({
+    jQuery('#sandbox-container .input-daterange').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd'
+    });
+
+    jQuery("#start_day_field_picker").datepicker({
             autoclose: true,
             todayBtn: "linked",
             format: 'yyyy-mm-dd',

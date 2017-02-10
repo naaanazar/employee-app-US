@@ -1,0 +1,44 @@
+<form action="<?= $this->url('dashboard', ['action' => 'statistics']) ?>" class=""  method="post">
+    <div class="form-group col-md-3">
+        <label class="control-label application-label" for="statistic_date"><?= $this->translate('Select statistic period') ?></label>
+        <select id="statistic_date" name="statistic_date" class="form-control application-input">
+            <option value="7">Last 7</option>
+            <option value="14">Last 14</option>
+            <option value="30">Last 30</option>
+        </select>
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th><?= $this->translate('Name') ?></th>
+        <th><?= $this->translate('Mobile Phone') ?></th>
+        <th><?= $this->translate('Address') ?></th>
+
+
+    </tr>
+    <?php foreach ($this->paginator as $employee) : ?>
+        <tr>
+            <?php /** @var \Application\Model\Employee $employee */ ?>
+            <td><?= $employee->getId() ?></td>
+            <td>
+                <a
+                    href="#"
+                    class="modal-action"
+                    data-action="<?= $this->url('show-employee', ['id' => $employee->getId()] ) ?>"
+                    data-element="#modal-action"
+                    >
+                    <?= $employee->getName() ?>
+                </a>
+            </td>
+
+            <td><?= $employee->getMobilePhone() ?></td>
+            <td><?= $employee->getAddress() ?></td>
+        </tr>
+    <?php endforeach; ?>
+
+</table>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>
