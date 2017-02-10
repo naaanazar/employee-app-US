@@ -184,3 +184,7 @@ fieldset[disabled] .batton-save.active {
     color: #91BF2D;
     background-color: #FFFFFF;
 }
+
+.map {
+    height: 500px;
+}
