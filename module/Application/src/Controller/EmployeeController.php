@@ -2,11 +2,13 @@
 
 namespace Application\Controller;
 
+use Application\Back\Form\Validator\Coordinate;
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
 use Application\Model\Area;
 use Application\Model\WeeklyHours;
+use Application\Model\Coordinates;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
@@ -103,6 +105,16 @@ class EmployeeController extends AbstractController
 
                 $this->getEntityManager()->persist($employee);
                 $this->getEntityManager()->flush();
+
+                $coordinates = new Coordinates();
+                $coordinates
+                    ->setEmployee($employee)
+                    ->setLongitude($form->get('longitude')->getValue())
+                    ->setLatitude($form->get('latitude')->getValue());
+
+                $this->getEntityManager()->persist($coordinates);
+                $this->getEntityManager()->flush();
+
                 $response->setVariable('id', $employee->getId());
             }
 

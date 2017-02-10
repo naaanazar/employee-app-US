@@ -2,7 +2,7 @@
 
 namespace Application\Back\Form\Element\Employee;
 
-use Application\Back\Form\Validator\Employee\Coordinate;
+use Application\Back\Form\Validator\Coordinate;
 use Zend\Form\Element;
 use Zend\InputFilter\InputProviderInterface;
 

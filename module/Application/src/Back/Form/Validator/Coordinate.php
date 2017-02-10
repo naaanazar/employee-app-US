@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Back\Form\Validator\Employee;
+namespace Application\Back\Form\Validator;
 
 use Zend\Validator\AbstractValidator;
 
@@ -38,7 +38,7 @@ class Coordinate extends AbstractValidator
     {
         $result = false;
 
-        if (is_float($value) && abs($value) < $this->getOption('type')) {
+        if (is_float((float)$value) && abs($value) < $this->getOption('type')) {
             $result = true;
         }
 
