@@ -25,6 +25,7 @@
             <div class="form-group">
                 <label class="control-label application-label" for="zip_field"><?= $this->translate('ZIP') ?>*</label>
                 <input id="zip_field" name="zip" type="text" placeholder="" class="form-control input-md application-input">
+                <button class="btn batton-save btn-sm page-header update-marker"><?= $this->translate('Update marker') ?></button>
             </div>
 
             <div class="form-group">
@@ -119,13 +120,24 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label application-label" for="latitude_field"><?= $this->translate('latitude') ?></label>
+                <input id="latitude" name="latitude" type="text" placeholder="" class="form-control input-md application-input">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label application-label" for="longitude_field"><?= $this->translate('longitude') ?></label>
+                <input id="longitude" name="longitude" type="text" placeholder="" class="form-control input-md application-input">
+            </div>
+
+            <div class="form-group">
                 <div class="text-right" >
                     <button class="btn batton-save btn-lg"><?= $this->translate('Save') ?></button>
                 </div>
             </div>
+
         </form>
     </div>
     <div class="col-md-6">
-        <div class="well" style="min-height: 600px"></div>
+        <div id="map" class="map frame"></div>
     </div>
 </div>

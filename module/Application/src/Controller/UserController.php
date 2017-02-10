@@ -158,21 +158,6 @@ class UserController extends AbstractController
             $this->notFoundAction();
         } else {
             $view->setVariable('user', $employee);
-
-            if (true === $this->getRequest()->isXmlHttpRequest()) {
-                /** @var PhpRenderer $renderer */
-                $renderer = $this->getEvent()
-                    ->getApplication()
-                    ->getServiceManager()
-                    ->get('Zend\View\Renderer\PhpRenderer');
-
-                return (new JsonModel())
-                    ->setVariables(
-                        [
-                            'html' => $renderer->render($view)
-                        ]
-                    );
-            }
         }
 
         return $view;
