@@ -5,10 +5,13 @@ namespace Application\Controller;
 use Application\Back\Form\Employee;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
+use Application\Model\Coordinates;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
+use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\WeeklyHours;
 use Application\Model\Employee as EmployeeM;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Zend\Paginator\Paginator;
@@ -29,10 +32,76 @@ class DashboardController extends AbstractController
 
     public function searchAction()
     {
+        $criteria = [];
+        if (true === $this->getRequest()->isPost()
+            && null !== $this->getRequest()->getPost('name')
+        ) {
+            $fields = $this->getRequest()->getPost();
+            $criteria = new Criteria();
+
+            $criteria
+                ->Where($criteria->expr()->contains('name', $fields['name']))
+                ->andWhere($criteria->expr()->contains('surname', $fields['surname']))
+                ->andWhere($criteria->expr()->contains('city', $fields['city']))
+                ->andWhere($criteria->expr()->contains('address', $fields['address']))
+                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
+                ->andWhere($criteria->expr()->contains('mobilePhone', $fields['mobile_phone']))
+                ->andWhere($criteria->expr()->contains('landlinePhone', $fields['landline_phone']))
+                ->andWhere($criteria->expr()->contains('email', $fields['email']))
+                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
+                ->andWhere($criteria->expr()->contains('experience', $fields['experience']));
+
+            if (false === empty($fields['area_around']) && null !== ($area = $this->getEntityManager()->getRepository(Area::class)->find($fields['area_around']))) {
+                $criteria->andWhere($criteria->expr()->eq('areaAround', $area));
+            }
+
+            if (false === empty($fields['contract_type']) && null !== ($area = $this->getEntityManager()->getRepository(Contract::class)->find($fields['contract_type']))) {
+                $criteria->andWhere($criteria->expr()->eq('contract', $area));
+            }
+            if (false === empty($fields['weekly_hours']) && null !== ($area = $this->getEntityManager()->getRepository(WeeklyHours::class)->find($fields['weekly_hours']))) {
+                $criteria->andWhere($criteria->expr()->eq('weeklyHoursAvailable', $area));
+            }
+
+            if( !empty($fields['start'])) {
+                $dateStart = (new \DateTime ($fields['start']));
+                $dateEnd = (new \DateTime ($fields['end']));
+
+                $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
+                $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
+            }
+            if (isset($fields['car_available'])){
+                $criteria->andWhere($criteria->expr()->eq('carAvailable', true));
+            }
+
+            if (isset($fields['driving_license'])){
+                $criteria->andWhere($criteria->expr()->eq('drivingLicence', true));
+            }
+        }
 
         $paginator = new Paginator(
-            new Doctrine(EmployeeM::class)
+            new Doctrine(EmployeeM::class, $criteria)
         );
+
+        if (false === empty($fields['longitude']) && false === empty($fields['latitude']) && false === empty($fields['range'])) {
+            $coordinates = (new Coordinates())
+                ->setLatitude($fields['latitude'])
+                ->setLongitude($fields['longitude']);
+
+            /** @var CoordinatesRepository $coordinatesRepo */
+            $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
+
+            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates, $fields['range']*1000);
+
+            $employees = array_map(
+                function ($coordinate) {
+                    /** @var Coordinates $coordinate */
+                    return $coordinate->getEmployee();
+                },
+                $coordinates
+            );
+
+            $paginator->getAdapter()->setAdditionalItems($employees);
+        }
 
         $paginator->setItemCountPerPage(20);
         $paginator->setCurrentPageNumber($this->params('page', 1));
@@ -40,12 +109,16 @@ class DashboardController extends AbstractController
         $view = new ViewModel();
         $view->setVariables(
             [
-                'paginator' => $paginator
+                'paginator'     => $paginator,
+                'contracts'     => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'weeklyHours'   => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                'fields'        => $this->getRequest()->getPost()
             ]
         );
 
-
         return $view;
+
 
     }
 
@@ -242,6 +315,64 @@ class DashboardController extends AbstractController
 
             return $view;
         }
+    }
+
+    public function statisticsAction()
+    {
+        $criteria = [];
+        if (true === $this->getRequest()->isPost()
+            && null !== $this->getRequest()->getPost('statistic_date')
+        ) {
+            $fields = $this->getRequest()->getPost();
+            $criteria = new Criteria();
+
+            if( !empty($fields['statistic_date'])) {
+
+                $dateEnd = new \DateTime ();
+                $dateStart = new \DateTime (date('Y-m-d', strtotime("-". $fields['statistic_date'] ." days")));
+
+                $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
+                $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
+            }
+        }
+
+        $paginator = new Paginator(
+            new Doctrine(EmployeeM::class, $criteria)
+        );
+
+        if (false === empty($fields['longitude']) && false === empty($fields['latitude']) && false === empty($fields['range'])) {
+            $coordinates = (new Coordinates())
+                ->setLatitude($fields['latitude'])
+                ->setLongitude($fields['longitude']);
+
+            /** @var CoordinatesRepository $coordinatesRepo */
+            $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
+
+            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates, $fields['range']*1000);
+
+            $employees = array_map(
+                function ($coordinate) {
+                    /** @var Coordinates $coordinate */
+                    return $coordinate->getEmployee();
+                },
+                $coordinates
+            );
+
+            $paginator->getAdapter()->setAdditionalItems($employees);
+        }
+
+        $paginator->setItemCountPerPage(20);
+        $paginator->setCurrentPageNumber($this->params('page', 1));
+
+        $view = new ViewModel();
+        $view->setVariables(
+            [
+                'paginator'     => $paginator,
+                'fields'        => $this->getRequest()->getPost()
+            ]
+        );
+
+        return $view;
     }
 
 }

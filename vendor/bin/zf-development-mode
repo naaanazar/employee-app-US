@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+SRC_DIR="`pwd`"
+cd "`dirname "$0"`"
+cd "../zfcampus/zf-development-mode/bin"
+BIN_TARGET="`pwd`/zf-development-mode"
+cd "$SRC_DIR"
+"$BIN_TARGET" "$@"
