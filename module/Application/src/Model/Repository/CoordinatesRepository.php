@@ -17,7 +17,7 @@ class CoordinatesRepository extends EntityRepository
     /**
      * @param Coordinates $coordinates
      * @param $range
-     * @return \Doctrine\Common\Collections\Collection
+     * @return array
      */
     public function getCoordinatesInRange(Coordinates $coordinates, $range)
     {
@@ -33,7 +33,14 @@ class CoordinatesRepository extends EntityRepository
         $coordinatesModels = $this->matching($criteria)->toArray();
 
         foreach ($coordinatesModels as &$coordinatesModel) {
-            if ($agregator->getDistance($coordinatesModel) > $range) {
+
+            /** @var Coordinates $coordinatesModel */
+            $maximumRange = max(
+                $agregator->getDistance($coordinatesModel) > $range,
+                $coordinatesModel->getEmployee()->getAreaAround()->getIntValue()
+            );
+
+            if ($maximumRange > $range) {
                 unset($coordinatesModel);
             }
         }

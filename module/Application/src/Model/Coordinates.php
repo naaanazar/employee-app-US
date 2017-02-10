@@ -67,7 +67,7 @@ class Coordinates
     /**
      * @return Employee
      */
-    public function getEmployeeId()
+    public function getEmployee()
     {
         return $this->employee;
     }

@@ -52,6 +52,15 @@ class IndexController extends AbstractController
 
         $coordinate = $coordinatesRepository->find(1);
 
-        var_dump(count($coordinatesRepository->getCoordinatesInRange($coordinate, 500)));die;
+        $result = $coordinatesRepository->getCoordinatesInRange($coordinate, 40000);
+        $result = array_map(
+            function ($coord) {
+                /** @var Coordinates $coord */
+                return $coord->getEmployee()->getName();
+            },
+            $result
+        );
+
+        var_dump($result);die;
     }
 }

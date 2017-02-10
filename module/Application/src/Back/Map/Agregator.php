@@ -99,7 +99,7 @@ class Agregator
      */
     protected function getLongitudeDegreeInMeters()
     {
-        return static::LONGITUDE_COF_IN_METERS * cos ($this->coordinates->getLatitude());
+        return static::LONGITUDE_COF_IN_METERS * cos($this->coordinates->getLatitude());
     }
     
     /**
