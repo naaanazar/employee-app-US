@@ -1,6 +1,7 @@
 <?php
 
-namespace Application\Back\Form\Element\Employee;
+namespace Application\Back\Form\Validator\Employee;
+
 use Zend\Validator\AbstractValidator;
 
 /**

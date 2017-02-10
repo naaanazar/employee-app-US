@@ -5,7 +5,6 @@ namespace Application\Back\Form\Element\Employee;
 use Application\Back\Form\Validator\RegexValidator as RegValidator;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripNewlines;
-use Zend\Form\Element;
 use Zend\Form\Element\Tel;
 
 
@@ -15,6 +14,10 @@ use Zend\Form\Element\Tel;
  */
 class LandlineNumber extends Tel
 {
+
+    /**
+     * @return RegValidator|\Zend\Validator\ValidatorInterface
+     */
     protected function getValidator()
     {
         if (null === $this->validator) {

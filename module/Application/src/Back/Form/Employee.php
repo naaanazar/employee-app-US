@@ -2,7 +2,8 @@
 
 namespace Application\Back\Form;
 
-use Application\Back\Form\Element\Employee\Coordinate;
+use Application\Back\Form\Element\Employee\Latitude;
+use Application\Back\Form\Element\Employee\Longitude;
 use Application\Back\Form\Element\Employee\Name;
 use Application\Back\Form\Element\Employee\Surname;
 use Application\Back\Form\Element\Employee\City;
@@ -18,10 +19,7 @@ use Application\Back\Form\Element\Employee\AreaAround;
 use Application\Back\Form\Element\Employee\ContractType;
 use Application\Back\Form\Element\Employee\WeeklyHours;
 use Application\Back\Form\Element\Employee\StartDay;
-use Zend\Form\Element\Checkbox;
 use Zend\Form\Element\Email;
-use Zend\Form\Element\Number;
-use Zend\Form\Element\Select;
 use Zend\Form\Element\Text;
 use Zend\Form\Form;
 
@@ -166,21 +164,15 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Coordinate::class,
+                'type' => Longitude::class,
                 'name' => 'longitude',
-                'options' => [
-                    'type' => Coordinate::TYPE_LONGITUDE
-                ]
             ]
         );
 
         $this->add(
             [
-                'type' => Coordinate::class,
-                'name' => 'latitude',
-                'options' => [
-                    'type' => Coordinate::TYPE_LATITUDE
-                ]
+                'type' => Latitude::class,
+                'name' => 'latitude'
             ]
         );
     }
