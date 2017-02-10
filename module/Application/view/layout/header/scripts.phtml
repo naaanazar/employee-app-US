@@ -1,29 +1,101 @@
 <script src="<?= $this->basePath('js/vendor/require.js') ?>"></script>
 <script>
-    var marker;
     'use strict';
 
     requirejs(['<?= $this->basePath('js/vendor/jquery-3.1.0.min.js') ?>'], function() {
         requirejs(['<?= $this->basePath('js/vendor/bootstrap.min.js') ?>'], function() {
             requirejs(['<?= $this->basePath('js/vendor/bootstrap-datepicker.js') ?>'], function() {
                 requirejs(['<?= $this->basePath('js/application.js') ?>'], function() {
-                    require(['<?= $this->basePath('js/google-map.js') ?>'], function(Map) {
-                        jQuery('document').ready(function () {
-                            var map = Map.init();
+                    jQuery('document').ready(function () {
+                        if (0 < jQuery('#map').length) {
+                            require(['<?= $this->basePath('js/google-map.js') ?>'], function (Map) {
+                                jQuery('document').ready(function () {
 
-                            google.maps.event.addListener(map, 'click', function(event) {
-                                Map.clearMarker();
-                                Map.addMarker(map, event.latLng.lat(), event.latLng.lng());
-                                document.getElementById('latitude').value = event.latLng.lat();
-                                document.getElementById('longitude').value = event.latLng.lng();
+                                    var map = Map.init();
+
+                                    google.maps.event.addListener(map, 'click', function (event) {
+                                        Address.finfCoords(map, event);
+                                    });
+
+                                    jQuery(document).on('click', '.update-marker', function (event) {
+                                        event.defaultPrevented = true;
+                                        Address.findAddress(map);
+
+                                        return false;
+                                    });
+                                });
+
+                                var Address = {
+                                    fullAddress: '',
+                                    marker: null,
+
+                                    finfCoords: function (map, event) {
+
+                                        if (null != this.marker) {
+                                            this.marker.setMap(null);
+                                        }
+
+                                        var geocoder = new google.maps.Geocoder();
+                                        geocoder.geocode({
+                                            'location': {
+                                                lat: event.latLng.lat(),
+                                                lng: event.latLng.lng()
+                                            }
+                                        }, function (results, status) {
+                                            if (status == google.maps.GeocoderStatus.OK) {
+
+                                                var address = results[0].formatted_address.split(',');
+
+                                                document.getElementById('city_field').value = address[2].trim();
+                                                document.getElementById('address_field').value = address[0].trim() + ' ' + address[1].trim();
+                                            }
+                                        });
+
+                                        this.marker = Map.addMarker(map, event.latLng.lat(), event.latLng.lng());
+                                        document.getElementById('latitude').value = event.latLng.lat();
+                                        document.getElementById('longitude').value = event.latLng.lng();
+                                    },
+
+                                    findAddress: function (map) {
+
+                                        if (null != this.marker) {
+                                            this.marker.setMap(null);
+                                        }
+
+                                        this.setAddress();
+
+                                        var geocoder = new google.maps.Geocoder();
+                                        geocoder.geocode({'address': this.fullAddress}, function (results, status) {
+                                            if (status == google.maps.GeocoderStatus.OK) {
+                                                map.setCenter(results[0].geometry.location);
+                                                map.setZoom(16);
+
+                                                Address.marker = Map.addMarker(map, results[0].geometry.location.lat(), results[0].geometry.location.lng());
+
+                                                document.getElementById('latitude').value = results[0].geometry.location.lat();
+                                                document.getElementById('longitude').value = results[0].geometry.location.lng();
+                                            }
+                                        });
+                                    },
+
+                                    setAddress: function () {
+
+                                        this.fullAddress = '';
+
+                                        if ('' != jQuery('#zip_field').val()) {
+                                            this.fullAddress = this.fullAddress + jQuery('#zip_field').val() + ',';
+                                        }
+                                        if ('' != jQuery('#city_field').val()) {
+                                            this.fullAddress = this.fullAddress + jQuery('#city_field').val() + ',';
+                                        }
+                                        if ('' != jQuery('#address_field').val()) {
+                                            this.fullAddress = this.fullAddress + jQuery('#address_field').val();
+                                        }
+
+                                    }
+                                };
                             });
-                        });
-
-                        jQuery(document).on('click', '.update-marker', function (event) {
-                            event.defaultPrevented = true;
-
-                            return false;
-                        });
+                        };
                     });
                 });
             });

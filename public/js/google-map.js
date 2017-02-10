@@ -28,7 +28,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
 			});
 		},
 		centeringMap: function(points, map) {
-			console.log(points);
+
 			var latlngbounds = new google.maps.LatLngBounds();
 			for (var i in points){
 				latlngbounds.extend(points[i]);
