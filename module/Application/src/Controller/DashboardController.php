@@ -2,7 +2,6 @@
 
 namespace Application\Controller;
 
-use Application\Back\Form\Employee;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
@@ -40,7 +39,7 @@ class DashboardController extends AbstractController
             $criteria = new Criteria();
 
             $criteria
-                ->Where($criteria->expr()->contains('name', $fields['name']))
+                ->where($criteria->expr()->contains('name', $fields['name']))
                 ->andWhere($criteria->expr()->contains('surname', $fields['surname']))
                 ->andWhere($criteria->expr()->contains('city', $fields['city']))
                 ->andWhere($criteria->expr()->contains('address', $fields['address']))
@@ -78,11 +77,7 @@ class DashboardController extends AbstractController
             }
         }
 
-        $paginator = new Paginator(
-            new Doctrine(EmployeeM::class, $criteria)
-        );
-
-        if (false === empty($fields['longitude']) && false === empty($fields['latitude']) && false === empty($fields['range'])) {
+        if (false === empty($fields['longitude']) && false === empty($fields['latitude'])) {
             $coordinates = (new Coordinates())
                 ->setLatitude($fields['latitude'])
                 ->setLongitude($fields['longitude']);
@@ -90,18 +85,22 @@ class DashboardController extends AbstractController
             /** @var CoordinatesRepository $coordinatesRepo */
             $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
 
-            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates, $fields['range']*1000);
+            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
 
-            $employees = array_map(
+            $employeesIds = array_map(
                 function ($coordinate) {
                     /** @var Coordinates $coordinate */
-                    return $coordinate->getEmployee();
+                    return $coordinate->getEmployee()->getId();
                 },
                 $coordinates
             );
 
-            $paginator->getAdapter()->setAdditionalItems($employees);
+            $criteria->andWhere($criteria->expr()->in('id', $employeesIds));
         }
+
+        $paginator = new Paginator(
+            new Doctrine(EmployeeM::class, $criteria)
+        );
 
         $paginator->setItemCountPerPage(20);
         $paginator->setCurrentPageNumber($this->params('page', 1));
@@ -118,8 +117,6 @@ class DashboardController extends AbstractController
         );
 
         return $view;
-
-
     }
 
     public function areasAction()
@@ -367,8 +364,8 @@ class DashboardController extends AbstractController
         $view = new ViewModel();
         $view->setVariables(
             [
-                'paginator'     => $paginator,
-                'fields'        => $this->getRequest()->getPost()
+                'paginator' => $paginator,
+                'fields'    => $this->getRequest()->getPost()
             ]
         );
 

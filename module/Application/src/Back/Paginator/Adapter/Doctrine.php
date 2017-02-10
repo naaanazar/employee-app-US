@@ -68,9 +68,7 @@ class Doctrine implements AdapterInterface
         }
 
         if (null !== $this->additionalItems) {
-            $result = array_unique(
-                array_merge($result, $this->additionalItems)
-            );
+            $result = array_merge($result, $this->additionalItems);
         }
 
         return $result;

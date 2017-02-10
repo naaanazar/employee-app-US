@@ -22,10 +22,10 @@ class CoordinatesRepository extends EntityRepository
         $agregator = new Agregator($coordinates);;
         $coordinatesModels = $this->findAll();
 
-        foreach ($coordinatesModels as &$coordinatesModel) {
+        foreach ($coordinatesModels as $index => $coordinatesModel) {
             /** @var Coordinates $coordinatesModel */
-            if ($agregator->getDistance($coordinatesModel) <= $coordinatesModel->getEmployee()->getAreaAround()->getIntValue()) {
-                unset($coordinatesModel);
+            if ($agregator->getDistance($coordinatesModel) >= $coordinatesModel->getEmployee()->getAreaAround()->getIntValue()) {
+                unset($coordinatesModels[$index]);
             }
         }
 
