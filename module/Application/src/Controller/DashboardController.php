@@ -11,7 +11,7 @@ use Application\Model\Contract;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
 use Application\Model\WeeklyHours;
-use Application\Model\Employee as EmployeeM;
+use Application\Model\Employee as EmployeeModel;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
@@ -53,40 +53,23 @@ class DashboardController extends AbstractController
             $employeesRepository
                 ->addExpression('contains', 'name', $post['name'])
                 ->addExpression('contains', 'surname', $post['surname'])
-                ->addExpression('contains', 'address', $post['address']);
+                ->addExpression('contains', 'address', $post['address'])
+                ->addExpression('contains', 'city', $post['city'])
+                ->addExpression('contains', 'zip', $post['zip'])
+                ->addExpression('contains', 'email', $post['email'])
+                ->addExpression('contains', 'hourlyRate', $post['hourly_rate'])
+                ->addExpression('contains', 'experience', $post['experience'])
+                ->addExpression('eq', 'carAvailable', $post['car_available'])
+                ->addExpression('eq', 'drivingLicence', $post['driving_license'])
+                ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($post['area_around']))
+                ->addExpression('eq', 'contract', $this->getEntityManager()->getRepository(Contract::class)->find($post['contract_type']))
+                ->addExpression('eq', 'weeklyHoursAvailable', $this->getEntityManager()->getRepository(WeeklyHours::class)->find($post['weekly_hours']));
 
-
-//            $criteria
-//                ->where($criteria->expr()->contains('name', $fields['name']))
-//                ->andWhere($criteria->expr()->contains('surname', $fields['surname']))
-//                ->andWhere($criteria->expr()->contains('city', $fields['city']))
-//                ->andWhere($criteria->expr()->contains('address', $fields['address']))
-//                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
-//                ->andWhere($criteria->expr()->contains('email', $fields['email']))
-//                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
-//                ->andWhere($criteria->expr()->contains('experience', $fields['experience']))
-//                ->andWhere($criteria->expr()->eq('carAvailable', $fields['car_available']))
-//                ->andWhere($criteria->expr()->eq('drivingLicence', $fields['driving_license']));
-//
-//            if (false === empty($fields['area_around']) && null !== ($area = $this->getEntityManager()->getRepository(Area::class)->find($fields['area_around']))) {
-//                $criteria->andWhere($criteria->expr()->eq('areaAround', $area));
-//            }
-//
-//            if (false === empty($fields['contract_type']) && null !== ($area = $this->getEntityManager()->getRepository(Contract::class)->find($fields['contract_type']))) {
-//                $criteria->andWhere($criteria->expr()->eq('contract', $area));
-//            }
-//
-//            if (false === empty($fields['weekly_hours']) && null !== ($area = $this->getEntityManager()->getRepository(WeeklyHours::class)->find($fields['weekly_hours']))) {
-//                $criteria->andWhere($criteria->expr()->eq('weeklyHoursAvailable', $area));
-//            }
-//
-//            if( !empty($fields['start'])) {
-//                $dateStart = (new \DateTime ($fields['start']));
-//                $dateEnd = (new \DateTime ($fields['end']));
-//
-//                $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
-//                $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
-//            }
+                if( !empty($post['start'])) {
+                    $employeesRepository
+                        ->addExpression('gt', 'startDate', (new \DateTime ($post['start'])))
+                        ->addExpression('lt', 'startDate', (new \DateTime ($post['end'])));
+                }
 
             if (false === empty($post['longitude']) && false === empty($post['latitude'])) {
                 $coordinates = (new Coordinates())
@@ -113,7 +96,7 @@ class DashboardController extends AbstractController
         }
 
         $paginator = new Paginator(
-            new Doctrine(EmployeeM::class, $criteria)
+            new Doctrine(EmployeeModel::class, $criteria)
         );
 
         $paginator->setItemCountPerPage(20);
@@ -182,7 +165,7 @@ class DashboardController extends AbstractController
                 ]
             );
 
-        return $view;
+            return $view;
         }
     }
 
@@ -367,7 +350,7 @@ class DashboardController extends AbstractController
         }
 
         $paginator = new Paginator(
-            new Doctrine(EmployeeM::class, $criteria)
+            new Doctrine(EmployeeModel::class, $criteria)
         );
 
         if (false === empty($fields['longitude']) && false === empty($fields['latitude']) && false === empty($fields['range'])) {
