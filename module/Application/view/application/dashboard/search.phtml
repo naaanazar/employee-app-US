@@ -138,36 +138,40 @@
     <a type="button" class="row" data-toggle="collapse" data-target="#add-area-around">Advanced</a>
 </form>
 
-
-<table class="table">
-    <tr>
-        <th>#</th>
-        <th><?= $this->translate('Name') ?></th>
-        <th><?= $this->translate('Mobile Phone') ?></th>
-        <th><?= $this->translate('Address') ?></th>
-
-    </tr>
-    <?php foreach ($this->paginator as $employee) : ?>
+<?php if ($this->paginator->count() === 0) : ?>
+    <div class="text-center text-muted">
+        <h3><?= $this->translate('Nothing where found') ?></h3>
+    </div>
+<?php else :?>
+    <table class="table">
         <tr>
-            <?php /** @var \Application\Model\Employee $employee */ ?>
-            <td><?= $employee->getId() ?></td>
-            <td>
-                <a
-                    href="#"
-                    class="modal-action"
-                    data-action="<?= $this->url('show-employee', ['id' => $employee->getId()] ) ?>"
-                    data-element="#modal-action"
-                    >
-                    <?= $employee->getName() ?>
-                </a>
-            </td>
+            <th>#</th>
+            <th><?= $this->translate('Name') ?></th>
+            <th><?= $this->translate('Mobile Phone') ?></th>
+            <th><?= $this->translate('Address') ?></th>
 
-            <td><?= $employee->getMobilePhone() ?></td>
-            <td><?= $employee->getAddress() ?></td>
         </tr>
-    <?php endforeach; ?>
+        <?php foreach ($this->paginator as $employee) : ?>
+            <tr>
+                <?php /** @var \Application\Model\Employee $employee */ ?>
+                <td><?= $employee->getId() ?></td>
+                <td>
+                    <a
+                        href="#"
+                        class="modal-action"
+                        data-action="<?= $this->url('show-employee', ['id' => $employee->getId()] ) ?>"
+                        data-element="#modal-action"
+                        >
+                        <?= $employee->getName() ?>
+                    </a>
+                </td>
 
-</table>
+                <td><?= $employee->getMobilePhone() ?></td>
+                <td><?= $employee->getAddress() ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
 <div class="text-right">
     <?= $this->render('layout/helper/pagination') ?>
 </div>

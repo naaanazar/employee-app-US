@@ -62,6 +62,8 @@ class Doctrine implements AdapterInterface
         $repo = Module::entityManager()->getRepository($this->entity);
 
         if (true === $this->criteria instanceof Criteria) {
+            $this->criteria->setFirstResult($offset)->setMaxResults($itemCountPerPage);
+
             $result = $repo->matching($this->criteria)->toArray();
         } else {
             $result = $repo->findBy($this->criteria, $this->orderBy, $itemCountPerPage, $offset);
@@ -82,7 +84,7 @@ class Doctrine implements AdapterInterface
         return Module::entityManager()
             ->getUnitOfWork()
             ->getEntityPersister($this->entity)
-            ->count();
+            ->count($this->criteria);
     }
 
 }

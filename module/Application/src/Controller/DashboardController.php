@@ -29,6 +29,11 @@ class DashboardController extends AbstractController
     {
     }
 
+    /**
+     * Search employees action
+     *
+     * @return ViewModel
+     */
     public function searchAction()
     {
         $criteria = [];
@@ -41,13 +46,13 @@ class DashboardController extends AbstractController
             $criteria
                 ->where($criteria->expr()->contains('name', $fields['name']))
                 ->andWhere($criteria->expr()->contains('surname', $fields['surname']))
-                ->andWhere($criteria->expr()->contains('city', $fields['city']))
-                ->andWhere($criteria->expr()->contains('address', $fields['address']))
-                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
-                ->andWhere($criteria->expr()->contains('mobilePhone', $fields['mobile_phone']))
-                ->andWhere($criteria->expr()->contains('landlinePhone', $fields['landline_phone']))
-                ->andWhere($criteria->expr()->contains('email', $fields['email']))
-                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
+//                ->andWhere($criteria->expr()->contains('city', $fields['city']))
+//                ->andWhere($criteria->expr()->contains('address', $fields['address']))
+//                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
+//                ->andWhere($criteria->expr()->contains('mobilePhone', $fields['mobile_phone']))
+//                ->andWhere($criteria->expr()->contains('landlinePhone', $fields['landline_phone']))
+//                ->andWhere($criteria->expr()->contains('email', $fields['email']))
+//                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
                 ->andWhere($criteria->expr()->contains('experience', $fields['experience']));
 
             if (false === empty($fields['area_around']) && null !== ($area = $this->getEntityManager()->getRepository(Area::class)->find($fields['area_around']))) {
@@ -57,6 +62,7 @@ class DashboardController extends AbstractController
             if (false === empty($fields['contract_type']) && null !== ($area = $this->getEntityManager()->getRepository(Contract::class)->find($fields['contract_type']))) {
                 $criteria->andWhere($criteria->expr()->eq('contract', $area));
             }
+
             if (false === empty($fields['weekly_hours']) && null !== ($area = $this->getEntityManager()->getRepository(WeeklyHours::class)->find($fields['weekly_hours']))) {
                 $criteria->andWhere($criteria->expr()->eq('weeklyHoursAvailable', $area));
             }
@@ -68,6 +74,7 @@ class DashboardController extends AbstractController
                 $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
                 $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
             }
+
             if (isset($fields['car_available'])){
                 $criteria->andWhere($criteria->expr()->eq('carAvailable', true));
             }
