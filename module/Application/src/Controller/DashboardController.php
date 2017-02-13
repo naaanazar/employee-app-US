@@ -17,6 +17,10 @@ use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class DashboardController
+ * @package Application\Controller
+ */
 class DashboardController extends AbstractController
 {
 
@@ -46,14 +50,14 @@ class DashboardController extends AbstractController
             $criteria
                 ->where($criteria->expr()->contains('name', $fields['name']))
                 ->andWhere($criteria->expr()->contains('surname', $fields['surname']))
-//                ->andWhere($criteria->expr()->contains('city', $fields['city']))
-//                ->andWhere($criteria->expr()->contains('address', $fields['address']))
-//                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
-//                ->andWhere($criteria->expr()->contains('mobilePhone', $fields['mobile_phone']))
-//                ->andWhere($criteria->expr()->contains('landlinePhone', $fields['landline_phone']))
-//                ->andWhere($criteria->expr()->contains('email', $fields['email']))
-//                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
-                ->andWhere($criteria->expr()->contains('experience', $fields['experience']));
+                ->andWhere($criteria->expr()->contains('city', $fields['city']))
+                ->andWhere($criteria->expr()->contains('address', $fields['address']))
+                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
+                ->andWhere($criteria->expr()->contains('email', $fields['email']))
+                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
+                ->andWhere($criteria->expr()->contains('experience', $fields['experience']))
+                ->andWhere($criteria->expr()->eq('carAvailable', $fields['car_available']))
+                ->andWhere($criteria->expr()->eq('drivingLicence', $fields['driving_license']));
 
             if (false === empty($fields['area_around']) && null !== ($area = $this->getEntityManager()->getRepository(Area::class)->find($fields['area_around']))) {
                 $criteria->andWhere($criteria->expr()->eq('areaAround', $area));
@@ -73,14 +77,6 @@ class DashboardController extends AbstractController
 
                 $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
                 $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
-            }
-
-            if (isset($fields['car_available'])){
-                $criteria->andWhere($criteria->expr()->eq('carAvailable', true));
-            }
-
-            if (isset($fields['driving_license'])){
-                $criteria->andWhere($criteria->expr()->eq('drivingLicence', true));
             }
         }
 
@@ -126,13 +122,17 @@ class DashboardController extends AbstractController
         return $view;
     }
 
+    /**
+     * Dashboard  configure area around action
+     *      *
+     * @return ViewModel|array
+     */
     public function areasAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
             && null !== $this->getRequest()->getPost('area_value')
         ){
-
             $value = $this->getRequest()->getPost('area_value');
             $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * 1000;
 
@@ -157,7 +157,6 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-
             $paginator = new Paginator(
                 new Doctrine(Area::class)
             );
@@ -176,6 +175,11 @@ class DashboardController extends AbstractController
         }
     }
 
+    /**
+     * Dashboard  configure area around action
+     *
+     * @return ViewModel|array
+     */
     public function registerKeysAction()
     {
         if (true === $this->getRequest()->isPost()
@@ -221,13 +225,17 @@ class DashboardController extends AbstractController
         }
     }
 
+    /**
+     * Dashboard  configure contracts type action
+     *
+     * @return ViewModel|array
+     */
     public function contractAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
             && null !== $this->getRequest()->getPost('name')
         ){
-
             $name = $this->getRequest()->getPost('name');
             $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
 
@@ -252,7 +260,6 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-
             $paginator = new Paginator(
                 new Doctrine(Contract::class)
             );
@@ -271,13 +278,17 @@ class DashboardController extends AbstractController
         }
     }
 
+    /**
+     * Dashboard  configure weekly hours action
+     *
+     * @return ViewModel|array
+     */
     public function weeklyHoursAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
             && null !== $this->getRequest()->getPost('value')
         ){
-
             $value = $this->getRequest()->getPost('value');
             $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * 3600;
 
@@ -302,7 +313,6 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-
             $paginator = new Paginator(
                 new Doctrine(WeeklyHours::class)
             );
@@ -321,6 +331,11 @@ class DashboardController extends AbstractController
         }
     }
 
+    /**
+     * Dashboard  show statistics action
+     *
+     * @return ViewModel
+     */
     public function statisticsAction()
     {
         $criteria = [];
