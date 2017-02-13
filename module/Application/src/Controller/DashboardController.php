@@ -34,8 +34,8 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * Search Employee action
-     *      *
+     * Search employees action
+     *
      * @return ViewModel
      */
     public function searchAction()
@@ -66,6 +66,7 @@ class DashboardController extends AbstractController
             if (false === empty($fields['contract_type']) && null !== ($area = $this->getEntityManager()->getRepository(Contract::class)->find($fields['contract_type']))) {
                 $criteria->andWhere($criteria->expr()->eq('contract', $area));
             }
+
             if (false === empty($fields['weekly_hours']) && null !== ($area = $this->getEntityManager()->getRepository(WeeklyHours::class)->find($fields['weekly_hours']))) {
                 $criteria->andWhere($criteria->expr()->eq('weeklyHoursAvailable', $area));
             }
