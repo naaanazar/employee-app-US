@@ -134,6 +134,12 @@ class Employee
     private $hourlyRate;
 
     /**
+     * @var /Datetime
+     * @ORM\Column(name="date", type="datetime",  nullable=true)
+     */
+    private $date;
+
+    /**
      * @return int
      */
     public function getId()
@@ -267,6 +273,14 @@ class Employee
     public function getStartDate()
     {
         return $this->startDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
     /**
@@ -435,6 +449,17 @@ class Employee
     public function setStartDate($startDate)
     {
         $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $date
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
 
         return $this;
     }
