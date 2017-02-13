@@ -135,16 +135,37 @@ class Employee
 
     /**
      * @var /Datetime
-     * @ORM\Column(name="date", type="datetime",  nullable=true)
+     * @ORM\Column(name="created_at", type="datetime")
      */
-    private $date;
+    private $createdAt;
 
+    /**
+     * @var /Datetime
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
     /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     /**
@@ -273,14 +294,6 @@ class Employee
     public function getStartDate()
     {
         return $this->startDate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -453,18 +466,7 @@ class Employee
         return $this;
     }
 
-    /**
-     * @param mixed $date
-     * @return $this
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
+  /**
      * @param string $comments
      * @return $this
      */
@@ -507,5 +509,28 @@ class Employee
 
         return $this;
     }
+
+    /**
+     * @param $createdAt
+     * @return $this
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
 
 }
