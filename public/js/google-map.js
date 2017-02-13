@@ -3,7 +3,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
 	return {
 		init: function(){
 			return new google.maps.Map(document.getElementById('map'), {
-				center: {lat: 49.007073, lng: 30.2600184},
+				center: {lat: 50.98609893339354, lng: 10.39306640625},
 				zoom: 6
 			});
 		},

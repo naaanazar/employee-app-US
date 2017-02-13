@@ -45,9 +45,11 @@
                                             if (status == google.maps.GeocoderStatus.OK) {
 
                                                 var address = results[0].formatted_address.split(',');
+                                                var city = address[1].trim().split(' ');
 
-                                                document.getElementById('city_field').value = address[2].trim();
-                                                document.getElementById('address_field').value = address[0].trim() + ' ' + address[1].trim();
+                                                document.getElementById('city_field').value = city[1];
+                                                document.getElementById('address_field').value = address[0].trim();
+                                                document.getElementById('zip_field').value = city[0];
                                             }
                                         });
 
@@ -80,7 +82,7 @@
 
                                     setAddress: function () {
 
-                                        this.fullAddress = '';
+                                        this.fullAddress = 'Germany,';
 
                                         if ('' != jQuery('#zip_field').val()) {
                                             this.fullAddress = this.fullAddress + jQuery('#zip_field').val() + ',';

@@ -134,11 +134,38 @@ class Employee
     private $hourlyRate;
 
     /**
+     * @var /Datetime
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var /Datetime
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updated;
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**
@@ -439,7 +466,7 @@ class Employee
         return $this;
     }
 
-    /**
+  /**
      * @param string $comments
      * @return $this
      */
@@ -482,5 +509,28 @@ class Employee
 
         return $this;
     }
+
+    /**
+     * @param $createdAt
+     * @return $this
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
 
 }
