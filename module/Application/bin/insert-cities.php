@@ -15,6 +15,10 @@ foreach ($citiesFiles as $citiesFile) {
     while (true === $file->valid()) {
         $row = array_combine($columns, $file->fgetcsv());
 
+        if ($row['Country'] !== 'de') {
+            continue;
+        }
+
         $employee = new \Application\Model\Employee();
         $employee->setName($row['City']);
         $employee->setSurname($row['Country']);

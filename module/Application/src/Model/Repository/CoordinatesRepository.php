@@ -19,7 +19,7 @@ class CoordinatesRepository extends EntityRepository
      */
     public function getCoordinatesInRange(Coordinates $coordinates)
     {
-        $agregator = new Agregator($coordinates);;
+        $agregator = new Agregator($coordinates);
         $coordinatesModels = $this->findAll();
 
         foreach ($coordinatesModels as $index => $coordinatesModel) {

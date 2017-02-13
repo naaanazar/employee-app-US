@@ -5,9 +5,11 @@ namespace Application\Controller;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
+use Application\Model\Employee;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
 use Application\Model\Repository\CoordinatesRepository;
+use Application\Model\Repository\EmployeeRepository;
 use Application\Model\WeeklyHours;
 use Application\Model\Employee as EmployeeM;
 use Doctrine\Common\Collections\Criteria;
@@ -41,64 +43,73 @@ class DashboardController extends AbstractController
     public function searchAction()
     {
         $criteria = [];
-        if (true === $this->getRequest()->isPost()
-            && null !== $this->getRequest()->getPost('name')
-        ) {
-            $fields = $this->getRequest()->getPost();
-            $criteria = new Criteria();
 
-            $criteria
-                ->where($criteria->expr()->contains('name', $fields['name']))
-                ->andWhere($criteria->expr()->contains('surname', $fields['surname']))
-                ->andWhere($criteria->expr()->contains('city', $fields['city']))
-                ->andWhere($criteria->expr()->contains('address', $fields['address']))
-                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
-                ->andWhere($criteria->expr()->contains('email', $fields['email']))
-                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
-                ->andWhere($criteria->expr()->contains('experience', $fields['experience']))
-                ->andWhere($criteria->expr()->eq('carAvailable', $fields['car_available']))
-                ->andWhere($criteria->expr()->eq('drivingLicence', $fields['driving_license']));
+        if (true === $this->getRequest()->isPost()) {
+            $post = $this->getRequest()->getPost();
 
-            if (false === empty($fields['area_around']) && null !== ($area = $this->getEntityManager()->getRepository(Area::class)->find($fields['area_around']))) {
-                $criteria->andWhere($criteria->expr()->eq('areaAround', $area));
+            /** @var EmployeeRepository $employeesRepository */
+            $employeesRepository = $this->getEntityManager()->getRepository(Employee::class);
+
+            $employeesRepository
+                ->addExpression('contains', 'name', $post['name'])
+                ->addExpression('contains', 'surname', $post['surname'])
+                ->addExpression('contains', 'address', $post['address']);
+
+
+//            $criteria
+//                ->where($criteria->expr()->contains('name', $fields['name']))
+//                ->andWhere($criteria->expr()->contains('surname', $fields['surname']))
+//                ->andWhere($criteria->expr()->contains('city', $fields['city']))
+//                ->andWhere($criteria->expr()->contains('address', $fields['address']))
+//                ->andWhere($criteria->expr()->contains('zip', $fields['zip']))
+//                ->andWhere($criteria->expr()->contains('email', $fields['email']))
+//                ->andWhere($criteria->expr()->contains('hourlyRate', $fields['hourly_rate']))
+//                ->andWhere($criteria->expr()->contains('experience', $fields['experience']))
+//                ->andWhere($criteria->expr()->eq('carAvailable', $fields['car_available']))
+//                ->andWhere($criteria->expr()->eq('drivingLicence', $fields['driving_license']));
+//
+//            if (false === empty($fields['area_around']) && null !== ($area = $this->getEntityManager()->getRepository(Area::class)->find($fields['area_around']))) {
+//                $criteria->andWhere($criteria->expr()->eq('areaAround', $area));
+//            }
+//
+//            if (false === empty($fields['contract_type']) && null !== ($area = $this->getEntityManager()->getRepository(Contract::class)->find($fields['contract_type']))) {
+//                $criteria->andWhere($criteria->expr()->eq('contract', $area));
+//            }
+//
+//            if (false === empty($fields['weekly_hours']) && null !== ($area = $this->getEntityManager()->getRepository(WeeklyHours::class)->find($fields['weekly_hours']))) {
+//                $criteria->andWhere($criteria->expr()->eq('weeklyHoursAvailable', $area));
+//            }
+//
+//            if( !empty($fields['start'])) {
+//                $dateStart = (new \DateTime ($fields['start']));
+//                $dateEnd = (new \DateTime ($fields['end']));
+//
+//                $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
+//                $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
+//            }
+
+            if (false === empty($post['longitude']) && false === empty($post['latitude'])) {
+                $coordinates = (new Coordinates())
+                    ->setLatitude($post['latitude'])
+                    ->setLongitude($post['longitude']);
+
+                /** @var CoordinatesRepository $coordinatesRepo */
+                $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
+
+                $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
+
+                $employeesIds = array_map(
+                    function ($coordinate) {
+                        /** @var Coordinates $coordinate */
+                        return $coordinate->getEmployee()->getId();
+                    },
+                    $coordinates
+                );
+
+                $employeesRepository->addExpression('in', 'id', $employeesIds);
             }
 
-            if (false === empty($fields['contract_type']) && null !== ($area = $this->getEntityManager()->getRepository(Contract::class)->find($fields['contract_type']))) {
-                $criteria->andWhere($criteria->expr()->eq('contract', $area));
-            }
-
-            if (false === empty($fields['weekly_hours']) && null !== ($area = $this->getEntityManager()->getRepository(WeeklyHours::class)->find($fields['weekly_hours']))) {
-                $criteria->andWhere($criteria->expr()->eq('weeklyHoursAvailable', $area));
-            }
-
-            if( !empty($fields['start'])) {
-                $dateStart = (new \DateTime ($fields['start']));
-                $dateEnd = (new \DateTime ($fields['end']));
-
-                $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
-                $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
-            }
-        }
-
-        if (false === empty($fields['longitude']) && false === empty($fields['latitude'])) {
-            $coordinates = (new Coordinates())
-                ->setLatitude($fields['latitude'])
-                ->setLongitude($fields['longitude']);
-
-            /** @var CoordinatesRepository $coordinatesRepo */
-            $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
-
-            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
-
-            $employeesIds = array_map(
-                function ($coordinate) {
-                    /** @var Coordinates $coordinate */
-                    return $coordinate->getEmployee()->getId();
-                },
-                $coordinates
-            );
-
-            $criteria->andWhere($criteria->expr()->in('id', $employeesIds));
+            $criteria = $employeesRepository->buildCriteria();
         }
 
         $paginator = new Paginator(
