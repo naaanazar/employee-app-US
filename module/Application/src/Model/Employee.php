@@ -137,13 +137,13 @@ class Employee
      * @var /Datetime
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    private $created;
 
     /**
      * @var /Datetime
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    private $updated;
     /**
      * @return int
      */
