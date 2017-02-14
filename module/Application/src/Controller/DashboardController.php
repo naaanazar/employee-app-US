@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Back\Form\Search\Dashboard\Statistic;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
@@ -331,64 +332,14 @@ class DashboardController extends AbstractController
      */
     public function statisticsAction()
     {
-        $criteria = [];
-        if (true === $this->getRequest()->isPost()
-            && null !== $this->getRequest()->getPost('statistic_date')
-        ) {
-            $post = $this->getRequest()->getPost();
+        $search = new Statistic($post = $this->getRequest()->getPost());
 
-            /** @var EmployeeRepository $employeesRepository */
-            $employeesRepository = $this->getEntityManager()->getRepository(Employee::class);
-
-            if( !empty($post['statistic_date'])) {
-
-                $dateEnd = new \DateTime ();
-                $dateStart = new \DateTime (date('Y-m-d', strtotime("-". $post['statistic_date'] ." days")));
-
-                $employeesRepository
-                    ->addExpression('gt', 'created', $dateStart)
-                    ->addExpression('lt', 'created', $dateEnd);
-            }
-            $criteria = $employeesRepository->buildCriteria();
-        }
-
-        $paginator = new Paginator(
-            new Doctrine(Employee::class, $criteria)
-        );
-
-//        if (false === empty($fields['longitude']) && false === empty($fields['latitude']) && false === empty($fields['range'])) {
-//        $coordinates = (new Coordinates())
-//            ->setLatitude($fields['latitude'])
-//            ->setLongitude($fields['longitude']);
-//
-//        /** @var CoordinatesRepository $coordinatesRepo */
-//        $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
-//
-//        $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates, $fields['range']*1000);
-//
-//        $employees = array_map(
-//            function ($coordinate) {
-//                /** @var Coordinates $coordinate */
-//                return $coordinate->getEmployee();
-//            },
-//            $coordinates
-//        );
-//
-//        $paginator->getAdapter()->setAdditionalItems($employees);
-//    }
-
-        $paginator->setItemCountPerPage(20);
-        $paginator->setCurrentPageNumber($this->params('page', 1));
-
-        $view = new ViewModel();
-        $view->setVariables(
+        return new ViewModel(
             [
-                'paginator' => $paginator,
-                'post'    => $post
+                'paginator' => $search->getResult(),
+                'post'      => $post
             ]
         );
-
-        return $view;
     }
 
 }
