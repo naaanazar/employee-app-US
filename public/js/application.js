@@ -24,6 +24,13 @@ jQuery(document).on('change', '#select-language', function () {
 });
 
 /**
+ * Event of statistic last date change
+ */
+jQuery(document).on('change', '.statistics-form', function () {
+    $(".statistics-form").submit();
+});
+
+/**
  * Modal action event
  */
 jQuery(document).on('click', '.modal-action', function (event) {
@@ -40,15 +47,21 @@ jQuery(document).on('click', '.modal-action', function (event) {
  */
 jQuery('document').ready(function () {
    $('.nav-stacked').find('a[href="' + window.location.href + '"]').parent().addClass('active')
-
+    /**
+     * init datapicker
+     */
     jQuery('input .input-group.date').datepicker({});
-
+    /**
+     * set datapicker range search form
+     */
     jQuery('#sandbox-container .input-daterange').datepicker({
         autoclose: true,
         todayHighlight: true,
         format: 'yyyy-mm-dd'
     });
-
+    /**
+     * set datapicker employee form
+     */
     jQuery("#start_day_field_picker").datepicker({
             autoclose: true,
             todayBtn: "linked",

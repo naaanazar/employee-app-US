@@ -11,7 +11,6 @@ use Application\Model\Contract;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
 use Application\Model\WeeklyHours;
-use Application\Model\Employee as EmployeeModel;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
@@ -93,10 +92,12 @@ class DashboardController extends AbstractController
             }
 
             $criteria = $employeesRepository->buildCriteria();
+
+
         }
 
         $paginator = new Paginator(
-            new Doctrine(EmployeeModel::class, $criteria)
+            new Doctrine(Employee::class, $criteria)
         );
 
         $paginator->setItemCountPerPage(20);
@@ -336,43 +337,47 @@ class DashboardController extends AbstractController
         if (true === $this->getRequest()->isPost()
             && null !== $this->getRequest()->getPost('statistic_date')
         ) {
-            $fields = $this->getRequest()->getPost();
-            $criteria = new Criteria();
+            $post = $this->getRequest()->getPost();
 
-            if( !empty($fields['statistic_date'])) {
+            /** @var EmployeeRepository $employeesRepository */
+            $employeesRepository = $this->getEntityManager()->getRepository(Employee::class);
+
+            if( !empty($post['statistic_date'])) {
 
                 $dateEnd = new \DateTime ();
-                $dateStart = new \DateTime (date('Y-m-d', strtotime("-". $fields['statistic_date'] ." days")));
+                $dateStart = new \DateTime (date('Y-m-d', strtotime("-". $post['statistic_date'] ." days")));
 
-                $criteria->andWhere($criteria->expr()->gt('startDate', $dateStart));
-                $criteria->andWhere($criteria->expr()->lt('startDate', $dateEnd));
+                $employeesRepository
+                    ->addExpression('gt', 'created', $dateStart)
+                    ->addExpression('lt', 'created', $dateEnd);
             }
+            $criteria = $employeesRepository->buildCriteria();
         }
 
         $paginator = new Paginator(
-            new Doctrine(EmployeeModel::class, $criteria)
+            new Doctrine(Employee::class, $criteria)
         );
 
-        if (false === empty($fields['longitude']) && false === empty($fields['latitude']) && false === empty($fields['range'])) {
-            $coordinates = (new Coordinates())
-                ->setLatitude($fields['latitude'])
-                ->setLongitude($fields['longitude']);
-
-            /** @var CoordinatesRepository $coordinatesRepo */
-            $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
-
-            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates, $fields['range']*1000);
-
-            $employees = array_map(
-                function ($coordinate) {
-                    /** @var Coordinates $coordinate */
-                    return $coordinate->getEmployee();
-                },
-                $coordinates
-            );
-
-            $paginator->getAdapter()->setAdditionalItems($employees);
-        }
+//        if (false === empty($fields['longitude']) && false === empty($fields['latitude']) && false === empty($fields['range'])) {
+//        $coordinates = (new Coordinates())
+//            ->setLatitude($fields['latitude'])
+//            ->setLongitude($fields['longitude']);
+//
+//        /** @var CoordinatesRepository $coordinatesRepo */
+//        $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
+//
+//        $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates, $fields['range']*1000);
+//
+//        $employees = array_map(
+//            function ($coordinate) {
+//                /** @var Coordinates $coordinate */
+//                return $coordinate->getEmployee();
+//            },
+//            $coordinates
+//        );
+//
+//        $paginator->getAdapter()->setAdditionalItems($employees);
+//    }
 
         $paginator->setItemCountPerPage(20);
         $paginator->setCurrentPageNumber($this->params('page', 1));
@@ -381,7 +386,7 @@ class DashboardController extends AbstractController
         $view->setVariables(
             [
                 'paginator' => $paginator,
-                'fields'    => $this->getRequest()->getPost()
+                'post'    => $post
             ]
         );
 
