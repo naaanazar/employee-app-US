@@ -4,6 +4,10 @@ namespace Application\Back\Paginator;
 
 use Zend\Paginator\Paginator;
 
+/**
+ * Class Doctrine
+ * @package Application\Back\Paginator
+ */
 class Doctrine extends Paginator
 {
     /**
