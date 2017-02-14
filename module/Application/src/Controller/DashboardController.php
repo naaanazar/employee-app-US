@@ -92,8 +92,6 @@ class DashboardController extends AbstractController
             }
 
             $criteria = $employeesRepository->buildCriteria();
-
-
         }
 
         $paginator = new Paginator(

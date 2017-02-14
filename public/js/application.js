@@ -47,10 +47,12 @@ jQuery(document).on('click', '.modal-action', function (event) {
  */
 jQuery('document').ready(function () {
    $('.nav-stacked').find('a[href="' + window.location.href + '"]').parent().addClass('active')
+
     /**
      * init datapicker
      */
     jQuery('input .input-group.date').datepicker({});
+
     /**
      * set datapicker range search form
      */
@@ -59,6 +61,7 @@ jQuery('document').ready(function () {
         todayHighlight: true,
         format: 'yyyy-mm-dd'
     });
+
     /**
      * set datapicker employee form
      */
@@ -75,6 +78,10 @@ jQuery('document').ready(function () {
  * @type {{showErrorsMassages: Validate.showErrorsMassages, redirect: Validate.redirect}}
  */
 var Validate = {
+    /**
+     * show errors block under form fields
+     * @param errors
+     */
     showErrorsMassages: function(errors) {
         jQuery('.errors-block').remove();
 
