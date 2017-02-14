@@ -2,17 +2,27 @@
 
 namespace Application\Controller;
 
+use Application\Back\Form\Search\Dashboard\Statistic;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
+use Application\Model\Coordinates;
+use Application\Model\Employee;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
+use Application\Model\Repository\CoordinatesRepository;
+use Application\Model\Repository\EmployeeRepository;
 use Application\Model\WeeklyHours;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class DashboardController
+ * @package Application\Controller
+ */
 class DashboardController extends AbstractController
 {
 
@@ -25,18 +35,98 @@ class DashboardController extends AbstractController
     {
     }
 
+    /**
+     * Search employees action
+     *
+     * @return ViewModel
+     */
     public function searchAction()
     {
+        $criteria = [];
 
+        if (true === $this->getRequest()->isPost()) {
+            $post = $this->getRequest()->getPost();
+
+            /** @var EmployeeRepository $employeesRepository */
+            $employeesRepository = $this->getEntityManager()->getRepository(Employee::class);
+
+            $employeesRepository
+                ->addExpression('contains', 'name', $post['name'])
+                ->addExpression('contains', 'surname', $post['surname'])
+                ->addExpression('contains', 'address', $post['address'])
+                ->addExpression('contains', 'city', $post['city'])
+                ->addExpression('contains', 'zip', $post['zip'])
+                ->addExpression('contains', 'email', $post['email'])
+                ->addExpression('contains', 'hourlyRate', $post['hourly_rate'])
+                ->addExpression('contains', 'experience', $post['experience'])
+                ->addExpression('eq', 'carAvailable', $post['car_available'])
+                ->addExpression('eq', 'drivingLicence', $post['driving_license'])
+                ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($post['area_around']))
+                ->addExpression('eq', 'contract', $this->getEntityManager()->getRepository(Contract::class)->find($post['contract_type']))
+                ->addExpression('eq', 'weeklyHoursAvailable', $this->getEntityManager()->getRepository(WeeklyHours::class)->find($post['weekly_hours']));
+
+                if( !empty($post['start'])) {
+                    $employeesRepository
+                        ->addExpression('gt', 'startDate', (new \DateTime ($post['start'])))
+                        ->addExpression('lt', 'startDate', (new \DateTime ($post['end'])));
+                }
+
+            if (false === empty($post['longitude']) && false === empty($post['latitude'])) {
+                $coordinates = (new Coordinates())
+                    ->setLatitude($post['latitude'])
+                    ->setLongitude($post['longitude']);
+
+                /** @var CoordinatesRepository $coordinatesRepo */
+                $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
+
+                $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
+
+                $employeesIds = array_map(
+                    function ($coordinate) {
+                        /** @var Coordinates $coordinate */
+                        return $coordinate->getEmployee()->getId();
+                    },
+                    $coordinates
+                );
+
+                $employeesRepository->addExpression('in', 'id', $employeesIds);
+            }
+
+            $criteria = $employeesRepository->buildCriteria();
+        }
+
+        $paginator = new Paginator(
+            new Doctrine(Employee::class, $criteria)
+        );
+
+        $paginator->setItemCountPerPage(20);
+        $paginator->setCurrentPageNumber($this->params('page', 1));
+
+        $view = new ViewModel();
+        $view->setVariables(
+            [
+                'paginator'     => $paginator,
+                'contracts'     => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'weeklyHours'   => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                'fields'        => $this->getRequest()->getPost()
+            ]
+        );
+
+        return $view;
     }
 
+    /**
+     * Dashboard  configure area around action
+     *      *
+     * @return ViewModel|array
+     */
     public function areasAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
             && null !== $this->getRequest()->getPost('area_value')
         ){
-
             $value = $this->getRequest()->getPost('area_value');
             $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * 1000;
 
@@ -61,7 +151,6 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-
             $paginator = new Paginator(
                 new Doctrine(Area::class)
             );
@@ -76,10 +165,15 @@ class DashboardController extends AbstractController
                 ]
             );
 
-        return $view;
+            return $view;
         }
     }
 
+    /**
+     * Dashboard  configure area around action
+     *
+     * @return ViewModel|array
+     */
     public function registerKeysAction()
     {
         if (true === $this->getRequest()->isPost()
@@ -125,13 +219,17 @@ class DashboardController extends AbstractController
         }
     }
 
+    /**
+     * Dashboard  configure contracts type action
+     *
+     * @return ViewModel|array
+     */
     public function contractAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
             && null !== $this->getRequest()->getPost('name')
         ){
-
             $name = $this->getRequest()->getPost('name');
             $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
 
@@ -156,7 +254,6 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-
             $paginator = new Paginator(
                 new Doctrine(Contract::class)
             );
@@ -175,13 +272,17 @@ class DashboardController extends AbstractController
         }
     }
 
+    /**
+     * Dashboard  configure weekly hours action
+     *
+     * @return ViewModel|array
+     */
     public function weeklyHoursAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
             && null !== $this->getRequest()->getPost('value')
         ){
-
             $value = $this->getRequest()->getPost('value');
             $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * 3600;
 
@@ -206,7 +307,6 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-
             $paginator = new Paginator(
                 new Doctrine(WeeklyHours::class)
             );
@@ -223,6 +323,23 @@ class DashboardController extends AbstractController
 
             return $view;
         }
+    }
+
+    /**
+     * Dashboard  show statistics action
+     *
+     * @return ViewModel
+     */
+    public function statisticsAction()
+    {
+        $search = new Statistic($post = $this->getRequest()->getPost());
+
+        return new ViewModel(
+            [
+                'paginator' => $search->getResult(),
+                'post'      => $post
+            ]
+        );
     }
 
 }

@@ -4,6 +4,7 @@ namespace Application\Back\Paginator\Adapter;
 
 use Application\Module;
 
+use Doctrine\Common\Collections\Criteria;
 use Zend\Paginator\Adapter\AdapterInterface;
 
 /**
@@ -19,7 +20,7 @@ class Doctrine implements AdapterInterface
     protected $entity;
 
     /**
-     * @var array
+     * @var array|Criteria
      */
     protected $criteria;
 
@@ -27,6 +28,11 @@ class Doctrine implements AdapterInterface
      * @var array
      */
     protected $orderBy;
+
+    /**
+     * @var array
+     */
+    protected $additionalItems;
 
     /**
      * Doctrine constructor.
@@ -41,6 +47,11 @@ class Doctrine implements AdapterInterface
         $this->orderBy = $orderBy;
     }
 
+    public function setAdditionalItems(array $items)
+    {
+        $this->additionalItems = $items;
+    }
+
     /**
      * @param int $offset
      * @param int $itemCountPerPage
@@ -49,7 +60,20 @@ class Doctrine implements AdapterInterface
     public function getItems($offset, $itemCountPerPage)
     {
         $repo = Module::entityManager()->getRepository($this->entity);
-        return $repo->findBy($this->criteria, $this->orderBy, $itemCountPerPage, $offset);
+
+        if (true === $this->criteria instanceof Criteria) {
+            $this->criteria->setFirstResult($offset)->setMaxResults($itemCountPerPage);
+
+            $result = $repo->matching($this->criteria)->toArray();
+        } else {
+            $result = $repo->findBy($this->criteria, $this->orderBy, $itemCountPerPage, $offset);
+        }
+
+        if (null !== $this->additionalItems) {
+            $result = array_merge($result, $this->additionalItems);
+        }
+
+        return $result;
     }
 
     /**
@@ -60,7 +84,7 @@ class Doctrine implements AdapterInterface
         return Module::entityManager()
             ->getUnitOfWork()
             ->getEntityPersister($this->entity)
-            ->count();
+            ->count($this->criteria);
     }
 
 }

@@ -10,5 +10,6 @@ return [
             $authService->setStorage($storage);
             return $authService;
         },
+
     ],
 ];

@@ -57,50 +57,6 @@ class Agregator
 
         return static::EARTH_RADIUS * $c;
     }
-
-    /**
-     * @param $distance
-     * @return float
-     */
-    public function getMinimumLatitude($distance)
-    {
-        return $this->coordinates->getLatitude() - ($distance/static::LATITUDE_IN_METERS);
-    }
-
-    /**
-     * @param $distance
-     * @return float
-     */
-    public function getMaximumLatitude($distance)
-    {
-        return $this->coordinates->getLatitude() + ($distance/static::LATITUDE_IN_METERS);
-    }
-
-    /**
-     * @param $distance
-     * @return float
-     */
-    public function getMinimumLongitude($distance)
-    {
-        return $this->coordinates->getLongitude() - ($distance/$this->getLongitudeDegreeInMeters());
-    }
-
-    /**
-     * @param $distance
-     * @return float
-     */
-    public function getMaximumLongitude($distance)
-    {
-        return $this->coordinates->getLongitude() + ($distance/$this->getLongitudeDegreeInMeters());
-    }
-
-    /**
-     * @return float
-     */
-    protected function getLongitudeDegreeInMeters()
-    {
-        return static::LONGITUDE_COF_IN_METERS * cos($this->coordinates->getLatitude());
-    }
     
     /**
      * @param $number

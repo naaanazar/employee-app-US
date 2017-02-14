@@ -188,3 +188,23 @@ fieldset[disabled] .batton-save.active {
 .map {
     height: 500px;
 }
+
+/*Dashboard*/
+
+
+.nav-dashboard .active a,
+.nav-dashboard .active a:hover {
+    background-color: #91BF2D !important;
+}
+
+.nav-dashboard a{
+    color:#91BF2D;
+}
+
+.nav-dashboard{
+    color:#91BF2D !important;
+}
+
+.a-dashboard{
+    color:#91BF2D;
+}

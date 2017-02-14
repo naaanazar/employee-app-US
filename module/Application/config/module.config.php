@@ -61,5 +61,12 @@ return [
         'en_US' => 'English',
         'uk_UA' => 'Українська',
         'de_DE' => 'Deutsch',
+    ],
+    'fixtures' => [
+        // Format below
+        // Country,City,AccentCity,Region,Population,Latitude,Longitude
+        'cities' => [
+            __DIR__ . '/../../../data/bin/fixtures/worldcities.txt'
+        ]
     ]
 ];

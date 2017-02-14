@@ -70,6 +70,9 @@ return [
                 'controller' => Controller\EmployeeController::class,
                 'action' => 'index'
             ],
+            'constraints' => [
+                'action' => '[a-z\-]+'
+            ],
         ],
     ],
     'dashboard' => [
