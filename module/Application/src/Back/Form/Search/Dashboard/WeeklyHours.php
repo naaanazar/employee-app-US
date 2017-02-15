@@ -9,7 +9,7 @@ use Application\Module;
 use Zend\Paginator\Paginator;
 
 /**
- * Class Statistic
+ * Class WeeklyHours
  * @package Application\Back\Form\Search\Dashboard
  */
 class WeeklyHours extends AbstractSearch

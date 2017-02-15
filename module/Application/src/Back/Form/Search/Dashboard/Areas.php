@@ -9,7 +9,7 @@ use Application\Module;
 use Zend\Paginator\Paginator;
 
 /**
- * Class Statistic
+ * Class Areas
  * @package Application\Back\Form\Search\Dashboard
  */
 class Areas extends AbstractSearch
