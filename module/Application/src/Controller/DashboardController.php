@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Back\Form\Search\Dashboard\Overview;
 use Application\Back\Form\Search\Dashboard\Statistic;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
@@ -119,6 +120,25 @@ class DashboardController extends AbstractController
         );
 
         return $view;
+    }
+
+    /**
+     * Overview application action
+     *
+     * @return ViewModel
+     */
+    public function overviewAction()
+    {
+        $search = new Overview($post = $this->getRequest()->getPost());
+
+        return new ViewModel(
+            [
+                'paginator' => $search->getResult(),
+                'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'fields'        => $this->getRequest()->getPost()
+            ]
+        );
+
     }
 
     /**
