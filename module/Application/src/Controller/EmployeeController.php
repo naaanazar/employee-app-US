@@ -97,7 +97,10 @@ class EmployeeController extends AbstractController
                     ->setHourlyRate          ($form->get('hourly_rate')->getValue())
                     ->setExperience          ((bool)$form->get('experience')->getValue())
                     ->setCarAvailable        ((bool)$form->get('car_available')->getValue())
-                    ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue());
+                    ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
+                    ->setCreated(new \DateTime())
+                    ->setUpdated(new \DateTime())
+                    ->setHash(EmployeeModel::hashKey());
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
@@ -115,7 +118,17 @@ class EmployeeController extends AbstractController
                 $this->getEntityManager()->persist($coordinates);
                 $this->getEntityManager()->flush();
 
-                $response->setVariable('id', $employee->getId());
+                if (true === $employee instanceof EmployeeModel) {
+
+                    $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+
+                    $response->setVariables(
+                        [
+                            'id'       => $employee->getId(),
+                            'redirect' => $url
+                        ]
+                    );
+                }
             }
 
             return $response;
@@ -125,25 +138,24 @@ class EmployeeController extends AbstractController
     }
 
     /**
-     * Show one Employee action
-     *
-     * @return ViewModel
+     * @return array|ViewModel
      */
     public function showAction()
     {
-        $id = $this->params('id');
-        $view = new ViewModel();
-        $view->setTemplate('application/employee/show.phtml');
+        $hash = $this->params('hash');
+        $employee = $this->getEntityManager()
+            ->getRepository(EmployeeModel::class)
+            ->findOneBy(
+                [
+                    'hash' => $hash
+                ]
+            );
 
-        if (null === $id
-            || null === (
-                $employee = $this->getEntityManager()
-                    ->getRepository(EmployeeModel::class)
-                    ->find($id)
-            )
-        ) {
-            $this->notFoundAction();
+        if (null === $employee) {
+            return $this->notFoundAction();
         } else {
+            $view = new ViewModel();
+            $view->setTemplate('application/employee/show.phtml');
             $view->setVariable('employee', $employee);
         }
 

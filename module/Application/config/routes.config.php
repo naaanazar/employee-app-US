@@ -54,12 +54,12 @@ return [
     'show-employee' => [
         'type'    => Regex::class,
         'options' => [
-            'regex' => '/employee/(?<id>[0-9]+)',
+            'regex' => '/employee/(?<hash>[a-z0-9]{40})',
             'defaults' => [
                 'controller' => Controller\EmployeeController::class,
                 'action'     => 'show'
             ],
-            'spec' => '/employee/%id%'
+            'spec' => '/employee/%hash%'
         ]
     ],
     'employee' => [
