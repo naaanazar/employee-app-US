@@ -71,18 +71,7 @@ class UserController extends AbstractController
 
         /** @var Request $request */
         $request = $this->getRequest();
-
-        if (false === ($registerKey = $this->params('key', false))) {
-            $this->notFoundAction();
-        } else {
-            $repo = $this->getEntityManager()->getRepository(RegisterKey::class);
-
-            if (($registerKey = $repo->findOneBy(['value' => $registerKey])) === null
-                || $registerKey->isUsed() === true
-            ) {
-                $this->notFoundAction();
-            }
-        }
+        $repo = $this->getEntityManager()->getRepository(RegisterKey::class);
 
         if (true === $request->isPost() && true === $request->isXmlHttpRequest()) {
 
@@ -104,6 +93,17 @@ class UserController extends AbstractController
                 $user->setName($form->get('name')->getValue());
                 $user->setPassword(User::hashPassword($form->get('password')->getValue()));
                 $user->setRole(0);
+
+                if (false !== ($registerKey = $this->params('key', false))
+                    && $registerKey = $repo->findOneBy(['value' => $registerKey])
+                ) {
+                    /** @var RegisterKey $role */
+                    $role = $registerKey->getRole();
+                } else {
+                    $role = 'user';
+                }
+
+                $user->setRole($role);
 
                 $this->getEntityManager()->persist($user);
                 $this->getEntityManager()->flush();

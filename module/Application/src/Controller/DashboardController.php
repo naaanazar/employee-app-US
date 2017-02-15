@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Back\Form\Search\Dashboard\Overview;
 use Application\Back\Form\Search\Dashboard\Statistic;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
@@ -26,11 +27,21 @@ use Zend\View\Model\ViewModel;
 class DashboardController extends AbstractController
 {
 
+    /**
+     * @return array
+     */
     public function init()
     {
+        if ($this->getUser() === null || $this->getUser()->getRole() !== 'admin') {
+            return $this->notFoundAction();
+        }
+
         $this->layout('layout/admin');
     }
 
+    /**
+     * Index action
+     */
     public function indexAction()
     {
     }
@@ -109,6 +120,25 @@ class DashboardController extends AbstractController
         );
 
         return $view;
+    }
+
+    /**
+     * Overview application action
+     *
+     * @return ViewModel
+     */
+    public function overviewAction()
+    {
+        $search = new Overview($post = $this->getRequest()->getPost());
+
+        return new ViewModel(
+            [
+                'paginator' => $search->getResult(),
+                'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'fields'        => $this->getRequest()->getPost()
+            ]
+        );
+
     }
 
     /**

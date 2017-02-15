@@ -1,6 +1,7 @@
 <div class="row">
+
     <legend  style="color:#8f8f8f"><?= $this->translate('Create employee'); ?></legend>
-    <div class="col-md-6">
+    <div class="col-md-6 col-md-offset-3">
         <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="async">
             <div class="form-group">
                 <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
@@ -30,6 +31,10 @@
 
             <div class="form-group">
                 <button class="btn batton-save btn-sm  update-marker"><?= $this->translate('Update marker') ?></button>
+                <button class="btn batton-save btn-sm  hide-map"><?= $this->translate('Hide map') ?></button>
+                <div  id="init-map" style="display: none;">
+                    <div id="map" class="map frame"></div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -141,7 +146,5 @@
 
         </form>
     </div>
-    <div class="col-md-6">
-        <div id="map" class="map frame"></div>
-    </div>
+
 </div>
