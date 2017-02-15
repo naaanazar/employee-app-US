@@ -4,6 +4,9 @@ namespace Application\Controller;
 
 use Application\Back\Form\Search\Dashboard\Overview;
 use Application\Back\Form\Search\Dashboard\Statistic;
+use Application\Back\Form\Search\Dashboard\Areas;
+use Application\Back\Form\Search\Dashboard\Contract as ContractBack;
+use Application\Back\Form\Search\Dashboard\WeeklyHours as WeeklyHoursBack;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
@@ -176,21 +179,13 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-            $paginator = new Paginator(
-                new Doctrine(Area::class)
-            );
+            $search = new Areas($post = $this->getRequest()->getPost());
 
-            $paginator->setItemCountPerPage(20);
-            $paginator->setCurrentPageNumber($this->params('page', 1));
-
-            $view = new ViewModel();
-            $view->setVariables(
+            return new ViewModel(
                 [
-                    'paginator' => $paginator
+                    'paginator' => $search->getResult()
                 ]
             );
-
-            return $view;
         }
     }
 
@@ -279,21 +274,13 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-            $paginator = new Paginator(
-                new Doctrine(Contract::class)
-            );
+            $search = new ContractBack($post = $this->getRequest()->getPost());
 
-            $paginator->setItemCountPerPage(20);
-            $paginator->setCurrentPageNumber($this->params('page', 1));
-
-            $view = new ViewModel();
-            $view->setVariables(
+            return new ViewModel(
                 [
-                    'paginator' => $paginator
+                    'paginator' => $search->getResult()
                 ]
             );
-
-            return $view;
         }
     }
 
@@ -324,29 +311,21 @@ class DashboardController extends AbstractController
                     'redirect',
                     $this->url()->fromRoute('dashboard', ['action' => 'weekly-hours']));
             } catch (ORMInvalidArgumentException $exception) {
-                $json->setVariable('message', 'Invalid data to save area around');
+                $json->setVariable('message', 'Invalid data to save weekly-hours');
             } catch (OptimisticLockException $exception) {
-                $json->setVariable('message', 'Can not save area around to database');
+                $json->setVariable('message', 'Can not save weekly-hours to database');
             }
 
             return $json;
 
         } else {
-            $paginator = new Paginator(
-                new Doctrine(WeeklyHours::class)
-            );
+            $search = new WeeklyHoursBack($post = $this->getRequest()->getPost());
 
-            $paginator->setItemCountPerPage(20);
-            $paginator->setCurrentPageNumber($this->params('page', 1));
-
-            $view = new ViewModel();
-            $view->setVariables(
+            return new ViewModel(
                 [
-                    'paginator' => $paginator
+                    'paginator' => $search->getResult()
                 ]
             );
-
-            return $view;
         }
     }
 
