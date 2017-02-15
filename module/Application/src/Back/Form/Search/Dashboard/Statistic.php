@@ -24,10 +24,9 @@ class Statistic extends AbstractSearch
         /** @var EmployeeRepository $employeesRepository */
         $employeesRepository = Module::entityManager()->getRepository(Employee::class);
 
-        if (false === empty($post['statistic_date'])) {
-
+        if (false === empty($this->data['statistic_date'])) {
             $dateEnd = new \DateTime ();
-            $dateStart = new \DateTime (date('Y-m-d', strtotime("-". $post['statistic_date'] ." days")));
+            $dateStart = new \DateTime (date('Y-m-d', strtotime("-". $this->data['statistic_date'] ." days")));
 
             $employeesRepository
                 ->addExpression('gt', 'created', $dateStart)

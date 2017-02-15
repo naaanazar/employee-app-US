@@ -1,24 +1,14 @@
-<form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class=""  method="post">
-    <div class="row">
-        <div class="form-group col-md-3">
-            <label class="control-label application-label" " for="name_field"><?= $this->translate('Name') ?></label>
-            <input id="name_field" name="name" type="text" value="<?= isset($this->fields['name']) ? $this->fields['name'] : '' ?>" placeholder="" class="form-control input-md application-input">
-        </div>
 
-        <div class="collapse <?= isset($this->fields['surname']) ? 'in' : '' ?>" id="add-area-around" >
+
+    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class=""  method="post">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?></label>
+                <input id="name_field" name="name" type="text" value="<?= isset($this->fields['name']) ? $this->fields['name'] : '' ?>" placeholder="" class="form-control input-md application-input">
+            </div>
             <div class="form-group col-md-3">
                 <label class="control-label application-label" for="surname_field"><?= $this->translate('Surname') ?></label>
                 <input id="surname_field" name="surname" value="<?= isset($this->fields['surname']) ? $this->fields['surname'] : '' ?>" type="text" placeholder="" class="form-control input-md application-input">
-            </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="city_field-search"><?= $this->translate('City') ?></label>
-                <input id="city_field-search" name="city" type="text" value="<?= isset($this->fields['city']) ? ($this->fields['city']) : '' ?>" placeholder="" class="form-control input-md application-input">
-            </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="address_field-search"><?= $this->translate('Address') ?></label>
-                <input id="address_field-search" name="address" type="text" value="<?= isset($this->fields['address']) ? ($this->fields['address']) : '' ?>" placeholder="" class="form-control input-md application-input">
             </div>
 
             <div class="form-group col-md-3">
@@ -27,43 +17,8 @@
             </div>
 
             <div class="form-group col-md-3">
-                <label class="control-label application-label" for="email_field"><?= $this->translate('Email') ?></label>
-                <input id="email_field" name="email" type="text" value="<?= isset($this->fields['email']) ? ($this->fields['email']) : '' ?>" placeholder="" class="form-control input-md application-input">
-            </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="area_around_field"><?= $this->translate('Area around') ?></label>
-                <select id="area_around_field" name="area_around" class="form-control application-input">
-                    <option value="" selected></option>
-                    <?php foreach ($this->areas as $area) : ?>
-                        <?php /** @var \Application\Model\Area $area */ ?>
-                        <option value="<?= $area->getId() ?>" <?= isset($this->fields['area_around']) && $this->fields['area_around'] == $area->getId() ? 'selected' : '' ?>><?= $area->getValue() ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="contact_type_field"><?= $this->translate('Type of contract') ?></label>
-                <select id="contact_type_field" name="contract_type" class="form-control application-input">
-                    <option value="" selected></option>
-                    <?php foreach ($this->contracts as $contract) : ?>
-                        <?php /** @var \Application\Model\Contract $contract */ ?>
-
-                        <option value="<?= $contract->getId() ?>" <?= isset($this->fields['contract_type']) && $this->fields['contract_type'] == $contract->getId() ? 'selected' : '' ?>><?= $contract->getName() ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="weekly_hours_field"><?= $this->translate('Weekly hours available') ?></label>
-                <select id="weekly_hours_field" name="weekly_hours" class="form-control application-input">
-                    <option value="" selected></option>
-                    <?php foreach ($this->weeklyHours as $weeklyHour) : ?>
-                        <?php /** @var \Application\Model\WeeklyHours $weeklyHour */ ?>
-                        <option value="<?= $weeklyHour->getId() ?>" <?= isset($this->fields['weekly_hours']) && $this->fields['weekly_hours'] == $weeklyHour->getId() ? 'selected' : '' ?>>
-                            <?= $weeklyHour->getValue() ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <label class="control-label application-label" for="city_field-search"><?= $this->translate('City') ?></label>
+                <input id="city_field-search" name="city" type="text" value="<?= isset($this->fields['city']) ? ($this->fields['city']) : '' ?>" placeholder="" class="form-control input-md application-input">
             </div>
 
             <div class="form-group col-md-3">
@@ -76,20 +31,6 @@
                         <input type="text" class="form-control input-md application-input" name="end" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="hourly_rate_field"><?= $this->translate('Hourly rate') ?></label>
-                <input id="hourly_rate_field" name="hourly_rate" type="text" value="<?= isset($this->fields['hourly_rate']) ? ($this->fields['hourly_rate']) : '' ?>" placeholder="" class="form-control input-md application-input">
-            </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="experience_field"><?= $this->translate('Experience in the job') ?></label>
-                <select id="experience_field" name="experience" class="form-control application-input">
-                    <option value="" selected></option>
-                    <option value="1" <?= isset($this->fields['experience']) && $this->fields['experience'] == '1' ? 'selected' : '' ?>><?= $this->translate('Yes') ?></option>
-                    <option value="0" <?= isset($this->fields['experience']) && $this->fields['experience'] == '0' ? 'selected' : '' ?>><?= $this->translate('No') ?></option>
-                </select>
             </div>
 
             <div class="form-group col-md-3">
@@ -111,6 +52,17 @@
             </div>
 
             <div class="form-group col-md-3">
+                <label class="control-label application-label" for="area_around_field"><?= $this->translate('Area around') ?></label>
+                <select id="area_around_field" name="area_around" class="form-control application-input">
+                    <option value="" selected></option>
+                    <?php foreach ($this->areas as $area) : ?>
+                        <?php /** @var \Application\Model\Area $area */ ?>
+                        <option value="<?= $area->getId() ?>" <?= isset($this->fields['area_around']) && $this->fields['area_around'] == $area->getId() ? 'selected' : '' ?>><?= $area->getValue() ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
                 <label class="control-label application-label" for="start_day_field"><?= $this->translate('Coordinates') ?></label>
                     <div class=" input-group">
                         <span class="input-group-addon">lat</span>
@@ -120,16 +72,18 @@
                    </div>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group">
+                <button class="btn batton-save">Search</button>
+            </div>
         </div>
 
+    </form>
 
-    <div class="row">
-        <div class="form-group ">
-            <button class="btn batton-save">Search</button>
-        </div>
-    </div>
-    <a type="button" class="row" data-toggle="collapse" data-target="#add-area-around">Advanced</a>
-</form>
+
+
+
+
 
 
 <div class="collapse in" id="map-container">
@@ -147,15 +101,18 @@
     <table class="table">
         <tr>
             <th>#</th>
+            <th><?= $this->translate('Date of application / entry') ?></th>
             <th><?= $this->translate('Name') ?></th>
+            <th><?= $this->translate('Surname') ?></th>
+            <th><?= $this->translate('ZIP') ?></th>
+            <th><?= $this->translate('City') ?></th>
             <th><?= $this->translate('Mobile Phone') ?></th>
-            <th><?= $this->translate('Address') ?></th>
         </tr>
-
         <?php foreach ($this->paginator as $employee) : ?>
             <tr>
                 <?php /** @var \Application\Model\Employee $employee */ ?>
                 <td><?= $employee->getId() ?></td>
+                <td><?= $employee->getCreated()->format('Y-m-d') ?></td>
                 <td>
                     <a
                         href="#"
@@ -166,9 +123,10 @@
                         <?= $employee->getName() ?>
                     </a>
                 </td>
-
+                <td><?= $employee->getSurname() ?></td>
+                <td><?= $employee->getZip() ?></td>
+                <td><?= $employee->getCity() ?></td>
                 <td><?= $employee->getMobilePhone() ?></td>
-                <td><?= $employee->getAddress() ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

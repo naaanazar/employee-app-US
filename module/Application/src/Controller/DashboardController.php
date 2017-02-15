@@ -53,17 +53,12 @@ class DashboardController extends AbstractController
             $employeesRepository
                 ->addExpression('contains', 'name', $post['name'])
                 ->addExpression('contains', 'surname', $post['surname'])
-                ->addExpression('contains', 'address', $post['address'])
                 ->addExpression('contains', 'city', $post['city'])
                 ->addExpression('contains', 'zip', $post['zip'])
-                ->addExpression('contains', 'email', $post['email'])
-                ->addExpression('contains', 'hourlyRate', $post['hourly_rate'])
-                ->addExpression('contains', 'experience', $post['experience'])
                 ->addExpression('eq', 'carAvailable', $post['car_available'])
                 ->addExpression('eq', 'drivingLicence', $post['driving_license'])
-                ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($post['area_around']))
-                ->addExpression('eq', 'contract', $this->getEntityManager()->getRepository(Contract::class)->find($post['contract_type']))
-                ->addExpression('eq', 'weeklyHoursAvailable', $this->getEntityManager()->getRepository(WeeklyHours::class)->find($post['weekly_hours']));
+                ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($post['area_around']));
+
 
                 if( !empty($post['start'])) {
                     $employeesRepository
