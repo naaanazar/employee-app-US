@@ -1,11 +1,23 @@
+
 <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class=""  method="post">
     <div class="row">
         <div class="form-group col-md-3">
             <label class="control-label application-label" " for="name_field"><?= $this->translate('Name') ?></label>
             <input id="name_field" name="name" type="text" value="<?= isset($this->fields['name']) ? $this->fields['name'] : '' ?>" placeholder="" class="form-control input-md application-input">
         </div>
+    </div>
+    <div class="form-group ">
+        <button class="btn batton-save">Search</button>
+    </div>
+</form>
 
-        <div class="collapse <?= isset($this->fields['surname']) ? 'in' : '' ?>" id="add-area-around" >
+<div class="collapse <?= isset($this->fields['surname']) ? 'in' : '' ?>" id="add-area-around" >
+    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class=""  method="post">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" " for="name_field"><?= $this->translate('Name') ?></label>
+                <input id="name_field" name="name" type="text" value="<?= isset($this->fields['name']) ? $this->fields['name'] : '' ?>" placeholder="" class="form-control input-md application-input">
+            </div>
             <div class="form-group col-md-3">
                 <label class="control-label application-label" for="surname_field"><?= $this->translate('Surname') ?></label>
                 <input id="surname_field" name="surname" value="<?= isset($this->fields['surname']) ? $this->fields['surname'] : '' ?>" type="text" placeholder="" class="form-control input-md application-input">
@@ -120,16 +132,18 @@
                    </div>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group ">
+                <button class="btn batton-save">Search</button>
+            </div>
         </div>
 
+    </form>
+</div>
+<a type="button" class="row" data-toggle="collapse" data-target="#add-area-around">Advanced</a>
 
-    <div class="row">
-        <div class="form-group ">
-            <button class="btn batton-save">Search</button>
-        </div>
-    </div>
-    <a type="button" class="row" data-toggle="collapse" data-target="#add-area-around">Advanced</a>
-</form>
+
+
 
 
 <div class="collapse in" id="map-container">
@@ -147,15 +161,18 @@
     <table class="table">
         <tr>
             <th>#</th>
+            <th><?= $this->translate('Date of application / entry') ?></th>
             <th><?= $this->translate('Name') ?></th>
+            <th><?= $this->translate('Surname') ?></th>
+            <th><?= $this->translate('ZIP') ?></th>
+            <th><?= $this->translate('City') ?></th>
             <th><?= $this->translate('Mobile Phone') ?></th>
-            <th><?= $this->translate('Address') ?></th>
         </tr>
-
         <?php foreach ($this->paginator as $employee) : ?>
             <tr>
                 <?php /** @var \Application\Model\Employee $employee */ ?>
                 <td><?= $employee->getId() ?></td>
+                <td><?= $employee->getCreated()->format('Y-m-d') ?></td>
                 <td>
                     <a
                         href="#"
@@ -166,9 +183,10 @@
                         <?= $employee->getName() ?>
                     </a>
                 </td>
-
+                <td><?= $employee->getSurname() ?></td>
+                <td><?= $employee->getZip() ?></td>
+                <td><?= $employee->getCity() ?></td>
                 <td><?= $employee->getMobilePhone() ?></td>
-                <td><?= $employee->getAddress() ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
