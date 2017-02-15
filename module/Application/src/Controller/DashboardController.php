@@ -26,11 +26,21 @@ use Zend\View\Model\ViewModel;
 class DashboardController extends AbstractController
 {
 
+    /**
+     * @return array
+     */
     public function init()
     {
+        if ($this->getUser() === null || $this->getUser()->getRole() !== 'admin') {
+            return $this->notFoundAction();
+        }
+
         $this->layout('layout/admin');
     }
 
+    /**
+     * Index action
+     */
     public function indexAction()
     {
     }

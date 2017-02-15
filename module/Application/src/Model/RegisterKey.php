@@ -35,6 +35,12 @@ class RegisterKey
     private $value;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $role;
+
+    /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
@@ -73,6 +79,14 @@ class RegisterKey
     }
 
     /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
      * @param User $user
      */
     public function setUser(User $user)
@@ -94,6 +108,14 @@ class RegisterKey
     public function setUsed($used)
     {
         $this->used = $used;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
     /**
