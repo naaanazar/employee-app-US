@@ -144,6 +144,13 @@ class Employee
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text")
+     */
+    private $hash;
+
     /**
      * @return int
      */
@@ -302,6 +309,14 @@ class Employee
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHash(): string
+    {
+        return $this->hash;
     }
 
     /**
@@ -466,7 +481,7 @@ class Employee
         return $this;
     }
 
-  /**
+    /**
      * @param string $comments
      * @return $this
      */
@@ -511,7 +526,7 @@ class Employee
     }
 
     /**
-     * @param $createdAt
+     * @param $created
      * @return $this
      */
     public function setCreated($created)
@@ -522,7 +537,7 @@ class Employee
     }
 
     /**
-     * @param $updatedAt
+     * @param $updated
      * @return $this
      */
     public function setUpdated($updated)
@@ -532,5 +547,20 @@ class Employee
         return $this;
     }
 
+    /**
+     * @param string $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+    }
+
+    /**
+     * @return string
+     */
+    public static function hashKey()
+    {
+        return sha1(uniqid(static::class));
+    }
 
 }
