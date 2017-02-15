@@ -1,6 +1,8 @@
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgpnt3A8evQvsgg&libraries=geometry'], function(){
 	var markers = [];
 	return {
+		images: '/img/marker.png',
+
 		init: function(){
 			return new google.maps.Map(document.getElementById('map'), {
 				center: {lat: 50.98609893339354, lng: 10.39306640625},
@@ -10,7 +12,8 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
 		addMarker: function (map, lat, lng) {
 			var marker = new google.maps.Marker({
 				position: {lat: lat, lng: lng},
-				map: map
+				map: map,
+				icon: this.images
 			});
 			markers.push(marker);
 			return marker;
