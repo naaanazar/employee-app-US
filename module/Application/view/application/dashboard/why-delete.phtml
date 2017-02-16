@@ -1,0 +1,28 @@
+<div class="row">
+    <form action="<?= $this->url('dashboard', ['action' => 'why-delete']) ?>" class="async col-md-3 collapse" id="contract-type-add-collapse">
+        <div class="form-group">
+            <label class="control-label application-label" for="source-application"><?= $this->translate('Set Option Why Delete') ?>*</label>
+            <input id="source-application" name="name" type="text" placeholder="" class="form-control input-md application-input" required/>
+        </div>
+        <button class="batton-save btn">Create</button>
+    </form>
+</div>
+<a type="button" class="row a-dashboard " data-toggle="collapse" data-target="#contract-type-add-collapse">+ Set Option Why Delete</a>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Code</th>
+    </tr>
+        <?php foreach ($this->paginator as $key) : ?>
+            <tr>
+                <?php /** @var \Application\Model\Area $area */ ?>
+                <td><?= $key->getId() ?></td>
+                <td><?= $key->getName() ?></td>
+                <td><?= $key->getCode() ?></td>
+            </tr>
+            <?php endforeach; ?>
+</table>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>

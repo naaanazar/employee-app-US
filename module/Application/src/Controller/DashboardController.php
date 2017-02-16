@@ -14,6 +14,7 @@ use Application\Model\Coordinates;
 use Application\Model\Employee;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
+use Application\Model\ListWhyDelete as ListWhyDeleteModel;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
 use Application\Model\SourceApplication as SourceApplicationModel;
@@ -316,6 +317,51 @@ class DashboardController extends AbstractController
                 $json->setVariable('message', 'Invalid data to save source application');
             } catch (OptimisticLockException $exception) {
                 $json->setVariable('message', 'Can not save source application to database');
+            }
+
+            return $json;
+
+        } else {
+            $search = new SourceApplication($post = $this->getRequest()->getPost());
+
+            return new ViewModel(
+                [
+                    'paginator' => $search->getResult()
+                ]
+            );
+        }
+    }
+
+    /**
+     * Dashboard  configure whyDelete action
+     *
+     * @return ViewModel|array
+     */
+    public function whyDeleteAction()
+    {
+        if (true === $this->getRequest()->isPost()
+            && true === $this->getRequest()->isXmlHttpRequest()
+            && null !== $this->getRequest()->getPost('name')
+        ){
+            $name = $this->getRequest()->getPost('name');
+            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+
+            $json = new JsonModel();
+            $source = new ListWhyDeleteModel();
+            $source->setName($name);
+            $source->setCode($code);
+
+            try {
+                $this->getEntityManager()->persist($source);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable(
+                    'redirect',
+                    $this->url()->fromRoute('dashboard', ['action' => 'why-delete']));
+            } catch (ORMInvalidArgumentException $exception) {
+                $json->setVariable('message', 'Invalid data to save why delete');
+            } catch (OptimisticLockException $exception) {
+                $json->setVariable('message', 'Can not save why delete to database');
             }
 
             return $json;
