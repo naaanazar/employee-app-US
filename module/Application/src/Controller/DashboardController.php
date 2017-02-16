@@ -14,7 +14,7 @@ use Application\Model\Coordinates;
 use Application\Model\Employee;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
-use Application\Model\ListWhyDelete as ListWhyDeleteModel;
+use Application\Model\ReasonRemoval as ReasonRemovalModel;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
 use Application\Model\SourceApplication as SourceApplicationModel;
@@ -347,7 +347,7 @@ class DashboardController extends AbstractController
             $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
 
             $json = new JsonModel();
-            $source = new ListWhyDeleteModel();
+            $source = new ReasonRemovalModel();
             $source->setName($name);
             $source->setCode($code);
 
