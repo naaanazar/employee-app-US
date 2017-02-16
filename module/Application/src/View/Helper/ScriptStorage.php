@@ -62,7 +62,7 @@ class ScriptStorage extends AbstractHelper implements \Iterator
      */
     public function rewind()
     {
-        return rewind($this->scripts);
+        return reset($this->scripts);
     }
 
 }

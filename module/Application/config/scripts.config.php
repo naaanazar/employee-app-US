@@ -13,7 +13,6 @@ return [
         'js/module/employee/comments.js'
     ],
     '^\/((employee(\/index)?|(dashboard\/search))(\/)?)$' => [
-        'js/google-map.js',
         'js/custom-map.js',
     ]
 ];
