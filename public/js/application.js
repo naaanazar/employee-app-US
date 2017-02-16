@@ -111,7 +111,7 @@ var Validate = {
  * @constructor
  */
 var ModalAction = function (action, selector, params) {
-
+    console.log(action, selector);
     /**
      * Execute ajax for html get
      */
@@ -122,6 +122,7 @@ var ModalAction = function (action, selector, params) {
                 url: action,
                 data: params,
                 success: function (data) {
+                    console.log(data);
                     if ($(selector) && data.html) {
                         $(selector).modal().find('.modal-body').html(data.html);
                     }

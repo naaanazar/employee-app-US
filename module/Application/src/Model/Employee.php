@@ -314,7 +314,7 @@ class Employee
     /**
      * @return string
      */
-    public function getHash(): string
+    public function getHash()//: string
     {
         return $this->hash;
     }

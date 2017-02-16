@@ -153,6 +153,7 @@
         </tr>
 
         <?php foreach ($this->paginator as $employee) : ?>
+
             <tr>
                 <?php /** @var \Application\Model\Employee $employee */ ?>
                 <td><?= $employee->getId() ?></td>
@@ -160,7 +161,7 @@
                     <a
                         href="#"
                         class="modal-action"
-                        data-action="<?= $this->url('show-employee', ['id' => $employee->getId()] ) ?>"
+                        data-action="<?= $this->url('show-employee', ['hash' => $employee->getHash()] ) ?>"
                         data-element="#modal-action"
                         >
                         <?= $employee->getName() ?>

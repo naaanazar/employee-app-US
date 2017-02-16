@@ -8,8 +8,9 @@
                 requirejs(['<?= $this->basePath('js/application.js') ?>'], function() {
                     jQuery('document').ready(function () {
                         if (0 < jQuery('#map').length) {
-                            require(['<?= $this->basePath('js/google-map.js') ?>'], function (Map) {
+                            require(['<?= $this->basePath('js/google-map.js') ?>', '<?= $this->basePath('js/vendor/mustache.js') ?>'], function (Map, mustache) {
                                 require(['<?= $this->basePath('js/custom_map.js') ?>'], function () {
+                                    Address.mustache = mustache;
                                     Address.maps = Map;
                                 });
                             });
