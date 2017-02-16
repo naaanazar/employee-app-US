@@ -18,7 +18,7 @@ class Doctrine extends Paginator
      */
     public function __construct($entity, $criteria = [], $orderBy = null)
     {
-        parent::__construct(new \Application\Back\Paginator\Adapter\Doctrine($entity, $criteria = [], $orderBy = null));
+        parent::__construct(new \Application\Back\Paginator\Adapter\Doctrine($entity, $criteria, $orderBy = null));
     }
 
     /**

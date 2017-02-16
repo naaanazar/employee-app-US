@@ -35,7 +35,7 @@ class Comment
     private $user;
 
     /**
-     * @var User
+     * @var Employee
      * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
      */
@@ -86,7 +86,7 @@ class Comment
     }
 
     /**
-     * @return User
+     * @return Employee
      */
     public function getEmployee()
     {
@@ -134,9 +134,9 @@ class Comment
     }
 
     /**
-     * @param User $employee
+     * @param Employee $employee
      */
-    public function setEmployee(User $employee)
+    public function setEmployee(Employee $employee)
     {
         $this->employee = $employee;
     }

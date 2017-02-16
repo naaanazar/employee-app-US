@@ -103,4 +103,17 @@ abstract class AbstractController extends AbstractActionController
         return $renderer;
     }
 
+    /**
+     * @param bool $role
+     */
+    public function restrictNonLoggedIn($role = false)
+    {
+
+        $user = $this->getUser();
+
+        if (null === $user || (false !== $role && true === in_array($user->getRole(), (array)($role)))) {
+            $this->notFoundAction();
+        }
+    }
+
 }

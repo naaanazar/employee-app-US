@@ -1,0 +1,16 @@
+<script src="<?= $this->basePath('js/module/employee/comments.js') ?> ?>"></script>
+<div id="comments-list">
+    <?php foreach ($this->comments as $comment) : ?>
+        <?php /** @var \Application\Model\Comment $comment */ ?>
+        <div class="well">
+            <?= $comment->getBody() ?>
+        </div>
+    <?php endforeach; ?>
+    <form action="<?= $this->url('employee', ['action' => 'comment']) ?>" class="leave-comment" method="post">
+        <textarea name="body" id="" cols="30" rows="10" class="form-control"></textarea>
+        <input type="hidden" name="employee" value="<?= $this->employee->getId() ?>">
+        <div class="text-right">
+            <button class="btn btn-default"><?=  $this->translate('Leave comment') ?></button>
+        </div>
+    </form>
+</div>

@@ -2,15 +2,23 @@
 
 namespace Application\Controller;
 
+use Application\Back\Form\Search\Dashboard\Overview;
 use Application\Back\Form\Search\Dashboard\Statistic;
+use Application\Back\Form\Search\Dashboard\Areas;
+use Application\Back\Form\Search\Dashboard\Contract as ContractBack;
+use Application\Back\Form\Search\Dashboard\WeeklyHours as WeeklyHoursBack;
+use Application\Back\Form\Search\Dashboard\SourceApplication;
+use Application\Back\Form\Search\Dashboard\ReasonRemoval;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
 use Application\Model\Employee;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
+use Application\Model\ReasonRemoval as ReasonRemovalModel;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
+use Application\Model\SourceApplication as SourceApplicationModel;
 use Application\Model\WeeklyHours;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
@@ -26,11 +34,21 @@ use Zend\View\Model\ViewModel;
 class DashboardController extends AbstractController
 {
 
+    /**
+     * @return array
+     */
     public function init()
     {
+        if ($this->getUser() === null || $this->getUser()->getRole() !== 'admin') {
+            return $this->notFoundAction();
+        }
+
         $this->layout('layout/admin');
     }
 
+    /**
+     * Index action
+     */
     public function indexAction()
     {
     }
@@ -53,17 +71,12 @@ class DashboardController extends AbstractController
             $employeesRepository
                 ->addExpression('contains', 'name', $post['name'])
                 ->addExpression('contains', 'surname', $post['surname'])
-                ->addExpression('contains', 'address', $post['address'])
                 ->addExpression('contains', 'city', $post['city'])
                 ->addExpression('contains', 'zip', $post['zip'])
-                ->addExpression('contains', 'email', $post['email'])
-                ->addExpression('contains', 'hourlyRate', $post['hourly_rate'])
-                ->addExpression('contains', 'experience', $post['experience'])
                 ->addExpression('eq', 'carAvailable', $post['car_available'])
                 ->addExpression('eq', 'drivingLicence', $post['driving_license'])
-                ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($post['area_around']))
-                ->addExpression('eq', 'contract', $this->getEntityManager()->getRepository(Contract::class)->find($post['contract_type']))
-                ->addExpression('eq', 'weeklyHoursAvailable', $this->getEntityManager()->getRepository(WeeklyHours::class)->find($post['weekly_hours']));
+                ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($post['area_around']));
+
 
                 if( !empty($post['start'])) {
                     $employeesRepository
@@ -117,6 +130,25 @@ class DashboardController extends AbstractController
     }
 
     /**
+     * Overview application action
+     *
+     * @return ViewModel
+     */
+    public function overviewAction()
+    {
+        $search = new Overview($post = $this->getRequest()->getPost());
+
+        return new ViewModel(
+            [
+                'paginator' => $search->getResult(),
+                'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'fields'        => $this->getRequest()->getPost()
+            ]
+        );
+
+    }
+
+    /**
      * Dashboard  configure area around action
      *      *
      * @return ViewModel|array
@@ -151,21 +183,13 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-            $paginator = new Paginator(
-                new Doctrine(Area::class)
-            );
+            $search = new Areas($post = $this->getRequest()->getPost());
 
-            $paginator->setItemCountPerPage(20);
-            $paginator->setCurrentPageNumber($this->params('page', 1));
-
-            $view = new ViewModel();
-            $view->setVariables(
+            return new ViewModel(
                 [
-                    'paginator' => $paginator
+                    'paginator' => $search->getResult()
                 ]
             );
-
-            return $view;
         }
     }
 
@@ -254,21 +278,103 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-            $paginator = new Paginator(
-                new Doctrine(Contract::class)
-            );
+            $search = new ContractBack($post = $this->getRequest()->getPost());
 
-            $paginator->setItemCountPerPage(20);
-            $paginator->setCurrentPageNumber($this->params('page', 1));
-
-            $view = new ViewModel();
-            $view->setVariables(
+            return new ViewModel(
                 [
-                    'paginator' => $paginator
+                    'paginator' => $search->getResult()
                 ]
             );
+        }
+    }
 
-            return $view;
+    /**
+     * Dashboard  configure source application action
+     *
+     * @return ViewModel|array
+     */
+    public function sourceApplicationAction()
+    {
+        if (true === $this->getRequest()->isPost()
+            && true === $this->getRequest()->isXmlHttpRequest()
+            && null !== $this->getRequest()->getPost('name')
+        ){
+            $name = $this->getRequest()->getPost('name');
+            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+
+            $json = new JsonModel();
+            $source = new SourceApplicationModel();
+            $source->setName($name);
+            $source->setCode($code);
+
+            try {
+                $this->getEntityManager()->persist($source);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable(
+                    'redirect',
+                    $this->url()->fromRoute('dashboard', ['action' => 'source-application']));
+            } catch (ORMInvalidArgumentException $exception) {
+                $json->setVariable('message', 'Invalid data to save source application');
+            } catch (OptimisticLockException $exception) {
+                $json->setVariable('message', 'Can not save source application to database');
+            }
+
+            return $json;
+
+        } else {
+            $search = new SourceApplication($post = $this->getRequest()->getPost());
+
+            return new ViewModel(
+                [
+                    'paginator' => $search->getResult()
+                ]
+            );
+        }
+    }
+
+    /**
+     * Dashboard  configure whyDelete action
+     *
+     * @return ViewModel|array
+     */
+    public function ReasonRemovalAction()
+    {
+        if (true === $this->getRequest()->isPost()
+            && true === $this->getRequest()->isXmlHttpRequest()
+            && null !== $this->getRequest()->getPost('name')
+        ){
+            $name = $this->getRequest()->getPost('name');
+            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+
+            $json = new JsonModel();
+            $source = new ReasonRemovalModel();
+            $source->setName($name);
+            $source->setCode($code);
+
+            try {
+                $this->getEntityManager()->persist($source);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable(
+                    'redirect',
+                    $this->url()->fromRoute('dashboard', ['action' => 'reason-removal']));
+            } catch (ORMInvalidArgumentException $exception) {
+                $json->setVariable('message', 'Invalid data to save why delete');
+            } catch (OptimisticLockException $exception) {
+                $json->setVariable('message', 'Can not save why delete to database');
+            }
+
+            return $json;
+
+        } else {
+            $search = new ReasonRemoval($post = $this->getRequest()->getPost());
+
+            return new ViewModel(
+                [
+                    'paginator' => $search->getResult()
+                ]
+            );
         }
     }
 
@@ -299,29 +405,21 @@ class DashboardController extends AbstractController
                     'redirect',
                     $this->url()->fromRoute('dashboard', ['action' => 'weekly-hours']));
             } catch (ORMInvalidArgumentException $exception) {
-                $json->setVariable('message', 'Invalid data to save area around');
+                $json->setVariable('message', 'Invalid data to save weekly-hours');
             } catch (OptimisticLockException $exception) {
-                $json->setVariable('message', 'Can not save area around to database');
+                $json->setVariable('message', 'Can not save weekly-hours to database');
             }
 
             return $json;
 
         } else {
-            $paginator = new Paginator(
-                new Doctrine(WeeklyHours::class)
-            );
+            $search = new WeeklyHoursBack($post = $this->getRequest()->getPost());
 
-            $paginator->setItemCountPerPage(20);
-            $paginator->setCurrentPageNumber($this->params('page', 1));
-
-            $view = new ViewModel();
-            $view->setVariables(
+            return new ViewModel(
                 [
-                    'paginator' => $paginator
+                    'paginator' => $search->getResult()
                 ]
             );
-
-            return $view;
         }
     }
 

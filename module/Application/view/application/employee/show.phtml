@@ -1,5 +1,47 @@
-<?php
-
-var_dump($this->employee);
-
-?>
+<div class="media">
+    <div class="media-left">
+        <a href="#">
+            <img class="media-object" src="<?= $this->basePath('img/user-profile.png') ?>" alt="">
+        </a>
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading"><?= $this->employee->getName() ?>&nbsp;<?= $this->employee->getSurname() ?></h4>
+        <a href="mailto:<?= $this->employee->getEmail() ?>"><?= $this->employee->getEmail() ?></a>
+    </div>
+    <h4>
+        <?= $this->translate('Address') ?>:
+        <?= $this->translate('Germany') ?>,
+        <?= $this->employee->getCity() ?>,
+        <?= $this->employee->getZip() ?>,
+        <?= $this->employee->getAddress() ?>
+    </h4>
+    <h4 class="page-header"><?= $this->translate('Additional information') ?></h4>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <?= $this->translate('Hourly rate') ?>: $<?= $this->employee->getHourlyRate() ?>
+        </li>
+        <li class="list-group-item">
+            <?= $this->translate('Comment') ?>
+            <div class="well">
+                <?= $this->employee->getComments() ?>
+            </div>
+        </li>
+        <?php if (true === $this->employee->isExperience()) : ?>
+            <li class="list-group-item">
+                <?= $this->translate('Has experience') ?>
+            </li>
+        <?php endif; ?>
+        <?php if (true === $this->employee->isCarAvailable()) : ?>
+            <li class="list-group-item">
+                <?= $this->translate('Car available') ?>
+            </li>
+        <?php endif; ?>
+        <?php if (true === $this->employee->isDrivingLicence()) : ?>
+            <li class="list-group-item">
+                <?= $this->translate('Driving license present') ?>
+            </li>
+        <?php endif; ?>
+    </ul>
+</div>
+<hr>
+<?= $this->render('layout/concern/comments') ?>

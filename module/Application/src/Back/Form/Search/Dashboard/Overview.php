@@ -13,7 +13,7 @@ use Zend\Paginator\Paginator;
  * Class Statistic
  * @package Application\Back\Form\Search\Dashboard
  */
-class Statistic extends AbstractSearch
+class Overview extends AbstractSearch
 {
 
     /**
@@ -24,13 +24,18 @@ class Statistic extends AbstractSearch
         /** @var EmployeeRepository $employeesRepository */
         $employeesRepository = Module::entityManager()->getRepository(Employee::class);
 
-        if (false === empty($this->data['statistic_date'])) {
-            $dateEnd = new \DateTime ();
-            $dateStart = new \DateTime (date('Y-m-d', strtotime("-". $this->data['statistic_date'] ." days")));
+        $employeesRepository
+            ->addExpression('contains', 'name', $this->data['name'])
+            ->addExpression('contains', 'surname', $this->data['surname'])
+            ->addExpression('contains', 'city', $this->data['city'])
+            ->addExpression('contains', 'zip', $this->data['zip'])
+            ->addExpression('eq', 'carAvailable', $this->data['car_available'])
+            ->addExpression('eq', 'drivingLicence',$this->data['driving_license']);
 
+        if (!empty($this->data['start'])) {
             $employeesRepository
-                ->addExpression('gt', 'created', $dateStart)
-                ->addExpression('lt', 'created', $dateEnd);
+                ->addExpression('gt', 'startDate', (new \DateTime ($this->data['start'])))
+                ->addExpression('lt', 'startDate', (new \DateTime ($this->data['end'])));
         }
 
         $criteria = $employeesRepository->buildCriteria();
