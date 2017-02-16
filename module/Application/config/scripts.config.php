@@ -15,5 +15,8 @@ return [
     '^\/((employee(\/index)?|(dashboard\/search))(\/)?)$' => [
         'js/google-map.js',
         'js/custom-map.js',
+    ],
+    '^\/dashboard.+' => [
+        'js/module/dashboard/table-sort.js'
     ]
 ];

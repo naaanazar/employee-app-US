@@ -39,6 +39,7 @@ class Overview extends AbstractSearch
         }
 
         $criteria = $employeesRepository->buildCriteria();
+        $criteria->orderBy(['id' => $criteria::DESC]);
 
         return (new Doctrine(Employee::class, $criteria))
             ->setLimit(20, $this->data('page', 1));
