@@ -5,12 +5,12 @@ namespace Application\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class SourceApplication
+ * Class ListWhyDelete
  * @package Application\Model
  * @ORM\Entity
- * @ORM\Table(name="source_application")
+ * @ORM\Table(name="list_why_delete")
  */
-class SourceApplication
+class ListWhyDelete
 {
 
     /**

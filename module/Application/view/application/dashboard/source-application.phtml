@@ -1,25 +1,25 @@
 <div class="row">
-    <form action="<?= $this->url('dashboard', ['action' => 'contract']) ?>" class="async col-md-3 collapse" id="contract-type-add-collapse">
+    <form action="<?= $this->url('dashboard', ['action' => 'source-application']) ?>" class="async col-md-3 collapse" id="contract-type-add-collapse">
         <div class="form-group">
-            <label class="control-label application-label" for="contract-type-add"><?= $this->translate('Set Contract Type') ?>*</label>
-            <input id="contract-type-add" name="name" type="text" placeholder="" class="form-control input-md application-input" required/>
+            <label class="control-label application-label" for="source-application"><?= $this->translate('Set Source Application') ?>*</label>
+            <input id="source-application" name="name" type="text" placeholder="" class="form-control input-md application-input" required/>
         </div>
-        <button class="batton-save btn">Create area</button>
+        <button class="batton-save btn">Create</button>
     </form>
 </div>
-<a type="button" class="row a-dashboard " data-toggle="collapse" data-target="#contract-type-add-collapse">+ Set Contract type</a>
+<a type="button" class="row a-dashboard " data-toggle="collapse" data-target="#contract-type-add-collapse">+ Set Source Application</a>
 <table class="table">
     <tr>
         <th>#</th>
         <th>Name</th>
         <th>Code</th>
     </tr>
-        <?php foreach ($this->paginator as $contract) : ?>
+        <?php foreach ($this->paginator as $source) : ?>
             <tr>
                 <?php /** @var \Application\Model\Area $area */ ?>
-                <td><?= $contract->getId() ?></td>
-                <td><?= $contract->getName() ?></td>
-                <td><?= $contract->getCode() ?></td>
+                <td><?= $source->getId() ?></td>
+                <td><?= $source->getName() ?></td>
+                <td><?= $source->getCode() ?></td>
             </tr>
             <?php endforeach; ?>
 </table>
