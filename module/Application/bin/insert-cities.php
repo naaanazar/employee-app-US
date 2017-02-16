@@ -23,6 +23,9 @@ foreach ($citiesFiles as $citiesFile) {
         $employee->setName($row['City']);
         $employee->setSurname($row['Country']);
         $employee->setEmail('city@mail.com');
+        $employee->setUpdated(new DateTime());
+        $employee->setCreated(new DateTime());
+        $employee->setHash(\Application\Model\Employee::hashKey());
 
         /** @var \Application\Model\Area $areaAround */
         $areaAround = \Application\Module::entityManager()

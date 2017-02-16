@@ -61,6 +61,7 @@ class DashboardController extends AbstractController
     public function searchAction()
     {
         $criteria = [];
+        $coordinates = [];
 
         if (true === $this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
@@ -84,26 +85,24 @@ class DashboardController extends AbstractController
                         ->addExpression('lt', 'startDate', (new \DateTime ($post['end'])));
                 }
 
-            if (false === empty($post['longitude']) && false === empty($post['latitude'])) {
-                $coordinates = (new Coordinates())
-                    ->setLatitude($post['latitude'])
-                    ->setLongitude($post['longitude']);
+            $coordinates = (new Coordinates())
+                ->setLatitude($post['latitude'])
+                ->setLongitude($post['longitude']);
 
-                /** @var CoordinatesRepository $coordinatesRepo */
-                $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
+            /** @var CoordinatesRepository $coordinatesRepo */
+            $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
 
-                $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
+            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
 
-                $employeesIds = array_map(
-                    function ($coordinate) {
-                        /** @var Coordinates $coordinate */
-                        return $coordinate->getEmployee()->getId();
-                    },
-                    $coordinates
-                );
+            $employeesIds = array_map(
+                function ($coordinate) {
+                    /** @var Coordinates $coordinate */
+                    return $coordinate->getEmployee()->getId();
+                },
+                $coordinates
+            );
 
-                $employeesRepository->addExpression('in', 'id', $employeesIds);
-            }
+            $employeesRepository->addExpression('in', 'id', $employeesIds);
 
             $criteria = $employeesRepository->buildCriteria();
         }
@@ -115,16 +114,53 @@ class DashboardController extends AbstractController
         $paginator->setItemCountPerPage(20);
         $paginator->setCurrentPageNumber($this->params('page', 1));
 
-        $view = new ViewModel();
-        $view->setVariables(
-            [
-                'paginator'     => $paginator,
-                'contracts'     => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
-                'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
-                'weeklyHours'   => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
-                'fields'        => $this->getRequest()->getPost()
-            ]
-        );
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $coordinatesCriteria = new Criteria();
+            $coordinatesCriteria->where($criteria->expr()->in('employee', (array)$paginator->getCurrentItems()));
+            $coordinates = $this->getEntityManager()
+                ->getRepository(Coordinates::class)
+                ->matching($coordinatesCriteria);
+
+            $viewHtml = $this->getRenderer()
+                ->render(
+                    'layout/concern/employees',
+                    [
+                        'paginator' => $paginator
+                    ]
+                );
+
+            $coordinates = array_map(
+                function ($coordinate) {
+                    /** @var Coordinates $coordinate */
+
+                    return [
+                        'longitude' => $coordinate->getLongitude(),
+                        'latitude'  => $coordinate->getLatitude(),
+                        'employee'  => $coordinate->getEmployee()->getId(),
+                    ];
+                },
+                $coordinates->toArray()
+            );
+
+            $view = new JsonModel(
+                [
+                    'html'        => $viewHtml,
+                    'coordinates' => $coordinates
+                ]
+            );
+        } else {
+            $view = new ViewModel();
+            $view->setVariables(
+                [
+                    'paginator'     => $paginator,
+                    'contracts'     => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                    'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                    'weeklyHours'   => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                    'fields'        => $this->getRequest()->getPost()
+                ]
+            );
+        }
 
         return $view;
     }

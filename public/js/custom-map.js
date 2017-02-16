@@ -1,4 +1,7 @@
 'use strict';
+
+var Map;
+
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgpnt3A8evQvsgg&libraries=geometry'], function() {
 
     jQuery('document').ready(function () {
@@ -43,7 +46,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         });
     });
 
-    var Map = {
+    Map = {
         images: '/img/marker.png',
         markers: [],
 
