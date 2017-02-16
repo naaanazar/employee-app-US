@@ -4,15 +4,15 @@ namespace Application\Back\Form\Search\Dashboard;
 
 use Application\Back\Form\Search\AbstractSearch;
 use Application\Back\Paginator\Doctrine;
-use Application\Model\ReasonRemoval;
+use Application\Model\ReasonRemoval as ReasonRemovalModel;
 use Application\Module;
 use Zend\Paginator\Paginator;
 
 /**
- * Class WhyDelete
+ * Class ReasonRemoval
  * @package Application\Back\Form\Search\Dashboard
  */
-class WhyDelete extends AbstractSearch
+class ReasonRemoval extends AbstractSearch
 {
 
     /**
@@ -20,8 +20,7 @@ class WhyDelete extends AbstractSearch
      */
     public function getResult()
     {
-        $criteria = [];
-        return (new Doctrine(ReasonRemoval::class, $criteria))
+        return (new Doctrine(ReasonRemovalModel::class))
             ->setLimit(20, $this->data('page', 1));
     }
 

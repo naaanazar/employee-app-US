@@ -8,6 +8,7 @@ use Application\Back\Form\Search\Dashboard\Areas;
 use Application\Back\Form\Search\Dashboard\Contract as ContractBack;
 use Application\Back\Form\Search\Dashboard\WeeklyHours as WeeklyHoursBack;
 use Application\Back\Form\Search\Dashboard\SourceApplication;
+use Application\Back\Form\Search\Dashboard\ReasonRemoval;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
@@ -337,7 +338,7 @@ class DashboardController extends AbstractController
      *
      * @return ViewModel|array
      */
-    public function whyDeleteAction()
+    public function ReasonRemovalAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
@@ -357,7 +358,7 @@ class DashboardController extends AbstractController
 
                 $json->setVariable(
                     'redirect',
-                    $this->url()->fromRoute('dashboard', ['action' => 'why-delete']));
+                    $this->url()->fromRoute('dashboard', ['action' => 'reason-removal']));
             } catch (ORMInvalidArgumentException $exception) {
                 $json->setVariable('message', 'Invalid data to save why delete');
             } catch (OptimisticLockException $exception) {
@@ -367,7 +368,7 @@ class DashboardController extends AbstractController
             return $json;
 
         } else {
-            $search = new SourceApplication($post = $this->getRequest()->getPost());
+            $search = new ReasonRemoval($post = $this->getRequest()->getPost());
 
             return new ViewModel(
                 [

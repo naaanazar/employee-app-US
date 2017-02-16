@@ -20,8 +20,7 @@ class WeeklyHours extends AbstractSearch
      */
     public function getResult()
     {
-        $criteria = [];
-        return (new Doctrine(WeeklyHoursModel::class, $criteria))
+        return (new Doctrine(WeeklyHoursModel::class))
             ->setLimit(20, $this->data('page', 1));
     }
 

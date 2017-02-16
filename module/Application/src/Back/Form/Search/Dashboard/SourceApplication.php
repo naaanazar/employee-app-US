@@ -20,8 +20,7 @@ class SourceApplication extends AbstractSearch
      */
     public function getResult()
     {
-        $criteria = [];
-        return (new Doctrine(SourceApplicationModel::class, $criteria))
+        return (new Doctrine(SourceApplicationModel::class))
             ->setLimit(20, $this->data('page', 1));
     }
 

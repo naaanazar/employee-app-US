@@ -20,8 +20,7 @@ class Areas extends AbstractSearch
      */
     public function getResult()
     {
-        $criteria = [];
-        return (new Doctrine(Area::class, $criteria))
+        return (new Doctrine(Area::class))
             ->setLimit(20, $this->data('page', 1));
     }
 
