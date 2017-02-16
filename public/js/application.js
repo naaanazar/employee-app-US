@@ -111,7 +111,7 @@ var Validate = {
  * @constructor
  */
 var ModalAction = function (action, selector, params) {
-    console.log(action, selector);
+
     /**
      * Execute ajax for html get
      */

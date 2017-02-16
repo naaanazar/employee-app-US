@@ -3,19 +3,28 @@
 jQuery('document').ready(function () {
 
     /**
+     * dashboard/search
+     * init map
+     */
+    if (jQuery('div').is('#map-container')) {
+        Address.start();
+        Address.clickOnMap();
+    };
+
+    /**
+     * employe/index
      * init map & create marker on map & change coordinates & address ( click on button )
      */
     jQuery(document).on('click', '.update-marker', function (event) {
         event.defaultPrevented = true;
 
         if (!jQuery('div').is('.init')) {
+            jQuery('#init-map').css('display', 'block');
             Address.start();
+            jQuery('#map').addClass('init');
         };
 
-        google.maps.event.addListener(Address.map, 'click', function (event) {
-            Address.finfCoords(Address.map, event);
-        });
-
+        Address.clickOnMap();
         Address.findAddress(Address.map);
 
         return false;
@@ -44,9 +53,7 @@ var Address = {
     map: null,
 
     start: function() {
-        jQuery('#init-map').css('display', 'block');
         Address.map = Address.maps.init();
-        jQuery('#map').addClass('init');
     },
 
     /**
@@ -126,6 +133,12 @@ var Address = {
             this.fullAddress = this.fullAddress + jQuery('#address_field').val();
         }
 
+    },
+
+    clickOnMap: function() {
+        google.maps.event.addListener(Address.map, 'click', function (event) {
+            Address.finfCoords(Address.map, event);
+        });
     },
 
     /**
