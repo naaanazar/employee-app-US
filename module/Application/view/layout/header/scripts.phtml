@@ -1,22 +1,41 @@
 <script src="<?= $this->basePath('js/vendor/require.js') ?>"></script>
 <script>
+
     'use strict';
 
-    requirejs(['<?= $this->basePath('js/vendor/jquery-3.1.0.min.js') ?>'], function() {
-        requirejs(['<?= $this->basePath('js/vendor/bootstrap.min.js') ?>'], function() {
-            requirejs(['<?= $this->basePath('js/vendor/bootstrap-datepicker.js') ?>'], function() {
-                requirejs(['<?= $this->basePath('js/application.js') ?>'], function() {
-                    jQuery('document').ready(function () {
-                        if (0 < jQuery('#map').length) {
-                            require(['<?= $this->basePath('js/google-map.js') ?>'], function (Map) {
-                                require(['<?= $this->basePath('js/custom_map.js') ?>'], function () {
-                                    Address.maps = Map;
-                                });
-                            });
-                        };
-                    });
-                });
-            });
-        });
-    });
+    <?php $routeMatch = $this->route(); ?>
+    <?php /** @var \Application\View\Helper\Route $routeMatch */ ?>
+    <?php $url = $this->url($routeMatch->getRoute(), $routeMatch->getParams()); ?>
+    <?php $scripts = $this->scripts();?>
+    <?php $scriptFiles = []; ?>
+    <?php foreach ($scripts as $rule => $script) : ?>
+
+        <?php if (preg_match('/' . $rule . '/', $url) === 1) : ?>
+            <?php $scriptFiles = array_merge($scriptFiles, $script) ?>
+        <?php endif; ?>
+
+    <?php endforeach; ?>
+
+    <?php foreach ($scriptFiles as $scriptFile) : ?>
+        requirejs(['<?= $this->basePath($scriptFile) ?>'], function () {
+    <?php endforeach; ?>
+    <?= str_repeat('});', count($scriptFiles)) ?>
+
+//    requirejs(['<?//= $this->basePath('js/vendor/jquery-3.1.0.min.js') ?>//'], function() {
+//        requirejs(['<?//= $this->basePath('js/vendor/bootstrap.min.js') ?>//'], function() {
+//            requirejs(['<?//= $this->basePath('js/vendor/bootstrap-datepicker.js') ?>//'], function() {
+//                requirejs(['<?//= $this->basePath('js/application.js') ?>//'], function() {
+//                    jQuery('document').ready(function () {
+//                        if (0 < jQuery('#map').length) {
+//                            require(['<?//= $this->basePath('js/google-map.js') ?>//'], function (Map) {
+//                                require(['<?//= $this->basePath('js/custom_map.js') ?>//'], function () {
+//                                    Address.maps = Map;
+//                                });
+//                            });
+//                        };
+//                    });
+//                });
+//            });
+//        });
+//    });
 </script>

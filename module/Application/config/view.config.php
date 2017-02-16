@@ -2,6 +2,7 @@
 
 namespace Application;
 
+use Application\View\Helper\ScriptStorage;
 use Zend\ServiceManager\ServiceManager;
 
 return [
@@ -9,9 +10,19 @@ return [
         'locale' => function(ServiceManager $serviceManager) {
             return new View\Helper\Locale($serviceManager);
         },
-        'route' => function (ServiceManager $sm) {
-            $route = new View\Helper\Route($sm->get('Application')->getMvcEvent()->getRouteMatch());
+        'route' => function (ServiceManager $serviceManager) {
+            $route = new View\Helper\Route($serviceManager->get('Application')->getMvcEvent()->getRouteMatch());
             return $route;
         },
+        'scripts' => function (ServiceManager $serviceManager) {
+            $config = $serviceManager->get('config');
+            if (true === isset($config['scripts'])) {
+                $scripts = $config['scripts'];
+            } else {
+                $scripts = [];
+            }
+
+            return new ScriptStorage($scripts);
+        }
     ]
 ];

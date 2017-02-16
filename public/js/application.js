@@ -143,19 +143,25 @@ var ModalAction = function (action, selector, params) {
 var AjaxAction = function (action, data, success) {
 
     this.execute = function () {
+        var successFunction;
         if (typeof success !== 'function') {
-            success = function (data) {
+            successFunction = function (data) {
                 if (data.hasOwnProperty('html')) {
+                    console.log(data.html);
+                    console.log(success);
                     $(success).html(data.html);
                 }
             };
+        } else {
+            successFunction = success;
         }
 
         $.ajax(
             {
                 url: action,
                 data: data,
-                success: success
+                success: successFunction,
+                method: 'post'
             }
         );
     }

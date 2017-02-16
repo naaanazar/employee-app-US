@@ -68,5 +68,6 @@ return [
         'cities' => [
             __DIR__ . '/../../../data/bin/fixtures/worldcities.txt'
         ]
-    ]
+    ],
+    'scripts' => include __DIR__ . '/scripts.config.php'
 ];

@@ -213,9 +213,26 @@ class EmployeeController extends AbstractController
             $this->getEntityManager()->persist($comment);
             $this->getEntityManager()->flush();
 
+            $comments = $this->getEntityManager()
+                ->getRepository(Comment::class)
+                ->findBy(
+                    [
+                        'employee' => $employee
+                    ],
+                    [
+                        'created' => 'DESC'
+                    ]
+                );
+
             $result->setVariables(
                 [
-                    'html' => $this->getRenderer()->render('layout/concern/comments')
+                    'html' => $this->getRenderer()->render(
+                        'layout/concern/comments',
+                        [
+                            'employee' => $employee,
+                            'comments' => $comments
+                        ]
+                    )
                 ]
             );
         }
