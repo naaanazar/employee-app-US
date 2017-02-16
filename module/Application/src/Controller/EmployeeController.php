@@ -2,7 +2,7 @@
 
 namespace Application\Controller;
 
-use Application\Back\Form\Validator\Coordinate;
+use Application\Model\Comment;
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
@@ -11,7 +11,6 @@ use Application\Model\WeeklyHours;
 use Application\Model\Coordinates;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
 
 /**
  * Class EmployeeController
@@ -19,6 +18,14 @@ use Zend\View\Renderer\PhpRenderer;
  */
 class EmployeeController extends AbstractController
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->restrictNonLoggedIn();
+    }
 
     /**
      * Main Employee action with add form
@@ -155,11 +162,65 @@ class EmployeeController extends AbstractController
             return $this->notFoundAction();
         } else {
             $view = new ViewModel();
+
+            $comments = $this->getEntityManager()
+                ->getRepository(Comment::class)
+                ->findBy(
+                    [
+                        'employee' => $employee
+                    ],
+                    [
+                        'created' => 'DESC'
+                    ]
+                );
+
             $view->setTemplate('application/employee/show.phtml');
-            $view->setVariable('employee', $employee);
+            $view->setVariables(
+                [
+                    'employee' => $employee,
+                    'comments' => $comments
+                ]
+            );
         }
 
         return $view;
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function commentAction()
+    {
+        $body = $this->getRequest()->getPost('body');
+        $employee = $this->getRequest()->getPost('employee');
+
+        $result = new JsonModel();
+
+        if (null !== $body && null !== $employee) {
+
+            /** @var EmployeeModel $employee */
+            $employee = $this->getEntityManager()
+                ->getRepository(EmployeeModel::class)
+                ->find($employee);
+
+            $comment = new Comment();
+            $comment->setBody($body);
+            $comment->setCreated(new \DateTime());
+            $comment->setUpdated(new \DateTime());
+            $comment->setUser($this->getUser());
+            $comment->setEmployee($employee);
+
+            $this->getEntityManager()->persist($comment);
+            $this->getEntityManager()->flush();
+
+            $result->setVariables(
+                [
+                    'html' => $this->getRenderer()->render('layout/concern/comments')
+                ]
+            );
+        }
+
+        return $result;
     }
 
 }

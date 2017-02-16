@@ -132,3 +132,31 @@ var ModalAction = function (action, selector, params) {
     };
 
 };
+
+/**
+ * Ajax call
+ * @param action
+ * @param data
+ * @param success
+ * @constructor
+ */
+var AjaxAction = function (action, data, success) {
+
+    this.execute = function () {
+        if (typeof success !== 'function') {
+            success = function (data) {
+                if (data.hasOwnProperty('html')) {
+                    $(success).html(data.html);
+                }
+            };
+        }
+
+        $.ajax(
+            {
+                url: action,
+                data: data,
+                success: success
+            }
+        );
+    }
+};

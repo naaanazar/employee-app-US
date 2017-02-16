@@ -14,6 +14,13 @@ class User
 {
 
     /**
+     * User roles
+     */
+    const ROLE_USER        = 'user';
+    const ROLE_CONTRIBUTOR = 'contributor';
+    const ROLE_ADMIN       = 'admin';
+
+    /**
      * @var int
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

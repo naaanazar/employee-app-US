@@ -100,7 +100,7 @@ class UserController extends AbstractController
                     /** @var RegisterKey $role */
                     $role = $registerKey->getRole();
                 } else {
-                    $role = 'user';
+                    $role = User::ROLE_USER;
                 }
 
                 $user->setRole($role);
