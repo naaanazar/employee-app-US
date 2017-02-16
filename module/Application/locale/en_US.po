@@ -17,8 +17,59 @@ msgstr "Set Area Around"
 msgid "Set Contract Type"
 msgstr "Set Contract Type"
 
+msgid "Name"
+msgstr "Name"
+
+msgid "Surname"
+msgstr "Surname"
+
+msgid "ZIP"
+msgstr "ZIP"
+
+msgid "City"
+msgstr "City"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Driving licence"
+msgstr "Driving licence"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Car available"
+msgstr "Car available"
+
+msgid "Nothing where found"
+msgstr "Nothing where found"
+
+msgid "Date of application / entry"
+msgstr "Date of application / entry"
+
+msgid "Mobile Phone"
+msgstr "Mobile Phone"
+
+msgid "Set Option Why Delete"
+msgstr "Set Option Why Delete"
+
 msgid "Not used yet"
 msgstr "Not used yet"
+
+msgid "Area around"
+msgstr "Area around"
+
+msgid "Coordinates"
+msgstr "Coordinates"
+
+msgid "Set Source Application"
+msgstr "Set Source Application"
+
+msgid "Select statistic period"
+msgstr "Select statistic period"
 
 msgid "Set Weekly hours"
 msgstr "Set Weekly hours"
@@ -26,20 +77,14 @@ msgstr "Set Weekly hours"
 msgid "Create employee"
 msgstr "Create employee"
 
-msgid "Name"
-msgstr "Name"
-
-msgid "Surname"
-msgstr "Surname"
-
-msgid "City"
-msgstr "City"
-
 msgid "Address"
 msgstr "Address"
 
-msgid "ZIP"
-msgstr "ZIP"
+msgid "Update marker"
+msgstr "Update marker"
+
+msgid "Hide map"
+msgstr "Hide map"
 
 msgid "Mobile phone number"
 msgstr "Mobile phone number"
@@ -71,18 +116,6 @@ msgstr "Hourly rate"
 msgid "Experience in the job"
 msgstr "Experience in the job"
 
-msgid "Yes"
-msgstr "Yes"
-
-msgid "No"
-msgstr "No"
-
-msgid "Driving licence"
-msgstr "Driving licence"
-
-msgid "Car available"
-msgstr "Car available"
-
 msgid "Upload user photo"
 msgstr "Upload user photo"
 
@@ -91,6 +124,24 @@ msgstr "Attachments"
 
 msgid "Save"
 msgstr "Save"
+
+msgid "Germany"
+msgstr "Germany"
+
+msgid "Additional information"
+msgstr "Additional information"
+
+msgid "Comment"
+msgstr "Comment"
+
+msgid "Has experience"
+msgstr "Has experience"
+
+msgid "Driving license present"
+msgstr "Driving license present"
+
+msgid "Leave comment"
+msgstr "Leave comment"
 
 msgid "Main"
 msgstr "Main"
@@ -101,17 +152,29 @@ msgstr "Exit from dashboard"
 msgid "Search employee"
 msgstr "Search employee"
 
+msgid "Overview employee"
+msgstr "Overview employee"
+
 msgid "Configure Around Areas"
 msgstr "Configure Around Areas"
 
 msgid "Configure Contract Type"
 msgstr "Configure Contract Type"
 
+msgid "Configure Source Application"
+msgstr "Configure Source Application"
+
+msgid "Configure List Why Delete"
+msgstr "Configure List Why Delete"
+
 msgid "Configure Weekly Hours"
 msgstr "Configure Weekly Hours"
 
 msgid "Configure Register keys"
 msgstr "Configure Register keys"
+
+msgid "Statistics"
+msgstr "Statistics"
 
 msgid "Home"
 msgstr "Home"
