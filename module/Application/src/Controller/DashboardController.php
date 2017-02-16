@@ -7,14 +7,18 @@ use Application\Back\Form\Search\Dashboard\Statistic;
 use Application\Back\Form\Search\Dashboard\Areas;
 use Application\Back\Form\Search\Dashboard\Contract as ContractBack;
 use Application\Back\Form\Search\Dashboard\WeeklyHours as WeeklyHoursBack;
+use Application\Back\Form\Search\Dashboard\SourceApplication;
+use Application\Back\Form\Search\Dashboard\ReasonRemoval;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
 use Application\Model\Employee;
 use Application\Model\RegisterKey;
 use Application\Model\Contract;
+use Application\Model\ReasonRemoval as ReasonRemovalModel;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
+use Application\Model\SourceApplication as SourceApplicationModel;
 use Application\Model\WeeklyHours;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
@@ -275,6 +279,96 @@ class DashboardController extends AbstractController
 
         } else {
             $search = new ContractBack($post = $this->getRequest()->getPost());
+
+            return new ViewModel(
+                [
+                    'paginator' => $search->getResult()
+                ]
+            );
+        }
+    }
+
+    /**
+     * Dashboard  configure source application action
+     *
+     * @return ViewModel|array
+     */
+    public function sourceApplicationAction()
+    {
+        if (true === $this->getRequest()->isPost()
+            && true === $this->getRequest()->isXmlHttpRequest()
+            && null !== $this->getRequest()->getPost('name')
+        ){
+            $name = $this->getRequest()->getPost('name');
+            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+
+            $json = new JsonModel();
+            $source = new SourceApplicationModel();
+            $source->setName($name);
+            $source->setCode($code);
+
+            try {
+                $this->getEntityManager()->persist($source);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable(
+                    'redirect',
+                    $this->url()->fromRoute('dashboard', ['action' => 'source-application']));
+            } catch (ORMInvalidArgumentException $exception) {
+                $json->setVariable('message', 'Invalid data to save source application');
+            } catch (OptimisticLockException $exception) {
+                $json->setVariable('message', 'Can not save source application to database');
+            }
+
+            return $json;
+
+        } else {
+            $search = new SourceApplication($post = $this->getRequest()->getPost());
+
+            return new ViewModel(
+                [
+                    'paginator' => $search->getResult()
+                ]
+            );
+        }
+    }
+
+    /**
+     * Dashboard  configure whyDelete action
+     *
+     * @return ViewModel|array
+     */
+    public function ReasonRemovalAction()
+    {
+        if (true === $this->getRequest()->isPost()
+            && true === $this->getRequest()->isXmlHttpRequest()
+            && null !== $this->getRequest()->getPost('name')
+        ){
+            $name = $this->getRequest()->getPost('name');
+            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+
+            $json = new JsonModel();
+            $source = new ReasonRemovalModel();
+            $source->setName($name);
+            $source->setCode($code);
+
+            try {
+                $this->getEntityManager()->persist($source);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable(
+                    'redirect',
+                    $this->url()->fromRoute('dashboard', ['action' => 'reason-removal']));
+            } catch (ORMInvalidArgumentException $exception) {
+                $json->setVariable('message', 'Invalid data to save why delete');
+            } catch (OptimisticLockException $exception) {
+                $json->setVariable('message', 'Can not save why delete to database');
+            }
+
+            return $json;
+
+        } else {
+            $search = new ReasonRemoval($post = $this->getRequest()->getPost());
 
             return new ViewModel(
                 [

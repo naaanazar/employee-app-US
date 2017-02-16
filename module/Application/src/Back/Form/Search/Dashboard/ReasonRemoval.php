@@ -4,15 +4,15 @@ namespace Application\Back\Form\Search\Dashboard;
 
 use Application\Back\Form\Search\AbstractSearch;
 use Application\Back\Paginator\Doctrine;
-use Application\Model\WeeklyHours as WeeklyHoursModel;
+use Application\Model\ReasonRemoval as ReasonRemovalModel;
 use Application\Module;
 use Zend\Paginator\Paginator;
 
 /**
- * Class WeeklyHours
+ * Class ReasonRemoval
  * @package Application\Back\Form\Search\Dashboard
  */
-class WeeklyHours extends AbstractSearch
+class ReasonRemoval extends AbstractSearch
 {
 
     /**
@@ -20,7 +20,7 @@ class WeeklyHours extends AbstractSearch
      */
     public function getResult()
     {
-        return (new Doctrine(WeeklyHoursModel::class))
+        return (new Doctrine(ReasonRemovalModel::class))
             ->setLimit(20, $this->data('page', 1));
     }
 

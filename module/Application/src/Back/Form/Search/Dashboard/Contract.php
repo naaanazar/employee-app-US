@@ -20,8 +20,7 @@ class Contract extends AbstractSearch
      */
     public function getResult()
     {
-        $criteria = [];
-        return (new Doctrine(ContractModel::class, $criteria))
+        return (new Doctrine(ContractModel::class))
             ->setLimit(20, $this->data('page', 1));
     }
 
