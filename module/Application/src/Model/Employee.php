@@ -2,6 +2,7 @@
 
 namespace Application\Model;
 
+use Application\Back\Form\Search\Dashboard\SourceApplication;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -107,6 +108,13 @@ class Employee
      * @ORM\JoinColumn(name="contract_id", referencedColumnName="id")
      */
     private $contract;
+
+    /**
+     * @var SourceApplication
+     * @ORM\ManyToOne(targetEntity="SourceApplication")
+     * @ORM\JoinColumn(name="source_application_id", referencedColumnName="id")
+     */
+    private $sourceApplication;
 
     /**
      * @var WeeklyHours
@@ -288,6 +296,14 @@ class Employee
     }
 
     /**
+     * @return SourceApplication
+     */
+    public function getSourceApplication()
+    {
+        return $this->sourceApplication;
+    }
+
+    /**
      * @return WeeklyHours
      */
     public function getWeeklyHoursAvailable()
@@ -456,6 +472,16 @@ class Employee
     {
         $this->contract = $contractType;
 
+        return $this;
+    }
+
+    /**
+     * @param SourceApplication $sourceApplication
+     * @return $this
+     */
+    public function setSourceApplication($sourceApplication)
+    {
+        $this->sourceApplication = $sourceApplication;
         return $this;
     }
 
