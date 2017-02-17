@@ -16,8 +16,6 @@ use Zend\Paginator\Paginator;
  */
 class Overview extends AbstractSearch
 {
-
-
     /**
      * @return Paginator
      */
@@ -41,6 +39,7 @@ class Overview extends AbstractSearch
         }
 
         $criteria = $employeesRepository->buildCriteria();
+
         $sort= new Sort;
         $criteria->orderBy(
             $sort->getSortValue(
@@ -48,7 +47,6 @@ class Overview extends AbstractSearch
                 $this->data['column_sort_order']
             )
         );
-
 
         return (new Doctrine(Employee::class, $criteria))
             ->setLimit(20, $this->data('page', 1));

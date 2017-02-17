@@ -18,15 +18,15 @@ var Sort = {
 
     initForm: function(formId){
 
-        var html = '<input type="hidden" class="" id="sort-column-name" name="column_sort_name" value="">' +
-            '<input type="hidden" class="" id="sort-order"  name="column_sort_order" value="">';
+        var html = '<input type="hidden" class="" id="column-name" name="sort_name" value="">' +
+            '<input type="hidden" class="" id="sort-order"  name="sort_order" value="">';
 
         jQuery(formId).append(html);
 
     },
 
     getStatus: function(){
-        var columnName = jQuery('#sort-column-name').val();
+        var columnName = jQuery('#column-name').val();
         var columnOrder = jQuery('#sort-order').val();
 
         if (columnName && columnOrder) {
@@ -42,7 +42,7 @@ var Sort = {
         jQuery(tableId).on('click', 'th', function (e) {
 
             var element = jQuery(e.target);
-            jQuery('#sort-column-name').val(jQuery(element).data('column-name'));
+            jQuery('#column-name').val(jQuery(element).data('column-name'));
 
             if (jQuery(element).hasClass('sorting_asc')){
                 Sort.addElementSortDESC(element);

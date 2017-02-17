@@ -1,9 +1,6 @@
 <?php
 
-
 namespace Application\Back\Form\Search;
-
-
 
 /**
  * Class Sort
@@ -23,6 +20,7 @@ class Sort
         if (null !== ($columnSort = $this->checkSortData($columnSort))){
             $this->columnSort =  $columnSort;
         }
+
         if (null !== ($order = $this->checkSortData($order))){
             $this->order =  $order;
         }
@@ -36,6 +34,7 @@ class Sort
      */
     public function checkSortData($data){
         if (isset($data) && (false === empty($data))){
+
             return $data;
         }
     }
