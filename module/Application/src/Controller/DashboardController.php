@@ -112,8 +112,8 @@ class DashboardController extends AbstractController
             $sort= new Sort;
             $criteria->orderBy(
                 $sort->getSortValue(
-                    $this->$post['column_sort_name'],
-                    $this->$post['column_sort_order']
+                   $post['column_sort_name'],
+                   $post['column_sort_order']
                 )
             );
         }
