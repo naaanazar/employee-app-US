@@ -1,10 +1,8 @@
-
 jQuery('document').ready(function () {
 
     Sort.initForm('#filter-employee-form')
     Sort.initTable('#employee_table');
     Sort.eventSort('#employee_table', '#filter-employee-form');
-
 });
 
 var Sort = {
@@ -68,9 +66,7 @@ var Sort = {
             Sort.eventSort(Sort.tableId, Sort.formId);
         });
 
-        // jQuery('body').loading('toggle');
         jQuery('#employees-list').html(data.html);
-
     },
 
     addElementSortDESC: function(element) {
