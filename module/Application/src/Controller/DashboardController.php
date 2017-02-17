@@ -23,6 +23,7 @@ use Application\Model\WeeklyHours;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
+use Zend\Json\Json;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -137,7 +138,7 @@ class DashboardController extends AbstractController
                     return [
                         'longitude' => $coordinate->getLongitude(),
                         'latitude'  => $coordinate->getLatitude(),
-                        'employee'  => $coordinate->getEmployee()->getId(),
+                        'employee'  => $coordinate->getEmployee()->toArray(),
                     ];
                 },
                 $coordinates->toArray()
