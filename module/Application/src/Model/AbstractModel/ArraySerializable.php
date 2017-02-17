@@ -10,23 +10,28 @@ abstract class ArraySerializable
 {
 
     /**
-     * @param $model
      * @return array
      */
-    public function toArray($model)//: array
+    public function toArray(): array
     {
-        $array = [];
+        $result = [];
 
-        $properties = (new ReflectionClass(\Application\Model\$model))
+        if (static::class === ($class = get_parent_class($this))) {
+            $class = get_class($this);
+        }
+
+        $properties = (new \ReflectionClass($class))
             ->getProperties(\ReflectionProperty::IS_PRIVATE);
 
         foreach ($properties as $property) {
-            if (1 === preg_match('/[\s\t]+@ORM\Column[\s\t]+/', $property->getDocComment())) {
-                $array[] = $property;
+            if (1 === preg_match('/@ORM\\\Column/', $property->getDocComment())) {
+                $property->setAccessible(true);
+                $result[$property->getName()] = $property->getValue($this);
+                $property->setAccessible(false);
             }
         }
 
-        return $array;
+        return $result;
     }
 
 }

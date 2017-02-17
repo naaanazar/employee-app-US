@@ -1,5 +1,10 @@
 <form action="<?= $this->url('dashboard', ['action' => 'register-keys']) ?>" class="async">
     <input type="hidden" name="add" value="1">
+    <select name="role">
+        <?php foreach (\Application\Model\User::getConstants('ROLE_') as $role) : ?>
+            <option value="<?= $role ?>"><?= ucfirst($role) ?></option>
+        <?php endforeach; ?>
+    </select>
     <button>Generate new</button>
 </form>
 <div class="text-right">
@@ -9,7 +14,7 @@
     <tr>
         <th>#</th>
         <th>Link</th>
-        <th>Used</th>
+        <th>Role</th>
         <th>User</th>
     </tr>
     <?php foreach ($this->paginator as $registerKey) : ?>
@@ -17,13 +22,13 @@
         <tr>
             <td><?= $registerKey->getId() ?></td>
             <td><?= $this->url('user', ['action' => 'register', 'key' => $registerKey->getValue()], ['force_canonical' => true]) ?></td>
-            <td><?= $registerKey->isUsed() ? 'Yes' : 'No' ?></td>
+            <td><?= $registerKey->getRole() ?></td>
             <td>
                 <?php if (null === $registerKey->getUser()) : ?>
                     <?= $this->translate('Not used yet') ?>
                 <?php else : ?>
                     <a
-                            href="#"
+                            href="<?= $this->url('show-user', ['id' => $registerKey->getUser()->getId()] ) ?>"
                             class="modal-action"
                             data-action="<?= $this->url('show-user', ['id' => $registerKey->getUser()->getId()] ) ?>"
                             data-element="#modal-action"

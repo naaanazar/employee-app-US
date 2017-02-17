@@ -19,6 +19,7 @@ use Application\Model\ReasonRemoval as ReasonRemovalModel;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
 use Application\Model\SourceApplication as SourceApplicationModel;
+use Application\Model\User;
 use Application\Model\WeeklyHours;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
@@ -245,6 +246,7 @@ class DashboardController extends AbstractController
 
             $registerKey = new RegisterKey();
             $registerKey->setValue(RegisterKey::hashKey());
+            $registerKey->setRole($this->getRequest()->getPost('role'), User::ROLE_USER);
 
             try {
                 $this->getEntityManager()->persist($registerKey);
