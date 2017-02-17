@@ -13,7 +13,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         if (jQuery('div').is('#map-container')) {
             Address.start();
             Address.clickOnMap();
-        };
+        }
 
         /**
          * employe/index
@@ -26,7 +26,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 jQuery('#init-map').css('display', 'block');
                 Address.start();
                 jQuery('#map').addClass('init');
-            };
+            }
 
             Address.clickOnMap();
             Address.findAddress(Address.map);
@@ -42,7 +42,6 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 jQuery('#map').removeClass('init');
 
             }
-            ;
         });
     });
 
@@ -126,15 +125,15 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
 
                     if (jQuery('input').is('#city_field')) {
                         document.getElementById('city_field').value = city[1];
-                    };
+                    }
 
                     if (jQuery('input').is('#address_field')) {
                         document.getElementById('address_field').value = address[0].trim();
-                    };
+                    }
 
                     if (jQuery('input').is('#address_field')) {
                         document.getElementById('zip_field').value = city[0];
-                    };
+                    }
 
                 }
             });
