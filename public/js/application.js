@@ -122,7 +122,7 @@ var ModalAction = function (action, selector, params) {
                 url: action,
                 data: params,
                 success: function (data) {
-                    console.log(data);
+
                     if ($(selector) && data.html) {
                         $(selector).modal().find('.modal-body').html(data.html);
                     }
@@ -150,6 +150,7 @@ var AjaxAction = function (action, data, success) {
         var successFunction;
         if (typeof success !== 'function') {
             successFunction = function (data) {
+
                 if (data.hasOwnProperty('html')) {
                     $('body').loading('toggle');
                     $(success).html(data.html);

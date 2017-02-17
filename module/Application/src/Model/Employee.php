@@ -582,11 +582,6 @@ class Employee extends ArraySerializable
         $this->hash = $hash;
     }
 
-    public function toArray(): array
-    {
-        // TODO: Implement toArray() method.
-    }
-
     /**
      * @return string
      */
