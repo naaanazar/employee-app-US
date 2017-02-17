@@ -42,7 +42,7 @@ jQuery(document).on('submit', 'form.async', function (event) {
             success: function (response) {
 
                 Validate.showErrorsMassages(response.errors);
-                // Validate.redirect(response.redirect);
+                Validate.redirect(response.redirect);
             }
         }
     );
