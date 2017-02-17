@@ -21,7 +21,7 @@
                     </button>
                     <a class="navbar-brand" href="#">Company</a>
                 </div>
-                <?= $this->render('layout/menu/' . ($this->user === null ? 'guest' : 'user') . '.phtml') ?>
+                <?= $this->render('layout/menu/' . ($this->user === null ? 'guest' : $this->user->getRole()) . '.phtml') ?>
             </div>
         </nav>
         <div class="container">

@@ -1,6 +1,6 @@
 
 
-    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class=""  method="post">
+    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class="search-employees"  method="post">
         <div class="row">
             <div class="form-group col-md-3">
                 <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?></label>
@@ -79,58 +79,9 @@
         </div>
 
     </form>
-
-
-
-
-
-
-
 <div class="collapse in" id="map-container">
     <div id="map" class="map frame"></div>
 </div>
-<a type="button" class="row" data-toggle="collapse" data-target="#map-container">Show map</a>
-
-
-<?php if ($this->paginator->count() === 0) : ?>
-    <div class="text-center text-muted">
-        <h3><?= $this->translate('Nothing where found') ?></h3>
-    </div>
-<?php else :?>
-
-    <table class="table">
-        <tr>
-            <th>#</th>
-            <th><?= $this->translate('Date of application / entry') ?></th>
-            <th><?= $this->translate('Name') ?></th>
-            <th><?= $this->translate('Surname') ?></th>
-            <th><?= $this->translate('ZIP') ?></th>
-            <th><?= $this->translate('City') ?></th>
-            <th><?= $this->translate('Mobile Phone') ?></th>
-        </tr>
-        <?php foreach ($this->paginator as $employee) : ?>
-            <tr>
-                <?php /** @var \Application\Model\Employee $employee */ ?>
-                <td><?= $employee->getId() ?></td>
-                <td><?= $employee->getCreated()->format('Y-m-d') ?></td>
-                <td>
-                    <a
-                        href="#"
-                        class="modal-action"
-                        data-action="<?= $this->url('show-employee', ['id' => $employee->getId()] ) ?>"
-                        data-element="#modal-action"
-                        >
-                        <?= $employee->getName() ?>
-                    </a>
-                </td>
-                <td><?= $employee->getSurname() ?></td>
-                <td><?= $employee->getZip() ?></td>
-                <td><?= $employee->getCity() ?></td>
-                <td><?= $employee->getMobilePhone() ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-<?php endif; ?>
-<div class="text-right">
-    <?= $this->render('layout/helper/pagination') ?>
+<div id="employees-list">
+    <?= $this->render('layout/concern/employees') ?>
 </div>

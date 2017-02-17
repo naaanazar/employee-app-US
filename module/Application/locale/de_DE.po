@@ -17,8 +17,59 @@ msgstr "Set Bereich Um"
 msgid "Set Contract Type"
 msgstr "Set Contract Type"
 
+msgid "Name"
+msgstr "Name"
+
+msgid "Surname"
+msgstr "Familienname"
+
+msgid "ZIP"
+msgstr "ZIP"
+
+msgid "City"
+msgstr "Stadt"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Driving licence"
+msgstr "Fahrerlaubnis"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Keine"
+
+msgid "Car available"
+msgstr "Auto zur Verfügung"
+
+msgid "Nothing where found"
+msgstr "Nichts gefunden, wo"
+
+msgid "Date of application / entry"
+msgstr "Datum der Anwendung / Eintrag"
+
+msgid "Mobile Phone"
+msgstr "Handy"
+
+msgid "Set Option Why Delete"
+msgstr "Setzen Sie Die Option Warum Löschen"
+
 msgid "Not used yet"
 msgstr "Noch nicht verwendet"
+
+msgid "Area around"
+msgstr "Bereich um"
+
+msgid "Coordinates"
+msgstr "Koordinaten"
+
+msgid "Set Source Application"
+msgstr "Legen Sie Die Quell-Anwendung"
+
+msgid "Select statistic period"
+msgstr "Wählen Sie Statistik-Zeitraums"
 
 msgid "Set Weekly hours"
 msgstr "Wöchentliche Stunden"
@@ -26,20 +77,14 @@ msgstr "Wöchentliche Stunden"
 msgid "Create employee"
 msgstr ""Erstellen Sie für Mitarbeiter"
 
-msgid "Name"
-msgstr "Name"
-
-msgid "Surname"
-msgstr "Familienname"
-
-msgid "City"
-msgstr "Stadt"
-
 msgid "Address"
 msgstr "Adresse"
 
-msgid "ZIP"
-msgstr "ZIP"
+msgid "Update marker"
+msgstr "Update marker"
+
+msgid "Hide map"
+msgstr "Karte ausblenden"
 
 msgid "Mobile phone number"
 msgstr "Handy-Nummer"
@@ -71,18 +116,6 @@ msgstr "Stundensatz"
 msgid "Experience in the job"
 msgstr "Erfahrung in der Arbeit"
 
-msgid "Yes"
-msgstr "Ja"
-
-msgid "No"
-msgstr "Keine"
-
-msgid "Driving licence"
-msgstr "Fahrerlaubnis"
-
-msgid "Car available"
-msgstr "Auto zur Verfügung"
-
 msgid "Upload user photo"
 msgstr "Hochladen user-Foto"
 
@@ -91,6 +124,24 @@ msgstr "Anlagen"
 
 msgid "Save"
 msgstr "Speichern"
+
+msgid "Germany"
+msgstr "Deutschland"
+
+msgid "Additional information"
+msgstr "Weitere Informationen"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Has experience"
+msgstr "Hat Erfahrung"
+
+msgid "Driving license present"
+msgstr "Führerschein vorhanden"
+
+msgid "Leave comment"
+msgstr "Kommentar hinterlassen"
 
 msgid "Main"
 msgstr "Main"
@@ -101,17 +152,29 @@ msgstr "Ausfahrt aus dem dashboard"
 msgid "Search employee"
 msgstr "Suche Mitarbeiter"
 
+msgid "Overview employee"
+msgstr "Übersicht Mitarbeiter"
+
 msgid "Configure Around Areas"
 msgstr "Konfigurieren, Um Gebiete Mit"
 
 msgid "Configure Contract Type"
 msgstr "Konfigurieren Vertrag Geben"
 
+msgid "Configure Source Application"
+msgstr "Konfigurieren Der Quell-Anwendung"
+
+msgid "Configure List Why Delete"
+msgstr "Konfigurieren Der Liste, Warum Löschen"
+
 msgid "Configure Weekly Hours"
 msgstr "Konfigurieren Stunden"
 
 msgid "Configure Register keys"
 msgstr "Konfigurieren Register Tasten"
+
+msgid "Statistics"
+msgstr "Statistik"
 
 msgid "Home"
 msgstr "Home"

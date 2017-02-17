@@ -57,7 +57,12 @@ msgstr ""
             . '&lang=en-' . $lang
         )->getBody())->text[0];
 
-        file_put_contents($localeDir . '/' .$locale . '.po', "msgid \"$word\"\nmsgstr \"$result\"\n\n", FILE_APPEND);
+        $poFile = $localeDir . '/' .$locale . '.po';
+        $moFile = $localeDir . '/' .$locale . '.mo';
+
+        file_put_contents($poFile, "msgid \"$word\"\nmsgstr \"$result\"\n\n", FILE_APPEND);
+        $tranlation = \Gettext\Translations::fromPoFile($poFile);
+        $tranlation->toMoFile($moFile);
 
     }
 

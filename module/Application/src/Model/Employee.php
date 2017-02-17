@@ -3,6 +3,7 @@
 namespace Application\Model;
 
 use Application\Back\Form\Search\Dashboard\SourceApplication;
+use Application\Model\AbstractModel\ArraySerializable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Application\Model\Repository\EmployeeRepository")
  * @ORM\Table(name="employees")
  */
-class Employee
+class Employee extends ArraySerializable
 {
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Application\Model;
 
+use Application\Model\AbstractModel\Concern\Constants;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,6 +20,8 @@ class User
     const ROLE_USER        = 'user';
     const ROLE_CONTRIBUTOR = 'contributor';
     const ROLE_ADMIN       = 'admin';
+
+    use Constants;
 
     /**
      * @var int
