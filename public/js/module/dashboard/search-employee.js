@@ -8,6 +8,13 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
 
     var callback = function (data) {
 
+        jQuery('document').ready(function () {
+
+            Sort.initTable('#employee_table');
+            Sort.eventSort('#employee_table', '#filter-employee-form');
+
+        });
+
         var map = Map.init();
 
         data.coordinates.forEach(
