@@ -108,7 +108,7 @@ class DashboardController extends AbstractController
             $employeesRepository->addExpression('in', 'id', $employeesIds);
 
             $criteria = $employeesRepository->buildCriteria();
-//my code
+
             $sort= new Sort;
             $criteria->orderBy(
                 $sort->getSortValue(

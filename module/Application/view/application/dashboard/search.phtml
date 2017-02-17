@@ -1,6 +1,6 @@
 
 
-    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class="search-employees"  method="post" id="filter_overview">
+    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class="search-employees"  method="post" id="filter-employee-form">
         <div class="row">
             <div class="form-group col-md-3">
                 <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?></label>
@@ -71,8 +71,6 @@
                         <input id="longitude" name="longitude" type="text" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['longitude']) ? ($this->fields['longitude']) : '' ?>">
                    </div>
             </div>
-            <input type="hidden" class="" id="sort-column-name" name="column_sort_name" value="">
-            <input type="hidden" class="" id="sort-order"  name="column_sort_order" value="">
         </div>
         <div class="row">
             <div class="form-group">

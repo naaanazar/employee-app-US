@@ -1,48 +1,43 @@
 
 jQuery('document').ready(function () {
 
-    Sort.initSort('#overview_table');
-    Sort.eventSort('#overview_table', '#filter_overview');
+    Sort.initForm('#filter-employee-form')
+    Sort.initTable('#employee_table');
+    Sort.eventSort('#employee_table', '#filter-employee-form');
 
 });
 
-var formSubmit = {
-
-
-
-}
-
-var sessionStorageFormData = {
-    setData: function(formId, storageValueName){
-        var data = {}
-        $.each(jQuery(formId).serializeArray(),
-            function(i, v) {
-                data[v.name] = v.value;
-            });
-
-        sessionStorage.setItem(storageValueName, JSON.stringify(data));
-    },
-
-    getData: function(storageValueName){
-
-        return JSON.parse(sessionStorage.getItem(storageValueName));
-    }
-}
-
 var Sort = {
 
-    initSort: function(tableId){
+    initTable: function(tableId){
         jQuery(tableId + ' > thead > tr > th').each(function(){
-            jQuery(this).html(jQuery(this).text() + '<span style="color:#c1c1c1;" class="glyphicon glyphicon-sort span_no_event" aria-hidden="true"></span>');
+            jQuery(this).html(jQuery(this).text() + '<span style="color:#c1c1c1; float: right;" class="glyphicon glyphicon-sort span_no_event" aria-hidden="true"></span>');
         })
+        jQuery(tableId + ' > thead > tr > th').css( "cursor", "pointer" );
 
-        var formData = sessionStorageFormData.getData('filterData');
+        Sort.getStatus();
+    },
 
-        jQuery.each(formData, function(prop, val) {
-            $( "input[name='" + prop + "']" ).val(val);
-           console.log(prop + '--' + val);
-        });
-        console.log(formData);
+    initForm: function(formId){
+
+        var html = '<input type="hidden" class="" id="sort-column-name" name="column_sort_name" value="">' +
+            '<input type="hidden" class="" id="sort-order"  name="column_sort_order" value="">';
+
+        jQuery(formId).append(html);
+
+    },
+
+    getStatus: function(){
+        var columnName = jQuery('#sort-column-name').val();
+        var columnOrder = jQuery('#sort-order').val();
+
+        if (columnName && columnOrder) {
+            if (columnOrder === 'ASC') {
+                Sort.addElementSortASC(jQuery("th[data-column-name='" + columnName + "']"));
+            } else if (columnOrder === 'DESC') {
+                Sort.addElementSortDESC(jQuery("th[data-column-name='" + columnName + "']"));
+            }
+        }
     },
 
     eventSort: function(tableId, formId) {
@@ -58,27 +53,38 @@ var Sort = {
             }
 
             Sort.defaultTh(tableId, element);
+            Sort.tableId = tableId;
+            Sort.formId = formId;
 
-            sessionStorageFormData.setData(formId, 'filterData');
-
-           /* setTimeout(function(){
-                $(formId).submit();
-            },3000)*/
+            var action = new AjaxAction(jQuery(formId).attr('action'), jQuery(formId).serializeArray(), Sort.callback);
+            action.execute();
         })
+    },
+
+    callback: function (data) {
+
+        jQuery('document').ready(function () {
+            Sort.initTable(Sort.tableId);
+            Sort.eventSort(Sort.tableId, Sort.formId);
+        });
+
+        // jQuery('body').loading('toggle');
+        jQuery('#employees-list').html(data.html);
+
     },
 
     addElementSortDESC: function(element) {
         jQuery(element).removeClass('sorting_asc');
         jQuery(element).addClass('sorting_desc');
         jQuery('#sort-order').val('DESC');
-        jQuery(element).html(jQuery(element).text() + '<span style="color:#c1c1c1;" class="glyphicon glyphicon-sort-by-attributes-alt span_no_event" aria-hidden="true"></span>')
+        jQuery(element).html(jQuery(element).text() + '<span style="color:#c1c1c1; float: right;" class="glyphicon glyphicon-sort-by-attributes-alt span_no_event" aria-hidden="true"></span>')
     },
 
     addElementSortASC: function(element) {
         jQuery(element).removeClass('sorting_desc');
         jQuery(element).addClass('sorting_asc');
         jQuery('#sort-order').val('ASC');
-        jQuery(element).html(jQuery(element).text() + '<span style="color:#c1c1c1;" class="glyphicon glyphicon-sort-by-attributes span_no_event" aria-hidden="true"></span>')
+        jQuery(element).html(jQuery(element).text() + '<span style="color:#c1c1c1; float: right;" class="glyphicon glyphicon-sort-by-attributes span_no_event" aria-hidden="true"></span>')
     },
 
     defaultTh: function(tableId, element) {
@@ -86,7 +92,7 @@ var Sort = {
             if ($( "th" ).index( this ) !== $( "th" ).index( element )){
                 jQuery(this).removeClass('sorting_asc');
                 jQuery(this).removeClass('sorting_desc');
-                jQuery(this).html(jQuery(this).text() + '<span style="color:#c1c1c1;" class="glyphicon glyphicon-sort span_no_event" aria-hidden="true"></span>');
+                jQuery(this).html(jQuery(this).text() + '<span style="color:#c1c1c1; float: right;" class="glyphicon glyphicon-sort span_no_event" aria-hidden="true"></span>');
             }
         })
     }

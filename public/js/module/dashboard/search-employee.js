@@ -6,8 +6,12 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
 
     var callback = function (data) {
 
-        Sort.initSort('#overview_table');
-        Sort.eventSort('#overview_table', '#filter_overview');
+        jQuery('document').ready(function () {
+
+            Sort.initTable('#employee_table');
+            Sort.eventSort('#employee_table', '#filter-employee-form');
+
+        });
 
         var map = Map.init();
 
