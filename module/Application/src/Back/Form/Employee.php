@@ -19,9 +19,14 @@ use Application\Back\Form\Element\Employee\AreaAround;
 use Application\Back\Form\Element\Employee\ContractType;
 use Application\Back\Form\Element\Employee\WeeklyHours;
 use Application\Back\Form\Element\Employee\StartDay;
+use Application\Model\User;
+use Zend\Filter\File\RenameUpload;
 use Zend\Form\Element\Email;
+use Zend\Form\Element\File;
 use Zend\Form\Element\Text;
 use Zend\Form\Form;
+use Zend\InputFilter\FileInput;
+use Zend\InputFilter\InputFilter;
 
 /**
  * Class Employee
@@ -32,7 +37,7 @@ class Employee extends Form
 
     public function __construct(array $options)
     {
-        parent::__construct(null, $options);
+        parent::__construct('employee', $options);
 
         $this->add(
             [
@@ -175,6 +180,46 @@ class Employee extends Form
                 'name' => 'latitude'
             ]
         );
+
+        $this->add([
+            'type'  => 'file',
+            'name' => 'image',
+        ]);
+
+        $this->addInputFilter();
     }
 
+
+    public function addInputFilter()
+    {
+        $inputFilter = new InputFilter();
+
+        $hash = \Application\Model\Employee::hashKey();
+        $image = 'img/employee/' . $hash . '.png';
+        $this->setOption('image', $image);
+
+        $inputFilter->add
+        (
+            [
+                'type' => 'Zend\InputFilter\FileInput',
+                'name' => 'image',
+                'required' => false,
+                'filters'  => [
+                    [
+                        'name'    => RenameUpload::class,
+                        'options' => [
+                            'target'            => BASE_PATH . DIRECTORY_SEPARATOR . $image,
+                            'overwrite'         => true,
+                            'randomize'         => false
+                        ]
+                    ]
+                ],
+            ]
+        );
+
+
+
+        $this->setInputFilter($inputFilter);
+    }
+    
 }

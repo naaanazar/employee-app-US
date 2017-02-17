@@ -63,13 +63,18 @@ class EmployeeController extends AbstractController
                 ]
             );
 
-            $data = $this->getRequest()->getPost()->toArray();
+            $data  = $this->getRequest()->getPost()->toArray();
+            $files = $this->getRequest()->getFiles()->toArray();
             $form = new Employee([]);
-            $form->setData($data);
+            $form->setData(
+                array_merge_recursive($data, $files)
+            );
 
             if (false === $form->isValid()) {
                 $response->setVariable('errors', $form->getMessages());
             } else {
+
+                $data = $form->getData();
 
                 /** @var Area $areaAround */
                 $areaAround = $this->getEntityManager()
@@ -108,6 +113,12 @@ class EmployeeController extends AbstractController
                     ->setCreated(new \DateTime())
                     ->setUpdated(new \DateTime())
                     ->setHash(EmployeeModel::hashKey());
+
+                if (null !== $form->get('image')->getValue()) {
+                    $employee->setImage($form->getOption('image'));
+                } else {
+                    $employee->setImage('img/user-profile.png');
+                }
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
