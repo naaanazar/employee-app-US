@@ -4,7 +4,6 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
 
     event.defaultPrevented = true;
 
-
     var action = new AjaxAction(jQuery(this).attr('action'), jQuery(this).serializeArray(), callback);
     action.execute();
 
@@ -19,9 +18,8 @@ jQuery(document).on('click', '.paginator-a', function (event) {
     jQuery('#page-number').val(page);
     console.log(page);
     console.log(jQuery('.search-employees').serializeArray());
+
     var action = new AjaxAction(jQuery('.search-employees').attr('action'), jQuery('.search-employees').serializeArray(), callback);
-
-
     action.execute();
 
     return false;
