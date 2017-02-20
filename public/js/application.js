@@ -30,8 +30,6 @@ jQuery(document).on('submit', 'form.async', function (event) {
         }
     });
 
-    console.log(f = formData);
-
     jQuery.ajax(
         {
             url: form.attr('action'),
@@ -40,7 +38,6 @@ jQuery(document).on('submit', 'form.async', function (event) {
             contentType: false,
             method: 'post',
             success: function (response) {
-
                 Validate.showErrorsMassages(response.errors);
                 Validate.redirect(response.redirect);
             }
