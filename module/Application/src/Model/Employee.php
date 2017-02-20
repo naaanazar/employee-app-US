@@ -161,6 +161,12 @@ class Employee extends ArraySerializable
     private $hash;
 
     /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $image;
+
+    /**
      * @return int
      */
     public function getId()
@@ -334,6 +340,14 @@ class Employee extends ArraySerializable
     public function getHash()
     {
         return $this->hash;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
     }
 
     /**
@@ -580,6 +594,14 @@ class Employee extends ArraySerializable
     public function setHash($hash)
     {
         $this->hash = $hash;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image)
+    {
+        $this->image = $image;
     }
 
     /**

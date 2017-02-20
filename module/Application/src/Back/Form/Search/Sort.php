@@ -8,34 +8,18 @@ namespace Application\Back\Form\Search;
  */
 class Sort
 {
-    protected $columnSort = 'id';
-    protected $order = 'DESC';
 
     /**
      * @param $columnSort
      * @param $order
-     * @return array
+     * @return array|bool
      */
-    public function getSortValue($columnSort, $order){
-        if (null !== ($columnSort = $this->checkSortData($columnSort))){
-            $this->columnSort =  $columnSort;
+    public function getSortValue($columnSort, $order)
+    {
+        if (false === empty($columnSort) && false === empty($order)) {
+            return [$columnSort => $order];
         }
 
-        if (null !== ($order = $this->checkSortData($order))){
-            $this->order =  $order;
-        }
-
-        return ["$this->columnSort" => $this->order];
-    }
-
-    /**
-     * @param $data
-     * @return mixed
-     */
-    public function checkSortData($data){
-        if (isset($data) && (false === empty($data))){
-
-            return $data;
-        }
+        return false;
     }
 }

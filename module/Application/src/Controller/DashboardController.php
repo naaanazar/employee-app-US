@@ -108,14 +108,11 @@ class DashboardController extends AbstractController
             $employeesRepository->addExpression('in', 'id', $employeesIds);
 
             $criteria = $employeesRepository->buildCriteria();
+            $sortValue = (new Sort())->getSortValue($post['sort_name'], $post['sort_order']);
 
-            $sort= new Sort;
-            $criteria->orderBy(
-                $sort->getSortValue(
-                   $post['sort_name'],
-                   $post['sort_order']
-                )
-            );
+            if (false !== $sortValue) {
+                $criteria->orderBy($sortValue);
+            }
         }
 
         $paginator = new Paginator(
@@ -123,7 +120,7 @@ class DashboardController extends AbstractController
         );
 
         $paginator->setItemCountPerPage(20);
-        $paginator->setCurrentPageNumber($this->params('page', 1));
+        $paginator->setCurrentPageNumber($this->params('page', $this->getRequest()->getPost('page', 1)));
 
         if (true === $this->getRequest()->isXmlHttpRequest()) {
 

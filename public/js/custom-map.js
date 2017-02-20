@@ -5,7 +5,6 @@ var Map;
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgpnt3A8evQvsgg&libraries=geometry'], function() {
 
     jQuery('document').ready(function () {
-
         /**
          * dashboard/search
          * init map
@@ -49,8 +48,13 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         images: '/img/marker.png',
         markers: [],
 
+        /**
+         * map object
+         */
+        mapObj: null,
+
         init: function () {
-            return new google.maps.Map(document.getElementById('map'), {
+            return Map.mapObj = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 50.98609893339354, lng: 10.39306640625},
                 zoom: 6
             });

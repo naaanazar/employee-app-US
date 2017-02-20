@@ -2,7 +2,7 @@
 
     <legend  style="color:#8f8f8f"><?= $this->translate('Create employee'); ?></legend>
     <div class="col-md-6 col-md-offset-3">
-        <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="async">
+        <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="async" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
                 <input id="name_field" name="name" type="text" placeholder="" class="form-control input-md application-input">
@@ -120,11 +120,11 @@
 
             <div class="form-group">
                 <label class="btn button-sign-in btn-file">
-                    <?= $this->translate('Upload user photo') ?> <input type="file" name="" id="avatar_field" accept="image/*" style="display: none;">
+                    <?= $this->translate('Upload user photo') ?> <input type="file" name="image" id="avatar_field" accept="image/*" style="display: none;">
                 </label>
 
                 <label class="btn button-sign-in btn-file">
-                    <?= $this->translate('Attachments') ?> <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">
+<!--                    --><?//= $this->translate('Attachments') ?><!-- <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">-->
                 </label>
             </div>
 

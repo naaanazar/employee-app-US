@@ -1,17 +1,47 @@
+var f;
+
 /**
  * Submit form with ajax
  */
 jQuery(document).on('submit', 'form.async', function (event) {
     event.defaultPrevented = true;
 
-    var form = jQuery(this);
+    var form           = jQuery(this);
+    var formData       = new FormData;
+    var serializedForm = form.serializeArray();
 
-    jQuery.post(form.attr('action'), form.serializeArray(), function (response) {
-        console.log(response.errors);
+    for (var i in serializedForm) {
+        var input = serializedForm[i];
+        formData.append(input.name, input.value);
+    }
 
-        Validate.showErrorsMassages(response.errors);
-        Validate.redirect(response.redirect);
+    [].slice.call(form.find('[type="file"]')).forEach(function (fileInput) {
+
+        var files = fileInput.files;
+
+        for (var i in files) {
+            var file = files[i];
+
+            if (file instanceof File && file.type.match('image.*')) {
+                console.log(file);
+                formData.append($(fileInput).attr('name'), file);
+            }
+        }
     });
+
+    jQuery.ajax(
+        {
+            url: form.attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            method: 'post',
+            success: function (response) {
+                Validate.showErrorsMassages(response.errors);
+                Validate.redirect(response.redirect);
+            }
+        }
+    );
 
     return false;
 });
@@ -28,6 +58,14 @@ jQuery(document).on('change', '#select-language', function () {
  */
 jQuery(document).on('change', '.statistics-form', function () {
     $(".statistics-form").submit();
+});
+
+$(document).ajaxStart(function() {
+    $('body').loading();
+});
+
+$(document).ajaxComplete(function() {
+    $('body').loading('toggle');
 });
 
 /**
@@ -145,14 +183,11 @@ var AjaxAction = function (action, data, success) {
 
     this.execute = function () {
 
-        // jQuery('body').loading();
-
         var successFunction;
         if (typeof success !== 'function') {
             successFunction = function (data) {
 
                 if (data.hasOwnProperty('html')) {
-                    $('body').loading('toggle');
                     $(success).html(data.html);
                 }
             };

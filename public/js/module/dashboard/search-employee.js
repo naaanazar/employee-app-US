@@ -21,7 +21,6 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
             }
         );
 
-        // jQuery('body').loading('toggle');
         jQuery('#employees-list').html(data.html);
 
     };
