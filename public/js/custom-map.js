@@ -1,13 +1,10 @@
 'use strict';
 
 var Map;
-jQuery('body').loading('start');
 
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgpnt3A8evQvsgg&libraries=geometry'], function() {
 
     jQuery('document').ready(function () {
-
-        jQuery('body').loading('stop');
         /**
          * dashboard/search
          * init map

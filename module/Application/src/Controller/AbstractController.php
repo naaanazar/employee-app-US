@@ -105,6 +105,7 @@ abstract class AbstractController extends AbstractActionController
 
     /**
      * @param bool $role
+     * @return \Zend\Http\Response
      */
     public function restrictNonLoggedIn($role = false)
     {
@@ -112,7 +113,7 @@ abstract class AbstractController extends AbstractActionController
         $user = $this->getUser();
 
         if (null === $user || (false !== $role && true === in_array($user->getRole(), (array)($role)))) {
-            $this->notFoundAction();
+            return $this->redirect()->toRoute('user', ['action' => 'login']);
         }
     }
 

@@ -17,7 +17,6 @@ jQuery(document).on('submit', 'form.async', function (event) {
 
     [].slice.call(form.find('[type="file"]')).forEach(function (fileInput) {
 
-        console.log(fileInput);
         var files = fileInput.files;
 
         for (var i in files) {
@@ -59,6 +58,14 @@ jQuery(document).on('change', '#select-language', function () {
  */
 jQuery(document).on('change', '.statistics-form', function () {
     $(".statistics-form").submit();
+});
+
+$(document).ajaxStart(function() {
+    $('body').loading();
+});
+
+$(document).ajaxComplete(function() {
+    $('body').loading('toggle');
 });
 
 /**
@@ -176,14 +183,11 @@ var AjaxAction = function (action, data, success) {
 
     this.execute = function () {
 
-        // jQuery('body').loading();
-
         var successFunction;
         if (typeof success !== 'function') {
             successFunction = function (data) {
 
                 if (data.hasOwnProperty('html')) {
-                    $('body').loading('toggle');
                     $(success).html(data.html);
                 }
             };

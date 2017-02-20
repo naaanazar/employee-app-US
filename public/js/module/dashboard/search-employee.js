@@ -2,8 +2,6 @@
 
 jQuery(document).on('submit', 'form.search-employees', function (event) {
 
-    jQuery('body').loading();
-
     event.defaultPrevented = true;
 
     var callback = function (data) {
@@ -23,7 +21,6 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
             }
         );
 
-        jQuery('body').loading();
         jQuery('#employees-list').html(data.html);
 
     };
