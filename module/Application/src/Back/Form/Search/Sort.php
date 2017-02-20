@@ -12,9 +12,14 @@ class Sort
     /**
      * @param $columnSort
      * @param $order
-     * @return array
+     * @return array|bool
      */
-    public function getSortValue($columnSort = 'id', $order = 'DESC'){
-        return [$columnSort => $order];
+    public function getSortValue($columnSort, $order)
+    {
+        if (false === empty($columnSort) && false === empty($order)) {
+            return [$columnSort => $order];
+        }
+
+        return false;
     }
 }
