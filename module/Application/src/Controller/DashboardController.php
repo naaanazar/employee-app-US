@@ -109,7 +109,7 @@ class DashboardController extends AbstractController
 
             $criteria = $employeesRepository->buildCriteria();
 
-            $sort= new Sort;
+            $sort = new Sort();
             $criteria->orderBy(
                 $sort->getSortValue(
                    $post['sort_name'],
@@ -123,7 +123,7 @@ class DashboardController extends AbstractController
         );
 
         $paginator->setItemCountPerPage(20);
-        $paginator->setCurrentPageNumber($this->params('page', 1));
+        $paginator->setCurrentPageNumber($this->params('page', $this->getRequest()->getPost('page', 1)));
 
         if (true === $this->getRequest()->isXmlHttpRequest()) {
 
