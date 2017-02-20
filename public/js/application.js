@@ -10,15 +10,15 @@ jQuery(document).on('submit', 'form.async', function (event) {
     var formData       = new FormData;
     var serializedForm = form.serializeArray();
 
+    for (var i in serializedForm) {
+        var input = serializedForm[i];
+        formData.append(input.name, input.value);
+    }
+
     [].slice.call(form.find('[type="file"]')).forEach(function (fileInput) {
 
         console.log(fileInput);
         var files = fileInput.files;
-
-        for (var i in serializedForm) {
-            var input = serializedForm[i];
-            formData.append(input.name, input.value);
-        }
 
         for (var i in files) {
             var file = files[i];
