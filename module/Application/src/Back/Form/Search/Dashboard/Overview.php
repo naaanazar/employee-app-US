@@ -3,6 +3,7 @@
 namespace Application\Back\Form\Search\Dashboard;
 
 use Application\Back\Form\Search\AbstractSearch;
+use Application\Back\Form\Search\Sort;
 use Application\Back\Paginator\Doctrine;
 use Application\Model\Employee;
 use Application\Model\Repository\EmployeeRepository;
@@ -15,7 +16,6 @@ use Zend\Paginator\Paginator;
  */
 class Overview extends AbstractSearch
 {
-
     /**
      * @return Paginator
      */
@@ -39,7 +39,14 @@ class Overview extends AbstractSearch
         }
 
         $criteria = $employeesRepository->buildCriteria();
-        $criteria->orderBy(['id' => $criteria::DESC]);
+
+        $sort= new Sort;
+        $criteria->orderBy(
+            $sort->getSortValue(
+                $this->data['column_sort_name'],
+                $this->data['column_sort_order']
+            )
+        );
 
         return (new Doctrine(Employee::class, $criteria))
             ->setLimit(20, $this->data('page', 1));

@@ -2,9 +2,18 @@
 
 jQuery(document).on('submit', 'form.search-employees', function (event) {
 
+    jQuery('body').loading();
+
     event.defaultPrevented = true;
 
     var callback = function (data) {
+
+        jQuery('document').ready(function () {
+
+            Sort.initTable('#employee_table');
+            Sort.eventSort('#employee_table', '#filter-employee-form');
+
+        });
 
         var map = Map.init();
 
@@ -14,7 +23,7 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
             }
         );
 
-        // jQuery('body').loading('toggle');
+        jQuery('body').loading();
         jQuery('#employees-list').html(data.html);
 
     };

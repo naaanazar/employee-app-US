@@ -9,6 +9,7 @@ use Application\Back\Form\Search\Dashboard\Contract as ContractBack;
 use Application\Back\Form\Search\Dashboard\WeeklyHours as WeeklyHoursBack;
 use Application\Back\Form\Search\Dashboard\SourceApplication;
 use Application\Back\Form\Search\Dashboard\ReasonRemoval;
+use Application\Back\Form\Search\Sort;
 use Application\Back\Paginator\Adapter\Doctrine;
 use Application\Model\Area;
 use Application\Model\Coordinates;
@@ -107,6 +108,14 @@ class DashboardController extends AbstractController
             $employeesRepository->addExpression('in', 'id', $employeesIds);
 
             $criteria = $employeesRepository->buildCriteria();
+
+            $sort= new Sort;
+            $criteria->orderBy(
+                $sort->getSortValue(
+                   $post['sort_name'],
+                   $post['sort_order']
+                )
+            );
         }
 
         $paginator = new Paginator(
