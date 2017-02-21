@@ -48,7 +48,7 @@ var searchEmployee = function (event) {
         jQuery('#employees-list').html(data.html);
 
     };
-
+    console.log(jQuery('.search-employees').serializeArray());
     var action = new AjaxAction(jQuery('.search-employees').attr('action'), jQuery('.search-employees').serializeArray(), callback);
     action.execute();
 
