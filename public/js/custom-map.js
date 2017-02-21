@@ -13,35 +13,35 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             Address.start();
             Address.clickOnMap();
         }
+    });
 
-        /**
-         * employe/index
-         * init map & create marker on map & change coordinates & address ( click on button )
-         */
-        jQuery(document).on('click', '.update-marker', function (event) {
-            event.defaultPrevented = true;
+    /**
+     * employe/index
+     * init map & create marker on map & change coordinates & address ( click on button )
+     */
+    jQuery(document).on('click', '.update-marker', function (event) {
+        event.defaultPrevented = true;
 
-            if (!jQuery('div').is('.init')) {
-                jQuery('#init-map').css('display', 'block');
-                Address.start();
-                jQuery('#map').addClass('init');
-            }
+        if (!jQuery('div').is('.init')) {
+            jQuery('#init-map').css('display', 'block');
+            Address.start();
+            jQuery('#map').addClass('init');
+        }
 
-            Address.clickOnMap();
-            Address.findAddress(Address.map);
+        Address.clickOnMap();
+        Address.findAddress(Address.map);
 
-            return false;
-        });
+        return false;
+    });
 
-        jQuery(document).on('click', '.hide-map', function (event) {
-            event.preventDefault();
+    jQuery(document).on('click', '.hide-map', function (event) {
+        event.preventDefault();
 
-            if (jQuery('div').is('.init')) {
-                jQuery('#init-map').css('display', 'none');
-                jQuery('#map').removeClass('init');
+        if (jQuery('div').is('.init')) {
+            jQuery('#init-map').css('display', 'none');
+            jQuery('#map').removeClass('init');
 
-            }
-        });
+        }
     });
 
     Map = {
