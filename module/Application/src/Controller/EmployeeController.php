@@ -284,13 +284,27 @@ class EmployeeController extends AbstractController
 
             $result = new JsonModel();
 
-            $result->setVariables(
-                [
-                    'result' => true
-                ]
-            );
+            $comment = $this->getEntityManager()
+                ->getRepository(Comment::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
 
-            return $result;
+            if ($comment !== null) {
+
+                $this->getEntityManager()->remove($comment);
+                $this->getEntityManager()->flush();
+
+                $result->setVariables(
+                    [
+                        'result' => true
+                    ]
+                );
+
+                return $result;
+            }
         }
     }
 
@@ -301,14 +315,28 @@ class EmployeeController extends AbstractController
     {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
             $id = $this->getRequest()->getPost('id');
-
             $result = new JsonModel();
 
-            $result->setVariables(
-                [
-                    'result' => true
-                ]
-            );
+            $comment = $this->getEntityManager()
+                ->getRepository(Comment::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($comment !== null ) {
+                $comment->setBody($this->getRequest()->getPost('body'));
+
+                $this->getEntityManager()->merge($comment);
+                $this->getEntityManager()->flush();
+
+                $result->setVariables(
+                    [
+                        'result' => true
+                    ]
+                );
+            }
 
             return $result;
         }
