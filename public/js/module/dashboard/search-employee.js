@@ -1,6 +1,6 @@
 'use strict';
 
-jQuery(document).on('submit', 'form.search-employees', function (event) {
+var searchEmployee = function (event) {
     event.defaultPrevented = true;
 
     Map.clearMarker();
@@ -18,7 +18,10 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
         var points = [];
 
         data.coordinates.forEach(
+
             function (coordinate) {
+
+                console.log(coordinate);
 
                 points.push({lat: parseFloat(coordinate.latitude), lng: parseFloat(coordinate.longitude)});
 
@@ -50,7 +53,9 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
 
     return false;
 
-});
+};
+
+jQuery(document).on('submit', 'form.search-employees', searchEmployee);
 
 jQuery('#map').on('click', '#find_employee', function () {
     var element = $(this);
