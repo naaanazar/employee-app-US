@@ -17,6 +17,11 @@ $translatorKey = 'trnsl.1.1.20170209T132126Z.979b34845c1404ed.ff6376236a7cb7d04c
 
 $locales = (include __DIR__ . '/../config/module.config.php')['locales'];
 
+$regex = [
+    '\/\*translate\*\/(.*?)\/\*translate\*\/',
+    '\-\>translate\([\'\"](.*?)[\'\"]\).*'
+];
+
 while (false === empty($dirs)) {
 
     $dir = array_shift($dirs);
@@ -26,8 +31,12 @@ while (false === empty($dirs)) {
             $dirs[] = $innerFile;
             continue;
         } else {
-            preg_match_all('/\-\>translate\(\'(.*)\'\)/mui', file_get_contents($innerFile), $matches);
-            $toTranslate = array_unique(array_merge($toTranslate, $matches[1]));
+            foreach ($regex as $regularExpression) {
+                preg_match_all('/' . $regularExpression . '/mui', file_get_contents($innerFile), $matches);
+                if (null !== @$matches[1]) {
+                    $toTranslate = array_unique(array_merge($toTranslate, $matches[1]));
+                }
+            }
         }
     }
 
@@ -48,7 +57,7 @@ msgstr ""
 
 ';
 
-    file_put_contents($localeDir . '/' .$locale . '.po', sprintf($pattern, $language));
+    file_put_contents($localeDir . '/' . $locale . '.po', sprintf($pattern, $language));
 
     foreach ($toTranslate as $word) {
         $result = json_decode((string)$client->get(
@@ -57,8 +66,8 @@ msgstr ""
             . '&lang=en-' . $lang
         )->getBody())->text[0];
 
-        $poFile = $localeDir . '/' .$locale . '.po';
-        $moFile = $localeDir . '/' .$locale . '.mo';
+        $poFile = $localeDir . '/' . $locale . '.po';
+        $moFile = $localeDir . '/' . $locale . '.mo';
 
         file_put_contents($poFile, "msgid \"$word\"\nmsgstr \"$result\"\n\n", FILE_APPEND);
         $tranlation = \Gettext\Translations::fromPoFile($poFile);

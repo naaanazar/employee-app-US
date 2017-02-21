@@ -7,8 +7,10 @@ use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
 use Application\Model\Area;
+use Application\Model\User;
 use Application\Model\WeeklyHours;
 use Application\Model\Coordinates;
+use Zend\Http\Response;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
@@ -30,10 +32,31 @@ class EmployeeController extends AbstractController
     /**
      * Main Employee action with add form
      *
-     * @return ViewModel
+     * @return Response|ViewModel
      */
     public function indexAction()
     {
+        if ($this->getUser()->getRole() === User::ROLE_USER) {
+
+            /** @var EmployeeModel $employee */
+            $employee = $this->getEntityManager()
+                ->getRepository(EmployeeModel::class)
+                ->findOneBy(
+                    [
+                        'user' => $this->getUser()
+                    ]
+                );
+
+            if ($employee !== null) {
+                return $this->redirect()->toRoute(
+                    'show-employee',
+                    [
+                        'hash' => $employee->getHash()
+                    ]
+                );
+            }
+        }
+
         $view = new ViewModel();
 
         $view->setVariables(

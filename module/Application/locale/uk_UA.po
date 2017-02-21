@@ -62,9 +62,6 @@ msgstr "Поки не використовував"
 msgid "Area around"
 msgstr "Зона навколо"
 
-msgid "Coordinates"
-msgstr "Координати"
-
 msgid "Set Source Application"
 msgstr "Встановіть Додаток Джерело"
 
@@ -196,4 +193,37 @@ msgstr "Знак В"
 
 msgid "Sign Up"
 msgstr "Зареєструйтеся"
+
+msgid "'Incorrect value'"
+msgstr "'Невірне значення'"
+
+msgid "'User with same email found'"
+msgstr "'Користувачів з однаковою адресою електронної пошти знайдено"
+
+msgid "'Invalid email or/and password'"
+msgstr "'Невірний адресу електронної пошти або/та пароль"
+
+msgid "'Some error occurred while logging in'"
+msgstr "'Сталася якась помилка при вході в"
+
+msgid "'Invalid type given. String, integer or float expected'"
+msgstr "'Дали неправильний Тип. Рядок, integer або float очікується'"
+
+msgid "'The input does not match against pattern '"
+msgstr "'Введення не матч з візерунком '"
+
+msgid "'There was an internal error while using the pattern'"
+msgstr "'Внутрішня помилка при використанні шаблону'"
+
+msgid "'Invalid type given. String expected'"
+msgstr "'Дали неправильний Тип. Рядки очікував"
+
+msgid "'The input is less than %min% characters long'"
+msgstr "'Вхідний сигнал менше, ніж %хв% символів'"
+
+msgid "'The input is more than %max% characters long'"
+msgstr "'Вхід-це більше, ніж %Макс% символів'"
+
+msgid "Full Name"
+msgstr "Повна Назва"
 

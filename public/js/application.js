@@ -1,4 +1,3 @@
-var f;
 var ModalAction;
 /**
  * Submit form with ajax

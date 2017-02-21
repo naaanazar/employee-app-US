@@ -65,7 +65,7 @@ return [
     'employee' => [
         'type' => Segment::class,
         'options' => [
-            'route' => '/employee[/:action]',
+            'route' => '/employee[/][:action]',
             'defaults' => [
                 'controller' => Controller\EmployeeController::class,
                 'action' => 'index'
@@ -78,7 +78,7 @@ return [
     'dashboard' => [
         'type' => Segment::class,
         'options' => [
-            'route' => '/dashboard[/:action][/page/:page]',
+            'route' => '/dashboard[/][:action][/page/:page]',
             'defaults' => [
                 'controller' => Controller\DashboardController::class,
                 'action' => 'index',
