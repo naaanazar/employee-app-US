@@ -3,8 +3,6 @@
 jQuery(document).on('submit', 'form.search-employees', function (event) {
     event.defaultPrevented = true;
 
-    console.log('submit');
-
     Map.clearMarker();
 
     var callback = function (data) {
@@ -21,7 +19,6 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
 
         data.coordinates.forEach(
             function (coordinate) {
-                console.log(coordinate);
 
                 points.push({lat: parseFloat(coordinate.latitude), lng: parseFloat(coordinate.longitude)});
 

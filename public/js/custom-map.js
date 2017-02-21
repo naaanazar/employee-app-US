@@ -143,6 +143,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             });
 
             this.marker = Map.addMarker(map, event.latLng.lat(), event.latLng.lng());
+            this.marker.setIcon('/img/marker_green.png');
             document.getElementById('latitude').value = event.latLng.lat();
             document.getElementById('longitude').value = event.latLng.lng();
         },
@@ -219,47 +220,6 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 }
 
             });
-        },
+        }
     };
-
-    /**
-     *
-     * @type {{map: *, post, content: string, start: Function, addMarkers: Function, eventsOnMarkers: Function}}
-     */
-     /*var createAllMarkers = {
-
-         map: Map.mapObj,
-         post: JSON.parse(posts.dataset.post),
-
-         start: function() {
-            reateAllMarkers.addMarkers();
-         },
-
-         addMarkers: function() {
-
-             var points = [];
-             var markers = null;
-             var content = null;
-
-             for(var i = 0; i < createAllMarkers.post.length; i++) {
-
-                 points.push({'lat': parseFloat(createAllMarkers.post[i]['lat']), 'lng': parseFloat(createAllMarkers.post[i]['lng'])});
-                 markers = Map.addMarker(createAllMarkers.map, parseFloat(createAllMarkers.post[i]['lat']), parseFloat(createAllMarkers.post[i]['lng']));
-
-                 createAllMarkers.eventsOnMarkers(markers,
-                     '<div>asdasasd</div>>'
-                 );
-             }
-
-             Map.centeringMap(points, createAllMarkers.map);
-         },
-
-         eventsOnMarkers: function(markers, content) {
-             var infowindow = Map.infoWindows(content);
-
-             markers.addListener('click', function() {
-                infowindow.open(createAllMarkers.map, markers);
-             });
-         }
-     };*/
 });
