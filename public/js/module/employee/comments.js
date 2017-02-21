@@ -9,8 +9,6 @@ jQuery(document).on('submit', 'form.leave-comment', function (event) {
 
 });
 
-'use strict';
-
 /**
  * delete comment
  */
