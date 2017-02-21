@@ -56,6 +56,13 @@ var searchEmployee = function (event) {
 
 };
 
+jQuery('document').ready(function (event) {
+    var page = jQuery(event.target).data('page');
+    jQuery('#page-number').val(page);
+
+    jQuery(document).on('click', '.paginator-a', searchEmployee);
+});
+
 jQuery(document).on('submit', 'form.search-employees', searchEmployee);
 
 jQuery('#map').on('click', '.find_employee', function () {
