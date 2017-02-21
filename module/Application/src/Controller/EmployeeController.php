@@ -291,4 +291,26 @@ class EmployeeController extends AbstractController
         }
     }
 
+    /**
+     * @return JsonModel
+     */
+    public function showCommentEditAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $massage = $this->getRequest()->getPost('body');
+
+            return new JsonModel(
+                [
+                    'html'  => $this->getRenderer()
+                        ->render(
+                            'layout/concern/comment/edit-field',
+                            [
+                                'massage' => $massage
+                            ]
+                        )
+                ]
+            );
+        }
+    }
+
 }
