@@ -127,23 +127,13 @@
 <!--                    --><?//= $this->translate('Attachments') ?><!-- <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">-->
                 </label>
             </div>
-
-            <div class="form-group">
-                <label class="control-label application-label" for="start_day_field"><?= $this->translate('Coordinates') ?></label>
-                <div class="input-daterange input-group" id="datepicker">
-                    <span class="input-group-addon batton-save">lat</span>
-                    <input id="latitude" name="latitude" type="text" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
-                    <span class="input-group-addon batton-save">lng</span>
-                    <input id="longitude" name="longitude" type="text" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
-                </div>
-            </div>
-
+            <input id="latitude" name="latitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
+            <input id="longitude" name="longitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
             <div class="form-group">
                 <div class="text-right" >
                     <button class="btn batton-save btn-lg"><?= $this->translate('Save') ?></button>
                 </div>
             </div>
-
         </form>
     </div>
 
