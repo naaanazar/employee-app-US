@@ -68,26 +68,3 @@ jQuery('#map').on('click', '#find_employee', function () {
 
     return false;
 });
-
-var ModalAction = function (action, selector, params) {
-
-    /**
-     * Execute ajax for html get
-     */
-    this.execute = function () {
-
-        $.ajax(
-            {
-                url: action,
-                data: params,
-                success: function (data) {
-                    if ($(selector) && data.html) {
-                        $(selector).modal().find('.modal-body').html(data.html);
-                    }
-                }
-            }
-        );
-
-    };
-
-};
