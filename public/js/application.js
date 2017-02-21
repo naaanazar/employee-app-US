@@ -126,8 +126,15 @@ var Validate = {
         if (errors !== undefined) {
             for (var field in errors) {
                 if (errors[field] !== undefined){
+
                     $.each(errors[field], function( index, massage ) {
-                      jQuery("input[name='" + field + "']").closest('.form-group').append('<span class="label errors-block label-danger">' + massage + '</span>');
+
+                        if (jQuery("input[name='" + field + "']").closest('.form-group').length === 0){
+                            console.log(jQuery("input[name='" + field + "']").closest('.form-group').length);
+                            jQuery("input[name='" + field + "']").closest('.input-group').after('<div class="label errors-block label-danger" style="padding-top: -15px;">' + massage + '</div>');
+                        }
+
+                      jQuery("input[name='" + field + "']").closest('.form-group').append('<div class="label errors-block label-danger">' + massage + '</div>');
                         jQuery("select[name='" + field + "']").after('<span class="label errors-block label-danger">' + massage + '</span>');
                     });
                 }

@@ -142,7 +142,7 @@ fieldset[disabled] .button-sign-on.active {
 .batton-save {
     color: #FFFFFF;
     background-color: #91BF2D;
-    border-color: #6D8F22;
+    border-color: #c1e279;
 }
 
 .batton-save:hover,
@@ -152,7 +152,7 @@ fieldset[disabled] .button-sign-on.active {
 .open .dropdown-toggle.batton-save {
     color: #FFFFFF;
     background-color: #A4D241;
-    border-color: #6D8F22;
+    border-color: #c1e279;
 }
 
 .batton-save:active,
@@ -177,7 +177,7 @@ fieldset[disabled] .batton-save:active,
 .batton-save[disabled].active,
 fieldset[disabled] .batton-save.active {
     background-color: #91BF2D;
-    border-color: #6D8F22;
+    border-color: #c1e279;
 }
 
 .batton-save .badge {
@@ -208,3 +208,42 @@ fieldset[disabled] .batton-save.active {
 .a-dashboard{
     color:#91BF2D;
 }
+
+/**
+*login/register form
+*/
+
+.forgot-password{
+    float:right;
+    font-size: 80%;
+    position: relative;
+    top:-10px;
+}
+
+.panel-body-login-register{
+    padding-top:30px;
+}
+
+.input-margin-login-register{
+    margin-top: 25px;
+}
+
+.addon-style{
+    color:#91BF2D;
+}
+
+.button-block{
+    margin-top:10px;
+}
+
+.head-login-register{
+    color: #ffffff!important;
+    background-color: #91BF2D!important;
+    border-color: #91BF2D!important;
+}
+
+.panel-login-register{
+    border-color: #91BF2D!important;
+}
+
+

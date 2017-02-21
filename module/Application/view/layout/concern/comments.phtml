@@ -1,8 +1,25 @@
 <div id="comments-list">
     <?php foreach ($this->comments as $comment) : ?>
         <?php /** @var \Application\Model\Comment $comment */ ?>
-        <div class="well">
-            <?= $comment->getBody() ?>
+        <div data-id=" <?=$comment->getId()?>" class="well comment-block" style="padding-bottom:0px; padding-top: 5px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong><?= $comment->getUser()->getName() ?></strong>
+                    <?=$comment->getCreated()->format('Y-m-d') ?>
+                </div>
+                <?php if ($comment->getEdited()) : ?>
+                <div class="col-md-6 text-right">
+                    Edited: <?=$comment->getUpdated()->format('Y-m-d') ?>
+                </div>
+                <?php endif; ?>
+                <div class="col-md-12 comment-body"><?= $comment->getBody() ?></div>
+
+                <div class="text-right comment-buttons">
+                    <button class="btn btn-link comment-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>&nbsp;
+                    <button class="btn btn-link comment-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</button>
+                </div>
+            </div>
+
         </div>
     <?php endforeach; ?>
     <form action="<?= $this->url('employee', ['action' => 'comment']) ?>" class="leave-comment" method="post">

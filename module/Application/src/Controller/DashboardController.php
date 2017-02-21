@@ -120,7 +120,7 @@ class DashboardController extends AbstractController
         );
 
         $paginator->setItemCountPerPage(20);
-        $paginator->setCurrentPageNumber($this->params('page', $this->getRequest()->getPost('page', 1)));
+        $paginator->setCurrentPageNumber($this->getRequest()->getPost('page', 1));
 
         if (true === $this->getRequest()->isXmlHttpRequest()) {
 

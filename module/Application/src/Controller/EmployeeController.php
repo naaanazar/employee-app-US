@@ -251,4 +251,66 @@ class EmployeeController extends AbstractController
         return $result;
     }
 
+    /**
+     * @return JsonModel
+     */
+    public function commentDeleteAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $result->setVariables(
+                [
+                    'result' => true
+                ]
+            );
+
+            return $result;
+        }
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function commentEditAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $result->setVariables(
+                [
+                    'result' => true
+                ]
+            );
+
+            return $result;
+        }
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function showCommentEditAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $massage = $this->getRequest()->getPost('body');
+
+            return new JsonModel(
+                [
+                    'html'  => $this->getRenderer()
+                        ->render(
+                            'layout/concern/comment/edit-field',
+                            [
+                                'massage' => $massage
+                            ]
+                        )
+                ]
+            );
+        }
+    }
+
 }

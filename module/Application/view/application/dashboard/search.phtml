@@ -61,20 +61,13 @@
                     <?php endforeach; ?>
                 </select>
             </div>
-
-            <div class="form-group col-md-3">
-                <label class="control-label application-label" for="start_day_field"><?= $this->translate('Coordinates') ?></label>
-                    <div class=" input-group">
-                        <span class="input-group-addon">lat</span>
-                        <input id="latitude" name="latitude" type="text" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['latitude']) ? ($this->fields['latitude']) : '' ?>">
-                        <span class="input-group-addon">lng</span>
-                        <input id="longitude" name="longitude" type="text" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['longitude']) ? ($this->fields['longitude']) : '' ?>">
-                   </div>
-            </div>
+            <input id="latitude" name="latitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['latitude']) ? ($this->fields['latitude']) : '' ?>">
+            <input id="longitude" name="longitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['longitude']) ? ($this->fields['longitude']) : '' ?>">
+            <input id="page-number" type="hidden" name="page">
         </div>
         <div class="row">
             <div class="form-group">
-                <button class="btn batton-save">Search</button>
+                <button class="btn batton-save" style="margin-left: 15px;">Search</button>
             </div>
         </div>
 

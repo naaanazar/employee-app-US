@@ -9,8 +9,8 @@
         <?php endif; ?>
         <?php for ($page = 1; $page <= $this->paginator->count(); $page++) : ?>
             <li class="<?php if ($page === $this->paginator->getCurrentPageNumber()) echo 'active' ?>">
-                <a
-                    href="<?= $this->url($this->route()->getRoute(), $this->route()->getParams(['page' => $page])) ?>"
+                <a data-page="<?= $page ?>" class="paginator-a"
+                    href=""
                 >
                     <?= $page ?>
                 </a>
