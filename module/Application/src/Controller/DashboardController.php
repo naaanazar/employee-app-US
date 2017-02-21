@@ -119,7 +119,7 @@ class DashboardController extends AbstractController
             new Doctrine(Employee::class, $criteria)
         );
 
-        $paginator->setItemCountPerPage(20);
+        $paginator->setItemCountPerPage(1);
         $paginator->setCurrentPageNumber($this->getRequest()->getPost('page', 1));
 
         if (true === $this->getRequest()->isXmlHttpRequest()) {
