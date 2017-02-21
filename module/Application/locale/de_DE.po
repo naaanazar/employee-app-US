@@ -62,9 +62,6 @@ msgstr "Noch nicht verwendet"
 msgid "Area around"
 msgstr "Bereich um"
 
-msgid "Coordinates"
-msgstr "Koordinaten"
-
 msgid "Set Source Application"
 msgstr "Legen Sie Die Quell-Anwendung"
 
@@ -196,4 +193,37 @@ msgstr "Anmelden"
 
 msgid "Sign Up"
 msgstr "Anmelden"
+
+msgid "'Incorrect value'"
+msgstr "'Falscher Wert'"
+
+msgid "'User with same email found'"
+msgstr "'Benutzer mit der gleichen E-Mail gefunden""
+
+msgid "'Invalid email or/and password'"
+msgstr "'Ungültige E-Mail oder/und Passwort'"
+
+msgid "'Some error occurred while logging in'"
+msgstr "'Ein Fehler trat während der Anmeldung in""
+
+msgid "'Invalid type given. String, integer or float expected'"
+msgstr "'Ungültiger Typ angegeben. String, integer oder float erwartet'"
+
+msgid "'The input does not match against pattern '"
+msgstr "'Die Eingabe nicht match gegen Muster""
+
+msgid "'There was an internal error while using the pattern'"
+msgstr ""Es gab einen internen Fehler bei der Verwendung der Muster'"
+
+msgid "'Invalid type given. String expected'"
+msgstr "'Ungültiger Typ angegeben. String erwartet'"
+
+msgid "'The input is less than %min% characters long'"
+msgstr ""Der Eingang ist weniger als %min% Zeichen lang sein'"
+
+msgid "'The input is more than %max% characters long'"
+msgstr ""Der Eingang ist mehr als %max% Zeichen lang sein'"
+
+msgid "Full Name"
+msgstr "Vollständiger Name"
 
