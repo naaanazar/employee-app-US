@@ -1,7 +1,7 @@
 <div id="comments-list">
     <?php foreach ($this->comments as $comment) : ?>
         <?php /** @var \Application\Model\Comment $comment */ ?>
-        <div class="well comment-block" style="padding-bottom:0px; padding-top: 5px;">
+        <div data-id=" <?=$comment->getId()?>" class="well comment-block" style="padding-bottom:0px; padding-top: 5px;">
             <div class="row">
                 <div class="col-md-6">
                     <strong><?= $comment->getUser()->getName() ?></strong>

@@ -26,34 +26,6 @@ jQuery(document).on('click', '.paginator-a', function (event) {
 
 });
 
-jQuery(document).on('click', '.comment-delete', function (event) {
-
-    jQuery(event.target).closest('.comment-block').remove();
-});
-
-jQuery(document).on('click', '.comment-edit-save', function (event) {
-    jQuery(event.target).closest('.comment-block').find('.comment-buttons').show();
-    var html = jQuery(event.target).closest('.comment-body').find('.comment-edit-field').val();
-    jQuery(event.target).closest('.comment-block').find('.comment-body').html(html);
-
-});
-
-jQuery(document).on('click', '.comment-edit', function (event) {
-
-    var commentText = jQuery(event.target).closest('.comment-block').find('.comment-body').text();
-    var html = '' +
-        '<div class="comment-edit-block">' +
-            '<textarea name="body" id=""  rows="4" class="form-control comment-edit-field">' + commentText + '</textarea>' +
-            '<div class="text-right">' +
-                '<button class="btn btn-link comment-edit-save"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>&nbsp;' +
-            '</div>' +
-        '</div>';
-    jQuery(event.target).closest('.comment-block').find('.comment-body').html(html);
-    jQuery(event.target).closest('.comment-buttons').hide();
-});
-
-
-
 var callback = function (data) {
 
     jQuery('document').ready(function () {
@@ -74,5 +46,46 @@ var callback = function (data) {
     jQuery('#employees-list').html(data.html);
 
 };
+
+
+jQuery(document).on('click', '.comment-delete', function (event) {
+
+
+    var id = jQuery(event.target).closest('.comment-block').data('id');
+    jQuery.post( "/employee/comment-delete", {id : id}, function( data ) {
+        jQuery(event.target).closest('.comment-block').remove();
+    })
+
+});
+
+jQuery(document).on('click', '.comment-edit-save', function (event) {
+
+    var id = jQuery(event.target).closest('.comment-block').data('id');
+    jQuery(event.target).closest('.comment-block').find('.comment-buttons').show();
+    var html = jQuery(event.target).closest('.comment-body').find('.comment-edit-field').val();
+
+    jQuery.post( "/employee/comment-edit", {id : id}, function( data ) {
+        jQuery(event.target).closest('.comment-block').find('.comment-body').html(html);
+    })
+
+
+
+
+
+});
+
+jQuery(document).on('click', '.comment-edit', function (event) {
+
+    var commentText = jQuery(event.target).closest('.comment-block').find('.comment-body').text();
+    var html = '' +
+        '<div class="comment-edit-block">' +
+        '<textarea name="body" id=""  rows="4" class="form-control comment-edit-field">' + commentText + '</textarea>' +
+        '<div class="text-right">' +
+        '<button class="btn btn-link comment-edit-save"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>&nbsp;' +
+        '</div>' +
+        '</div>';
+    jQuery(event.target).closest('.comment-block').find('.comment-body').html(html);
+    jQuery(event.target).closest('.comment-buttons').hide();
+});
 
 
