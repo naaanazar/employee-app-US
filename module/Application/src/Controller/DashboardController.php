@@ -119,7 +119,7 @@ class DashboardController extends AbstractController
             new Doctrine(Employee::class, $criteria)
         );
 
-        $paginator->setItemCountPerPage(1);
+        $paginator->setItemCountPerPage(20);
         $paginator->setCurrentPageNumber($this->getRequest()->getPost('page', 1));
 
         if (true === $this->getRequest()->isXmlHttpRequest()) {
@@ -145,7 +145,13 @@ class DashboardController extends AbstractController
                     return [
                         'longitude' => $coordinate->getLongitude(),
                         'latitude'  => $coordinate->getLatitude(),
-                        'employee'  => $coordinate->getEmployee()->toArray(),
+                        'employee'  => $this->getRenderer()
+                            ->render(
+                                'layout/concern/map/marker',
+                                [
+                                    'coordinate' => $coordinate
+                                ]
+                            ),
                     ];
                 },
                 $coordinates->toArray()

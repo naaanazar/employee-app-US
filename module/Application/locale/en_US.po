@@ -143,6 +143,21 @@ msgstr "Driving license present"
 msgid "Leave comment"
 msgstr "Leave comment"
 
+msgid "Home"
+msgstr "Home"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Create Employee"
+msgstr "Create Employee"
+
 msgid "Main"
 msgstr "Main"
 
@@ -176,15 +191,9 @@ msgstr "Configure Register keys"
 msgid "Statistics"
 msgstr "Statistics"
 
-msgid "Home"
-msgstr "Home"
+msgid "Sign In"
+msgstr "Sign In"
 
-msgid "Logout"
-msgstr "Logout"
-
-msgid "Dashboard"
-msgstr "Dashboard"
-
-msgid "Search"
-msgstr "Search"
+msgid "Sign Up"
+msgstr "Sign Up"
 

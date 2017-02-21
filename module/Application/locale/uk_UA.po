@@ -143,6 +143,21 @@ msgstr "Водійські права уявити"
 msgid "Leave comment"
 msgstr "Залиште коментар"
 
+msgid "Home"
+msgstr "Вдома"
+
+msgid "Logout"
+msgstr "Вихід"
+
+msgid "Dashboard"
+msgstr "Приладовій панелі"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Create Employee"
+msgstr "Створити Співробітника"
+
 msgid "Main"
 msgstr "Головна"
 
@@ -176,15 +191,9 @@ msgstr "Налаштувати ключі в реєстрі"
 msgid "Statistics"
 msgstr "Статистика"
 
-msgid "Home"
-msgstr "Вдома"
+msgid "Sign In"
+msgstr "Знак В"
 
-msgid "Logout"
-msgstr "Вихід"
-
-msgid "Dashboard"
-msgstr "Приладовій панелі"
-
-msgid "Search"
-msgstr "Пошук"
+msgid "Sign Up"
+msgstr "Зареєструйтеся"
 
