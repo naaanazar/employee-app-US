@@ -19,7 +19,6 @@ return [
     ],
     '^\/dashboard.+' => [
         'js/module/dashboard/table-sort.js',
-        'js/module/dashboard/comments.js',
-        'js/module/dashboard/pagination-ajax.js'
+        'js/module/dashboard/comments.js'
     ]
 ];

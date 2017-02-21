@@ -3,6 +3,9 @@
 var searchEmployee = function (event) {
     event.defaultPrevented = true;
 
+    var page = jQuery(event.target).data('page');
+    jQuery('#page-number').val(page);
+
     Map.clearMarker();
 
     var callback = function (data) {
@@ -20,8 +23,6 @@ var searchEmployee = function (event) {
         data.coordinates.forEach(
 
             function (coordinate) {
-
-                console.log(coordinate);
 
                 points.push({lat: parseFloat(coordinate.latitude), lng: parseFloat(coordinate.longitude)});
 
@@ -48,16 +49,23 @@ var searchEmployee = function (event) {
 
     };
 
-    var action = new AjaxAction(jQuery(this).attr('action'), jQuery(this).serializeArray(), callback);
+    var action = new AjaxAction(jQuery('.search-employees').attr('action'), jQuery('.search-employees').serializeArray(), callback);
     action.execute();
 
     return false;
 
 };
 
+jQuery('document').ready(function (event) {
+    var page = jQuery(event.target).data('page');
+    jQuery('#page-number').val(page);
+
+    jQuery(document).on('click', '.paginator-a', searchEmployee);
+});
+
 jQuery(document).on('submit', 'form.search-employees', searchEmployee);
 
-jQuery('#map').on('click', '#find_employee', function () {
+jQuery('#map').on('click', '.find_employee', function () {
     var element = $(this);
     var modalAction = new ModalAction(element.data('action'), element.data('element'));
     modalAction.execute();

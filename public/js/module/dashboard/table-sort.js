@@ -1,6 +1,6 @@
 jQuery('document').ready(function () {
 
-    Sort.initForm('#filter-employee-form')
+    Sort.initForm('#filter-employee-form');
     Sort.initTable('#employee_table');
     Sort.eventSort('#employee_table', '#filter-employee-form');
 });
