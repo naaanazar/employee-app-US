@@ -33,7 +33,7 @@
                 <a
                     href="#"
                     class="modal-action"
-                    data-action="<?= $this->url('show-employee', ['id' => $employee->getId()] ) ?>"
+                    data-action="<?= $this->url('show-employee', ['hash' => $employee->getHash()] ) ?>"
                     data-element="#modal-action"
                     >
                     <?= $employee->getName() ?>
