@@ -70,8 +70,8 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         },
         clearMarker: function () {
             if (Map.markers.length > 0) {
-                for (var i = 0; i < markers.length; i++) {
-                    markers[i].setMap(null);
+                for (var i = 0; i < Map.markers.length; i++) {
+                    Map.markers[i].setMap(null);
                 }
             }
         },
@@ -226,47 +226,40 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
      *
      * @type {{map: *, post, content: string, start: Function, addMarkers: Function, eventsOnMarkers: Function}}
      */
-    /*
-     var createAllMarkers = {
+     /*var createAllMarkers = {
 
-     map: Map.init(),
-     post: JSON.parse(posts.dataset.post),
-     content: '<div style="color: black;" class="wininfo"><div class="title">{{title}}</div><div id="test" class="text">{{body}}</div></div>',
+         map: Map.mapObj,
+         post: JSON.parse(posts.dataset.post),
 
-     start: function() {
-     createAllMarkers.addMarkers();
-     },
+         start: function() {
+            reateAllMarkers.addMarkers();
+         },
 
-     addMarkers: function() {
+         addMarkers: function() {
 
-     var points = [];
-     var markers = null;
-     var content = null;
+             var points = [];
+             var markers = null;
+             var content = null;
 
-     for(var i = 0; i < createAllMarkers.post.length; i++) {
+             for(var i = 0; i < createAllMarkers.post.length; i++) {
 
-     points.push({'lat': parseFloat(createAllMarkers.post[i]['lat']), 'lng': parseFloat(createAllMarkers.post[i]['lng'])});
-     markers = Map.addMarker(createAllMarkers.map, parseFloat(createAllMarkers.post[i]['lat']), parseFloat(createAllMarkers.post[i]['lng']));
+                 points.push({'lat': parseFloat(createAllMarkers.post[i]['lat']), 'lng': parseFloat(createAllMarkers.post[i]['lng'])});
+                 markers = Map.addMarker(createAllMarkers.map, parseFloat(createAllMarkers.post[i]['lat']), parseFloat(createAllMarkers.post[i]['lng']));
 
-     createAllMarkers.eventsOnMarkers(markers,
-     mustache.render(createAllMarkers.content,
-     {
-     title: createAllMarkers.post[i]['title'],
-     body: createAllMarkers.post[i]['body']
-     })
+                 createAllMarkers.eventsOnMarkers(markers,
+                     '<div>asdasasd</div>>'
+                 );
+             }
 
-     );
-     }
-     Map.centeringMap(points, createAllMarkers.map);
-     },
+             Map.centeringMap(points, createAllMarkers.map);
+         },
 
-     eventsOnMarkers: function(markers, content) {
-     var infowindow = Map.infoWindows(content);
+         eventsOnMarkers: function(markers, content) {
+             var infowindow = Map.infoWindows(content);
 
-     markers.addListener('click', function() {
-     infowindow.open(createAllMarkers.map, markers);
-     });
-     }
-     };
-     */
+             markers.addListener('click', function() {
+                infowindow.open(createAllMarkers.map, markers);
+             });
+         }
+     };*/
 });

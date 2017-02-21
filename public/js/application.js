@@ -1,5 +1,5 @@
 var f;
-
+var ModalAction;
 /**
  * Submit form with ajax
  */
@@ -155,7 +155,7 @@ var Validate = {
  * @param params   Request params
  * @constructor
  */
-var ModalAction = function (action, selector, params) {
+ModalAction = function (action, selector, params) {
 
     /**
      * Execute ajax for html get

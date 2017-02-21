@@ -18,6 +18,7 @@ return [
         'js/custom-map.js',
     ],
     '^\/dashboard.+' => [
-        'js/module/dashboard/table-sort.js'
+        'js/module/dashboard/table-sort.js',
+        'js/module/dashboard/comments.js'
     ]
 ];
