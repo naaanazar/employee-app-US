@@ -7,6 +7,8 @@
     <div class="media-body">
         <h4 class="media-heading"><?= $this->employee->getName() ?>&nbsp;<?= $this->employee->getSurname() ?></h4>
         <a href="mailto:<?= $this->employee->getEmail() ?>"><?= $this->employee->getEmail() ?></a>
+        <p><span class="glyphicon glyphicon-phone"></span> <?= $this->employee->getMobilePhone() ?></p>
+        <p><span class="glyphicon glyphicon-phone-alt"></span> <?= $this->employee->getLandlinePhone() ?></p>
     </div>
     <h4>
         <?= $this->translate('Address') ?>:
@@ -19,6 +21,19 @@
     <ul class="list-group">
         <li class="list-group-item">
             <?= $this->translate('Hourly rate') ?>: $<?= $this->employee->getHourlyRate() ?>
+        </li>
+
+        <li class="list-group-item">
+            <?= $this->translate('Type of contract') ?>: <?= $this->employee->getContract()->getName() ?>
+        </li>
+        <li class="list-group-item">
+            <?= $this->translate('Weekly hours available') ?>: <?= $this->employee->getWeeklyHoursAvailable()->getValue() ?>
+        </li>
+        <li class="list-group-item">
+            <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('Y-m-d') ?>
+        </li>
+        <li class="list-group-item">
+            <?= $this->translate('Area around home address willing to work') ?>: <?= $this->employee->getAreaAround()->getValue() ?>
         </li>
         <li class="list-group-item">
             <?= $this->translate('Comment') ?>
