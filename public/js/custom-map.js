@@ -13,35 +13,35 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             Address.start();
             Address.clickOnMap();
         }
+    });
 
-        /**
-         * employe/index
-         * init map & create marker on map & change coordinates & address ( click on button )
-         */
-        jQuery(document).on('click', '.update-marker', function (event) {
-            event.defaultPrevented = true;
+    /**
+     * employe/index
+     * init map & create marker on map & change coordinates & address ( click on button )
+     */
+    jQuery(document).on('click', '.update-marker', function (event) {
+        event.defaultPrevented = true;
 
-            if (!jQuery('div').is('.init')) {
-                jQuery('#init-map').css('display', 'block');
-                Address.start();
-                jQuery('#map').addClass('init');
-            }
+        if (!jQuery('div').is('.init')) {
+            jQuery('#init-map').css('display', 'block');
+            Address.start();
+            jQuery('#map').addClass('init');
+        }
 
-            Address.clickOnMap();
-            Address.findAddress(Address.map);
+        Address.clickOnMap();
+        Address.findAddress(Address.map);
 
-            return false;
-        });
+        return false;
+    });
 
-        jQuery(document).on('click', '.hide-map', function (event) {
-            event.preventDefault();
+    jQuery(document).on('click', '.hide-map', function (event) {
+        event.preventDefault();
 
-            if (jQuery('div').is('.init')) {
-                jQuery('#init-map').css('display', 'none');
-                jQuery('#map').removeClass('init');
+        if (jQuery('div').is('.init')) {
+            jQuery('#init-map').css('display', 'none');
+            jQuery('#map').removeClass('init');
 
-            }
-        });
+        }
     });
 
     Map = {
@@ -143,6 +143,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             });
 
             this.marker = Map.addMarker(map, event.latLng.lat(), event.latLng.lng());
+            this.marker.setIcon('/img/marker_green.png');
             document.getElementById('latitude').value = event.latLng.lat();
             document.getElementById('longitude').value = event.latLng.lng();
         },
@@ -219,47 +220,6 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 }
 
             });
-        },
+        }
     };
-
-    /**
-     *
-     * @type {{map: *, post, content: string, start: Function, addMarkers: Function, eventsOnMarkers: Function}}
-     */
-     /*var createAllMarkers = {
-
-         map: Map.mapObj,
-         post: JSON.parse(posts.dataset.post),
-
-         start: function() {
-            reateAllMarkers.addMarkers();
-         },
-
-         addMarkers: function() {
-
-             var points = [];
-             var markers = null;
-             var content = null;
-
-             for(var i = 0; i < createAllMarkers.post.length; i++) {
-
-                 points.push({'lat': parseFloat(createAllMarkers.post[i]['lat']), 'lng': parseFloat(createAllMarkers.post[i]['lng'])});
-                 markers = Map.addMarker(createAllMarkers.map, parseFloat(createAllMarkers.post[i]['lat']), parseFloat(createAllMarkers.post[i]['lng']));
-
-                 createAllMarkers.eventsOnMarkers(markers,
-                     '<div>asdasasd</div>>'
-                 );
-             }
-
-             Map.centeringMap(points, createAllMarkers.map);
-         },
-
-         eventsOnMarkers: function(markers, content) {
-             var infowindow = Map.infoWindows(content);
-
-             markers.addListener('click', function() {
-                infowindow.open(createAllMarkers.map, markers);
-             });
-         }
-     };*/
 });
