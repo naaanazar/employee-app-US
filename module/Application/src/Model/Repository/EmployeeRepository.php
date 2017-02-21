@@ -27,7 +27,7 @@ class EmployeeRepository extends EntityRepository
 
         foreach ($this->expressions as $expression) {
 
-            if (false === empty($expression['value'])) {
+            if (false === empty($expression['value']) || $expression['expression'] === 'in') {
 
                 $criteriaExpression = $criteria->expr()
                     ->{$expression['expression']}($expression['name'], $expression['value']);
