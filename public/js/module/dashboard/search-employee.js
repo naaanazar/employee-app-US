@@ -26,10 +26,10 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
                                 ' data-element="#modal-action">' +
                             '<div id="employee_id" hidden>' +
                             '</div>' +
-                            '<div>Full name' +
+                            '<div><strong>Full name :</strong>' +
                             '<p>' + coordinate.employee.surname + ' ' + coordinate.employee.name + '</p>' +
                             '</div>' +
-                            '<div>Email' +
+                            '<div><strong>Email :</strong>' +
                             '<p>' + coordinate.employee.email + '</p>' +
                             '</div>' +
                             '</div>';
