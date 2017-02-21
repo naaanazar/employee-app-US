@@ -59,7 +59,7 @@ return [
     ],
     'locales' => [
         'en_US' => 'English',
-        'uk_UA' => 'Українська',
+        'fr_FR' => 'Francais',
         'de_DE' => 'Deutsch',
     ],
     'fixtures' => [
