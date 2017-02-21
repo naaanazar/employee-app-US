@@ -327,6 +327,8 @@ class EmployeeController extends AbstractController
 
             if ($comment !== null ) {
                 $comment->setBody($this->getRequest()->getPost('body'));
+                $comment->setUpdated(new \DateTime());
+                $comment->setEdited(1);
 
                 $this->getEntityManager()->merge($comment);
                 $this->getEntityManager()->flush();
