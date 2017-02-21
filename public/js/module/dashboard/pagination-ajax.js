@@ -13,6 +13,10 @@ var Paginator = {
 
     paginatorEvent: function (event) {
         event.defaultPrevented = true;
+
+        var page = jQuery(event.target).data('page');
+        jQuery('#page-number').val(page);
+        
         $('form.search-employee').submit();
 
             return false;
