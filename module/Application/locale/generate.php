@@ -57,7 +57,7 @@ msgstr ""
 
 ';
 
-    file_put_contents($localeDir . '/' .$locale . '.po', sprintf($pattern, $language));
+    file_put_contents($localeDir . '/' . $locale . '.po', sprintf($pattern, $language));
 
     foreach ($toTranslate as $word) {
         $result = json_decode((string)$client->get(
@@ -66,8 +66,8 @@ msgstr ""
             . '&lang=en-' . $lang
         )->getBody())->text[0];
 
-        $poFile = $localeDir . '/' .$locale . '.po';
-        $moFile = $localeDir . '/' .$locale . '.mo';
+        $poFile = $localeDir . '/' . $locale . '.po';
+        $moFile = $localeDir . '/' . $locale . '.mo';
 
         file_put_contents($poFile, "msgid \"$word\"\nmsgstr \"$result\"\n\n", FILE_APPEND);
         $tranlation = \Gettext\Translations::fromPoFile($poFile);
