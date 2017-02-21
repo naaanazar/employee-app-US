@@ -26,7 +26,6 @@ jQuery(document).on('click', '.paginator-a', function (event) {
 
 });
 
-
 jQuery(document).on('click', '.comment-delete', function (event) {
 
     jQuery(event.target).closest('.comment-block').remove();
