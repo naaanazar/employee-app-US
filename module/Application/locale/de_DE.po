@@ -143,6 +143,21 @@ msgstr "Führerschein vorhanden"
 msgid "Leave comment"
 msgstr "Kommentar hinterlassen"
 
+msgid "Home"
+msgstr "Home"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Create Employee"
+msgstr ""Erstellen Sie Für Mitarbeiter"
+
 msgid "Main"
 msgstr "Main"
 
@@ -176,15 +191,9 @@ msgstr "Konfigurieren Register Tasten"
 msgid "Statistics"
 msgstr "Statistik"
 
-msgid "Home"
-msgstr "Home"
+msgid "Sign In"
+msgstr "Anmelden"
 
-msgid "Logout"
-msgstr "Logout"
-
-msgid "Dashboard"
-msgstr "Dashboard"
-
-msgid "Search"
-msgstr "Suche"
+msgid "Sign Up"
+msgstr "Anmelden"
 

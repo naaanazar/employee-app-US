@@ -3,6 +3,8 @@
 
     'use strict';
 
+    var Globals = {};
+
     <?php $routeMatch = $this->route(); ?>
     <?php /** @var \Application\View\Helper\Route $routeMatch */ ?>
     <?php $url = $this->url($routeMatch->getRoute(), $routeMatch->getParams()); ?>

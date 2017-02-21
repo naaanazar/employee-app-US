@@ -3,6 +3,8 @@
 jQuery(document).on('submit', 'form.search-employees', function (event) {
     event.defaultPrevented = true;
 
+    console.log('submit');
+
     Map.clearMarker();
 
     var callback = function (data) {
@@ -19,20 +21,12 @@ jQuery(document).on('submit', 'form.search-employees', function (event) {
 
         data.coordinates.forEach(
             function (coordinate) {
+                console.log(coordinate);
+
                 points.push({lat: parseFloat(coordinate.latitude), lng: parseFloat(coordinate.longitude)});
 
                 var marker = Map.addMarker(map, parseFloat(coordinate.latitude), parseFloat(coordinate.longitude));
-                var content = '<div id="find_employee" data-action="/employee/' + coordinate.employee.hash + '"' +
-                                ' data-element="#modal-action">' +
-                            '<div id="employee_id" hidden>' +
-                            '</div>' +
-                            '<div><strong>Full name :</strong>' +
-                            '<p>' + coordinate.employee.surname + ' ' + coordinate.employee.name + '</p>' +
-                            '</div>' +
-                            '<div><strong>Email :</strong>' +
-                            '<p>' + coordinate.employee.email + '</p>' +
-                            '</div>' +
-                            '</div>';
+                var content = coordinate.employee;
 
                 var infowindow = Map.infoWindows(content);
 

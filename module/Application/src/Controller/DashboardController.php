@@ -145,7 +145,13 @@ class DashboardController extends AbstractController
                     return [
                         'longitude' => $coordinate->getLongitude(),
                         'latitude'  => $coordinate->getLatitude(),
-                        'employee'  => $coordinate->getEmployee()->toArray(),
+                        'employee'  => $this->getRenderer()
+                            ->render(
+                                'layout/concern/map/marker',
+                                [
+                                    'coordinate' => $coordinate
+                                ]
+                            ),
                     ];
                 },
                 $coordinates->toArray()
