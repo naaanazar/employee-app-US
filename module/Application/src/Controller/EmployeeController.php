@@ -72,6 +72,9 @@ class EmployeeController extends AbstractController
         return $view;
     }
 
+    /**
+     * @return ViewModel
+     */
     public function editAction()
     {
 
@@ -162,17 +165,15 @@ class EmployeeController extends AbstractController
                     ->getRepository(WeeklyHours::class)
                     ->find($form->get('weekly_hours')->getValue());
 
-
                 if (true === isset($data['id'])) {
                     $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
                 } else {
                     $employee = new EmployeeModel();
-                    $employee->setHash(EmployeeModel::hashKey());
+                    $employee->setHash(EmployeeModel::hashKey())
+                        ->setCreated(new \DateTime());
                 }
 
                 $image = new Image();
-
-                if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
 
                     if (null !== $form->get('image')->getValue()) {
                         $imageManager = new ImageManager();
@@ -188,9 +189,6 @@ class EmployeeController extends AbstractController
                         $image->setOriginal(Image::DEFAULT_IMAGE);
                         $image->setThumbnail(Image::DEFAULT_THUMB);
                     }
-
-                    $employee->setImage($image);
-                }
 
                 $this->getEntityManager()->persist($image);
                 $this->getEntityManager()->flush();
@@ -212,8 +210,11 @@ class EmployeeController extends AbstractController
                     ->setExperience          ((bool)$form->get('experience')->getValue())
                     ->setCarAvailable        ((bool)$form->get('car_available')->getValue())
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
-                    ->setCreated(new \DateTime())
                     ->setUpdated(new \DateTime());
+
+            if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
+                $employee->setImage($image);
+            }
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
@@ -241,7 +242,7 @@ class EmployeeController extends AbstractController
                         ->setLatitude($form->get('latitude')->getValue());
                 }
 
-                $this->getEntityManager()->persist($coordinates);
+                $this->getEntityManager()->merge($coordinates);
 
                 $this->getEntityManager()->flush();
 
