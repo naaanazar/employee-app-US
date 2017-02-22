@@ -6,7 +6,6 @@ jQuery(document).on('submit', 'form.leave-comment', function (event) {
     action.execute();
 
     return false;
-
 });
 
 /**
@@ -42,5 +41,4 @@ jQuery(document).on('click', '.comment-edit', function (event) {
         jQuery(event.target).closest('.comment-block').find('.comment-body').html(data.html);
         jQuery(event.target).closest('.comment-buttons').hide();
     })
-
 });

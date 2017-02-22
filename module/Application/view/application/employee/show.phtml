@@ -5,10 +5,22 @@
         </a>
     </div>
     <div class="media-body">
-        <h4 class="media-heading"><?= $this->employee->getName() ?>&nbsp;<?= $this->employee->getSurname() ?></h4>
-        <a href="mailto:<?= $this->employee->getEmail() ?>"><?= $this->employee->getEmail() ?></a>
-        <p><span class="glyphicon glyphicon-phone"></span> <?= $this->employee->getMobilePhone() ?></p>
-        <p><span class="glyphicon glyphicon-phone-alt"></span> <?= $this->employee->getLandlinePhone() ?></p>
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 class="media-heading"><?= $this->employee->getName() ?>&nbsp;<?= $this->employee->getSurname() ?></h4>
+                <a href="mailto:<?= $this->employee->getEmail() ?>"><?= $this->employee->getEmail() ?></a>
+                <p><span class="glyphicon glyphicon-phone"></span> <?= $this->employee->getMobilePhone() ?></p>
+                <p><span class="glyphicon glyphicon-phone-alt"></span> <?= $this->employee->getLandlinePhone() ?></p>
+            </div>
+            <div class="col-sm-6 text-right">
+                <form action="<?= $this->url('employee', ['action' => 'edit']) ?>" method="post">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="id" value="<?= $this->employee->getId() ?>">
+                <button type="submit" class="btn btn-primary edit-profile-modal">Edit</button>
+                </form>
+
+            </div>
+        </div>
     </div>
     <h4>
         <?= $this->translate('Address') ?>:

@@ -211,3 +211,4 @@ var AjaxAction = function (action, data, success) {
         );
     }
 };
+

@@ -73,6 +73,55 @@ class EmployeeController extends AbstractController
     }
 
     /**
+     * @return ViewModel
+     */
+    public function editAction()
+    {
+
+        $data  = $this->getRequest()->getPost();
+            /** @var EmployeeModel $employee */
+            $employee = $this->getEntityManager()
+                ->getRepository(EmployeeModel::class)
+                ->findOneBy(
+                    [
+                        'id' => $data['id']
+                    ]
+                );
+
+            $coordinate = $this->getEntityManager()
+            ->getRepository(Coordinates::class)
+            ->findOneBy(
+                [
+                    'employee' => $employee
+                ]
+            );
+
+        $view = new ViewModel();
+
+        $html  = $this->getRenderer()
+        ->render(
+            'application/employee/index',
+            [
+                'coordinate' => $coordinate,
+                'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                'employee'    => $employee,
+                'action'      => 'edit',
+                'id'          => $employee->getId()
+            ]
+        );
+
+        $view->setVariables(
+            [
+                'html' => $html
+            ]
+        );
+
+        return $view;
+    }
+
+    /**
      * @return JsonModel|array
      */
     public function storeAction()
@@ -99,7 +148,7 @@ class EmployeeController extends AbstractController
                 $response->setVariable('errors', $form->getMessages());
             } else {
 
-                $data = $form->getData();
+                $form->getData();
 
                 /** @var Area $areaAround */
                 $areaAround = $this->getEntityManager()
@@ -116,24 +165,30 @@ class EmployeeController extends AbstractController
                     ->getRepository(WeeklyHours::class)
                     ->find($form->get('weekly_hours')->getValue());
 
-                $employee = new EmployeeModel();
+                if (true === isset($data['id'])) {
+                    $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
+                } else {
+                    $employee = new EmployeeModel();
+                    $employee->setHash(EmployeeModel::hashKey())
+                        ->setCreated(new \DateTime());
+                }
 
                 $image = new Image();
 
-                if (null !== $form->get('image')->getValue()) {
-                    $imageManager = new ImageManager();
-                    $imageName = $form->getOption('image');
+                    if (null !== $form->get('image')->getValue()) {
+                        $imageManager = new ImageManager();
+                        $imageName = $form->getOption('image');
 
-                    $image->setOriginal($imageName);
-                    $image->setThumbnail($imageManager->resizeImage(
-                        BASE_PATH . DIRECTORY_SEPARATOR . $imageName,
-                        128,
-                        BASE_PATH . '/img/employee/thumb/' . basename($imageName)
-                    ));
-                } else {
-                    $image->setOriginal(Image::DEFAULT_IMAGE);
-                    $image->setThumbnail(Image::DEFAULT_THUMB);
-                }
+                        $image->setOriginal($imageName);
+                        $image->setThumbnail($imageManager->resizeImage(
+                            BASE_PATH . DIRECTORY_SEPARATOR . $imageName,
+                            128,
+                            BASE_PATH . '/img/employee/thumb/' . basename($imageName)
+                        ));
+                    } else {
+                        $image->setOriginal(Image::DEFAULT_IMAGE);
+                        $image->setThumbnail(Image::DEFAULT_THUMB);
+                    }
 
                 $this->getEntityManager()->persist($image);
                 $this->getEntityManager()->flush();
@@ -155,25 +210,40 @@ class EmployeeController extends AbstractController
                     ->setExperience          ((bool)$form->get('experience')->getValue())
                     ->setCarAvailable        ((bool)$form->get('car_available')->getValue())
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
-                    ->setCreated(new \DateTime())
-                    ->setUpdated(new \DateTime())
-                    ->setHash(EmployeeModel::hashKey())
-                    ->setImage($image);
+                    ->setUpdated(new \DateTime());
+
+            if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
+                $employee->setImage($image);
+            }
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
                 }
 
-                $this->getEntityManager()->persist($employee);
-                $this->getEntityManager()->flush();
+                $this->getEntityManager()->merge($employee);
 
-                $coordinates = new Coordinates();
-                $coordinates
-                    ->setEmployee($employee)
-                    ->setLongitude($form->get('longitude')->getValue())
-                    ->setLatitude($form->get('latitude')->getValue());
+                /** @var Coordinates $coordinates */
+                $coordinates = $this->getEntityManager()
+                    ->getRepository(Coordinates::class)
+                    ->findOneBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
 
-                $this->getEntityManager()->persist($coordinates);
+                if ($coordinates === null) {
+                    $coordinates = new Coordinates();
+                    $coordinates
+                        ->setEmployee($employee)
+                        ->setLongitude($form->get('longitude')->getValue())
+                        ->setLatitude($form->get('latitude')->getValue());
+                } else {
+                    $coordinates->setLongitude($form->get('longitude')->getValue())
+                        ->setLatitude($form->get('latitude')->getValue());
+                }
+
+                $this->getEntityManager()->merge($coordinates);
+
                 $this->getEntityManager()->flush();
 
                 if (true === $employee instanceof EmployeeModel) {
