@@ -238,7 +238,6 @@ var DeleteEmployee = function(action, data) {
                 url: action,
                 data: data,
                 success: function(data) {
-                    console.log(data);
                 },
                 method: 'post'
             }

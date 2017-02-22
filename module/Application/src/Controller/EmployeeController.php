@@ -251,13 +251,14 @@ class EmployeeController extends AbstractController
                 $this->getEntityManager()->flush();
 
                 return true;
+                exit(0);
             }
 
             return false;
+            exit(0);
         }
         $view = new ViewModel();
-        $view->setTemplate('application/employee/delete');
-        //$view->setTemplate('error/404');
+        $view->setTemplate('error/404');
 
         return $view;
     }
