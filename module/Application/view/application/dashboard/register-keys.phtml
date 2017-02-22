@@ -1,11 +1,18 @@
 <form action="<?= $this->url('dashboard', ['action' => 'register-keys']) ?>" class="async">
     <input type="hidden" name="add" value="1">
-    <select name="role">
-        <?php foreach (\Application\Model\User::getConstants('ROLE_') as $role) : ?>
-            <option value="<?= $role ?>"><?= ucfirst($role) ?></option>
-        <?php endforeach; ?>
-    </select>
-    <button>Generate new</button>
+    <div class="row">
+        <div class="col-sm-3">
+            <select name="role" class="form-control input-md application-input">
+                <?php foreach (\Application\Model\User::getConstants('ROLE_') as $role) : ?>
+                    <option value="<?= $role ?>"><?= ucfirst($role) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn batton-save">Generate new</button>
+        </div>
+
+    </div>
 </form>
 <div class="text-right">
     <?= $this->render('layout/helper/pagination') ?>
