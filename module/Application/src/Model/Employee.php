@@ -161,8 +161,9 @@ class Employee extends ArraySerializable
     private $hash;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @var Image
+     * @ORM\ManyToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
 
@@ -342,10 +343,10 @@ class Employee extends ArraySerializable
         return $this->hash;
     }
 
-    /**
-     * @return string
+    /**]
+     * @return Image
      */
-    public function getImage(): string
+    public function getImage(): Image
     {
         return $this->image;
     }
@@ -589,17 +590,20 @@ class Employee extends ArraySerializable
     }
 
     /**
-     * @param string $hash
+     * @param $hash
+     * @return $this
      */
     public function setHash($hash)
     {
         $this->hash = $hash;
+
+        return $this;
     }
 
     /**
-     * @param string $image
+     * @param Image $image
      */
-    public function setImage(string $image)
+    public function setImage(Image $image)
     {
         $this->image = $image;
     }
