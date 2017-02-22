@@ -6,7 +6,6 @@ jQuery(document).on('submit', 'form.leave-comment', function (event) {
     action.execute();
 
     return false;
-
 });
 
 /**
