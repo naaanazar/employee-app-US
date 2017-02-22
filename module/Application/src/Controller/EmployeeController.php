@@ -2,11 +2,13 @@
 
 namespace Application\Controller;
 
+use Application\Back\Service\ImageManager;
 use Application\Model\Comment;
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
 use Application\Model\Area;
+use Application\Model\Image;
 use Application\Model\User;
 use Application\Model\WeeklyHours;
 use Application\Model\Coordinates;
@@ -161,6 +163,26 @@ class EmployeeController extends AbstractController
 
                 $employee = new EmployeeModel();
 
+                $image = new Image();
+
+                if (null !== $form->get('image')->getValue()) {
+                    $imageManager = new ImageManager();
+                    $imageName = $form->getOption('image');
+
+                    $image->setOriginal($imageName);
+                    $image->setThumbnail($imageManager->resizeImage(
+                        BASE_PATH . DIRECTORY_SEPARATOR . $imageName,
+                        128,
+                        BASE_PATH . '/img/employee/thumb/' . basename($imageName)
+                    ));
+                } else {
+                    $image->setOriginal(Image::DEFAULT_IMAGE);
+                    $image->setThumbnail(Image::DEFAULT_THUMB);
+                }
+
+                $this->getEntityManager()->persist($image);
+                $this->getEntityManager()->flush();
+
                 $employee->setName           ($form->get('name')->getValue())
                     ->setSurname             ($form->get('surname')->getValue())
                     ->setEmail               ($form->get('email')->getValue())
@@ -180,13 +202,8 @@ class EmployeeController extends AbstractController
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
                     ->setCreated(new \DateTime())
                     ->setUpdated(new \DateTime())
-                    ->setHash(EmployeeModel::hashKey());
-
-                if (null !== $form->get('image')->getValue()) {
-                    $employee->setImage($form->getOption('image'));
-                } else {
-                    $employee->setImage('img/user-profile.png');
-                }
+                    ->setHash(EmployeeModel::hashKey())
+                    ->setImage($image);
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());

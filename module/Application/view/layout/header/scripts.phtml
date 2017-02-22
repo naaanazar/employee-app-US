@@ -13,7 +13,7 @@
     <?php foreach ($scripts as $rule => $script) : ?>
 
         <?php if (preg_match('/' . $rule . '/', $url) === 1) : ?>
-            <?php $scriptFiles = array_merge($scriptFiles, $script) ?>
+            <?php $scriptFiles = Zend\Stdlib\ArrayUtils::merge($scriptFiles, $script) ?>
         <?php endif; ?>
 
     <?php endforeach; ?>
