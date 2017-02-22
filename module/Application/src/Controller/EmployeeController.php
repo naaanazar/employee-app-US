@@ -212,15 +212,15 @@ class EmployeeController extends AbstractController
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
                     ->setUpdated(new \DateTime());
 
-            if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
-                $employee->setImage($image);
-            }
+                if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
+                    $employee->setImage($image);
+                }
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
                 }
 
-                $this->getEntityManager()->merge($employee);
+                $this->getEntityManager()->persist($employee);
 
                 /** @var Coordinates $coordinates */
                 $coordinates = $this->getEntityManager()
@@ -242,7 +242,7 @@ class EmployeeController extends AbstractController
                         ->setLatitude($form->get('latitude')->getValue());
                 }
 
-                $this->getEntityManager()->merge($coordinates);
+                $this->getEntityManager()->persist($coordinates);
 
                 $this->getEntityManager()->flush();
 
