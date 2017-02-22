@@ -70,6 +70,51 @@ class EmployeeController extends AbstractController
         return $view;
     }
 
+    public function editAction()
+    {
+
+        $data  = $this->getRequest()->getPost();
+            /** @var EmployeeModel $employee */
+            $employee = $this->getEntityManager()
+                ->getRepository(EmployeeModel::class)
+                ->findOneBy(
+                    [
+                        'id' => $data['id']
+                    ]
+                );
+
+            $coordinate = $this->getEntityManager()
+            ->getRepository(Coordinates::class)
+            ->findOneBy(
+                [
+                    'employee' => $data['id']
+                ]
+            );
+
+        $view = new ViewModel();
+
+        $html  = $this->getRenderer()
+        ->render(
+            'application/employee/index',
+            [
+                'coordinate' => $coordinate,
+                'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                'employee'    => $employee,
+                'action'      => 'edit'
+            ]
+        );
+
+        $view->setVariables(
+            [
+                'html' => $html
+            ]
+        );
+
+        return $view;
+    }
+
     /**
      * @return JsonModel|array
      */

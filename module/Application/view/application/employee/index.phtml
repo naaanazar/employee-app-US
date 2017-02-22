@@ -1,32 +1,62 @@
 <div class="row">
 
-    <legend  style="color:#8f8f8f"><?= $this->translate('Create employee'); ?></legend>
+    <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Create Application') ?>
+    </legend>
     <div class="col-md-6 col-md-offset-3">
         <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="async" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
-                <input id="name_field" name="name" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="name_field"
+                        name="name" type="text"
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getName() : '' ?>"
+                >
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="surname_field"><?= $this->translate('Surname') ?>*</label>
-                <input id="surname_field" name="surname" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="surname_field"
+                        name="surname"
+                        type="text" placeholder=""
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getSurname() : '' ?>"
+                >
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="address_field"><?= $this->translate('Address') ?>*</label>
-                <input id="address_field" name="address" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="address_field"
+                        name="address"
+                        type="text"
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getAddress() : '' ?>"
+                >
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="zip_field"><?= $this->translate('ZIP') ?>*</label>
-                <input id="zip_field" name="zip" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="zip_field"
+                        name="zip"
+                        type="text"
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getZip() : '' ?>"
+                >
 
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="city_field"><?= $this->translate('City') ?>*</label>
-                <input id="city_field" name="city" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="city_field"
+                        name="city"
+                        type="text"
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getCity() : '' ?>"
+                >
             </div>
 
             <div class="form-group">
@@ -39,17 +69,37 @@
 
             <div class="form-group">
                 <label class="control-label application-label" for="mobile_phone_field"><?= $this->translate('Mobile phone number') ?>*</label>
-                <input id="mobile_phone_field" name="mobile_phone" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="mobile_phone_field"
+                        name="mobile_phone"
+                        type="text"
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getMobilePhone() : '' ?>"
+                >
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="landline_number_field"><?= $this->translate('Landline number') ?></label>
-                <input id="landline_number_field" name="landline_phone" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="landline_number_field"
+                        name="landline_phone"
+                        type="text"
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getLandlinePhone() : '' ?>"
+
+                >
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="email_field"><?= $this->translate('Email') ?>*</label>
-                <input id="email_field" name="email" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="email_field"
+                        name="email"
+                        type="text"
+                        placeholder=""
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getEmail() : '' ?>"
+                >
             </div>
 
             <div class="form-group">
@@ -57,7 +107,12 @@
                 <select id="area_around_field" name="area_around" class="form-control application-input">
                     <?php foreach ($this->areas as $area) : ?>
                         <?php /** @var \Application\Model\Area $area */ ?>
-                        <option value="<?= $area->getId() ?>"><?= $area->getValue() ?></option>
+                        <option
+                            value="<?= $area->getId() ?>"
+                            <?= (isset($this->employee) && $this->employee->getAreaAround()->getId() === $area->getId()) ? 'selected' : '' ?>
+                        >
+                            <?= $area->getValue() ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -67,7 +122,12 @@
                 <select id="contact_type_field" name="contract_type" class="form-control application-input">
                     <?php foreach ($this->contracts as $contract) : ?>
                         <?php /** @var \Application\Model\Contract $contract */ ?>
-                        <option value="<?= $contract->getId() ?>"><?= $contract->getName() ?></option>
+                        <option
+                            value="<?= $contract->getId() ?>"
+                            <?= (isset($this->employee) && $this->employee->getContract()->getId() === $contract->getId()) ? 'selected' : '' ?>
+                        >
+                            <?= $contract->getName() ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -77,7 +137,12 @@
                 <select id="weekly_hours_field" name="weekly_hours" class="form-control application-input">
                     <?php foreach ($this->weeklyHours as $weeklyHour) : ?>
                         <?php /** @var \Application\Model\WeeklyHours $weeklyHour */ ?>
-                        <option value="<?= $weeklyHour->getId() ?>"><?= $weeklyHour->getValue() ?></option>
+                        <option
+                            value="<?= $weeklyHour->getId() ?>"
+                            <?= (isset($this->employee) && $this->employee->getWeeklyHoursAvailable()->getId() === $weeklyHour->getId()) ? 'selected' : '' ?>
+                        >
+                            <?= $weeklyHour->getValue() ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -86,36 +151,61 @@
                 <label class="control-label application-label" for="start_day_field"><?= $this->translate('Start day') ?>*</label>
 
                 <div class="input-group date" id="start_day_field_picker">
-                    <input type="text" id="start_day_field" name="start_date" class="form-control input-md application-input"><span class="input-group-addon batton-save"><i class="glyphicon glyphicon-th"></i></span>
+                    <input
+                            type="text"
+                            id="start_day_field"
+                            name="start_date"
+                            class="form-control input-md application-input"
+                            value="<?= isset($this->employee) ? $this->employee->getStartDate()->format('Y-m-d') : '' ?>"
+                    >
+                    <span class="input-group-addon batton-save"><i class="glyphicon glyphicon-th"></i></span>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="commenst_field"><?= $this->translate('Comments') ?></label>
-                <textarea id="commenst_field" name="comments" class="form-control application-input"  rows="4" style="resize: vertical;"></textarea>
+                <textarea id="commenst_field" name="comments" class="form-control application-input"  rows="4" style="resize: vertical;"><?= isset($this->employee) ? $this->employee->getComments() : '' ?></textarea>
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="hourly_rate_field"><?= $this->translate('Hourly rate') ?>*</label>
-                <input id="hourly_rate_field" name="hourly_rate" type="text" placeholder="" class="form-control input-md application-input">
+                <input
+                        id="hourly_rate_field"
+                        name="hourly_rate"
+                        type="text"
+                        class="form-control input-md application-input"
+                        value="<?= isset($this->employee) ? $this->employee->getHourlyRate() : '' ?>"
+                >
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="experience_field"><?= $this->translate('Experience in the job') ?>*</label>
                 <select id="experience_field" name="experience" class="form-control application-input">
-                    <option value="1"><?= $this->translate('Yes') ?></option>
-                    <option value="0"><?= $this->translate('No') ?></option>
+                    <option value="1" <?= (isset($this->employee) && $this->employee->isExperience()) ? 'selected' : '' ?>><?= $this->translate('Yes')  ?></option>
+                    <option value="0" <?= (isset($this->employee) && (false === $this->employee->isExperience())) ? 'selected' : '' ?>><?= $this->translate('No') ?></option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="driving_licence_field"><?= $this->translate('Driving licence') ?>*</label>
-                <input type="checkbox" name="driving_license" value="1" id="driving_licence_field" >
+                <input
+                    type="checkbox"
+                    name="driving_license"
+                    value="1"
+                    id="driving_licence_field"
+                    <?= (isset($this->employee) && $this->employee->isDrivingLicence()) ? 'checked' : '' ?>
+                >
             </div>
 
             <div class="form-group">
                 <label class="control-label application-label" for="car_available_field"><?= $this->translate('Car available') ?>*</label>
-                <input type="checkbox" name="car_available" value="1" id="car_available_field" >
+                <input
+                    type="checkbox"
+                    name="car_available"
+                    value="1"
+                    id="car_available_field"
+                    <?= (isset($this->employee) && $this->employee->isCarAvailable()) ? 'checked' : '' ?>
+                >
             </div>
 
             <div class="form-group">
@@ -124,14 +214,30 @@
                 </label>
 
                 <label class="btn button-sign-in btn-file">
-<!--                    --><?//= $this->translate('Attachments') ?><!-- <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">-->
+                    <!--                    --><?//= $this->translate('Attachments') ?><!-- <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">-->
                 </label>
             </div>
-            <input id="latitude" name="latitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
-            <input id="longitude" name="longitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
+            <input
+                id="latitude"
+                name="latitude"
+                type="hidden"
+                class="form-control input-md application-input"
+                value="<?= isset($this->coordinates) ? $this->coordinates->getLatitude() : '' ?>"
+
+            >
+            <input
+                id="longitude"
+                name="longitude"
+                type="hidden"
+                class="form-control input-md application-input"
+                value="<?= isset($this->coordinates) ? $this->coordinates->getLongitude() : '' ?>"
+            >
+            <?php if (isset($this->action) && $this->action == 'edit') :?>
+                <input type="hidden" name="action" value="edit">
+            <?php endif;?>
             <div class="form-group">
                 <div class="text-right" >
-                    <button class="btn batton-save btn-lg"><?= $this->translate('Save') ?></button>
+                    <button class="btn batton-save btn-lg"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit') : $this->translate('Save') ?></button>
                 </div>
             </div>
         </form>

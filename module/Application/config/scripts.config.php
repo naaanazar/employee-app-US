@@ -19,5 +19,6 @@ return [
     ],
     '^\/dashboard.+' => [
         'js/module/dashboard/table-sort.js'
+
     ]
 ];
