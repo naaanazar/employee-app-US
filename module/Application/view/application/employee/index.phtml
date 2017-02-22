@@ -217,12 +217,17 @@
                     <!--                    --><?//= $this->translate('Attachments') ?><!-- <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">-->
                 </label>
             </div>
+
+            <?php if (isset($this->id)) : ?>
+                <input type="hidden" name="id" value="<?= $this->id ?>">
+            <?php endif; ?>
+
             <input
                 id="latitude"
                 name="latitude"
                 type="hidden"
                 class="form-control input-md application-input"
-                value="<?= isset($this->coordinates) ? $this->coordinates->getLatitude() : '' ?>"
+                value="<?= isset($this->coordinate) ? $this->coordinate->getLatitude() : '' ?>"
 
             >
             <input
@@ -230,7 +235,7 @@
                 name="longitude"
                 type="hidden"
                 class="form-control input-md application-input"
-                value="<?= isset($this->coordinates) ? $this->coordinates->getLongitude() : '' ?>"
+                value="<?= isset($this->coordinate) ? $this->coordinate->getLongitude() : '' ?>"
             >
             <?php if (isset($this->action) && $this->action == 'edit') :?>
                 <input type="hidden" name="action" value="edit">
