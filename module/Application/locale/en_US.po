@@ -164,9 +164,6 @@ msgstr "Exit from dashboard"
 msgid "Search employee"
 msgstr "Search employee"
 
-msgid "Overview employee"
-msgstr "Overview employee"
-
 msgid "Configure Around Areas"
 msgstr "Configure Around Areas"
 
