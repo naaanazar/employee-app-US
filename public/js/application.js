@@ -79,6 +79,18 @@ jQuery(document).on('click', '.modal-action', function (event) {
     return false;
 });
 
+jQuery(document).on('click', '#delete_employee', function(event) {
+    event.defaultPrevented = true;
+    event.preventDefault();
+
+    var element = $(this);
+    var deleteEmployee = new DeleteEmployee(element.data('action'), {id: element.data('id')});
+
+    deleteEmployee.execute();
+
+    return false;
+});
+
 /**
  * On load event
  */
@@ -211,3 +223,29 @@ var AjaxAction = function (action, data, success) {
         );
     }
 };
+
+/**
+ *
+ * @param action Url to call
+ * @param data Request params
+ * @constructor
+ */
+var DeleteEmployee = function(action, data) {
+    this.execute = function () {
+
+        $.ajax(
+            {
+                url: action,
+                data: data,
+                success: function(data) {
+                    console.log(data);
+                },
+                method: 'post'
+            }
+        );
+    }
+};
+/*
+<div>
+    <a href="/" id="delete_employee" data-action="/employee/delete" data-id="3">delete Employee</a>
+</div>*/
