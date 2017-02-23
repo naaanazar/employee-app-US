@@ -24,6 +24,16 @@ var searchEmployee = function (event) {
         var map = Map.mapObj;
         var points = [];
 
+        if( '' !== jQuery('#latitude').val() && '' !== jQuery('#longitude').val()) {
+            Map.marker = Map.addMarker(
+                map,
+                parseFloat(jQuery('#latitude').val()),
+                parseFloat(jQuery('#longitude').val())
+            );
+
+            Map.marker.setIcon('/img/marker_green.png');
+        }
+
         data.coordinates.forEach(
 
             function (coordinate) {
@@ -59,6 +69,14 @@ var searchEmployee = function (event) {
     return false;
 
 };
+
+jQuery(document).on('click', '#clear_marker', function(event) {
+    if(null !== Map.marker) {
+        Map.marker.setMap(null);
+        jQuery('#latitude').val('');
+        jQuery('#longitude').val('');
+    }
+});
 
 jQuery('document').ready(function (event) {
     var page = jQuery(event.target).data('page');
