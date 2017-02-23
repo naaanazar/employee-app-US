@@ -71,8 +71,8 @@ msgstr "Wählen Sie Statistik-Zeitraums"
 msgid "Set Weekly hours"
 msgstr "Wöchentliche Stunden"
 
-msgid "Create employee"
-msgstr ""Erstellen Sie für Mitarbeiter"
+msgid "Edit Application"
+msgstr "Bearbeiten Anwendung"
 
 msgid "Address"
 msgstr "Adresse"
@@ -119,8 +119,8 @@ msgstr "Hochladen user-Foto"
 msgid "Attachments"
 msgstr "Anlagen"
 
-msgid "Save"
-msgstr "Speichern"
+msgid "Edit"
+msgstr "Bearbeiten"
 
 msgid "Germany"
 msgstr "Deutschland"
@@ -139,6 +139,9 @@ msgstr "Führerschein vorhanden"
 
 msgid "Leave comment"
 msgstr "Kommentar hinterlassen"
+
+msgid "Create search request"
+msgstr "Erstellen Suchanfrage"
 
 msgid "Home"
 msgstr "Home"

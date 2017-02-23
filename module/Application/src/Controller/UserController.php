@@ -108,7 +108,7 @@ class UserController extends AbstractController
                 $this->getEntityManager()->persist($user);
                 $this->getEntityManager()->flush();
 
-                if ($registerKey !== null) {
+                if ($registerKey !== false && $registerKey !== null) {
                     $registerKey->setUsed(true);
                     $registerKey->setUser($user);
 
