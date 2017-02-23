@@ -307,6 +307,29 @@ class EmployeeController extends AbstractController
         return $view;
     }
 
+    public function deleteAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $json = new JsonModel();
+
+            if(null !== ($employee = $this->getEntityManager()->getRepository(EmployeeModel::class)
+                    ->findOneBy(['hash' => $this->getRequest()->getPost('hash')]))
+            ) {
+                $employee->setDeleted(true);
+                $this->getEntityManager()->persist($employee);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable('status', 'deleted');
+            } else {
+                $json->setVariable('status', 'not deleted');
+            }
+
+            return $json;
+        }
+
+        return $this->notFoundAction();
+    }
+
     /**
      * @return JsonModel
      */

@@ -22,7 +22,6 @@ jQuery(document).on('submit', 'form.async', function (event) {
             var file = files[i];
 
             if (file instanceof File && file.type.match('image.*')) {
-                console.log(file);
                 formData.append($(fileInput).attr('name'), file);
             }
         }
@@ -75,6 +74,17 @@ jQuery(document).on('click', '.modal-action', function (event) {
     var element = $(this);
     var modalAction = new ModalAction(element.data('action'), element.data('element'));
     modalAction.execute();
+
+    return false;
+});
+
+jQuery(document).on('click', '#delete_employee', function(event) {
+    event.defaultPrevented = true;
+
+    var element = $(this);
+    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash')});
+
+    deleteEmployee.execute();
 
     return false;
 });
@@ -212,3 +222,26 @@ var AjaxAction = function (action, data, success) {
     }
 };
 
+/**
+ *
+ * @param action Url to call
+ * @param data Request params
+ * @constructor
+ */
+var DeleteEmployee = function(action, data) {
+    this.execute = function () {
+
+        $.ajax(
+            {
+                url: action,
+                data: data,
+                success: function(data) {},
+                method: 'post'
+            }
+        );
+    }
+};
+/*
+<div>
+    <a href="/" id="delete_employee" data-action="/employee/delete" data-hash="3">delete Employee</a>
+</div>*/
