@@ -19,13 +19,11 @@ use Application\Back\Form\Element\Employee\AreaAround;
 use Application\Back\Form\Element\Employee\ContractType;
 use Application\Back\Form\Element\Employee\WeeklyHours;
 use Application\Back\Form\Element\Employee\StartDay;
-use Application\Model\User;
 use Zend\Filter\File\RenameUpload;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\File;
 use Zend\Form\Element\Text;
 use Zend\Form\Form;
-use Zend\InputFilter\FileInput;
 use Zend\InputFilter\InputFilter;
 
 /**
@@ -181,15 +179,19 @@ class Employee extends Form
             ]
         );
 
-        $this->add([
-            'type'  => 'file',
-            'name' => 'image',
-        ]);
+        $this->add(
+            [
+                'type'  => File::class,
+                'name'  => 'image',
+            ]
+        );
 
         $this->addInputFilter();
     }
 
-
+    /**
+     * Add input filter
+     */
     public function addInputFilter()
     {
         $inputFilter = new InputFilter();
@@ -201,8 +203,8 @@ class Employee extends Form
         $inputFilter->add
         (
             [
-                'type' => 'Zend\InputFilter\FileInput',
-                'name' => 'image',
+                'type'     => 'Zend\InputFilter\FileInput',
+                'name'     => 'image',
                 'required' => false,
                 'filters'  => [
                     [
@@ -216,8 +218,6 @@ class Employee extends Form
                 ],
             ]
         );
-
-
 
         $this->setInputFilter($inputFilter);
     }

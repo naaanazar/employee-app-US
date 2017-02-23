@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Back\Service\FileManager;
 use Application\Back\Service\ImageManager;
 use Application\Model\Comment;
 use Application\Model\Employee as EmployeeModel;
@@ -219,6 +220,14 @@ class EmployeeController extends AbstractController
                 }
 
                 $this->getEntityManager()->persist($employee);
+
+                $fileManager = new FileManager();
+                $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
+
+                foreach ($files as $file) {
+                    $file->setEmployee($employee);
+                    $this->getEntityManager()->persist($file);
+                }
 
                 /** @var Coordinates $coordinates */
                 $coordinates = $this->getEntityManager()
