@@ -46,6 +46,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
 
     Map = {
         images: '/img/marker.png',
+        marker: null,
         markers: [],
 
         /**
@@ -73,6 +74,11 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 for (var i = 0; i < Map.markers.length; i++) {
                     Map.markers[i].setMap(null);
                 }
+            }
+        },
+        clearOnMarker: function() {
+            if(null !== Map.marker) {
+                Map.marker.setMap(null);
             }
         },
         infoWindows: function (content) {
@@ -114,6 +120,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             if (null != this.marker) {
                 this.marker.setMap(null);
             }
+            Map.clearOnMarker();
 
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({
@@ -142,7 +149,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 }
             });
 
-            this.marker = Map.addMarker(map, event.latLng.lat(), event.latLng.lng());
+            Map.marker = this.marker = Map.addMarker(map, event.latLng.lat(), event.latLng.lng());
             this.marker.setIcon('/img/marker_green.png');
             document.getElementById('latitude').value = event.latLng.lat();
             document.getElementById('longitude').value = event.latLng.lng();
