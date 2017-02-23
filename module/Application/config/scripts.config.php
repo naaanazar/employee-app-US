@@ -10,15 +10,17 @@ return [
         'js/vendor/jquery.loading.min.js',
         'js/application.js',
     ],
-    '((employee\/[a-z0-9]{40})|dashboard\/(search|overview))' => [
+    '((employee\/[a-z0-9]{40})|dashboard\/(search|overview)?)' => [
         'js/module/employee/comments.js'
     ],
-    '^\/((employee(\/index)?|(dashboard\/(search)?(\/page\/[0-9]+)?))(\/)?)$' => [
+    '^\/((employee(\/index)?|(dashboard\/(search|statistics)?(\/page\/[0-9]+)?))(\/)?)$' => [
         'js/module/dashboard/search-employee.js',
         'js/module/dashboard/create-search-request.js',
-        'js/custom-map.js',
     ],
     '^\/dashboard.+' => [
         'js/module/dashboard/table-sort.js'
+    ],
+    '^((\/dashboard\/?)|(\/employee\/?(edit)?))$' => [
+        'js/custom-map.js',
     ]
 ];

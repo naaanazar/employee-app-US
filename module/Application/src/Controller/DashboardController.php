@@ -2,34 +2,37 @@
 
 namespace Application\Controller;
 
-use Application\Back\Form\Search\Dashboard\Overview;
-use Application\Back\Form\Search\Dashboard\Statistic;
-use Application\Back\Form\Search\Dashboard\Areas;
-use Application\Back\Form\Search\Dashboard\Contract as ContractBack;
-use Application\Back\Form\Search\Dashboard\WeeklyHours as WeeklyHoursBack;
-use Application\Back\Form\Search\Dashboard\SourceApplication;
-use Application\Back\Form\Search\Dashboard\ReasonRemoval;
-use Application\Back\Form\Search\Sort;
+use Application\Back\Form\Search\Dashboard\{
+    Overview,
+    Statistic,
+    Areas,
+    Contract as ContractBack,
+    WeeklyHours as WeeklyHoursBack,
+    SourceApplication,
+    ReasonRemoval
+};
+
+use Application\Model\{
+    Area, 
+    Coordinates, 
+    Employee, 
+    RegisterKey, 
+    Contract,
+    SearchRequest,
+    User,
+    WeeklyHours,
+    ReasonRemoval as ReasonRemovalModel,
+    SourceApplication as SourceApplicationModel,
+    Repository\EmployeeRepository
+};
+
 use Application\Back\Paginator\Adapter\Doctrine;
-use Application\Model\Area;
-use Application\Model\Coordinates;
-use Application\Model\Employee;
-use Application\Model\RegisterKey;
-use Application\Model\Contract;
-use Application\Model\ReasonRemoval as ReasonRemovalModel;
-use Application\Model\Repository\CoordinatesRepository;
-use Application\Model\Repository\EmployeeRepository;
-use Application\Model\SearchRequest;
-use Application\Model\SourceApplication as SourceApplicationModel;
-use Application\Model\User;
-use Application\Model\WeeklyHours;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
-use Zend\Json\Json;
 use Zend\Paginator\Paginator;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Zend\Stdlib\ArrayUtils;
+use Zend\View\Model\{JsonModel, ViewModel};
 
 /**
  * Class DashboardController
@@ -380,7 +383,7 @@ class DashboardController extends AbstractController
      *
      * @return ViewModel|array
      */
-    public function ReasonRemovalAction()
+    public function reasonRemovalAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
@@ -472,14 +475,21 @@ class DashboardController extends AbstractController
      */
     public function statisticsAction()
     {
-        $search = new Statistic($post = $this->getRequest()->getPost());
+        $data = $this->getRequest()->getPost()->toArray();
 
-        return new ViewModel(
+        $search = new Statistic($data);
+
+        $view = new ViewModel(
             [
-                'paginator' => $search->getResult(),
-                'post'      => $post
+                'paginator' => $search->getResult()
             ]
         );
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $view->setTemplate('layout/concern/employees');
+        }
+
+        return $view;
     }
 
 }

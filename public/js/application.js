@@ -237,6 +237,7 @@ var DeleteEmployee = function(action, data) {
                 success: function(data) {
                     if('deleted' == data.status) {
                         jQuery('#modal-action').modal('hide');
+
                         searchEmployee();
                     }
 
