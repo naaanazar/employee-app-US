@@ -31,6 +31,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Zend\Paginator\Paginator;
+use Zend\Stdlib\ArrayUtils;
 use Zend\View\Model\{JsonModel, ViewModel};
 
 /**
@@ -382,7 +383,7 @@ class DashboardController extends AbstractController
      *
      * @return ViewModel|array
      */
-    public function ReasonRemovalAction()
+    public function reasonRemovalAction()
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
@@ -474,14 +475,21 @@ class DashboardController extends AbstractController
      */
     public function statisticsAction()
     {
-        $search = new Statistic($post = $this->getRequest()->getPost());
+        $data = $this->getRequest()->getPost()->toArray();
 
-        return new ViewModel(
+        $search = new Statistic($data);
+
+        $view = new ViewModel(
             [
-                'paginator' => $search->getResult(),
-                'post'      => $post
+                'paginator' => $search->getResult()
             ]
         );
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $view->setTemplate('layout/concern/employees');
+        }
+
+        return $view;
     }
 
 }

@@ -98,9 +98,7 @@ class EmployeeController extends AbstractController
 
         $view = new ViewModel();
 
-        $html  = $this->getRenderer()
-        ->render(
-            'application/employee/index',
+        $view->setVariables(
             [
                 'coordinate' => $coordinate,
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
@@ -112,11 +110,7 @@ class EmployeeController extends AbstractController
             ]
         );
 
-        $view->setVariables(
-            [
-                'html' => $html
-            ]
-        );
+        $view->setTemplate('application/employee/index');
 
         return $view;
     }

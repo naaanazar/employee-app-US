@@ -18,7 +18,7 @@ $translatorKey = 'trnsl.1.1.20170209T132126Z.979b34845c1404ed.ff6376236a7cb7d04c
 $locales = (include __DIR__ . '/../config/module.config.php')['locales'];
 
 $regex = [
-    '\/\*translate\*\/(.*?)\/\*translate\*\/',
+    '\/\*translate\*\/[\'\"](.*?)[\'\"]\/\*translate\*\/',
     '\-\>translate\([\'\"](.*?)[\'\"]\).*'
 ];
 
