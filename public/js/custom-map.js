@@ -27,7 +27,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             Address.start();
             jQuery('#map').addClass('init');
         }
-
+        if('' !== jQuery('#latitude') && '' !== jQuery('#longitude'))
         Address.clickOnMap();
         Address.findAddress(Address.map);
 
