@@ -18,6 +18,7 @@ use Application\Model\{
     Employee, 
     RegisterKey, 
     Contract,
+    SearchRequest,
     User,
     WeeklyHours,
     ReasonRemoval as ReasonRemovalModel,
