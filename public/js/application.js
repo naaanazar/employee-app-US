@@ -235,13 +235,14 @@ var DeleteEmployee = function(action, data) {
             {
                 url: action,
                 data: data,
-                success: function(data) {},
+                success: function(data) {
+                    console.log(data.status)
+                    if('deleted' == data.status) {
+
+                    }
+                },
                 method: 'post'
             }
         );
     }
 };
-/*
-<div>
-    <a href="/" id="delete_employee" data-action="/employee/delete" data-hash="3">delete Employee</a>
-</div>*/

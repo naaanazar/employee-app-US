@@ -17,6 +17,14 @@
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?= $this->employee->getId() ?>">
                 <button type="submit" class="btn btn-primary edit-profile-modal">Edit</button>
+                <button
+                        type="submit"
+                        class="btn btn-danger delete-profile-modal"
+                        id="delete_employee"
+                        data-action="/employee/delete"
+                        data-hash="<?= $this->employee->getHash() ?>"
+                        >Delete
+                </button>
                 </form>
 
             </div>
