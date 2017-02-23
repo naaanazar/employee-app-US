@@ -29,7 +29,12 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         }
 
         Address.clickOnMap();
-        Address.findAddress(Address.map);
+        if('' !== jQuery('#latitude').val() && '' !== jQuery('#longitude').val()) {
+            Address.marker = GoogleMap.addMarker(Address.map, parseFloat(jQuery('#latitude').val()), parseFloat(jQuery('#longitude').val()));
+            Address.marker.setIcon('/img/marker_green.png');
+        } else {
+            Address.findAddress(Address.map);
+        }
 
         return false;
     });
