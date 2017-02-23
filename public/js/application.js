@@ -165,7 +165,6 @@ var Validate = {
  * @constructor
  */
 ModalAction = function (action, selector, params) {
-
     /**
      * Execute ajax for html get
      */
@@ -236,7 +235,6 @@ var DeleteEmployee = function(action, data) {
                 url: action,
                 data: data,
                 success: function(data) {
-                    console.log(data.status)
                     if('deleted' == data.status) {
 
                     }

@@ -39,11 +39,10 @@ sudo chmod +x /usr/bin/phpmd
 #Restart services
 sudo service httpd restart
 sudo service mysql restart
-sudo service redis restart
 
 #Install composer
 curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
+sudo mv composer.phar /usr/local/bin/composer
 
 #Install project
 cd /vagrant/employee-app;
@@ -51,16 +50,17 @@ cd /vagrant/employee-app;
 sudo chmod -R 777 vendor
 sudo chmod -R 777 data
 sudo chmod -R 777 config/database
+sudo chmod 777 composer.lock
 
-composer install
+/usr/local/bin/composer install
 
 sudo chmod 777 composer.lock
 
-composer update
+/usr/local/bin/composer update
 
 sudo chmod -R 777 module/Application/locale
 php module/Application/locale/generate.php
 
 mysql -u root -e "drop database if exists \`employee-dev\`"
 mysql -u root -e "create database \`employee-dev\`"
-php /vagrant/employee-app/vendor/doctrine/doctrine-module/bin/doctrine-module.php migrations:migrate
+php /vagrant/employee-app/vendor/doctrine/doctrine-module/bin/doctrine-module.php migrations:migrate --no-interaction

@@ -76,7 +76,9 @@ class DashboardController extends AbstractController
             );
         } else {
             $paginator = new Paginator(
-                new Doctrine(Employee::class, [])
+                new Doctrine(Employee::class, [
+                    'deleted' => false
+                ])
             );
         }
 
