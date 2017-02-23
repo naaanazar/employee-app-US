@@ -10,7 +10,7 @@ return [
         'js/vendor/jquery.loading.min.js',
         'js/application.js',
     ],
-    '((employee\/[a-z0-9]{40})|dashboard\/(search|overview))' => [
+    '((employee\/[a-z0-9]{40})|dashboard\/(search|overview)?)' => [
         'js/module/employee/comments.js'
     ],
     '^\/((employee(\/index)?|(dashboard\/(search)?(\/page\/[0-9]+)?))(\/)?)$' => [
