@@ -73,6 +73,9 @@ class EmployeeController extends AbstractController
         return $view;
     }
 
+    /**
+     * @return ViewModel
+     */
     public function editAction()
     {
 
@@ -163,30 +166,30 @@ class EmployeeController extends AbstractController
                     ->getRepository(WeeklyHours::class)
                     ->find($form->get('weekly_hours')->getValue());
 
-
                 if (true === isset($data['id'])) {
                     $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
                 } else {
                     $employee = new EmployeeModel();
-                    $employee->setHash(EmployeeModel::hashKey());
+                    $employee->setHash(EmployeeModel::hashKey())
+                        ->setCreated(new \DateTime());
                 }
 
                 $image = new Image();
 
-                if (null !== $form->get('image')->getValue()) {
-                    $imageManager = new ImageManager();
-                    $imageName = $form->getOption('image');
+                    if (null !== $form->get('image')->getValue()) {
+                        $imageManager = new ImageManager();
+                        $imageName = $form->getOption('image');
 
-                    $image->setOriginal($imageName);
-                    $image->setThumbnail($imageManager->resizeImage(
-                        BASE_PATH . DIRECTORY_SEPARATOR . $imageName,
-                        128,
-                        BASE_PATH . '/img/employee/thumb/' . basename($imageName)
-                    ));
-                } else {
-                    $image->setOriginal(Image::DEFAULT_IMAGE);
-                    $image->setThumbnail(Image::DEFAULT_THUMB);
-                }
+                        $image->setOriginal($imageName);
+                        $image->setThumbnail($imageManager->resizeImage(
+                            BASE_PATH . DIRECTORY_SEPARATOR . $imageName,
+                            128,
+                            BASE_PATH . '/img/employee/thumb/' . basename($imageName)
+                        ));
+                    } else {
+                        $image->setOriginal(Image::DEFAULT_IMAGE);
+                        $image->setThumbnail(Image::DEFAULT_THUMB);
+                    }
 
                 $this->getEntityManager()->persist($image);
                 $this->getEntityManager()->flush();
@@ -208,15 +211,17 @@ class EmployeeController extends AbstractController
                     ->setExperience          ((bool)$form->get('experience')->getValue())
                     ->setCarAvailable        ((bool)$form->get('car_available')->getValue())
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
-                    ->setCreated(new \DateTime())
-                    ->setUpdated(new \DateTime())
-                    ->setImage($image);
+                    ->setUpdated(new \DateTime());
+
+                if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
+                    $employee->setImage($image);
+                }
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
                 }
 
-                $this->getEntityManager()->merge($employee);
+                $this->getEntityManager()->persist($employee);
 
                 /** @var Coordinates $coordinates */
                 $coordinates = $this->getEntityManager()
@@ -238,7 +243,7 @@ class EmployeeController extends AbstractController
                         ->setLatitude($form->get('latitude')->getValue());
                 }
 
-                $this->getEntityManager()->merge($coordinates);
+                $this->getEntityManager()->persist($coordinates);
 
                 $this->getEntityManager()->flush();
 
