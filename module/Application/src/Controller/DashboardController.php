@@ -19,6 +19,7 @@ use Application\Model\Contract;
 use Application\Model\ReasonRemoval as ReasonRemovalModel;
 use Application\Model\Repository\CoordinatesRepository;
 use Application\Model\Repository\EmployeeRepository;
+use Application\Model\SearchRequest;
 use Application\Model\SourceApplication as SourceApplicationModel;
 use Application\Model\User;
 use Application\Model\WeeklyHours;
@@ -63,61 +64,21 @@ class DashboardController extends AbstractController
      */
     public function searchAction()
     {
-        $criteria = [];
-        $coordinates = [];
-
         if (true === $this->getRequest()->isPost()) {
-            $post = $this->getRequest()->getPost();
+            /** @var EmployeeRepository $employeeRepository */
+            $employeeRepository = $this
+                ->getEntityManager()
+                ->getRepository(Employee::class);
 
-            /** @var EmployeeRepository $employeesRepository */
-            $employeesRepository = $this->getEntityManager()->getRepository(Employee::class);
-
-            $employeesRepository
-                ->addExpression('contains', 'name', $post['name'])
-                ->addExpression('contains', 'surname', $post['surname'])
-                ->addExpression('contains', 'city', $post['city'])
-                ->addExpression('contains', 'zip', $post['zip'])
-                ->addExpression('eq', 'carAvailable', $post['car_available'])
-                ->addExpression('eq', 'drivingLicence', $post['driving_license'])
-                ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($post['area_around']));
-
-
-                if( !empty($post['start'])) {
-                    $employeesRepository
-                        ->addExpression('gt', 'startDate', (new \DateTime ($post['start'])))
-                        ->addExpression('lt', 'startDate', (new \DateTime ($post['end'])));
-                }
-
-            $coordinates = (new Coordinates())
-                ->setLatitude($post['latitude'])
-                ->setLongitude($post['longitude']);
-
-            /** @var CoordinatesRepository $coordinatesRepo */
-            $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
-
-            $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
-
-            $employeesIds = array_map(
-                function ($coordinate) {
-                    /** @var Coordinates $coordinate */
-                    return $coordinate->getEmployee()->getId();
-                },
-                $coordinates
+            $paginator = $employeeRepository->searchByParams(
+                $this->getRequest()->getPost(),
+                true
             );
-
-            $employeesRepository->addExpression('in', 'id', $employeesIds);
-
-            $criteria = $employeesRepository->buildCriteria();
-            $sortValue = (new Sort())->getSortValue($post['sort_name'], $post['sort_order']);
-
-            if (false !== $sortValue) {
-                $criteria->orderBy($sortValue);
-            }
+        } else {
+            $paginator = new Paginator(
+                new Doctrine(Employee::class, [])
+            );
         }
-
-        $paginator = new Paginator(
-            new Doctrine(Employee::class, $criteria)
-        );
 
         $paginator->setItemCountPerPage(20);
         $paginator->setCurrentPageNumber($this->getRequest()->getPost('page', 1));
@@ -125,7 +86,7 @@ class DashboardController extends AbstractController
         if (true === $this->getRequest()->isXmlHttpRequest()) {
 
             $coordinatesCriteria = new Criteria();
-            $coordinatesCriteria->where($criteria->expr()->in('employee', (array)$paginator->getCurrentItems()));
+            $coordinatesCriteria->where($coordinatesCriteria->expr()->in('employee', (array)$paginator->getCurrentItems()));
             $coordinates = $this->getEntityManager()
                 ->getRepository(Coordinates::class)
                 ->matching($coordinatesCriteria);
@@ -177,6 +138,34 @@ class DashboardController extends AbstractController
         }
 
         return $view;
+    }
+
+    /**
+     * @return array|JsonModel
+     */
+    public function searchRequestAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $response = new JsonModel();
+
+            $searchRequest = new SearchRequest();
+            $searchRequest->setParams($this->getRequest()->getPost('params', []));
+            $searchRequest->setFound(false);
+            $searchRequest->setUser($this->getUser());
+
+            try {
+                $this->getEntityManager()->persist($searchRequest);
+                $this->getEntityManager()->flush($searchRequest);
+
+                $response->setVariable('message', 'Successfully created search request');
+            } catch (\Exception $exception) {
+                $response->setVariable('message', 'Can not save search request');
+            }
+
+            return $response;
+        }
+
+        return $this->notFoundAction();
     }
 
     /**

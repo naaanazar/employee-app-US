@@ -9,12 +9,14 @@ return [
     'router' => [
         'routes' => include 'routes.config.php',
     ],
+    'console' => include 'console.config.php',
     'controllers' => [
         'factories' => [
             Controller\UserController::class => InvokableFactory::class,
             Controller\IndexController::class => InvokableFactory::class,
             Controller\EmployeeController::class => InvokableFactory::class,
             Controller\DashboardController::class => InvokableFactory::class,
+            Controller\Cli\ServiceController::class => InvokableFactory::class
         ],
     ],
     'view_manager' => [

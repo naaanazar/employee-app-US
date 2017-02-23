@@ -15,6 +15,7 @@ return [
     ],
     '^\/((employee(\/index)?|(dashboard\/search(\/page\/[0-9]+)?))(\/)?)$' => [
         'js/module/dashboard/search-employee.js',
+        'js/module/dashboard/create-search-request.js',
         'js/custom-map.js',
     ],
     '^\/dashboard.+' => [

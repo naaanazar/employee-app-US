@@ -71,8 +71,8 @@ msgstr "Sélectionnez statistique période"
 msgid "Set Weekly hours"
 msgstr "Définir des heures Hebdomadaires"
 
-msgid "Create employee"
-msgstr "Créer employé"
+msgid "Edit Application"
+msgstr "Modifier L'Application"
 
 msgid "Address"
 msgstr "Adresse"
@@ -119,8 +119,8 @@ msgstr "Télécharger photo de l'utilisateur"
 msgid "Attachments"
 msgstr "Les pièces jointes"
 
-msgid "Save"
-msgstr "Enregistrer"
+msgid "Edit"
+msgstr "Modifier"
 
 msgid "Germany"
 msgstr "Allemagne"
@@ -139,6 +139,9 @@ msgstr "Permis de conduire actuel"
 
 msgid "Leave comment"
 msgstr "Laisser un commentaire"
+
+msgid "Create search request"
+msgstr "Créer de la demande de recherche"
 
 msgid "Home"
 msgstr "La maison"
