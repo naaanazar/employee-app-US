@@ -116,7 +116,14 @@ class UserController extends AbstractController
                     $this->getEntityManager()->flush();
                 }
 
-                $json->setVariable('message', $this->translate('Successfully registered'));
+                $this->getAuth()->getStorage()->write($user->getId());
+
+                $json->setVariables(
+                    [
+                        'redirect' => $this->url()->fromRoute('home'),
+                        'message'  => $this->translate('Successfully registered')
+                    ]
+                );
             } else {
                 $json->setVariable('errors', $form->getMessages());
             }

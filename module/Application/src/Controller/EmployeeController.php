@@ -305,28 +305,23 @@ class EmployeeController extends AbstractController
 
     public function deleteAction()
     {
-        if (true === $this->getRequest()->isPost()
-            && true === $this->getRequest()->isXmlHttpRequest()
-        ) {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
             if(null !== ($employee = $this->getEntityManager()->getRepository(EmployeeModel::class)
-                    ->findOneBy(['id' => $this->getRequest()->getPost('id')]))
+                    ->findOneBy(['hash' => $this->getRequest()->getPost('hash')]))
             ) {
                 $employee->setDeleted(true);
                 $this->getEntityManager()->persist($employee);
                 $this->getEntityManager()->flush();
 
                 return true;
-                exit(0);
+            } else {
+                return false;
             }
-
-            return false;
-            exit(0);
         }
-        $view = new ViewModel();
-        $view->setTemplate('error/404');
 
-        return $view;
+        return $this->notFoundAction();
     }
+
     /**
      * @return JsonModel
      */

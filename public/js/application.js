@@ -22,7 +22,6 @@ jQuery(document).on('submit', 'form.async', function (event) {
             var file = files[i];
 
             if (file instanceof File && file.type.match('image.*')) {
-                console.log(file);
                 formData.append($(fileInput).attr('name'), file);
             }
         }
@@ -81,10 +80,9 @@ jQuery(document).on('click', '.modal-action', function (event) {
 
 jQuery(document).on('click', '#delete_employee', function(event) {
     event.defaultPrevented = true;
-    event.preventDefault();
 
     var element = $(this);
-    var deleteEmployee = new DeleteEmployee(element.data('action'), {id: element.data('id')});
+    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash')});
 
     deleteEmployee.execute();
 
@@ -237,8 +235,7 @@ var DeleteEmployee = function(action, data) {
             {
                 url: action,
                 data: data,
-                success: function(data) {
-                },
+                success: function(data) {},
                 method: 'post'
             }
         );
@@ -246,5 +243,5 @@ var DeleteEmployee = function(action, data) {
 };
 /*
 <div>
-    <a href="/" id="delete_employee" data-action="/employee/delete" data-id="3">delete Employee</a>
+    <a href="/" id="delete_employee" data-action="/employee/delete" data-hash="3">delete Employee</a>
 </div>*/
