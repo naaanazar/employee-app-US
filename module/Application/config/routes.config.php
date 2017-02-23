@@ -81,7 +81,7 @@ return [
             'route' => '/dashboard[/][:action][/page/:page]',
             'defaults' => [
                 'controller' => Controller\DashboardController::class,
-                'action' => 'index',
+                'action' => 'search',
                 'page'   => 1
             ],
         ],

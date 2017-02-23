@@ -1,9 +1,13 @@
 'use strict';
 
 var searchEmployee = function (event) {
-    event.defaultPrevented = true;
+    if (event) {
+        event.defaultPrevented = true;
+        var page = jQuery(event.target).data('page');
+    } else {
+        page = jQuery('ul.pagination li.active .paginator-a').data('page');
+    }
 
-    var page = jQuery(event.target).data('page');
     jQuery('#page-number').val(page);
 
     Map.clearMarker();

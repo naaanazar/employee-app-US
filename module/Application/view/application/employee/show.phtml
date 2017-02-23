@@ -43,15 +43,21 @@
             <?= $this->translate('Hourly rate') ?>: $<?= $this->employee->getHourlyRate() ?>
         </li>
 
-        <li class="list-group-item">
+        <?php if ($this->employee->getContract() !== null) : ?>
+            <li class="list-group-item">
             <?= $this->translate('Type of contract') ?>: <?= $this->employee->getContract()->getName() ?>
-        </li>
-        <li class="list-group-item">
-            <?= $this->translate('Weekly hours available') ?>: <?= $this->employee->getWeeklyHoursAvailable()->getValue() ?>
-        </li>
-        <li class="list-group-item">
-            <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('Y-m-d') ?>
-        </li>
+            </li>
+        <?php endif; ?>
+        <?php if ($this->employee->getWeeklyHoursAvailable() !== null) : ?>
+            <li class="list-group-item">
+                <?= $this->translate('Weekly hours available') ?>: <?= $this->employee->getWeeklyHoursAvailable()->getValue() ?>
+            </li>
+        <?php endif; ?>
+        <?php if ($this->employee->getStartDate() !== null) : ?>
+            <li class="list-group-item">
+                <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('Y-m-d') ?>
+            </li>
+        <?php endif; ?>
         <li class="list-group-item">
             <?= $this->translate('Area around home address willing to work') ?>: <?= $this->employee->getAreaAround()->getValue() ?>
         </li>

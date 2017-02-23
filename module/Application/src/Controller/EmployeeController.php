@@ -212,6 +212,10 @@ class EmployeeController extends AbstractController
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
                     ->setUpdated(new \DateTime());
 
+                if (null === $employee->isDeleted()) {
+                    $employee->setDeleted(false);
+                }
+
                 if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
                     $employee->setImage($image);
                 }

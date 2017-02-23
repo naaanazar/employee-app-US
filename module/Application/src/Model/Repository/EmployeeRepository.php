@@ -33,7 +33,7 @@ class EmployeeRepository extends EntityRepository
 
         foreach ($this->expressions as $expression) {
 
-            if (false === empty($expression['value']) || $expression['expression'] === 'in') {
+            if ((false === $expression['value'] || false === empty($expression['value'])) || $expression['expression'] === 'in') {
 
                 $criteriaExpression = $criteria->expr()
                     ->{$expression['expression']}($expression['name'], $expression['value']);
@@ -82,7 +82,7 @@ class EmployeeRepository extends EntityRepository
     public function searchByParams($params, $paginator = false)
     {
         $this
-            ->addExpression('equals', 'deleted', false)
+            ->addExpression('eq', 'deleted', false)
             ->addExpression('contains', 'name', $params['name'])
             ->addExpression('contains', 'surname', $params['surname'])
             ->addExpression('contains', 'city', $params['city'])
