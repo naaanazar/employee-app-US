@@ -15,7 +15,6 @@ use Application\Model\Coordinates;
 use Zend\Http\Response;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
-use Zend\View\View;
 
 /**
  * Class EmployeeController
@@ -311,6 +310,8 @@ class EmployeeController extends AbstractController
     public function deleteAction()
     {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $json = new JsonModel();
+
             if(null !== ($employee = $this->getEntityManager()->getRepository(EmployeeModel::class)
                     ->findOneBy(['hash' => $this->getRequest()->getPost('hash')]))
             ) {
@@ -318,10 +319,12 @@ class EmployeeController extends AbstractController
                 $this->getEntityManager()->persist($employee);
                 $this->getEntityManager()->flush();
 
-                return true;
+                $json->setVariable('status', 'deleted');
             } else {
-                return false;
+                $json->setVariable('status', 'not deleted');
             }
+
+            return $json;
         }
 
         return $this->notFoundAction();
