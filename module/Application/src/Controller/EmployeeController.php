@@ -355,53 +355,58 @@ class EmployeeController extends AbstractController
      */
     public function commentAction()
     {
-        $body = $this->getRequest()->getPost('body');
-        $employee = $this->getRequest()->getPost('employee');
 
-        $result = new JsonModel();
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $body = $this->getRequest()->getPost('body');
+            $employee = $this->getRequest()->getPost('employee');
 
-        if (null !== $body && null !== $employee) {
+            $result = new JsonModel();
 
-            /** @var EmployeeModel $employee */
-            $employee = $this->getEntityManager()
-                ->getRepository(EmployeeModel::class)
-                ->find($employee);
+            if (null !== $body && null !== $employee) {
 
-            $comment = new Comment();
-            $comment->setBody($body);
-            $comment->setCreated(new \DateTime());
-            $comment->setUpdated(new \DateTime());
-            $comment->setUser($this->getUser());
-            $comment->setEmployee($employee);
+                /** @var EmployeeModel $employee */
+                $employee = $this->getEntityManager()
+                    ->getRepository(EmployeeModel::class)
+                    ->find($employee);
 
-            $this->getEntityManager()->persist($comment);
-            $this->getEntityManager()->flush();
+                $comment = new Comment();
+                $comment->setBody($body);
+                $comment->setCreated(new \DateTime());
+                $comment->setUpdated(new \DateTime());
+                $comment->setUser($this->getUser());
+                $comment->setEmployee($employee);
 
-            $comments = $this->getEntityManager()
-                ->getRepository(Comment::class)
-                ->findBy(
+                $this->getEntityManager()->persist($comment);
+                $this->getEntityManager()->flush();
+
+                $comments = $this->getEntityManager()
+                    ->getRepository(Comment::class)
+                    ->findBy(
+                        [
+                            'employee' => $employee
+                        ],
+                        [
+                            'created' => 'DESC'
+                        ]
+                    );
+
+                $result->setVariables(
                     [
-                        'employee' => $employee
-                    ],
-                    [
-                        'created' => 'DESC'
+                        'html' => $this->getRenderer()->render(
+                            'layout/concern/comments',
+                            [
+                                'employee' => $employee,
+                                'comments' => $comments
+                            ]
+                        )
                     ]
                 );
+            }
 
-            $result->setVariables(
-                [
-                    'html' => $this->getRenderer()->render(
-                        'layout/concern/comments',
-                        [
-                            'employee' => $employee,
-                            'comments' => $comments
-                        ]
-                    )
-                ]
-            );
+            return $result;
         }
 
-        return $result;
+        return $this->notFoundAction();
     }
 
     /**
@@ -436,6 +441,8 @@ class EmployeeController extends AbstractController
                 return $result;
             }
         }
+
+        return $this->notFoundAction();
     }
 
     /**
@@ -472,6 +479,8 @@ class EmployeeController extends AbstractController
 
             return $result;
         }
+
+        return $this->notFoundAction();
     }
 
     /**
@@ -494,6 +503,8 @@ class EmployeeController extends AbstractController
                 ]
             );
         }
+
+        return $this->notFoundAction();
     }
 
 }
