@@ -2,6 +2,7 @@
 
 namespace Application\Model;
 
+use Application\Model\AbstractModel\Concern\Constants;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User
 {
+
+    /**
+     * User roles
+     */
+    const ROLE_USER        = 'user';
+    const ROLE_CONTRIBUTOR = 'contributor';
+    const ROLE_ADMIN       = 'admin';
+
+    use Constants;
 
     /**
      * @var int
@@ -25,7 +35,6 @@ class User
      * @var string
      * @ORM\Column(type="string")
      */
-
     private $name;
 
     /**
@@ -42,7 +51,7 @@ class User
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $role;
 
@@ -88,34 +97,55 @@ class User
 
     /**
      * @param string $name
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
      * @param string $email
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
      * @param string $password
+     * @return $this
      */
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
     }
 
     /**
      * @param string $role
+     * @return $this
      */
     public function setRole($role)
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @param $password
+     * @return string
+     */
+    public static function hashPassword($password)
+    {
+        return sha1(sha1($password . md5(strrev($password))));
     }
 
 }

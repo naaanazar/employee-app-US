@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <?= $this->headTitle('Employee Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->render('layout/header/meta') ?>
+    <?= $this->render('layout/header/styles') ?>
+    <?= $this->render('layout/header/scripts') ?>
+    <title>Admin area</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-2">
+        <?= $this->render('layout/menu/dashboard') ?>
+    </div>
+    <div class="col-md-10">
+        <div class="container">
+            <?= $this->content ?>
+        </div>
+    </div>
+</div>
+
+</body>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-action">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

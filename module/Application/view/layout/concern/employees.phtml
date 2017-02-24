@@ -1,0 +1,48 @@
+<?php if ($this->paginator->count() === 0) : ?>
+    <div class="text-center text-muted">
+        <h3><?= $this->translate('Nothing where found') ?></h3>
+        <div class="text-center">
+            <button class="btn btn-primary create-search-request" data-action="<?= $this->url('dashboard', ['action' => 'search-request']) ?>"><?= $this->translate('Create search request') ?></button>
+        </div>
+    </div>
+<?php else :?>
+
+    <table class="table" id="employee_table">
+        <thead>
+        <tr>
+            <th data-column-name="id">#</th>
+            <th data-column-name="created"><?= $this->translate('Date of application / entry') ?></th>
+            <th data-column-name="name"><?= $this->translate('Name') ?></th>
+            <th data-column-name="surname"><?= $this->translate('Surname') ?></th>
+            <th data-column-name="zip"><?= $this->translate('ZIP') ?></th>
+            <th data-column-name="city"><?= $this->translate('City') ?></th>
+            <th data-column-name="mobilePhone"><?= $this->translate('Mobile Phone') ?></th>
+        </tr>
+        </thead>
+        <?php foreach ($this->paginator as $employee) : ?>
+
+            <tr>
+                <?php /** @var \Application\Model\Employee $employee */ ?>
+                <td><?= $employee->getId() ?></td>
+                <td><?= $employee->getCreated()->format('Y-m-d') ?></td>
+                <td>
+                    <a
+                        href="#"
+                        class="modal-action"
+                        data-action="<?= $this->url('show-employee', ['hash' => $employee->getHash()] ) ?>"
+                        data-element="#modal-action"
+                    >
+                        <?= $employee->getName() ?>
+                    </a>
+                </td>
+                <td><?= $employee->getSurname() ?></td>
+                <td><?= $employee->getZip() ?></td>
+                <td><?= $employee->getCity() ?></td>
+                <td><?= $employee->getMobilePhone() ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>

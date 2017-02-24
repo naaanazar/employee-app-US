@@ -1,0 +1,28 @@
+<div class="row">
+    <form action="<?= $this->url('dashboard', ['action' => 'contract']) ?>" class="async col-md-3 collapse" id="contract-type-add-collapse">
+        <div class="form-group">
+            <label class="control-label application-label" for="contract-type-add"><?= $this->translate('Set Contract Type') ?>*</label>
+            <input id="contract-type-add" name="name" type="text" placeholder="" class="form-control input-md application-input" required/>
+        </div>
+        <button class="batton-save btn">Create area</button>
+    </form>
+</div>
+<a type="button" class="row a-dashboard " data-toggle="collapse" data-target="#contract-type-add-collapse">+ Set Contract type</a>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Code</th>
+    </tr>
+        <?php foreach ($this->paginator as $contract) : ?>
+            <tr>
+                <?php /** @var \Application\Model\Area $area */ ?>
+                <td><?= $contract->getId() ?></td>
+                <td><?= $contract->getName() ?></td>
+                <td><?= $contract->getCode() ?></td>
+            </tr>
+            <?php endforeach; ?>
+</table>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>

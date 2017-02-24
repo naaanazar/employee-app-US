@@ -1,0 +1,52 @@
+<form action="<?= $this->url('dashboard', ['action' => 'register-keys']) ?>" class="async">
+    <input type="hidden" name="add" value="1">
+    <div class="row">
+        <div class="col-sm-3">
+            <select name="role" class="form-control input-md application-input">
+                <?php foreach (\Application\Model\User::getConstants('ROLE_') as $role) : ?>
+                    <option value="<?= $role ?>"><?= ucfirst($role) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn batton-save">Generate new</button>
+        </div>
+
+    </div>
+</form>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Link</th>
+        <th>Role</th>
+        <th>User</th>
+    </tr>
+    <?php foreach ($this->paginator as $registerKey) : ?>
+        <?php /** @var \Application\Model\RegisterKey $registerKey */ ?>
+        <tr>
+            <td><?= $registerKey->getId() ?></td>
+            <td><?= $this->url('user', ['action' => 'register', 'key' => $registerKey->getValue()], ['force_canonical' => true]) ?></td>
+            <td><?= $registerKey->getRole() ?></td>
+            <td>
+                <?php if (null === $registerKey->getUser()) : ?>
+                    <?= $this->translate('Not used yet') ?>
+                <?php else : ?>
+                    <a
+                            href="<?= $this->url('show-user', ['id' => $registerKey->getUser()->getId()] ) ?>"
+                            class="modal-action"
+                            data-action="<?= $this->url('show-user', ['id' => $registerKey->getUser()->getId()] ) ?>"
+                            data-element="#modal-action"
+                    >
+                        <?= $registerKey->getUser()->getName() ?>
+                    </a>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>

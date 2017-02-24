@@ -1,0 +1,229 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Українська\n"
+
+msgid "Value is required and can't be empty"
+msgstr "Необхідне значення не може бути порожнім"
+
+msgid "Successfully registered"
+msgstr "Успішно Зареєстрований"
+
+msgid "Set Area Around"
+msgstr "Набір Області Навколо"
+
+msgid "Set Contract Type"
+msgstr "Встановити Тип Договору"
+
+msgid "Name"
+msgstr "Назва"
+
+msgid "Surname"
+msgstr "Прізвище"
+
+msgid "ZIP"
+msgstr "Блискавка"
+
+msgid "City"
+msgstr "Місто"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Driving licence"
+msgstr "Водійські права"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "No"
+msgstr "Немає"
+
+msgid "Car available"
+msgstr "Доступний автомобіль"
+
+msgid "Nothing where found"
+msgstr "Не знайдено"
+
+msgid "Date of application / entry"
+msgstr "Дата подання заявки / запис"
+
+msgid "Mobile Phone"
+msgstr "Мобільний Телефон"
+
+msgid "Set Option Why Delete"
+msgstr "Встановити Параметр, Навіщо Видаляти"
+
+msgid "Not used yet"
+msgstr "Поки не використовував"
+
+msgid "Area around"
+msgstr "Зона навколо"
+
+msgid "Set Source Application"
+msgstr "Встановіть Додаток Джерело"
+
+msgid "Select statistic period"
+msgstr "Виберіть статистичного періоду"
+
+msgid "Set Weekly hours"
+msgstr "Набір годин на тиждень"
+
+msgid "Create employee"
+msgstr "Створити співробітника"
+
+msgid "Address"
+msgstr "Адреса"
+
+msgid "Update marker"
+msgstr "Оновлення маркера"
+
+msgid "Hide map"
+msgstr "Сховати карту"
+
+msgid "Mobile phone number"
+msgstr "Номер мобільного телефону"
+
+msgid "Landline number"
+msgstr "Міський номер"
+
+msgid "Email"
+msgstr "Електронної пошти"
+
+msgid "Area around home address willing to work"
+msgstr "Районі будинку адресу, бажаючих працювати"
+
+msgid "Type of contract"
+msgstr "Тип контракту"
+
+msgid "Weekly hours available"
+msgstr "Щотижневий годин"
+
+msgid "Start day"
+msgstr "День початку"
+
+msgid "Comments"
+msgstr "Коментарі"
+
+msgid "Hourly rate"
+msgstr "Погодинна ставка"
+
+msgid "Experience in the job"
+msgstr "Досвід роботи"
+
+msgid "Upload user photo"
+msgstr "Завантажити фото користувачів"
+
+msgid "Attachments"
+msgstr "Вкладення"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Germany"
+msgstr "Німеччина"
+
+msgid "Additional information"
+msgstr "Додаткова інформація"
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Has experience"
+msgstr "Має досвід"
+
+msgid "Driving license present"
+msgstr "Водійські права уявити"
+
+msgid "Leave comment"
+msgstr "Залиште коментар"
+
+msgid "Home"
+msgstr "Вдома"
+
+msgid "Logout"
+msgstr "Вихід"
+
+msgid "Dashboard"
+msgstr "Приладовій панелі"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Create Employee"
+msgstr "Створити Співробітника"
+
+msgid "Main"
+msgstr "Головна"
+
+msgid "Exit from dashboard"
+msgstr "Вихід з приладової панелі"
+
+msgid "Search employee"
+msgstr "Працівник пошук"
+
+msgid "Overview employee"
+msgstr "Огляд працівника"
+
+msgid "Configure Around Areas"
+msgstr "Налаштувати Навколо"
+
+msgid "Configure Contract Type"
+msgstr "Налаштувати Тип Договору"
+
+msgid "Configure Source Application"
+msgstr "Налаштувати Додаток Джерело"
+
+msgid "Configure List Why Delete"
+msgstr "Налаштувати Список Навіщо Видаляти"
+
+msgid "Configure Weekly Hours"
+msgstr "Налаштування Годин На Тиждень"
+
+msgid "Configure Register keys"
+msgstr "Налаштувати ключі в реєстрі"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "Sign In"
+msgstr "Знак В"
+
+msgid "Sign Up"
+msgstr "Зареєструйтеся"
+
+msgid "'Incorrect value'"
+msgstr "'Невірне значення'"
+
+msgid "'User with same email found'"
+msgstr "'Користувачів з однаковою адресою електронної пошти знайдено"
+
+msgid "'Invalid email or/and password'"
+msgstr "'Невірний адресу електронної пошти або/та пароль"
+
+msgid "'Some error occurred while logging in'"
+msgstr "'Сталася якась помилка при вході в"
+
+msgid "'Invalid type given. String, integer or float expected'"
+msgstr "'Дали неправильний Тип. Рядок, integer або float очікується'"
+
+msgid "'The input does not match against pattern '"
+msgstr "'Введення не матч з візерунком '"
+
+msgid "'There was an internal error while using the pattern'"
+msgstr "'Внутрішня помилка при використанні шаблону'"
+
+msgid "'Invalid type given. String expected'"
+msgstr "'Дали неправильний Тип. Рядки очікував"
+
+msgid "'The input is less than %min% characters long'"
+msgstr "'Вхідний сигнал менше, ніж %хв% символів'"
+
+msgid "'The input is more than %max% characters long'"
+msgstr "'Вхід-це більше, ніж %Макс% символів'"
+
+msgid "Full Name"
+msgstr "Повна Назва"
+

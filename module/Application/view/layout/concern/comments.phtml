@@ -1,0 +1,32 @@
+<div id="comments-list">
+    <?php foreach ($this->comments as $comment) : ?>
+        <?php /** @var \Application\Model\Comment $comment */ ?>
+        <div data-id=" <?=$comment->getId()?>" class="well comment-block" style="padding-bottom:0px; padding-top: 5px;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <strong><?= $comment->getUser()->getName() ?></strong>
+                    <?=$comment->getCreated()->format('Y-m-d') ?>
+                </div>
+                <?php if ($comment->getEdited()) : ?>
+                <div class="col-sm-6 text-right">Edited: <?=$comment->getUpdated()->format('Y-m-d') ?></div>
+                <?php endif; ?>
+            </div>
+            <div class="row">
+                <div class="col-md-12 comment-body"><?= $comment->getBody() ?></div>
+
+                <div class="text-right comment-buttons">
+                    <a class="btn a-dashboard  comment-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
+                    <a class="btn a-dashboard comment-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                </div>
+            </div>
+
+        </div>
+    <?php endforeach; ?>
+    <form action="<?= $this->url('employee', ['action' => 'comment']) ?>" class="leave-comment" method="post">
+        <textarea name="body" id="" cols="30" rows="10" class="form-control"></textarea>
+        <input type="hidden" name="employee" value="<?= $this->employee->getId() ?>">
+        <div class="text-right">
+            <button class="btn btn-default"><?=  $this->translate('Leave comment') ?></button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,81 @@
+
+
+    <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class="search-employees"  method="post" id="filter-employee-form">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?></label>
+                <input id="name_field" name="name" type="text" value="<?= isset($this->fields['name']) ? $this->fields['name'] : '' ?>" placeholder="" class="form-control input-md application-input">
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="surname_field"><?= $this->translate('Surname') ?></label>
+                <input id="surname_field" name="surname" value="<?= isset($this->fields['surname']) ? $this->fields['surname'] : '' ?>" type="text" placeholder="" class="form-control input-md application-input">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="zip_field"><?= $this->translate('ZIP') ?></label>
+                <input id="zip_field" name="zip" type="text" value="<?= isset($this->fields['zip']) ? ($this->fields['zip']) : '' ?>" placeholder="" class="form-control input-md application-input">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="city_field-search"><?= $this->translate('City') ?></label>
+                <input id="city_field-search" name="city" type="text" value="<?= isset($this->fields['city']) ? ($this->fields['city']) : '' ?>" placeholder="" class="form-control input-md application-input">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="start_day_field"><?= $this->translate('Date') ?></label>
+
+                <div class="" id="sandbox-container">
+                    <div class="input-daterange input-group" id="datepicker">
+                        <input type="text" class="form-control input-md application-input" name="start" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
+                        <span class="input-group-addon batton-save">to</span>
+                        <input type="text" class="form-control input-md application-input" name="end" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="driving_license_field"><?= $this->translate('Driving licence') ?></label>
+                <select id="driving_license_field" name="driving_license" class="form-control application-input">
+                    <option value="" selected></option>
+                    <option value="1" <?= isset($this->fields['driving_license']) && $this->fields['driving_license'] == '1' ? 'selected' : '' ?>><?= $this->translate('Yes') ?></option>
+                    <option value="0" <?= isset($this->fields['driving_license']) && $this->fields['driving_license'] == '0' ? 'selected' : '' ?>><?= $this->translate('No') ?></option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="car_available_field"><?= $this->translate('Car available') ?></label>
+                <select id="car_available_field" name="car_available" class="form-control application-input">
+                    <option value="" selected></option>
+                    <option value="1" <?= isset($this->fields['car_available']) && $this->fields['car_available'] == '1' ? 'selected' : '' ?>><?= $this->translate('Yes') ?></option>
+                    <option value="0" <?= isset($this->fields['car_available']) && $this->fields['car_available'] == '0' ? 'selected' : '' ?>><?= $this->translate('No') ?></option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="control-label application-label" for="area_around_field"><?= $this->translate('Area around') ?></label>
+                <select id="area_around_field" name="area_around" class="form-control application-input">
+                    <option value="" selected></option>
+                    <?php foreach ($this->areas as $area) : ?>
+                        <?php /** @var \Application\Model\Area $area */ ?>
+                        <option value="<?= $area->getId() ?>" <?= isset($this->fields['area_around']) && $this->fields['area_around'] == $area->getId() ? 'selected' : '' ?>><?= $area->getValue() ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <input id="latitude" name="latitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['latitude']) ? ($this->fields['latitude']) : '' ?>">
+            <input id="longitude" name="longitude" type="hidden" placeholder="" class="form-control input-md application-input" value="<?= isset($this->fields['longitude']) ? ($this->fields['longitude']) : '' ?>">
+            <input id="page-number" type="hidden" name="page">
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <button class="btn batton-save" style="margin-left: 15px;">Search</button>
+                <div id="clear_marker" class="btn batton-save" style="margin-left: 15px;">Clear marker</div>
+            </div>
+        </div>
+
+    </form>
+<div class="collapse in" id="map-container">
+    <div id="map" class="map frame"></div>
+</div>
+<div id="employees-list">
+    <?= $this->render('layout/concern/employees') ?>
+</div>

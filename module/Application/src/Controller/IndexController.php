@@ -2,16 +2,18 @@
 
 namespace Application\Controller;
 
-use Application\Model\Employee;
-use Application\Model\User;
-use Zend\Mvc\Controller\AbstractActionController;
+use Application\Back\Map\Agregator;
+use Application\Model\Coordinates;
+use Application\Model\Repository\CoordinatesRepository;
+use Zend\Http\Header\Referer;
+use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 
 /**
  * Class IndexController
  * @package Application\Controller
  */
-class IndexController extends AbstractActionController
+class IndexController extends AbstractController
 {
 
     /**
@@ -20,25 +22,45 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        return new ViewModel();
+        return $this->redirect()
+            ->toRoute(
+                'employee',
+                ['action' => 'index']
+            );
     }
+
+    /**
+     * Change language actions
+     */
+    public function langAction()
+    {
+        $storage = new Container('language');
+        $storage->offsetSet('language', $this->getRequest()->getQuery('language', 'en_US'));
+
+        /** @var Referer $referer */
+        $referer = $this->getRequest()->getHeader('Referer');
+
+        $this->redirect()->toUrl($referer->uri()->getPath());
+    }
+
 
     public function testAction()
     {
-            /** @var \Doctrine\ORM\EntityManager $entityManager */
-        $entityManager = $this->getEvent()->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
+        /** @var CoordinatesRepository $coordinatesRepository */
+        $coordinatesRepository = $this->getEntityManager()
+            ->getRepository(Coordinates::class);
 
-        $repo = $entityManager->getRepository(User::class);
-        $user = $repo->find(70101);
+        $coordinate = $coordinatesRepository->find(1);
 
-        $employee = new Employee();
-        $employee->setUser($user);
-        $employee->setAddressLine('asdasd');
-        $entityManager->persist($employee);
+        $result = $coordinatesRepository->getCoordinatesInRange($coordinate, 40000);
+        $result = array_map(
+            function ($coord) {
+                /** @var Coordinates $coord */
+                return $coord->getEmployee()->getName();
+            },
+            $result
+        );
 
-        $entityManager->flush();
-
-        var_dump($user);exit();
-
+        var_dump($result);die;
     }
 }

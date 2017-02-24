@@ -1,0 +1,229 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+
+msgid "Value is required and can't be empty"
+msgstr "Value is required and can't be empty"
+
+msgid "Successfully registered"
+msgstr "Successfully registered"
+
+msgid "Set Area Around"
+msgstr "Set Area Around"
+
+msgid "Set Contract Type"
+msgstr "Set Contract Type"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Surname"
+msgstr "Surname"
+
+msgid "ZIP"
+msgstr "ZIP"
+
+msgid "City"
+msgstr "City"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Driving licence"
+msgstr "Driving licence"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Car available"
+msgstr "Car available"
+
+msgid "Nothing where found"
+msgstr "Nothing where found"
+
+msgid "Date of application / entry"
+msgstr "Date of application / entry"
+
+msgid "Mobile Phone"
+msgstr "Mobile Phone"
+
+msgid "Set Option Why Delete"
+msgstr "Set Option Why Delete"
+
+msgid "Not used yet"
+msgstr "Not used yet"
+
+msgid "Area around"
+msgstr "Area around"
+
+msgid "Set Source Application"
+msgstr "Set Source Application"
+
+msgid "Select statistic period"
+msgstr "Select statistic period"
+
+msgid "Set Weekly hours"
+msgstr "Set Weekly hours"
+
+msgid "Edit Application"
+msgstr "Edit Application"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "Update marker"
+msgstr "Update marker"
+
+msgid "Hide map"
+msgstr "Hide map"
+
+msgid "Mobile phone number"
+msgstr "Mobile phone number"
+
+msgid "Landline number"
+msgstr "Landline number"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Area around home address willing to work"
+msgstr "Area around home address willing to work"
+
+msgid "Type of contract"
+msgstr "Type of contract"
+
+msgid "Weekly hours available"
+msgstr "Weekly hours available"
+
+msgid "Start day"
+msgstr "Start day"
+
+msgid "Comments"
+msgstr "Comments"
+
+msgid "Hourly rate"
+msgstr "Hourly rate"
+
+msgid "Experience in the job"
+msgstr "Experience in the job"
+
+msgid "Upload user photo"
+msgstr "Upload user photo"
+
+msgid "Attachments"
+msgstr "Attachments"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Germany"
+msgstr "Germany"
+
+msgid "Additional information"
+msgstr "Additional information"
+
+msgid "Comment"
+msgstr "Comment"
+
+msgid "Has experience"
+msgstr "Has experience"
+
+msgid "Driving license present"
+msgstr "Driving license present"
+
+msgid "Leave comment"
+msgstr "Leave comment"
+
+msgid "Create search request"
+msgstr "Create search request"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Create Employee"
+msgstr "Create Employee"
+
+msgid "Main"
+msgstr "Main"
+
+msgid "Exit from dashboard"
+msgstr "Exit from dashboard"
+
+msgid "Search employee"
+msgstr "Search employee"
+
+msgid "Configure Around Areas"
+msgstr "Configure Around Areas"
+
+msgid "Configure Contract Type"
+msgstr "Configure Contract Type"
+
+msgid "Configure Source Application"
+msgstr "Configure Source Application"
+
+msgid "Configure List Why Delete"
+msgstr "Configure List Why Delete"
+
+msgid "Configure Weekly Hours"
+msgstr "Configure Weekly Hours"
+
+msgid "Configure Register keys"
+msgstr "Configure Register keys"
+
+msgid "Statistics"
+msgstr "Statistics"
+
+msgid "Sign In"
+msgstr "Sign In"
+
+msgid "Sign Up"
+msgstr "Sign Up"
+
+msgid "'Incorrect value'"
+msgstr "'Incorrect value'"
+
+msgid "'User with same email found'"
+msgstr "'User with same email found'"
+
+msgid "'Invalid email or/and password'"
+msgstr "'Invalid email or/and password'"
+
+msgid "'Some error occurred while logging in'"
+msgstr "'Some error occurred while logging in'"
+
+msgid "'Invalid type given. String, integer or float expected'"
+msgstr "'Invalid type given. String, integer or float expected'"
+
+msgid "'The input does not match against pattern '"
+msgstr "'The input does not match against pattern '"
+
+msgid "'There was an internal error while using the pattern'"
+msgstr "'There was an internal error while using the pattern'"
+
+msgid "'Invalid type given. String expected'"
+msgstr "'Invalid type given. String expected'"
+
+msgid "'The input is less than %min% characters long'"
+msgstr "'The input is less than %min% characters long'"
+
+msgid "'The input is more than %max% characters long'"
+msgstr "'The input is more than %max% characters long'"
+
+msgid "Full Name"
+msgstr "Full Name"
+

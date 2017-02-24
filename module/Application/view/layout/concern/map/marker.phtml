@@ -1,0 +1,16 @@
+<?php
+/** @var \Application\Model\Employee $employee */
+$employee = $this->coordinate->getEmployee();
+?>
+<div class="find_employee" data-action="<?= $this->url('show-employee', ['hash' => $employee->getHash()]) ?>"
+     data-element="#modal-action">
+    <div>
+        <strong><?= $this->translate('Full Name') ?>:</strong>
+        <p><?= $employee->getName() ?>&nbsp;<?= $employee->getSurname() ?></p>
+    </div>
+    <div>
+        <strong><?= $this->translate('Email') ?>:</strong>
+        <p><?= $employee->getEmail() ?></p>
+    </div>
+
+</div>
