@@ -6,6 +6,7 @@ use Application\Back\Service\FileManager;
 use Application\Back\Service\ImageManager;
 use Application\Model\Comment;
 use Application\Model\ReasonRemoval;
+use Application\Model\SourceApplication;
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
@@ -65,6 +66,8 @@ class EmployeeController extends AbstractController
 
         $view->setVariables(
             [
+                'role'        => $this->getUser()->getRole(),
+                'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
                 'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
                 'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll()
@@ -102,7 +105,8 @@ class EmployeeController extends AbstractController
 
         $view->setVariables(
             [
-                'coordinate' => $coordinate,
+                'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
+                'coordinate'  => $coordinate,
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
                 'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
                 'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
