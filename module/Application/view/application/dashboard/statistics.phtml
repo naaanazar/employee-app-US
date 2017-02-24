@@ -1,4 +1,4 @@
-<form action="<?= $this->url('dashboard', ['action' => 'statistics']) ?>" class="statistics-form row search-employees" method="post" >
+<form action="<?= $this->url('dashboard', ['action' => 'statistics']) ?>" id="filter-employee-form" filter-employee-form class="statistics-form row search-employees" method="post" >
     <div class="form-group col-md-3">
         <label class="control-label application-label" for="statistic_date"><?= $this->translate('Select statistic period') ?></label>
         <select id="statistic_date" name="statistic_date" class="form-control application-input">

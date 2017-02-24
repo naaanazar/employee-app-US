@@ -83,6 +83,7 @@ jQuery(document).on('click', '#clear_marker', function(event) {
 });
 
 jQuery(document).on('click', '.paginator-a', function (event) {
+
     var page = jQuery(event.target).data('page');
     jQuery('#page-number').val(page);
     searchEmployee(event);

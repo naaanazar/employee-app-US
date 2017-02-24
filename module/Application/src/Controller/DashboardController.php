@@ -492,4 +492,42 @@ class DashboardController extends AbstractController
         return $view;
     }
 
+
+    /**
+     * @return JsonModel
+     */
+    public function configureDeleteAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $field = $this->getEntityManager()
+                ->getRepository(Area::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($field !== null) {
+
+                $this->getEntityManager()->remove($field);
+                $this->getEntityManager()->flush();
+
+                $result->setVariables(
+                    [
+                        'result' => true
+                    ]
+                );
+
+            }
+
+            return $result;
+        }
+
+       // return $this->notFoundAction();
+    }
+
 }

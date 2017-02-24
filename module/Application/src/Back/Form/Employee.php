@@ -19,6 +19,7 @@ use Application\Back\Form\Element\Employee\AreaAround;
 use Application\Back\Form\Element\Employee\ContractType;
 use Application\Back\Form\Element\Employee\WeeklyHours;
 use Application\Back\Form\Element\Employee\StartDay;
+use Application\Back\Form\Element\Employee\SourceApplication;
 use Zend\Filter\File\RenameUpload;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\File;
@@ -107,6 +108,16 @@ class Employee extends Form
             [
                 'type' => ContractType::class,
                 'name' => 'contract_type',
+                'options' => [
+                    'entityManager' => $this->getOption('entityManager'),
+                ]
+            ]
+        );
+
+        $this->add(
+            [
+                'type' => SourceApplication::class,
+                'name' => 'source',
                 'options' => [
                     'entityManager' => $this->getOption('entityManager'),
                 ]
