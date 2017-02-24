@@ -207,6 +207,7 @@
                     <?= (isset($this->employee) && $this->employee->isCarAvailable()) ? 'checked' : '' ?>
                 >
             </div>
+
             <?php if ($this->role !== 'user') :?>
                 <div class="form-group">
                     <label class="control-label application-label" for="source-field"><?= $this->translate('Application Source') ?>*</label>
@@ -215,13 +216,15 @@
                             <?php /** @var \Application\Model\Area $source */ ?>
                             <option
                                     value="<?= $source->getId() ?>"
-                                <?= (isset($this->employe) && $this->employe->getSourceApplication() !== null && $this->employe->getSourceApplication()->getId() === $source->getId()) ? 'selected' : '' ?>
+                                <?= (isset($this->employee) && $this->employee->getSourceApplication() !== null && $this->employee->getSourceApplication()->getId() === $source->getId()) ? 'selected' : '' ?>
                             >
                                 <?= $source->getName() ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
+            <?php else : ?>
+            <input type="hidden" name="source">
             <?php endif; ?>
 
             <div class="form-group">

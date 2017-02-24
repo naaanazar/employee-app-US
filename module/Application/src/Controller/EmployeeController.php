@@ -105,6 +105,7 @@ class EmployeeController extends AbstractController
 
         $view->setVariables(
             [
+                'role'        => $this->getUser()->getRole(),
                 'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
                 'coordinate'  => $coordinate,
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),

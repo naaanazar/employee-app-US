@@ -112,6 +112,14 @@
                 <?= $this->translate('Driving license present') ?>
             </li>
         <?php endif; ?>
+        <li class="list-group-item">
+            <?= $this->translate('Source Application:') ?>
+            <?php if ($this->employee->getSourceApplication() === null) :?>
+                Website
+            <?php else :?>
+                <?= $this->employee->getSourceApplication()->getName() ?>
+            <?php endif; ?>
+        </li>
     </ul>
 </div>
 <hr>
