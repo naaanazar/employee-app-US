@@ -216,7 +216,7 @@ ModalAction = function (action, selector, params) {
  * @constructor
  */
 var AjaxAction = function (action, data, success) {
-console.log(data);
+
     this.execute = function () {
 
         var successFunction;
@@ -255,20 +255,20 @@ var DeleteEmployee = function(action, data) {
             {
                 url: action,
                 data: data,
+                method: 'post',
                 success: function(data) {
                     $('body').loading('toggle');
 
-                    if(0 !== jQuery('.modal-content').length) {
+                    if(true === jQuery.isFunction(searchEmployee())) {
                         if('done' == data.status) {
                             jQuery('#modal-action').modal('hide');
 
                             searchEmployee();
                         }
                     } else {
-                        location.reload(true);
+                        window.location.reload(true);
                     }
-                },
-                method: 'post'
+                }
             }
         );
     }
