@@ -90,7 +90,7 @@ jQuery(document).on('click', '#delete_employee', function(event) {
     event.defaultPrevented = true;
 
     var element = $(this);
-    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash')});
+    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash'), status: element.data('status')});
 
     deleteEmployee.execute();
 
@@ -251,7 +251,7 @@ var DeleteEmployee = function(action, data) {
                 url: action,
                 data: data,
                 success: function(data) {
-                    if('deleted' == data.status) {
+                    if('done' == data.status) {
                         jQuery('#modal-action').modal('hide');
 
                         searchEmployee();

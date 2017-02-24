@@ -325,15 +325,18 @@ class EmployeeController extends AbstractController
             ) {
                 $reasonRemoval = new ReasonRemoval();
                 $reasonRemoval->setName($this->getRequest()->getPost('reason'));
-                $employee->setDeleted(true)
+                $this->getEntityManager()->persist($reasonRemoval);
+                $this->getEntityManager()->flush();
+
+                $employee->setDeleted($this->getRequest()->getPost('status'))
                     ->setReasonRemoval($reasonRemoval);
 
                 $this->getEntityManager()->persist($employee);
                 $this->getEntityManager()->flush();
 
-                $json->setVariable('status', 'deleted');
+                $json->setVariable('status', 'done');
             } else {
-                $json->setVariable('status', 'not deleted');
+                $json->setVariable('status', 'not found');
             }
 
             return $json;
