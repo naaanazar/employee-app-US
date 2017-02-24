@@ -327,10 +327,11 @@ class EmployeeController extends AbstractController
             if(null !== ($employee = $this->getEntityManager()->getRepository(EmployeeModel::class)
                     ->findOneBy(['hash' => $this->getRequest()->getPost('hash')]))
             ) {
-                $reasonRemoval = new ReasonRemoval();
-                $reasonRemoval->setName($this->getRequest()->getPost('reason'));
-                $this->getEntityManager()->persist($reasonRemoval);
-                $this->getEntityManager()->flush();
+                $reasonRemoval = $this->getEntityManager()
+                    ->getRepository(ReasonRemoval::class)
+                    ->findOneBy([
+                        'name' => $this->getRequest()->getPost('reason')
+                    ]);
 
                 $employee->setDeleted($this->getRequest()->getPost('status'))
                     ->setReasonRemoval($reasonRemoval);
