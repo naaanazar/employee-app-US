@@ -49,6 +49,13 @@ class Employee extends ArraySerializable
     private $user;
 
     /**
+     * @var ReasonRemoval
+     * @ORM\OneToOne(targetEntity="ReasonRemoval")
+     * @ORM\JoinColumn(name="reason_removal_id", referencedColumnName="id")
+     */
+    private $reasonRemoval;
+
+    /**
      * @var string
      * @ORM\Column(length=511, type="string", nullable=true)
      */

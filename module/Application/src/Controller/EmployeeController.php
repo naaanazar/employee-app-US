@@ -10,6 +10,7 @@ use Application\Back\Form\Employee;
 use Application\Model\Contract;
 use Application\Model\Area;
 use Application\Model\Image;
+use Application\Model\ReasonRemoval;
 use Application\Model\User;
 use Application\Model\WeeklyHours;
 use Application\Model\Coordinates;
@@ -322,7 +323,11 @@ class EmployeeController extends AbstractController
             if(null !== ($employee = $this->getEntityManager()->getRepository(EmployeeModel::class)
                     ->findOneBy(['hash' => $this->getRequest()->getPost('hash')]))
             ) {
-                $employee->setDeleted(true);
+                $reasonRemoval = new ReasonRemoval();
+                $reasonRemoval->setName($this->getRequest()->getPost('reason'));
+                $employee->setDeleted(true)
+                    ->setReasonRemoval($reasonRemoval);
+
                 $this->getEntityManager()->persist($employee);
                 $this->getEntityManager()->flush();
 
