@@ -165,6 +165,11 @@ class EmployeeController extends AbstractController
                     ->getRepository(WeeklyHours::class)
                     ->find($form->get('weekly_hours')->getValue());
 
+                /** @var SourceApplication $sourceApplication */
+                $sourceApplication = $this->getEntityManager()
+                    ->getRepository(SourceApplication::class)
+                    ->find($form->get('source')->getValue());
+
                 if (true === isset($data['id'])) {
                     $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
                 } else {
@@ -204,6 +209,7 @@ class EmployeeController extends AbstractController
                     ->setAreaAround          ($areaAround)
                     ->setContract            ($contractType)
                     ->setWeeklyHoursAvailable($weeklyHours)
+                    ->setSourceApplication($sourceApplication)
                     ->setStartDate           ((new \DateTime($form->get('start_date')->getValue())))
                     ->setComments            ($form->get('comments')->getValue())
                     ->setHourlyRate          ($form->get('hourly_rate')->getValue())
