@@ -1,6 +1,6 @@
 'use strict';
 
-var Map;
+var GoogleMap;
 
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgpnt3A8evQvsgg&libraries=geometry'], function() {
 
@@ -29,7 +29,12 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         }
 
         Address.clickOnMap();
-        Address.findAddress(Address.map);
+        if('' !== jQuery('#latitude').val() && '' !== jQuery('#longitude').val()) {
+            Address.marker = GoogleMap.addMarker(Address.map, parseFloat(jQuery('#latitude').val()), parseFloat(jQuery('#longitude').val()));
+            Address.marker.setIcon('/img/marker_green.png');
+        } else {
+            Address.findAddress(Address.map);
+        }
 
         return false;
     });
@@ -44,17 +49,18 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         }
     });
 
-    Map = {
+    GoogleMap = {
         images: '/img/marker.png',
+        marker: null,
         markers: [],
 
         /**
          * map object
          */
-        mapObj: null,
+        instance: null,
 
         init: function () {
-            return Map.mapObj = new google.maps.Map(document.getElementById('map'), {
+            return GoogleMap.instance = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 50.98609893339354, lng: 10.39306640625},
                 zoom: 6
             });
@@ -65,14 +71,19 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 map: map,
                 icon: this.images
             });
-            Map.markers.push(marker);
+            GoogleMap.markers.push(marker);
             return marker;
         },
         clearMarker: function () {
-            if (Map.markers.length > 0) {
-                for (var i = 0; i < Map.markers.length; i++) {
-                    Map.markers[i].setMap(null);
+            if (GoogleMap.markers.length > 0) {
+                for (var i = 0; i < GoogleMap.markers.length; i++) {
+                    GoogleMap.markers[i].setMap(null);
                 }
+            }
+        },
+        clearOnMarker: function() {
+            if(null !== GoogleMap.marker) {
+                GoogleMap.marker.setMap(null);
             }
         },
         infoWindows: function (content) {
@@ -101,7 +112,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         map: null,
 
         start: function () {
-            Address.map = Map.init();
+            Address.map = GoogleMap.init();
         },
 
         /**
@@ -114,6 +125,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             if (null != this.marker) {
                 this.marker.setMap(null);
             }
+            GoogleMap.clearOnMarker();
 
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({
@@ -142,7 +154,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 }
             });
 
-            this.marker = Map.addMarker(map, event.latLng.lat(), event.latLng.lng());
+            GoogleMap.marker = this.marker = GoogleMap.addMarker(map, event.latLng.lat(), event.latLng.lng());
             this.marker.setIcon('/img/marker_green.png');
             document.getElementById('latitude').value = event.latLng.lat();
             document.getElementById('longitude').value = event.latLng.lng();
@@ -166,7 +178,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     map.setCenter(results[0].geometry.location);
                     map.setZoom(16);
 
-                    Address.marker = Map.addMarker(map, results[0].geometry.location.lat(), results[0].geometry.location.lng());
+                    Address.marker = GoogleMap.addMarker(map, results[0].geometry.location.lat(), results[0].geometry.location.lng());
 
                     document.getElementById('latitude').value = results[0].geometry.location.lat();
                     document.getElementById('longitude').value = results[0].geometry.location.lng();

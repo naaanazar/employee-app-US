@@ -1,6 +1,5 @@
 <ul class="nav nav-pills nav-stacked nav-dashboard">
-    <li><a href="<?= $this->url('home') ?>"><span class="glyphicon glyphicon-chevron-left"></span><?= $this->translate('Main') ?></a></li>
-    <li><a href="<?= $this->url('dashboard', ['action' => 'index'], ['force_canonical' => true]) ?>"><span class="glyphicon glyphicon-chevron-right"></span><?= $this->translate('Exit from dashboard') ?></a></li>
+    <li><a href="<?= $this->url('home') ?>"><span class="glyphicon glyphicon-chevron-left"></span><?= $this->translate('Exit from dashboard') ?></a></li>
     <li><a href="<?= $this->url('dashboard', ['action' => 'search'], ['force_canonical' => true]) ?>"><span class="glyphicon glyphicon-chevron-right"></span><?= $this->translate('Search employee') ?></a></li>
     <li><a href="<?= $this->url('dashboard', ['action' => 'areas'], ['force_canonical' => true]) ?>"><span class="glyphicon glyphicon-chevron-right"></span><?= $this->translate('Configure Around Areas') ?></a></li>
     <li><a href="<?= $this->url('dashboard', ['action' => 'contract'], ['force_canonical' => true]) ?>"><span class="glyphicon glyphicon-chevron-right"></span><?= $this->translate('Configure Contract Type') ?></a></li>

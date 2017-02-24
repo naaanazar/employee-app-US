@@ -2,8 +2,10 @@
 
 namespace Application\Controller;
 
+use Application\Back\Service\FileManager;
 use Application\Back\Service\ImageManager;
 use Application\Model\Comment;
+use Application\Model\ReasonRemoval;
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
@@ -98,9 +100,7 @@ class EmployeeController extends AbstractController
 
         $view = new ViewModel();
 
-        $html  = $this->getRenderer()
-        ->render(
-            'application/employee/index',
+        $view->setVariables(
             [
                 'coordinate' => $coordinate,
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
@@ -112,11 +112,7 @@ class EmployeeController extends AbstractController
             ]
         );
 
-        $view->setVariables(
-            [
-                'html' => $html
-            ]
-        );
+        $view->setTemplate('application/employee/index');
 
         return $view;
     }
@@ -212,15 +208,27 @@ class EmployeeController extends AbstractController
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
                     ->setUpdated(new \DateTime());
 
-            if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
-                $employee->setImage($image);
-            }
+                if (null === $employee->isDeleted()) {
+                    $employee->setDeleted(false);
+                }
+
+                if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
+                    $employee->setImage($image);
+                }
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
                 }
 
-                $this->getEntityManager()->merge($employee);
+                $this->getEntityManager()->persist($employee);
+
+                $fileManager = new FileManager();
+                $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
+
+                foreach ($files as $file) {
+                    $file->setEmployee($employee);
+                    $this->getEntityManager()->persist($file);
+                }
 
                 /** @var Coordinates $coordinates */
                 $coordinates = $this->getEntityManager()
@@ -242,7 +250,7 @@ class EmployeeController extends AbstractController
                         ->setLatitude($form->get('latitude')->getValue());
                 }
 
-                $this->getEntityManager()->merge($coordinates);
+                $this->getEntityManager()->persist($coordinates);
 
                 $this->getEntityManager()->flush();
 
@@ -298,6 +306,7 @@ class EmployeeController extends AbstractController
             $view->setTemplate('application/employee/show.phtml');
             $view->setVariables(
                 [
+                    'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
                     'employee' => $employee,
                     'comments' => $comments
                 ]
@@ -305,6 +314,29 @@ class EmployeeController extends AbstractController
         }
 
         return $view;
+    }
+
+    public function deleteAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $json = new JsonModel();
+
+            if(null !== ($employee = $this->getEntityManager()->getRepository(EmployeeModel::class)
+                    ->findOneBy(['hash' => $this->getRequest()->getPost('hash')]))
+            ) {
+                $employee->setDeleted(true);
+                $this->getEntityManager()->persist($employee);
+                $this->getEntityManager()->flush();
+
+                $json->setVariable('status', 'deleted');
+            } else {
+                $json->setVariable('status', 'not deleted');
+            }
+
+            return $json;
+        }
+
+        return $this->notFoundAction();
     }
 
     /**

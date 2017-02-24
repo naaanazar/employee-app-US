@@ -108,7 +108,7 @@ class UserController extends AbstractController
                 $this->getEntityManager()->persist($user);
                 $this->getEntityManager()->flush();
 
-                if ($registerKey !== null) {
+                if ($registerKey !== false && $registerKey !== null) {
                     $registerKey->setUsed(true);
                     $registerKey->setUser($user);
 
@@ -116,7 +116,14 @@ class UserController extends AbstractController
                     $this->getEntityManager()->flush();
                 }
 
-                $json->setVariable('message', $this->translate('Successfully registered'));
+                $this->getAuth()->getStorage()->write($user->getId());
+
+                $json->setVariables(
+                    [
+                        'redirect' => $this->url()->fromRoute('home'),
+                        'message'  => $this->translate('Successfully registered')
+                    ]
+                );
             } else {
                 $json->setVariable('errors', $form->getMessages());
             }

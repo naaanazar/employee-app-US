@@ -11,6 +11,13 @@ foreach ($citiesFiles as $citiesFile) {
     $file = new SplFileObject($citiesFile, 'r');
 
     $columns = $file->fgetcsv();
+    /** @var \Application\Model\Image $image */
+    $image = \Application\Module::entityManager()->getRepository(\Application\Model\Image::class)->findOneBy([]);
+
+    /** @var \Application\Model\Area $areaAround */
+    $areaAround = \Application\Module::entityManager()
+        ->getRepository(\Application\Model\Area::class)
+        ->find(1);
 
     while (true === $file->valid()) {
         $row = array_combine($columns, $file->fgetcsv());
@@ -26,11 +33,8 @@ foreach ($citiesFiles as $citiesFile) {
         $employee->setUpdated(new DateTime());
         $employee->setCreated(new DateTime());
         $employee->setHash(\Application\Model\Employee::hashKey());
-
-        /** @var \Application\Model\Area $areaAround */
-        $areaAround = \Application\Module::entityManager()
-            ->getRepository(\Application\Model\Area::class)
-            ->find(1);
+        $employee->setImage($image);
+        $employee->setDeleted(false);
 
         $employee->setAreaAround($areaAround);
         $employee->setAddress($row['Region']);

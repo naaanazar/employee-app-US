@@ -168,6 +168,12 @@ class Employee extends ArraySerializable
     private $image;
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $deleted;
+
+    /**
      * @return int
      */
     public function getId()
@@ -357,6 +363,25 @@ class Employee extends ArraySerializable
     public function getHourlyRate()
     {
         return $this->hourlyRate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param $deleted
+     * @return $this
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
     }
 
     /**

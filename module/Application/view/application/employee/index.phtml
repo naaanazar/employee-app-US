@@ -109,7 +109,7 @@
                         <?php /** @var \Application\Model\Area $area */ ?>
                         <option
                             value="<?= $area->getId() ?>"
-                            <?= (isset($this->employee) && $this->employee->getAreaAround()->getId() === $area->getId()) ? 'selected' : '' ?>
+                            <?= (isset($this->employee) && $this->employee->getAreaAround() !== null && $this->employee->getAreaAround()->getId() === $area->getId()) ? 'selected' : '' ?>
                         >
                             <?= $area->getValue() ?>
                         </option>
@@ -124,7 +124,7 @@
                         <?php /** @var \Application\Model\Contract $contract */ ?>
                         <option
                             value="<?= $contract->getId() ?>"
-                            <?= (isset($this->employee) && $this->employee->getContract()->getId() === $contract->getId()) ? 'selected' : '' ?>
+                            <?= (isset($this->employee) && $this->employee->getContract() !== null && $this->employee->getContract()->getId() === $contract->getId()) ? 'selected' : '' ?>
                         >
                             <?= $contract->getName() ?>
                         </option>
@@ -139,7 +139,7 @@
                         <?php /** @var \Application\Model\WeeklyHours $weeklyHour */ ?>
                         <option
                             value="<?= $weeklyHour->getId() ?>"
-                            <?= (isset($this->employee) && $this->employee->getWeeklyHoursAvailable()->getId() === $weeklyHour->getId()) ? 'selected' : '' ?>
+                            <?= (isset($this->employee) && $this->employee->getWeeklyHoursAvailable() !== null && $this->employee->getWeeklyHoursAvailable()->getId() === $weeklyHour->getId()) ? 'selected' : '' ?>
                         >
                             <?= $weeklyHour->getValue() ?>
                         </option>
@@ -156,7 +156,7 @@
                             id="start_day_field"
                             name="start_date"
                             class="form-control input-md application-input"
-                            value="<?= isset($this->employee) ? $this->employee->getStartDate()->format('Y-m-d') : '' ?>"
+                            value="<?= isset($this->employee) && $this->employee->getStartDate() !== null ? $this->employee->getStartDate()->format('Y-m-d') : '' ?>"
                     >
                     <span class="input-group-addon batton-save"><i class="glyphicon glyphicon-th"></i></span>
                 </div>
@@ -214,7 +214,7 @@
                 </label>
 
                 <label class="btn button-sign-in btn-file">
-                    <!--                    --><?//= $this->translate('Attachments') ?><!-- <input type="file" name="" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">-->
+                    <?= $this->translate('Attachments') ?> <input type="file" name="attachments[]" id="attachments-input" accept="image/*" class=""  multiple style="display: none;">
                 </label>
             </div>
 

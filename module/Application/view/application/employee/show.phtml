@@ -16,7 +16,31 @@
                 <form action="<?= $this->url('employee', ['action' => 'edit']) ?>" method="post">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?= $this->employee->getId() ?>">
-                <button type="submit" class="btn batton-save edit-profile-modal">Edit</button>
+
+                    <button type="submit" class="btn btn-primary edit-profile-modal">Edit</button>
+                    <div class="btn btn-danger" id="delete_employee_show" data-toggle="collapse" data-target="#show-ask-delete">Delete </div>
+
+                    <div id="show-ask-delete" class="collapse">
+                        <div class="form-group">
+                            <label class="control-label application-label" for="area_around_field"><?= $this->translate('Reason Delete') ?></label>
+                            <select id="area_around_field" name="area_around" class="form-control application-input">
+                                <?php foreach ($this->reason as $key) : ?>
+                                    <?php /** @var \Application\Model\Area $area */ ?>
+                                    <option value="<?= $key->getId() ?>"><?= $key->getName() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="btn btn-link a-dashboard" id="delete_employee_show" data-toggle="collapse" data-target="#show-ask-delete">< Back </div>
+                        <button
+                                type="submit"
+                                class="btn btn-danger"
+                                id="delete_employee"
+                                data-action="/employee/delete"
+                                data-hash="<?= $this->employee->getHash() ?>"
+                        >Delete
+                        </button>
+
+                    </div>
                 </form>
 
             </div>
@@ -35,15 +59,21 @@
             <?= $this->translate('Hourly rate') ?>: $<?= $this->employee->getHourlyRate() ?>
         </li>
 
-        <li class="list-group-item">
+        <?php if ($this->employee->getContract() !== null) : ?>
+            <li class="list-group-item">
             <?= $this->translate('Type of contract') ?>: <?= $this->employee->getContract()->getName() ?>
-        </li>
-        <li class="list-group-item">
-            <?= $this->translate('Weekly hours available') ?>: <?= $this->employee->getWeeklyHoursAvailable()->getValue() ?>
-        </li>
-        <li class="list-group-item">
-            <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('Y-m-d') ?>
-        </li>
+            </li>
+        <?php endif; ?>
+        <?php if ($this->employee->getWeeklyHoursAvailable() !== null) : ?>
+            <li class="list-group-item">
+                <?= $this->translate('Weekly hours available') ?>: <?= $this->employee->getWeeklyHoursAvailable()->getValue() ?>
+            </li>
+        <?php endif; ?>
+        <?php if ($this->employee->getStartDate() !== null) : ?>
+            <li class="list-group-item">
+                <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('Y-m-d') ?>
+            </li>
+        <?php endif; ?>
         <li class="list-group-item">
             <?= $this->translate('Area around home address willing to work') ?>: <?= $this->employee->getAreaAround()->getValue() ?>
         </li>

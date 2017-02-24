@@ -22,7 +22,6 @@ jQuery(document).on('submit', 'form.async', function (event) {
             var file = files[i];
 
             if (file instanceof File && file.type.match('image.*')) {
-                console.log(file);
                 formData.append($(fileInput).attr('name'), file);
             }
         }
@@ -73,8 +72,27 @@ $(document).ajaxComplete(function() {
 jQuery(document).on('click', '.modal-action', function (event) {
     event.defaultPrevented = true;
     var element = $(this);
+    var _url = window.location.href.replace(/#modal-action(.+)&#modal-element(.+)/, '');
+    window.history.pushState("", "", _url + '#modal-action' + element.data('action') + '&#modal-element' + element.data('element'));
     var modalAction = new ModalAction(element.data('action'), element.data('element'));
     modalAction.execute();
+
+    return false;
+});
+
+jQuery(document).on('hidden.bs.modal', '#modal-action', function () {
+    window.history.pushState(
+        '', '', window.location.href.replace(/#modal-action(.+)&#modal-element(.+)/, '')
+    );
+});
+
+jQuery(document).on('click', '#delete_employee', function(event) {
+    event.defaultPrevented = true;
+
+    var element = $(this);
+    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash')});
+
+    deleteEmployee.execute();
 
     return false;
 });
@@ -83,6 +101,14 @@ jQuery(document).on('click', '.modal-action', function (event) {
  * On load event
  */
 jQuery('document').ready(function () {
+
+   var modalParams = window.location.href.match(/#modal-action(.+)&#modal-element(.+)/);
+
+   if (modalParams !== null && modalParams.length === 3) {
+       var modalAction = new ModalAction(modalParams[1], modalParams[2]);
+       modalAction.execute();
+   }
+
    $('.nav-stacked').find('a[href="' + window.location.href + '"]').parent().addClass('active')
 
     /**
@@ -155,7 +181,6 @@ var Validate = {
  * @constructor
  */
 ModalAction = function (action, selector, params) {
-
     /**
      * Execute ajax for html get
      */
@@ -211,4 +236,42 @@ var AjaxAction = function (action, data, success) {
         );
     }
 };
+
+/**
+ *
+ * @param action Url to call
+ * @param data Request params
+ * @constructor
+ */
+var DeleteEmployee = function(action, data) {
+    this.execute = function () {
+
+        $.ajax(
+            {
+                url: action,
+                data: data,
+                success: function(data) {
+                    if('deleted' == data.status) {
+                        jQuery('#modal-action').modal('hide');
+
+                        searchEmployee();
+                    }
+
+                    $('body').loading('toggle');
+                },
+                method: 'post'
+            }
+        );
+    }
+};
+
+/**
+ * Hide button delete in show employee
+ */
+jQuery(document).on('click', '#delete_employee_show', function () {
+    jQuery('#delete_employee_show').toggle();
+    jQuery('.edit-profile-modal').toggle();
+
+});
+
 

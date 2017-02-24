@@ -71,8 +71,8 @@ msgstr "Select statistic period"
 msgid "Set Weekly hours"
 msgstr "Set Weekly hours"
 
-msgid "Create employee"
-msgstr "Create employee"
+msgid "Edit Application"
+msgstr "Edit Application"
 
 msgid "Address"
 msgstr "Address"
@@ -119,8 +119,8 @@ msgstr "Upload user photo"
 msgid "Attachments"
 msgstr "Attachments"
 
-msgid "Save"
-msgstr "Save"
+msgid "Edit"
+msgstr "Edit"
 
 msgid "Germany"
 msgstr "Germany"
@@ -139,6 +139,9 @@ msgstr "Driving license present"
 
 msgid "Leave comment"
 msgstr "Leave comment"
+
+msgid "Create search request"
+msgstr "Create search request"
 
 msgid "Home"
 msgstr "Home"
