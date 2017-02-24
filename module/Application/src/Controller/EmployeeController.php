@@ -312,6 +312,7 @@ class EmployeeController extends AbstractController
             $view->setTemplate('application/employee/show.phtml');
             $view->setVariables(
                 [
+                    'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
                     'employee' => $employee,
                     'comments' => $comments
                 ]
