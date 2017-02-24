@@ -23,8 +23,6 @@ use Zend\View\Model\{
     ViewModel
 };
 use Zend\Http\Response;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
 
 /**
  * Class EmployeeController

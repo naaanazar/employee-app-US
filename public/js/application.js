@@ -259,13 +259,14 @@ var DeleteEmployee = function(action, data) {
                 success: function(data) {
                     $('body').loading('toggle');
 
-                    if(true === jQuery.isFunction(searchEmployee())) {
+                    if(typeof searchEmployee !== 'undefined' && true === jQuery.isFunction(searchEmployee)) {
                         if('done' == data.status) {
                             jQuery('#modal-action').modal('hide');
 
                             searchEmployee();
                         }
                     } else {
+                        console.log('reload');
                         window.location.reload(true);
                     }
                 }

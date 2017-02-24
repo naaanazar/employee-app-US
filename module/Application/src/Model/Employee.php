@@ -50,7 +50,7 @@ class Employee extends ArraySerializable
 
     /**
      * @var ReasonRemoval
-     * @ORM\OneToOne(targetEntity="ReasonRemoval")
+     * @ORM\ManyToOne(targetEntity="ReasonRemoval")
      * @ORM\JoinColumn(name="reason_removal_id", referencedColumnName="id")
      */
     private $reasonRemoval;
