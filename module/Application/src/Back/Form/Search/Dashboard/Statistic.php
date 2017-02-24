@@ -45,7 +45,7 @@ class Statistic extends AbstractSearch
         }
 
         return (new Doctrine(Employee::class, $criteria))
-            ->setLimit(20, $this->data('page', 1));
+            ->setLimit(1, $this->data('page', 1));
     }
 
 }
