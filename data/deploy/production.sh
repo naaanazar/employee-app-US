@@ -2,7 +2,7 @@
 
 git pull
 composer install
-comsposer update
+composer update
 
 cd ..
 
