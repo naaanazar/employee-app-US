@@ -25,7 +25,7 @@ class Statistic extends AbstractSearch
         /** @var EmployeeRepository $employeesRepository */
         $employeesRepository = Module::entityManager()->getRepository(Employee::class);
         $employeesRepository
-            ->addExpression('eq', 'deleted', false);
+            ->addExpression('eq', 'jobStatus', 'active');
 
         if (false === empty($this->data['statistic_date'])) {
             $dateEnd = new \DateTime ();

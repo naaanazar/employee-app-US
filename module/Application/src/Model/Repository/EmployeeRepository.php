@@ -82,7 +82,7 @@ class EmployeeRepository extends EntityRepository
     public function searchByParams($params, $paginator = false)
     {
         $this
-            ->addExpression('eq', 'deleted', false)
+            ->addExpression('eq', 'jobStatus', 'active')
             ->addExpression('contains', 'name', $params['name'])
             ->addExpression('contains', 'surname', $params['surname'])
             ->addExpression('contains', 'city', $params['city'])
