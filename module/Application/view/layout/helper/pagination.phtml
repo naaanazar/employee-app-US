@@ -2,14 +2,21 @@
     <ul class="pagination">
         <?php if ($this->paginator->getCurrentPageNumber() > 1) : ?>
             <li>
-                <a href="<?= $this->url($this->route()->getRoute(), $this->route()->getParams(['page' => $this->paginator->getCurrentPageNumber() - 1])) ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                <a
+                    href="<?= $this->url($this->route()->getRoute(), $this->route()->getParams(['page' => $this->paginator->getCurrentPageNumber() - 1])) ?>"
+                    aria-label="Previous"
+                    data-page="<?= $this->paginator->getCurrentPageNumber() - 1 ?>"
+                    class="paginator-a"
+                >
+                    &laquo;
                 </a>
             </li>
         <?php endif; ?>
         <?php for ($page = 1; $page <= $this->paginator->count(); $page++) : ?>
             <li class="<?php if ($page === $this->paginator->getCurrentPageNumber()) echo 'active' ?>">
-                <a data-page="<?= $page ?>" class="paginator-a"
+                <a
+                    data-page="<?= $page ?>"
+                    class="paginator-a"
                     href="<?= $this->url($this->route()->getRoute(), $this->route()->getParams(['page' => $page])) ?>"
                 >
                     <?= $page ?>
@@ -18,8 +25,13 @@
         <?php endfor; ?>
         <?php if ($this->paginator->getCurrentPageNumber() < $this->paginator->count()) : ?>
             <li>
-                <a href="<?= $this->url($this->route()->getRoute(), $this->route()->getParams(['page' => $this->paginator->getCurrentPageNumber() + 1])) ?>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                <a
+                    href="<?= $this->url($this->route()->getRoute(), $this->route()->getParams(['page' => $this->paginator->getCurrentPageNumber() + 1])) ?>"
+                    aria-label="Next"
+                    data-page="<?= $this->paginator->getCurrentPageNumber() + 1 ?>"
+                    class="paginator-a"
+                >
+                     &raquo;
                 </a>
             </li>
         <?php endif; ?>

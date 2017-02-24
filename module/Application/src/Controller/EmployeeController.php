@@ -6,6 +6,7 @@ use Application\Back\Service\FileManager;
 use Application\Back\Service\ImageManager;
 use Application\Model\Comment;
 use Application\Model\ReasonRemoval;
+use Application\Model\SourceApplication;
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
@@ -65,6 +66,8 @@ class EmployeeController extends AbstractController
 
         $view->setVariables(
             [
+                'role'        => $this->getUser()->getRole(),
+                'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
                 'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
                 'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll()
@@ -102,7 +105,9 @@ class EmployeeController extends AbstractController
 
         $view->setVariables(
             [
-                'coordinate' => $coordinate,
+                'role'        => $this->getUser()->getRole(),
+                'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
+                'coordinate'  => $coordinate,
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
                 'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
                 'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
@@ -161,6 +166,11 @@ class EmployeeController extends AbstractController
                     ->getRepository(WeeklyHours::class)
                     ->find($form->get('weekly_hours')->getValue());
 
+                /** @var SourceApplication $sourceApplication */
+                $sourceApplication = $this->getEntityManager()
+                    ->getRepository(SourceApplication::class)
+                    ->find($form->get('source')->getValue());
+
                 if (true === isset($data['id'])) {
                     $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
                 } else {
@@ -200,6 +210,7 @@ class EmployeeController extends AbstractController
                     ->setAreaAround          ($areaAround)
                     ->setContract            ($contractType)
                     ->setWeeklyHoursAvailable($weeklyHours)
+                    ->setSourceApplication($sourceApplication)
                     ->setStartDate           ((new \DateTime($form->get('start_date')->getValue())))
                     ->setComments            ($form->get('comments')->getValue())
                     ->setHourlyRate          ($form->get('hourly_rate')->getValue())
@@ -344,53 +355,58 @@ class EmployeeController extends AbstractController
      */
     public function commentAction()
     {
-        $body = $this->getRequest()->getPost('body');
-        $employee = $this->getRequest()->getPost('employee');
 
-        $result = new JsonModel();
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $body = $this->getRequest()->getPost('body');
+            $employee = $this->getRequest()->getPost('employee');
 
-        if (null !== $body && null !== $employee) {
+            $result = new JsonModel();
 
-            /** @var EmployeeModel $employee */
-            $employee = $this->getEntityManager()
-                ->getRepository(EmployeeModel::class)
-                ->find($employee);
+            if (null !== $body && null !== $employee) {
 
-            $comment = new Comment();
-            $comment->setBody($body);
-            $comment->setCreated(new \DateTime());
-            $comment->setUpdated(new \DateTime());
-            $comment->setUser($this->getUser());
-            $comment->setEmployee($employee);
+                /** @var EmployeeModel $employee */
+                $employee = $this->getEntityManager()
+                    ->getRepository(EmployeeModel::class)
+                    ->find($employee);
 
-            $this->getEntityManager()->persist($comment);
-            $this->getEntityManager()->flush();
+                $comment = new Comment();
+                $comment->setBody($body);
+                $comment->setCreated(new \DateTime());
+                $comment->setUpdated(new \DateTime());
+                $comment->setUser($this->getUser());
+                $comment->setEmployee($employee);
 
-            $comments = $this->getEntityManager()
-                ->getRepository(Comment::class)
-                ->findBy(
+                $this->getEntityManager()->persist($comment);
+                $this->getEntityManager()->flush();
+
+                $comments = $this->getEntityManager()
+                    ->getRepository(Comment::class)
+                    ->findBy(
+                        [
+                            'employee' => $employee
+                        ],
+                        [
+                            'created' => 'DESC'
+                        ]
+                    );
+
+                $result->setVariables(
                     [
-                        'employee' => $employee
-                    ],
-                    [
-                        'created' => 'DESC'
+                        'html' => $this->getRenderer()->render(
+                            'layout/concern/comments',
+                            [
+                                'employee' => $employee,
+                                'comments' => $comments
+                            ]
+                        )
                     ]
                 );
+            }
 
-            $result->setVariables(
-                [
-                    'html' => $this->getRenderer()->render(
-                        'layout/concern/comments',
-                        [
-                            'employee' => $employee,
-                            'comments' => $comments
-                        ]
-                    )
-                ]
-            );
+            return $result;
         }
 
-        return $result;
+        return $this->notFoundAction();
     }
 
     /**
@@ -425,6 +441,8 @@ class EmployeeController extends AbstractController
                 return $result;
             }
         }
+
+        return $this->notFoundAction();
     }
 
     /**
@@ -461,6 +479,8 @@ class EmployeeController extends AbstractController
 
             return $result;
         }
+
+        return $this->notFoundAction();
     }
 
     /**
@@ -483,6 +503,8 @@ class EmployeeController extends AbstractController
                 ]
             );
         }
+
+        return $this->notFoundAction();
     }
 
 }
