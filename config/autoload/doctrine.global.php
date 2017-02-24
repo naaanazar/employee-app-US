@@ -8,9 +8,9 @@ return [
                 'params' => [
                     'host'     => 'localhost',
                     'port'     => '3306',
-                    'user'     => 'labsg_employ',
-                    'password' => '1fDm37nAdF',
-                    'dbname'   => 'labsg_employ',
+                    'user'     => 'employee-prod',
+                    'password' => '*(&BHN-0n%$ERT',
+                    'dbname'   => 'employee-prod',
                     'encoding' => 'utf8',
                 ]
             ]
