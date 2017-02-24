@@ -264,3 +264,14 @@ var DeleteEmployee = function(action, data) {
         );
     }
 };
+
+/**
+ * Hide button delete in show employee
+ */
+jQuery(document).on('click', '#delete_employee_show', function () {
+    jQuery('#delete_employee_show').toggle();
+    jQuery('.edit-profile-modal').toggle();
+
+});
+
+

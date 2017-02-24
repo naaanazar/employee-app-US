@@ -5,6 +5,7 @@ namespace Application\Controller;
 use Application\Back\Service\FileManager;
 use Application\Back\Service\ImageManager;
 use Application\Model\Comment;
+use Application\Model\ReasonRemoval;
 use Application\Model\Employee as EmployeeModel;
 use Application\Back\Form\Employee;
 use Application\Model\Contract;
@@ -305,6 +306,7 @@ class EmployeeController extends AbstractController
             $view->setTemplate('application/employee/show.phtml');
             $view->setVariables(
                 [
+                    'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
                     'employee' => $employee,
                     'comments' => $comments
                 ]

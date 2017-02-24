@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <h4 class="media-heading"><?= $this->employee->getName() ?>&nbsp;<?= $this->employee->getSurname() ?></h4>
-                <a href="mailto:<?= $this->employee->getEmail() ?>"><?= $this->employee->getEmail() ?></a>
+                <a href="mailto:<?= $this->employee->getEmail() ?>" class="a-dashboard"><?= $this->employee->getEmail() ?></a>
                 <p><span class="glyphicon glyphicon-phone"></span> <?= $this->employee->getMobilePhone() ?></p>
                 <p><span class="glyphicon glyphicon-phone-alt"></span> <?= $this->employee->getLandlinePhone() ?></p>
             </div>
@@ -16,17 +16,32 @@
                 <form action="<?= $this->url('employee', ['action' => 'edit']) ?>" method="post">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?= $this->employee->getId() ?>">
-                <button type="submit" class="btn btn-primary edit-profile-modal">Edit</button>
-                <button
-                        type="submit"
-                        class="btn btn-danger"
-                        id="delete_employee"
-                        data-action="/employee/delete"
-                        data-hash="<?= $this->employee->getHash() ?>"
-                        >Delete
-                </button>
-                </form>
 
+                    <button type="submit" class="btn btn-primary edit-profile-modal">Edit</button>
+                    <div class="btn btn-danger" id="delete_employee_show" data-toggle="collapse" data-target="#show-ask-delete">Delete </div>
+
+                    <div id="show-ask-delete" class="collapse">
+                        <div class="form-group">
+                            <label class="control-label application-label" for="area_around_field"><?= $this->translate('Reason Delete') ?></label>
+                            <select id="area_around_field" name="area_around" class="form-control application-input">
+                                <?php foreach ($this->reason as $key) : ?>
+                                    <?php /** @var \Application\Model\Area $area */ ?>
+                                    <option value="<?= $key->getId() ?>"><?= $key->getName() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="btn btn-link a-dashboard" id="delete_employee_show" data-toggle="collapse" data-target="#show-ask-delete">< Back </div>
+                        <button
+                                type="submit"
+                                class="btn btn-danger"
+                                id="delete_employee"
+                                data-action="/employee/delete"
+                                data-hash="<?= $this->employee->getHash() ?>"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
