@@ -237,6 +237,14 @@ class Employee extends ArraySerializable
     }
 
     /**
+     * @return ReasonRemoval
+     */
+    public function getReasonRemoval(): ReasonRemoval
+    {
+        return $this->reasonRemoval;
+    }
+
+    /**
      * @return string
      */
     public function getName()
@@ -606,6 +614,17 @@ class Employee extends ArraySerializable
     public function setCreated($created)
     {
         $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * @param ReasonRemoval $reasonRemoval
+     * @return $this
+     */
+    public function setReasonRemoval(ReasonRemoval $reasonRemoval)
+    {
+        $this->reasonRemoval = $reasonRemoval;
 
         return $this;
     }
