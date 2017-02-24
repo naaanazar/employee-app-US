@@ -501,8 +501,6 @@ class DashboardController extends AbstractController
         if (true === $this->getRequest()->isXmlHttpRequest()) {
             $id = $this->getRequest()->getPost('id');
 
-            var_dump($id);
-
             $result = new JsonModel();
 
             $field = $this->getEntityManager()
