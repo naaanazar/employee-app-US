@@ -274,20 +274,36 @@ jQuery(document).on('click', '#delete_employee_show', function () {
 
 });
 
-
 /**
  * delete comment
  */
-jQuery(document).on('click', '.configure-delete', function (event) {
-    var id = jQuery(event.target).closest('.configure-buttons').data('id');
-    var config = jQuery(event.target).closest('.configure-buttons').data('config');
-    console.log(id);
-    console.log(config);
-    jQuery.post( "/dashboard/configure-delete", {id : id, config : config}, function( data ) {
-        jQuery(event.target).closest('tr').remove();
-    })
+jQuery(document).on('click', '.area-delete', function (event) {
+    configureDelete(event);
 });
 
+jQuery(document).on('click', '.contract-delete', function (event) {
+    configureDelete(event);
+});
+
+jQuery(document).on('click', '.reason-removal-delete', function (event) {
+    configureDelete(event);
+});
+
+jQuery(document).on('click', '.source-application-delete', function (event) {
+    configureDelete(event);
+});
+
+jQuery(document).on('click', '.weekly-hours-delete', function (event) {
+    configureDelete(event);
+});
+
+function configureDelete(event){
+    var id = jQuery(event.target).closest('.configure-buttons').data('id');
+    var action = jQuery(event.target).closest('.configure-buttons').data('action');
+    jQuery.post(action, {id : id}, function( data ) {
+        jQuery(event.target).closest('tr').remove();
+    })
+}
 
 jQuery('span').css('pointer-events', 'none');
 

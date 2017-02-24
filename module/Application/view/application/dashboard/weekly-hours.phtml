@@ -13,6 +13,7 @@
         <th>#</th>
         <th>Value</th>
         <th>Integer value</th>
+        <th></th>
     </tr>
         <?php foreach ($this->paginator as $WH) : ?>
             <tr>
@@ -20,6 +21,12 @@
                 <td><?= $WH->getId() ?></td>
                 <td><?= $WH->getValue() ?></td>
                 <td><?= $WH->getIntValue() ?></td>
+                <td>
+                    <div class="text-right configure-buttons" data-id="<?= $WH->getId() ?>" data-action="/dashboard/weekly-hours-delete">
+                        <a class="btn a-dashboard  weekly-hours-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
+                        <a class="btn a-dashboard weekly-hours-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                    </div>
+                </td>
             </tr>
             <?php endforeach; ?>
 </table>

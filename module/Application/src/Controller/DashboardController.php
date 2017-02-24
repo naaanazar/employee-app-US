@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Back\Controller\Helper\ConfigureActions;
 use Application\Back\Form\Search\Dashboard\{
     Overview,
     Statistic,
@@ -33,6 +34,7 @@ use Doctrine\ORM\ORMInvalidArgumentException;
 use Zend\Paginator\Paginator;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Model\{JsonModel, ViewModel};
+
 
 /**
  * Class DashboardController
@@ -496,38 +498,77 @@ class DashboardController extends AbstractController
     /**
      * @return JsonModel
      */
-    public function configureDeleteAction()
+    public function AreaDeleteAction()
     {
+
         if (true === $this->getRequest()->isXmlHttpRequest()) {
             $id = $this->getRequest()->getPost('id');
 
-            $result = new JsonModel();
-
-            $field = $this->getEntityManager()
-                ->getRepository(Area::class)
-                ->findOneBy(
-                    [
-                        'id' => $id
-                    ]
-                );
-
-            if ($field !== null) {
-
-                $this->getEntityManager()->remove($field);
-                $this->getEntityManager()->flush();
-
-                $result->setVariables(
-                    [
-                        'result' => true
-                    ]
-                );
-
-            }
-
-            return $result;
+            return  (new ConfigureActions)->detete(Area::class, $id);
         }
 
-       // return $this->notFoundAction();
+        return $this->notFoundAction();
     }
+
+    /**
+     * @return JsonModel
+     */
+    public function ContractDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(Contract::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function ReasonRemovalDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(\Application\Model\ReasonRemoval::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function SourceApplicationDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(\Application\Model\SourceApplication::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function WeeklyHoursDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(\Application\Model\WeeklyHours::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
+
 
 }

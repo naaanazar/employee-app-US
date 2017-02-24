@@ -13,6 +13,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Code</th>
+        <th></th>
     </tr>
         <?php foreach ($this->paginator as $contract) : ?>
             <tr>
@@ -20,6 +21,12 @@
                 <td><?= $contract->getId() ?></td>
                 <td><?= $contract->getName() ?></td>
                 <td><?= $contract->getCode() ?></td>
+                <td>
+                    <div class="text-right configure-buttons" data-id="<?= $contract->getId() ?>" data-action="/dashboard/contract-delete">
+                        <a class="btn a-dashboard  contract-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
+                        <a class="btn a-dashboard contract-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                    </div>
+                </td>
             </tr>
             <?php endforeach; ?>
 </table>

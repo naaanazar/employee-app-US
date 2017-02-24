@@ -13,6 +13,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Code</th>
+        <th></th>
     </tr>
         <?php foreach ($this->paginator as $key) : ?>
             <tr>
@@ -20,6 +21,12 @@
                 <td><?= $key->getId() ?></td>
                 <td><?= $key->getName() ?></td>
                 <td><?= $key->getCode() ?></td>
+                <td>
+                    <div class="text-right configure-buttons" data-id="<?= $key->getId() ?>" data-action="/dashboard/reason-removal-delete">
+                        <a class="btn a-dashboard  reason-removal-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
+                        <a class="btn a-dashboard reason-removal-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                    </div>
+                </td>
             </tr>
             <?php endforeach; ?>
 </table>
