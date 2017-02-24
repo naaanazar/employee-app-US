@@ -266,7 +266,6 @@ var DeleteEmployee = function(action, data) {
                             searchEmployee();
                         }
                     } else {
-                        console.log('reload');
                         window.location.reload(true);
                     }
                 }
