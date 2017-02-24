@@ -88,9 +88,14 @@ jQuery(document).on('hidden.bs.modal', '#modal-action', function () {
 
 jQuery(document).on('click', '#delete_employee', function(event) {
     event.defaultPrevented = true;
-
     var element = $(this);
-    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash'), status: element.data('status')});
+    var deleteEmployee = new DeleteEmployee(
+        element.data('action'),
+        {
+            hash: element.data('hash'),
+            status: element.data('status'),
+            reason: jQuery('#delete-ask :selected').text()
+        });
 
     deleteEmployee.execute();
 
@@ -211,7 +216,7 @@ ModalAction = function (action, selector, params) {
  * @constructor
  */
 var AjaxAction = function (action, data, success) {
-
+console.log(data);
     this.execute = function () {
 
         var successFunction;
@@ -251,13 +256,17 @@ var DeleteEmployee = function(action, data) {
                 url: action,
                 data: data,
                 success: function(data) {
-                    if('done' == data.status) {
-                        jQuery('#modal-action').modal('hide');
-
-                        searchEmployee();
-                    }
-
                     $('body').loading('toggle');
+
+                    if(0 !== jQuery('.modal-content').length) {
+                        if('done' == data.status) {
+                            jQuery('#modal-action').modal('hide');
+
+                            searchEmployee();
+                        }
+                    } else {
+                        location.reload(true);
+                    }
                 },
                 method: 'post'
             }
@@ -273,5 +282,3 @@ jQuery(document).on('click', '#delete_employee_show', function () {
     jQuery('.edit-profile-modal').toggle();
 
 });
-
-

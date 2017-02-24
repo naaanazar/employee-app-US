@@ -622,7 +622,7 @@ class Employee extends ArraySerializable
      * @param ReasonRemoval $reasonRemoval
      * @return $this
      */
-    public function setReasonRemoval(ReasonRemoval $reasonRemoval)
+    public function setReasonRemoval($reasonRemoval)
     {
         $this->reasonRemoval = $reasonRemoval;
 
