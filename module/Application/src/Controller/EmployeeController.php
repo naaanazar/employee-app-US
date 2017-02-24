@@ -16,9 +16,11 @@ use Application\Model\{
     User,
     WeeklyHours,
     Coordinates,
-    JsonModel,
-    ViewModel,
     Employee as EmployeeModel
+};
+use Zend\View\Model\{
+    JsonModel,
+    ViewModel
 };
 use Zend\Http\Response;
 
