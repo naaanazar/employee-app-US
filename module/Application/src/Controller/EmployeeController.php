@@ -2,21 +2,25 @@
 
 namespace Application\Controller;
 
-use Application\Back\Service\FileManager;
-use Application\Back\Service\ImageManager;
-use Application\Model\Comment;
-use Application\Model\Employee as EmployeeModel;
-use Application\Back\Form\Employee;
-use Application\Model\Contract;
-use Application\Model\Area;
-use Application\Model\Image;
-use Application\Model\ReasonRemoval;
-use Application\Model\User;
-use Application\Model\WeeklyHours;
-use Application\Model\Coordinates;
+use Application\Back\{
+    Service\FileManager,
+    Service\ImageManager,
+    Form\Employee
+};
+use Application\Model\{
+    Comment,
+    Contract,
+    Area,
+    Image,
+    ReasonRemoval,
+    User,
+    WeeklyHours,
+    Coordinates,
+    JsonModel,
+    ViewModel,
+    Employee as EmployeeModel
+};
 use Zend\Http\Response;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
 
 /**
  * Class EmployeeController
