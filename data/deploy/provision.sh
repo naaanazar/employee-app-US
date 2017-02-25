@@ -63,4 +63,5 @@ php module/Application/locale/generate.php
 
 mysql -u root -e "drop database if exists \`employee-dev\`"
 mysql -u root -e "create database \`employee-dev\`"
+
 php /vagrant/employee-app/vendor/doctrine/doctrine-module/bin/doctrine-module.php migrations:migrate --no-interaction
