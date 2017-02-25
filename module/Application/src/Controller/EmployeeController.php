@@ -216,7 +216,7 @@ class EmployeeController extends AbstractController
                     ->setAreaAround          ($areaAround)
                     ->setContract            ($contractType)
                     ->setWeeklyHoursAvailable($weeklyHours)
-                    ->setSourceApplication($sourceApplication)
+                    ->setSourceApplication   ($sourceApplication)
                     ->setStartDate           ((new \DateTime($form->get('start_date')->getValue())))
                     ->setComments            ($form->get('comments')->getValue())
                     ->setHourlyRate          ($form->get('hourly_rate')->getValue())

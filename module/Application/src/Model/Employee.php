@@ -2,7 +2,6 @@
 
 namespace Application\Model;
 
-use Application\Back\Form\Search\Dashboard\SourceApplication;
 use Application\Model\AbstractModel\ArraySerializable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -381,9 +380,9 @@ class Employee extends ArraySerializable
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getJobStatus(): string
+    public function getJobStatus()
     {
         return $this->jobStatus;
     }
