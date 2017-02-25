@@ -80,7 +80,7 @@ class DashboardController extends AbstractController
         } else {
             $paginator = new Paginator(
                 new Doctrine(Employee::class, [
-                    'deleted' => false
+                    'jobStatus' => 'active'
                 ])
             );
         }
@@ -143,34 +143,6 @@ class DashboardController extends AbstractController
         }
 
         return $view;
-    }
-
-    /**
-     * @return array|JsonModel
-     */
-    public function searchRequestAction()
-    {
-        if (true === $this->getRequest()->isXmlHttpRequest()) {
-            $response = new JsonModel();
-
-            $searchRequest = new SearchRequest();
-            $searchRequest->setParams($this->getRequest()->getPost('params', []));
-            $searchRequest->setFound(false);
-            $searchRequest->setUser($this->getUser());
-
-            try {
-                $this->getEntityManager()->persist($searchRequest);
-                $this->getEntityManager()->flush($searchRequest);
-
-                $response->setVariable('message', 'Successfully created search request');
-            } catch (\Exception $exception) {
-                $response->setVariable('message', 'Can not save search request');
-            }
-
-            return $response;
-        }
-
-        return $this->notFoundAction();
     }
 
     /**
@@ -490,6 +462,120 @@ class DashboardController extends AbstractController
         }
 
         return $view;
+    }
+
+
+    /**
+     * @return JsonModel
+     */
+    public function configureDeleteAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $field = $this->getEntityManager()
+                ->getRepository(Area::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($field !== null) {
+
+                $this->getEntityManager()->remove($field);
+                $this->getEntityManager()->flush();
+
+                $result->setVariables(
+                    [
+                        'result' => true
+                    ]
+                );
+
+            }
+
+            return $result;
+        }
+
+       return $this->notFoundAction();
+    }
+
+    /**
+     * @return array|JsonModel
+     */
+    public function searchRequestAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $response = new JsonModel();
+
+            $searchRequest = new SearchRequest();
+            $searchRequest->setParams($this->getRequest()->getPost('params', []));
+            $searchRequest->setFound(false);
+            $searchRequest->setUser($this->getUser());
+
+            try {
+                $this->getEntityManager()->persist($searchRequest);
+                $this->getEntityManager()->flush($searchRequest);
+
+                $response->setVariable('message', 'Successfully created search request');
+            } catch (\Exception $exception) {
+                $response->setVariable('message', 'Can not save search request');
+            }
+
+            return $response;
+        }
+
+        return $this->notFoundAction();
+    }
+
+    public function searchRequestsAction()
+    {
+        $paginator = new Paginator(
+            new Doctrine(SearchRequest::class, [], ['found' => 'ASC'])
+        );
+        $paginator->setCurrentPageNumber($this->params('page', 1));
+
+        return new ViewModel(
+            [
+                'paginator' => $paginator
+            ]
+        );
+    }
+
+    /**
+     * @return array|ViewModel
+     */
+    public function showSearchRequestAction()
+    {
+        $id = $this->params('id');
+        $searchRequest = $this->getEntityManager()
+            ->getRepository(SearchRequest::class)
+            ->findOneBy(
+                [
+                    'id' => $id
+                ]
+            );
+
+        if (null === $searchRequest) {
+            return $this->notFoundAction();
+        } else {
+
+            /** @var Paginator $paginator */
+            $paginator = $this->getEntityManager()
+                ->getRepository(Employee::class)
+                ->searchByParams($searchRequest->getParams(), true);
+
+            $paginator->setCurrentPageNumber($this->params('page', 1));
+
+            return new ViewModel(
+                [
+                    'searchRequest' => $searchRequest,
+                    'paginator'     => $paginator
+                ]
+            );
+        }
     }
 
 }

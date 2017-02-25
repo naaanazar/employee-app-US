@@ -42,7 +42,7 @@ sudo service mysql restart
 
 #Install composer
 curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
+sudo mv composer.phar /usr/bin/composer
 
 #Install project
 cd /vagrant/employee-app;

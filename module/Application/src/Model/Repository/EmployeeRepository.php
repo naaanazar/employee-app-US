@@ -82,7 +82,7 @@ class EmployeeRepository extends EntityRepository
     public function searchByParams($params, $paginator = false)
     {
         $this
-            ->addExpression('eq', 'deleted', false)
+            ->addExpression('eq', 'jobStatus', 'active')
             ->addExpression('contains', 'name', $params['name'])
             ->addExpression('contains', 'surname', $params['surname'])
             ->addExpression('contains', 'city', $params['city'])
@@ -90,6 +90,10 @@ class EmployeeRepository extends EntityRepository
             ->addExpression('eq', 'carAvailable', $params['car_available'])
             ->addExpression('eq', 'drivingLicence', $params['driving_license'])
             ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($params['area_around']));
+
+        if (true === isset($params['lastSearch'])) {
+            $this->addExpression('gt', 'created', $params['lastSearch']);
+        }
 
 
         if (false === empty($post['start'])) {

@@ -33,7 +33,7 @@ return [
             'route' => '/user[/:action][/:key]',
             'defaults' => [
                 'controller' => Controller\UserController::class,
-                'action' => 'index'
+                'action' => 'login'
             ],
         ],
         'constraints' => [
@@ -75,6 +75,16 @@ return [
             ],
         ],
     ],
+    'show-search-request' => [
+        'type'    => Segment::class,
+        'options' => [
+            'route' => '/dashboard/search-request/:id[/page/:page]',
+            'defaults' => [
+                'controller' => Controller\DashboardController::class,
+                'action'     => 'show-search-request'
+            ],
+        ]
+    ],
     'dashboard' => [
         'type' => Segment::class,
         'options' => [
@@ -85,5 +95,5 @@ return [
                 'page'   => 1
             ],
         ],
-    ]
+    ],
 ];

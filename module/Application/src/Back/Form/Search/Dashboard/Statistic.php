@@ -8,6 +8,7 @@ use Application\Model\Employee;
 use Application\Model\Repository\EmployeeRepository;
 use Application\Module;
 use Zend\Paginator\Paginator;
+use Application\Back\Form\Search\Sort;
 
 /**
  * Class Statistic
@@ -24,7 +25,7 @@ class Statistic extends AbstractSearch
         /** @var EmployeeRepository $employeesRepository */
         $employeesRepository = Module::entityManager()->getRepository(Employee::class);
         $employeesRepository
-            ->addExpression('eq', 'deleted', false);
+            ->addExpression('eq', 'jobStatus', 'active');
 
         if (false === empty($this->data['statistic_date'])) {
             $dateEnd = new \DateTime ();
@@ -36,6 +37,12 @@ class Statistic extends AbstractSearch
         }
 
         $criteria = $employeesRepository->buildCriteria();
+
+        $sortValue = (new Sort())->getSortValue($this->data['sort_name'], $this->data['sort_order']);
+
+        if (false !== $sortValue) {
+            $criteria->orderBy($sortValue);
+        }
 
         return (new Doctrine(Employee::class, $criteria))
             ->setLimit(20, $this->data('page', 1));

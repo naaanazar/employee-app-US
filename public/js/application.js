@@ -88,9 +88,14 @@ jQuery(document).on('hidden.bs.modal', '#modal-action', function () {
 
 jQuery(document).on('click', '#delete_employee', function(event) {
     event.defaultPrevented = true;
-
     var element = $(this);
-    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash')});
+    var deleteEmployee = new DeleteEmployee(
+        element.data('action'),
+        {
+            hash: element.data('hash'),
+            status: element.data('status'),
+            reason: jQuery('#delete-ask :selected').text()
+        });
 
     deleteEmployee.execute();
 
@@ -250,16 +255,20 @@ var DeleteEmployee = function(action, data) {
             {
                 url: action,
                 data: data,
+                method: 'post',
                 success: function(data) {
-                    if('deleted' == data.status) {
-                        jQuery('#modal-action').modal('hide');
+                    $('body').loading('toggle');
 
-                        searchEmployee();
+                    if ((modalAction = jQuery('#modal-action')).length === 1) {
+                        modalAction.modal('hide');
                     }
 
-                    $('body').loading('toggle');
-                },
-                method: 'post'
+                    if(typeof searchEmployee === 'function') {
+                        searchEmployee();
+                    } else {
+                        window.location.reload(true);
+                    }
+                }
             }
         );
     }
@@ -273,5 +282,22 @@ jQuery(document).on('click', '#delete_employee_show', function () {
     jQuery('.edit-profile-modal').toggle();
 
 });
+
+
+/**
+ * delete comment
+ */
+jQuery(document).on('click', '.configure-delete', function (event) {
+    var id = jQuery(event.target).closest('.configure-buttons').data('id');
+    var config = jQuery(event.target).closest('.configure-buttons').data('config');
+    console.log(id);
+    console.log(config);
+    jQuery.post( "/dashboard/configure-delete", {id : id, config : config}, function( data ) {
+        jQuery(event.target).closest('tr').remove();
+    })
+});
+
+
+jQuery('span').css('pointer-events', 'none');
 
 
