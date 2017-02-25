@@ -14,6 +14,7 @@ use Application\Model\{
     Image,
     ReasonRemoval,
     User,
+    SourceApplication,
     WeeklyHours,
     Coordinates,
     Employee as EmployeeModel
@@ -224,8 +225,8 @@ class EmployeeController extends AbstractController
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
                     ->setUpdated(new \DateTime());
 
-                if (null === $employee->isDeleted()) {
-                    $employee->setDeleted(false);
+                if (null === $employee->getJobStatus()) {
+                    $employee->setJobStatus('active');
                 }
 
                 if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
@@ -346,7 +347,7 @@ class EmployeeController extends AbstractController
                         'name' => $this->getRequest()->getPost('reason')
                     ]);
 
-                $employee->setDeleted($this->getRequest()->getPost('status'))
+                $employee->setJobStatus($this->getRequest()->getPost('status'))
                     ->setReasonRemoval($reasonRemoval);
 
                 $this->getEntityManager()->persist($employee);

@@ -80,7 +80,7 @@ class DashboardController extends AbstractController
         } else {
             $paginator = new Paginator(
                 new Doctrine(Employee::class, [
-                    'deleted' => false
+                    'jobStatus' => 'active'
                 ])
             );
         }
