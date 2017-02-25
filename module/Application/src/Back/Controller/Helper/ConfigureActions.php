@@ -12,7 +12,11 @@ use Zend\View\Model\JsonModel;
  */
 class ConfigureActions
 {
-
+    /**
+     * @param $model
+     * @param $id
+     * @return JsonModel
+     */
     public function detete($model, $id)
     {
         $result = new JsonModel();
@@ -43,6 +47,14 @@ class ConfigureActions
         }
     }
 
+    /**
+     * @param $data
+     * @param $model
+     * @param $redirect
+     * @param $method
+     * @param null $intIndex
+     * @return JsonModel
+     */
     public function store($data, $model, $redirect, $method,  $intIndex = null){
 
         $json = new JsonModel();
@@ -78,6 +90,12 @@ class ConfigureActions
         return $json;
     }
 
+    /**
+     * @param $model
+     * @param $data
+     * @param $intIndex
+     * @return mixed
+     */
     protected function setNumberConfiguration($model, $data, $intIndex){
         $model->setIntValue($this->valueToInt($data['value'], $intIndex));
         $model->setValue($data['value']);
@@ -85,6 +103,11 @@ class ConfigureActions
         return $model;
     }
 
+    /**
+     * @param $model
+     * @param $data
+     * @return mixed
+     */
     protected function setTextConfiguration($model, $data){
         $model->setCode($this->valueToCode($data['value']));
         $model->setName($data['value']);
@@ -92,12 +115,21 @@ class ConfigureActions
         return $model;
     }
 
+    /**
+     * @param $value
+     * @param $intIndex
+     * @return mixed
+     */
     protected function valueToInt($value, $intIndex){
         $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * $intIndex;
 
         return $intValue;
     }
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     protected function valueToCode($value){
         $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $value));
 

@@ -82,8 +82,8 @@ class EmployeeController extends AbstractController
      */
     public function editAction()
     {
-
-        $data  = $this->getRequest()->getPost();
+        if($this->getRequest()->getPost('id')) {
+            $data = $this->getRequest()->getPost();
             /** @var EmployeeModel $employee */
             $employee = $this->getEntityManager()
                 ->getRepository(EmployeeModel::class)
@@ -94,32 +94,35 @@ class EmployeeController extends AbstractController
                 );
 
             $coordinate = $this->getEntityManager()
-            ->getRepository(Coordinates::class)
-            ->findOneBy(
+                ->getRepository(Coordinates::class)
+                ->findOneBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
+
+            $view = new ViewModel();
+
+            $view->setVariables(
                 [
-                    'employee' => $employee
+                    'role' => $this->getUser()->getRole(),
+                    'sources' => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
+                    'coordinate' => $coordinate,
+                    'contracts' => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                    'areas' => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                    'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                    'employee' => $employee,
+                    'action' => 'edit',
+                    'id' => $employee->getId()
                 ]
             );
 
-        $view = new ViewModel();
+            $view->setTemplate('application/employee/index');
 
-        $view->setVariables(
-            [
-                'role'        => $this->getUser()->getRole(),
-                'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
-                'coordinate'  => $coordinate,
-                'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
-                'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
-                'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
-                'employee'    => $employee,
-                'action'      => 'edit',
-                'id'          => $employee->getId()
-            ]
-        );
+            return $view;
+        }
 
-        $view->setTemplate('application/employee/index');
-
-        return $view;
+        return $this->notFoundAction();
     }
 
     /**
@@ -428,6 +431,7 @@ class EmployeeController extends AbstractController
                 );
 
             if ($comment !== null) {
+
 
                 $this->getEntityManager()->remove($comment);
                 $this->getEntityManager()->flush();

@@ -11,8 +11,8 @@
 <table class="table">
     <tr>
         <th>#</th>
-        <th>Name</th>
-        <th>Code</th>
+        <th><?= $this->translate('Name')?></th>
+        <th><?= $this->translate('Code')?></th>
         <th></th>
     </tr>
         <?php foreach ($this->paginator as $key) : ?>
@@ -23,8 +23,8 @@
                 <td><?= $key->getCode() ?></td>
                 <td>
                     <div class="text-right configure-buttons" data-id="<?= $key->getId() ?>" data-action="/dashboard/reason-removal-delete" data-action-save="/dashboard/reason-removal">
-                        <a class="btn a-dashboard  configure-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
-                        <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                        <a class="btn a-dashboard  configure-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> <?= $this->translate('Edit')?></a>&nbsp;
+                        <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> <?= $this->translate('Delete')?></a>
                     </div>
                 </td>
             </tr>
