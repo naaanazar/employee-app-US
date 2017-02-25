@@ -275,29 +275,25 @@ jQuery(document).on('click', '#delete_employee_show', function () {
 });
 
 /**
- * delete comment
+ * actions configure
  */
-jQuery(document).on('click', '.area-delete', function (event) {
+jQuery(document).on('click', '.configure-delete', function (event) {
     configureDelete(event);
 });
 
-jQuery(document).on('click', '.contract-delete', function (event) {
-    configureDelete(event);
+jQuery(document).on('click', '.configure-save', function (event) {
+    saveEdite(event);
 });
 
-jQuery(document).on('click', '.reason-removal-delete', function (event) {
-    configureDelete(event);
+jQuery(document).on('click', '.configure-edit', function (event) {
+    editShow(event);
 });
 
-jQuery(document).on('click', '.source-application-delete', function (event) {
-    configureDelete(event);
-});
 
-jQuery(document).on('click', '.weekly-hours-delete', function (event) {
-    configureDelete(event);
-});
-
-function configureDelete(event){
+/**
+ * @param event
+ */
+var configureDelete = function(event){
     var id = jQuery(event.target).closest('.configure-buttons').data('id');
     var action = jQuery(event.target).closest('.configure-buttons').data('action');
     jQuery.post(action, {id : id}, function( data ) {
@@ -307,4 +303,31 @@ function configureDelete(event){
 
 jQuery('span').css('pointer-events', 'none');
 
+/**
+ * show edit configure
+ */
+var editShow = function(event){
+    var row = jQuery(event.target).closest('tr');
+    var value = row.find('.value-name').text();
+    var html = '<input name="body" class="form-control configure-edit-field" value = "' + value + '">';
 
+    row.find('.value-name').html(html);
+    row.find('.configure-buttons').append('<a class="btn a-dashboard configure-save"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</a>&nbsp;');
+    row.find('.configure-delete').hide();
+    row.find('.configure-edit').hide();
+}
+
+/**
+ *
+ * @param event
+ */
+var saveEdite = function (event){
+    var id = jQuery(event.target).closest('.configure-buttons').data('id');
+    var url = jQuery(event.target).closest('.configure-buttons').data('action-save');
+    var value = jQuery(event.target).closest('tr').find('.configure-edit-field').val();
+console.log(id);
+    jQuery.post(url, {value : value, id: id}, function( data ) {
+        Validate.redirect(data.redirect);
+
+    })
+}

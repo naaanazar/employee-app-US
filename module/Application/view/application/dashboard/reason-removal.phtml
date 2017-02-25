@@ -2,7 +2,7 @@
     <form action="<?= $this->url('dashboard', ['action' => 'reason-removal']) ?>" class="async col-md-3 collapse" id="contract-type-add-collapse">
         <div class="form-group">
             <label class="control-label application-label" for="source-application"><?= $this->translate('Set Option Why Delete') ?>*</label>
-            <input id="source-application" name="name" type="text" placeholder="" class="form-control input-md application-input" required/>
+            <input id="source-application" name="value" type="text" placeholder="" class="form-control input-md application-input" required/>
         </div>
         <button class="batton-save btn">Create</button>
     </form>
@@ -19,12 +19,12 @@
             <tr>
                 <?php /** @var \Application\Model\Area $area */ ?>
                 <td><?= $key->getId() ?></td>
-                <td><?= $key->getName() ?></td>
+                <td class="value-name"><?= $key->getName() ?></td>
                 <td><?= $key->getCode() ?></td>
                 <td>
-                    <div class="text-right configure-buttons" data-id="<?= $key->getId() ?>" data-action="/dashboard/reason-removal-delete">
-                        <a class="btn a-dashboard  reason-removal-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
-                        <a class="btn a-dashboard reason-removal-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                    <div class="text-right configure-buttons" data-id="<?= $key->getId() ?>" data-action="/dashboard/reason-removal-delete" data-action-save="/dashboard/reason-removal">
+                        <a class="btn a-dashboard  configure-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
+                        <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
                     </div>
                 </td>
             </tr>

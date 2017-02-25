@@ -19,12 +19,12 @@
             <tr>
                 <?php /** @var \Application\Model\Area $area */ ?>
                 <td><?= $WH->getId() ?></td>
-                <td><?= $WH->getValue() ?></td>
+                <td class="value-name"><?= $WH->getValue() ?></td>
                 <td><?= $WH->getIntValue() ?></td>
                 <td>
-                    <div class="text-right configure-buttons" data-id="<?= $WH->getId() ?>" data-action="/dashboard/weekly-hours-delete">
-                        <a class="btn a-dashboard  weekly-hours-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
-                        <a class="btn a-dashboard weekly-hours-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                    <div class="text-right configure-buttons" data-id="<?= $WH->getId() ?>" data-action="/dashboard/weekly-hours-delete" data-action-save="/dashboard/weekly-hours">
+                        <a class="btn a-dashboard  configure-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
+                        <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
                     </div>
                 </td>
             </tr>

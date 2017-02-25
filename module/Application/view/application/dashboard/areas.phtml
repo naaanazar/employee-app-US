@@ -2,7 +2,7 @@
     <form action="<?= $this->url('dashboard', ['action' => 'areas']) ?>" class="async col-md-3 collapse" id="add-area-around">
         <div class="form-group">
             <label class="control-label application-label" for="area_value"><?= $this->translate('Set Area Around') ?>*</label>
-            <input id="area_value" name="area_value" type="text" placeholder="km" class="form-control input-md application-input" required/>
+            <input id="area_value" name="value" type="text" placeholder="km" class="form-control input-md application-input" required/>
         </div>
         <button class="batton-save btn">Create area</button>
     </form>
@@ -21,12 +21,12 @@
             <tr>
                 <?php /** @var \Application\Model\Area $area */ ?>
                 <td><?= $area->getId() ?></td>
-                <td><?= $area->getValue() ?></td>
+                <td class="value-name"><?= $area->getValue() ?></td>
                 <td><?= $area->getIntValue() ?></td>
                 <td>
-                    <div class="text-right configure-buttons" data-id="<?= $area->getId() ?>" data-action="/dashboard/area-delete">
-                        <a class="btn a-dashboard  area-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
-                        <a class="btn a-dashboard area-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                    <div class="text-right configure-buttons" data-id="<?= $area->getId() ?>" data-action="/dashboard/area-delete" data-action-save="/dashboard/areas">
+                        <a class="btn a-dashboard  configure-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>&nbsp;
+                        <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
                     </div>
                 </td>
             </tr>
