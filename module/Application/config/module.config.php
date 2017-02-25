@@ -49,6 +49,17 @@ return [
             },
         ],
     ],
+    'mail' => [
+        'name'              => 'gmail.com',
+        'host'              => 'smtp.gmail.com',
+        'port'              => 587, // Notice port change for TLS is 587
+        'connection_class'  => 'plain',
+        'connection_config' => array(
+            'username' => 'vitalii.krushelnytskyi@gmail.com',
+            'password' => 'phgtrsbetvdoqcxr',
+            'ssl'      => 'tls',
+        ),
+    ],
     'translator' => [
         'locale' => 'en_US',
         'translation_file_patterns' => [

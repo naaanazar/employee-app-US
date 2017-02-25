@@ -8,17 +8,9 @@ use Application\Back\{
     Form\Employee
 };
 use Application\Model\{
-    Comment,
-    Contract,
-    Area,
-    Image,
-    ReasonRemoval,
-    User,
-    WeeklyHours,
-    Coordinates,
-    SourceApplication,
-    Employee as EmployeeModel
+    Comment, Contract, Area, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
 };
+use Application\Module;
 use Zend\View\Model\{
     JsonModel,
     ViewModel
@@ -90,6 +82,7 @@ class EmployeeController extends AbstractController
     {
         if($this->getRequest()->getPost('id')) {
             $data = $this->getRequest()->getPost();
+
             /** @var EmployeeModel $employee */
             $employee = $this->getEntityManager()
                 ->getRepository(EmployeeModel::class)
@@ -180,8 +173,11 @@ class EmployeeController extends AbstractController
                     ->getRepository(SourceApplication::class)
                     ->find($form->get('source')->getValue());
 
+                /** @var EmployeeRepository $employeeRepository */
+                $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
+
                 if (true === isset($data['id'])) {
-                    $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
+                    $employee = $employeeRepository->find($data['id']);
                 } else {
                     $employee = new EmployeeModel();
                     $employee->setHash(EmployeeModel::hashKey())
@@ -219,7 +215,7 @@ class EmployeeController extends AbstractController
                     ->setAreaAround          ($areaAround)
                     ->setContract            ($contractType)
                     ->setWeeklyHoursAvailable($weeklyHours)
-                    ->setSourceApplication($sourceApplication)
+                    ->setSourceApplication   ($sourceApplication)
                     ->setStartDate           ((new \DateTime($form->get('start_date')->getValue())))
                     ->setComments            ($form->get('comments')->getValue())
                     ->setHourlyRate          ($form->get('hourly_rate')->getValue())
@@ -228,8 +224,8 @@ class EmployeeController extends AbstractController
                     ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
                     ->setUpdated(new \DateTime());
 
-                if (null === $employee->isDeleted()) {
-                    $employee->setDeleted(false);
+                if (null === $employee->getJobStatus()) {
+                    $employee->setJobStatus('active');
                 }
 
                 if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
@@ -284,6 +280,40 @@ class EmployeeController extends AbstractController
                             'redirect' => $url
                         ]
                     );
+                }
+
+                if (false === isset($data['id'])) {
+                    $requestsRepository = $this->getEntityManager()
+                        ->getRepository(SearchRequest::class);
+
+                    $requests = $requestsRepository->findBy(
+                        [
+                            'found' => false
+                        ]
+                    );
+
+                    foreach ($requests as $request) {
+                        /** @var SearchRequest $request */
+                        $params = $request->getParams();
+                        $params['lastSearch'] = $request->getLastSearch();
+
+                        if (false === empty($employeesInSearch = $employeeRepository->searchByParams($params))) {
+                            Module::getMailSender()->sendMail(
+                                Module::translator()->translate('Search request result'),
+                                $request->getUser()->getEmail(),
+                                'dashboard/search-request-result',
+                                [
+                                    'employees' => $employeesInSearch,
+                                    'searchRequest' => $request
+                                ]
+                            );
+                        }
+
+                        $request->setLastSearch(new \DateTime());
+                        $this->getEntityManager()->persist($request);
+                    }
+
+                    $this->getEntityManager()->flush();
                 }
             }
 
@@ -350,7 +380,7 @@ class EmployeeController extends AbstractController
                         'name' => $this->getRequest()->getPost('reason')
                     ]);
 
-                $employee->setDeleted($this->getRequest()->getPost('status'))
+                $employee->setJobStatus($this->getRequest()->getPost('status'))
                     ->setReasonRemoval($reasonRemoval);
 
                 $this->getEntityManager()->persist($employee);

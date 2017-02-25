@@ -2,7 +2,6 @@
 
 namespace Application\Model;
 
-use Application\Back\Form\Search\Dashboard\SourceApplication;
 use Application\Model\AbstractModel\ArraySerializable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -175,10 +174,10 @@ class Employee extends ArraySerializable
     private $image;
 
     /**
-     * @var boolean
-     * @ORM\Column(type="boolean")
+     * @var string
+     * @ORM\Column(name="job_status", length=215, type="string")
      */
-    private $deleted;
+    private $jobStatus;
 
     /**
      * @return int
@@ -381,20 +380,20 @@ class Employee extends ArraySerializable
     }
 
     /**
-     * @return bool
+     * @return string|null
      */
-    public function isDeleted()
+    public function getJobStatus()
     {
-        return $this->deleted;
+        return $this->jobStatus;
     }
 
     /**
-     * @param $deleted
+     * @param string $jobStatus
      * @return $this
      */
-    public function setDeleted($deleted)
+    public function setJobStatus(string $jobStatus)
     {
-        $this->deleted = $deleted;
+        $this->jobStatus = $jobStatus;
 
         return $this;
     }

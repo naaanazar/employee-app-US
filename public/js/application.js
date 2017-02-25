@@ -259,12 +259,12 @@ var DeleteEmployee = function(action, data) {
                 success: function(data) {
                     $('body').loading('toggle');
 
-                    if(typeof searchEmployee !== 'undefined' && true === jQuery.isFunction(searchEmployee)) {
-                        if('done' == data.status) {
-                            jQuery('#modal-action').modal('hide');
+                    if ((modalAction = jQuery('#modal-action')).length === 1) {
+                        modalAction.modal('hide');
+                    }
 
-                            searchEmployee();
-                        }
+                    if(typeof searchEmployee === 'function') {
+                        searchEmployee();
                     } else {
                         window.location.reload(true);
                     }
