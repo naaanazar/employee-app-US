@@ -351,13 +351,25 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#image').attr('src', e.target.result);
+            jQuery('#image').attr('src', e.target.result);
         };
 
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-$("#avatar_field").change(function(){
+jQuery("#avatar_field").change(function(){
     readURL(this);
 });
+
+$("#attachments-input").change(function(){
+    var files = jQuery("#attachments-input")[0].files;
+    var html = '';
+    for (var i = 0; i < files.length; i++)
+    {
+        html += '<div class="a-dashboard">' + files[i].name + '</div>';
+    }
+
+    jQuery('.upload-file-attach').html(html)
+});
+
