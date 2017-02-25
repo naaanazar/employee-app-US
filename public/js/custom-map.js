@@ -148,7 +148,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     }
 
                     if (jQuery('input').is('#address_field')) {
-                        document.getElementById('zip_field').value = city[0];
+                        document.getElementById('zip_field').value = '0' + city[0];
                     }
 
                 }
