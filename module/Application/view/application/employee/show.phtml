@@ -7,7 +7,7 @@
     <div class="media-body">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="media-heading"><?= $this->employee->getName() ?>&nbsp;<?= $this->employee->getSurname() ?></h4>
+                <h4 class="media-heading"><?= $this->employee->getSurname() ?>&nbsp;<?= $this->employee->getName() ?></h4>
                 <a href="mailto:<?= $this->employee->getEmail() ?>" class="a-dashboard"><?= $this->employee->getEmail() ?></a>
                 <p><span class="glyphicon glyphicon-phone"></span> <?= $this->employee->getMobilePhone() ?></p>
                 <p><span class="glyphicon glyphicon-phone-alt"></span> <?= $this->employee->getLandlinePhone() ?></p>
