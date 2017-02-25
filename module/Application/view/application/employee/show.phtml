@@ -85,7 +85,7 @@
         <?php endif; ?>
         <?php if ($this->employee->getStartDate() !== null) : ?>
             <li class="list-group-item">
-                <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('Y-m-d') ?>
+                <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('d-m-Y') ?>
             </li>
         <?php endif; ?>
         <li class="list-group-item">

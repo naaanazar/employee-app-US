@@ -156,7 +156,7 @@
                             id="start_day_field"
                             name="start_date"
                             class="form-control input-md application-input"
-                            value="<?= isset($this->employee) && $this->employee->getStartDate() !== null ? $this->employee->getStartDate()->format('Y-m-d') : '' ?>"
+                            value="<?= isset($this->employee) && $this->employee->getStartDate() !== null ? $this->employee->getStartDate()->format('d-m-Y') : '' ?>"
                     >
                     <span class="input-group-addon batton-save"><i class="glyphicon glyphicon-th"></i></span>
                 </div>

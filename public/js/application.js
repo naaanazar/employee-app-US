@@ -127,7 +127,7 @@ jQuery('document').ready(function () {
     jQuery('#sandbox-container .input-daterange').datepicker({
         autoclose: true,
         todayHighlight: true,
-        format: 'yyyy-mm-dd'
+        format: 'dd-mm-yyyy'
     });
 
     /**
@@ -136,7 +136,7 @@ jQuery('document').ready(function () {
     jQuery("#start_day_field_picker").datepicker({
             autoclose: true,
             todayBtn: "linked",
-            format: 'yyyy-mm-dd',
+            format: 'dd-mm-yyyy',
             todayHighlight: true
         }
     )
