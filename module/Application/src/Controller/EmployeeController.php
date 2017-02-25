@@ -2,22 +2,27 @@
 
 namespace Application\Controller;
 
-use Application\Back\Service\FileManager;
-use Application\Back\Service\ImageManager;
-use Application\Model\Comment;
-use Application\Model\ReasonRemoval;
-use Application\Model\SourceApplication;
-use Application\Model\Employee as EmployeeModel;
-use Application\Back\Form\Employee;
-use Application\Model\Contract;
-use Application\Model\Area;
-use Application\Model\Image;
-use Application\Model\User;
-use Application\Model\WeeklyHours;
-use Application\Model\Coordinates;
+use Application\Back\{
+    Service\FileManager,
+    Service\ImageManager,
+    Form\Employee
+};
+use Application\Model\{
+    Comment,
+    Contract,
+    Area,
+    Image,
+    ReasonRemoval,
+    User,
+    WeeklyHours,
+    Coordinates,
+    Employee as EmployeeModel
+};
+use Zend\View\Model\{
+    JsonModel,
+    ViewModel
+};
 use Zend\Http\Response;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
 
 /**
  * Class EmployeeController
@@ -338,13 +343,21 @@ class EmployeeController extends AbstractController
             if(null !== ($employee = $this->getEntityManager()->getRepository(EmployeeModel::class)
                     ->findOneBy(['hash' => $this->getRequest()->getPost('hash')]))
             ) {
-                $employee->setDeleted(true);
+                $reasonRemoval = $this->getEntityManager()
+                    ->getRepository(ReasonRemoval::class)
+                    ->findOneBy([
+                        'name' => $this->getRequest()->getPost('reason')
+                    ]);
+
+                $employee->setDeleted($this->getRequest()->getPost('status'))
+                    ->setReasonRemoval($reasonRemoval);
+
                 $this->getEntityManager()->persist($employee);
                 $this->getEntityManager()->flush();
 
-                $json->setVariable('status', 'deleted');
+                $json->setVariable('status', 'done');
             } else {
-                $json->setVariable('status', 'not deleted');
+                $json->setVariable('status', 'not found');
             }
 
             return $json;

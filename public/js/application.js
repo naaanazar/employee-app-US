@@ -88,9 +88,14 @@ jQuery(document).on('hidden.bs.modal', '#modal-action', function () {
 
 jQuery(document).on('click', '#delete_employee', function(event) {
     event.defaultPrevented = true;
-
     var element = $(this);
-    var deleteEmployee = new DeleteEmployee(element.data('action'), {hash: element.data('hash')});
+    var deleteEmployee = new DeleteEmployee(
+        element.data('action'),
+        {
+            hash: element.data('hash'),
+            status: element.data('status'),
+            reason: jQuery('#delete-ask :selected').text()
+        });
 
     deleteEmployee.execute();
 
@@ -250,16 +255,20 @@ var DeleteEmployee = function(action, data) {
             {
                 url: action,
                 data: data,
+                method: 'post',
                 success: function(data) {
-                    if('deleted' == data.status) {
-                        jQuery('#modal-action').modal('hide');
-
-                        searchEmployee();
-                    }
-
                     $('body').loading('toggle');
-                },
-                method: 'post'
+
+                    if(typeof searchEmployee !== 'undefined' && true === jQuery.isFunction(searchEmployee)) {
+                        if('done' == data.status) {
+                            jQuery('#modal-action').modal('hide');
+
+                            searchEmployee();
+                        }
+                    } else {
+                        window.location.reload(true);
+                    }
+                }
             }
         );
     }
