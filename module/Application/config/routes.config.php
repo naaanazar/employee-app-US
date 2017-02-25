@@ -33,7 +33,7 @@ return [
             'route' => '/user[/:action][/:key]',
             'defaults' => [
                 'controller' => Controller\UserController::class,
-                'action' => 'index'
+                'action' => 'login'
             ],
         ],
         'constraints' => [
@@ -88,7 +88,7 @@ return [
     'dashboard' => [
         'type' => Segment::class,
         'options' => [
-            'route' => '/dashboard[/:action][/page/:page]',
+            'route' => '/dashboard[/][:action][/page/:page]',
             'defaults' => [
                 'controller' => Controller\DashboardController::class,
                 'action' => 'search',
