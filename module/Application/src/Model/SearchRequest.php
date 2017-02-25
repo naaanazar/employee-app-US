@@ -35,6 +35,12 @@ class SearchRequest
     private $params;
 
     /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $lastSearch;
+
+    /**
      * @var bool
      * @ORM\Column(name="is_found", type="boolean")
      */
@@ -65,6 +71,14 @@ class SearchRequest
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getLastSearch(): \DateTime
+    {
+        return $this->lastSearch;
+    }
+
+    /**
      * @return bool
      */
     public function isFound(): bool
@@ -78,6 +92,14 @@ class SearchRequest
     public function setParams(array $params)
     {
         $this->params = $params;
+    }
+
+    /**
+     * @param \DateTime $lastSearch
+     */
+    public function setLastSearch(\DateTime $lastSearch)
+    {
+        $this->lastSearch = $lastSearch;
     }
 
     /**

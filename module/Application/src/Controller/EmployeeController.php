@@ -8,17 +8,9 @@ use Application\Back\{
     Form\Employee
 };
 use Application\Model\{
-    Comment,
-    Contract,
-    Area,
-    Image,
-    ReasonRemoval,
-    User,
-    SourceApplication,
-    WeeklyHours,
-    Coordinates,
-    Employee as EmployeeModel
+    Comment, Contract, Area, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
 };
+use Application\Module;
 use Zend\View\Model\{
     JsonModel,
     ViewModel
@@ -88,7 +80,6 @@ class EmployeeController extends AbstractController
      */
     public function editAction()
     {
-
         $data  = $this->getRequest()->getPost();
             /** @var EmployeeModel $employee */
             $employee = $this->getEntityManager()
@@ -177,8 +168,11 @@ class EmployeeController extends AbstractController
                     ->getRepository(SourceApplication::class)
                     ->find($form->get('source')->getValue());
 
+                /** @var EmployeeRepository $employeeRepository */
+                $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
+
                 if (true === isset($data['id'])) {
-                    $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
+                    $employee = $employeeRepository->find($data['id']);
                 } else {
                     $employee = new EmployeeModel();
                     $employee->setHash(EmployeeModel::hashKey())
@@ -281,6 +275,40 @@ class EmployeeController extends AbstractController
                             'redirect' => $url
                         ]
                     );
+                }
+
+                if (false === isset($data['id'])) {
+                    $requestsRepository = $this->getEntityManager()
+                        ->getRepository(SearchRequest::class);
+
+                    $requests = $requestsRepository->findBy(
+                        [
+                            'found' => false
+                        ]
+                    );
+
+                    foreach ($requests as $request) {
+                        /** @var SearchRequest $request */
+                        $params = $request->getParams();
+                        $params['lastSearch'] = $request->getLastSearch();
+
+                        if (false === empty($employeesInSearch = $employeeRepository->searchByParams($params))) {
+                            Module::getMailSender()->sendMail(
+                                Module::translator()->translate('Search request result'),
+                                $request->getUser()->getEmail(),
+                                'dashboard/search-request-result',
+                                [
+                                    'employees' => $employeesInSearch,
+                                    'searchRequest' => $request
+                                ]
+                            );
+                        }
+
+                        $request->setLastSearch(new \DateTime());
+                        $this->getEntityManager()->persist($request);
+                    }
+
+                    $this->getEntityManager()->flush();
                 }
             }
 

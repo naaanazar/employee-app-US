@@ -2,7 +2,6 @@
 
 namespace Application\ORM\Functions;
 
-use Application\Model\Coordinates;
 use Doctrine\ORM\Query\{
     AST\Functions\FunctionNode, AST\InputParameter, Lexer, SqlWalker, Parser
 };
@@ -36,6 +35,7 @@ class CoordinateDistance extends FunctionNode
 
     /**
      * @param SqlWalker $sqlWalker
+     * @return string
      */
     public function getSql(SqlWalker $sqlWalker)
     {
@@ -58,12 +58,10 @@ class CoordinateDistance extends FunctionNode
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
 
-        $this->coordinate = new Coordinates();
         $this->lat1 = $parser->StringPrimary();
         $parser->match(Lexer::T_COMMA);
         $this->lng1 = $parser->StringPrimary();
         $parser->match(Lexer::T_COMMA);
-        $this->coordinate2 = new Coordinates();
         $this->lat2 = $parser->StringPrimary();
         $parser->match(Lexer::T_COMMA);
         $this->lng2 = $parser->StringPrimary();

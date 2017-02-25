@@ -1,0 +1,23 @@
+<?= $this->translate('You have created search request with params') ?>:
+<table>
+    <tr>
+        <th><?= $this->translate('Name') ?></th>
+        <th><?= $this->translate('Value') ?></th>
+    </tr>
+    <?php foreach ($this->searchRequest->getParams() as $name => $param) : ?>
+        <?php if (false === empty($param)) : ?>
+            <tr>
+                <td><?= $name ?></td>
+                <td><?= var_export($param, true) ?></td>
+            </tr>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</table>
+<hr>
+<?= $this->translate('Just created employee') ?>:
+<ul>
+<?php foreach ($this->employees as $employee) : ?>
+    <?php /** @var \Application\Model\Employee $employee */ ?>
+    <li><a href="<?= $this->url('show-employee', ['hash' => $employee->getHash()], ['force_canonical' => true]) ?>"><?= $employee->getName() ?>&nbsp;<?= $employee->getSurname() ?></a></li>
+<?php endforeach; ?>
+</ul>
