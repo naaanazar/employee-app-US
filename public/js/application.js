@@ -342,9 +342,9 @@ console.log(id);
 }
 
 /**
- * load image
+ * Show image in form employee
+ * @param input
  */
-
 function readURL(input) {
 
     if (input.files && input.files[0]) {
@@ -358,10 +358,16 @@ function readURL(input) {
     }
 }
 
+/**
+ * Event Show image in form employee
+ */
 jQuery("#avatar_field").change(function(){
     readURL(this);
 });
 
+/**
+ * Show files list selected files in form employee
+ */
 $("#attachments-input").change(function(){
     var files = jQuery("#attachments-input")[0].files;
     var html = '';
