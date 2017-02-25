@@ -8,7 +8,6 @@ use Zend\View\Model\JsonModel;
 /**
  * Class ConfigureActions
  * @package Application\Back\Controller\Helper
- * @method \Zend\Mvc\Controller\Plugin\Url url()
  */
 class ConfigureActions
 {
@@ -29,22 +28,19 @@ class ConfigureActions
                 ]
             );
 
-        if ($field) {
+        if ($field !== null) {
 
-            if ($field !== null) {
+            Module::entityManager()->remove($field);
+            Module::entityManager()->flush();
 
-                Module::entityManager()->remove($field);
-                Module::entityManager()->flush();
-
-                $result->setVariables(
-                    [
-                        'result' => true
-                    ]
-                );
-            }
-
-            return $result;
+            $result->setVariables(
+                [
+                    'result' => true
+                ]
+            );
         }
+
+        return $result;
     }
 
     /**
@@ -55,11 +51,11 @@ class ConfigureActions
      * @param null $intIndex
      * @return JsonModel
      */
-    public function store($data, $model, $redirect, $method,  $intIndex = null){
+    public function store($data, $model, $redirect, $method,  $cooficient = null){
 
         $json = new JsonModel();
 
-        if (isset($data['id'])){
+        if (true === isset($data['id'])){
             $model = Module::entityManager()
                 ->getRepository($model)
                 ->findOneBy(
@@ -73,9 +69,9 @@ class ConfigureActions
 
         try {
             if (isset($data['id'])){
-                Module::entityManager()->merge($this->$method($model, $data, $intIndex));
+                Module::entityManager()->merge($this->$method($model, $data, $cooficient));
             } else {
-                Module::entityManager()->persist($this->$method($model, $data, $intIndex));
+                Module::entityManager()->persist($this->$method($model, $data, $cooficient));
             }
             Module::entityManager()->flush();
 
@@ -96,8 +92,8 @@ class ConfigureActions
      * @param $intIndex
      * @return mixed
      */
-    protected function setNumberConfiguration($model, $data, $intIndex){
-        $model->setIntValue($this->valueToInt($data['value'], $intIndex));
+    protected function setNumberConfiguration($model, $data, $cooficient){
+        $model->setIntValue($this->valueToInt($data['value'], $cooficient));
         $model->setValue($data['value']);
 
         return $model;
@@ -120,8 +116,8 @@ class ConfigureActions
      * @param $intIndex
      * @return mixed
      */
-    protected function valueToInt($value, $intIndex){
-        $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * $intIndex;
+    protected function valueToInt($value, $cooficient){
+        $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * $cooficient;
 
         return $intValue;
     }
@@ -134,7 +130,6 @@ class ConfigureActions
         $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $value));
 
         return $code;
-
     }
 }
 
