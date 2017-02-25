@@ -120,6 +120,31 @@
                 <?= $this->employee->getSourceApplication()->getName() ?>
             <?php endif; ?>
         </li>
+        <li class="list-group-item">
+            <?= $this->translate('Attachments') ?>
+                <?php foreach($this->files as $file) : ?>
+                    <a href="<?= $this->basePath($file->getPath()) ?>" class="a-dashboard" style="display: block" download><?= $file->getName()?></a>
+                <?php endforeach; ?>
+
+            <form action="<?= $this->url('employee', ['action' => 'add-attachments']) ?>" method="post" class="async" enctype="multipart/form-data">
+                <div class="form-group" >
+                    <label class="btn button-sign-in btn-file">
+                        <?= $this->translate('Attachments') ?> <input type="file" name="attachments[]" id="attachments-input"  class="attachments-input"  multiple style="display: none;">
+                    </label>
+
+                    <div class="upload-file-attach">
+                    </div>
+
+                        <button class="btn batton-save "><?= $this->translate('Save') ?></button>
+
+                    <div class="upload-file-attach">
+                    </div>
+
+                </div>
+            </form>
+
+        </li>
+
     </ul>
 </div>
 <hr>

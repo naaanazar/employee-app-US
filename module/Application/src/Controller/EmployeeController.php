@@ -19,6 +19,7 @@ use Application\Model\{
     SourceApplication,
     Employee as EmployeeModel
 };
+use Application\Model\File;
 use Zend\View\Model\{
     JsonModel,
     ViewModel
@@ -327,8 +328,10 @@ class EmployeeController extends AbstractController
             $view->setVariables(
                 [
                     'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
+                    'files' =>  $this->getEntityManager()->getRepository(File::class)->findBy(['employee' => $employee]),
                     'employee' => $employee,
                     'comments' => $comments
+
                 ]
             );
         }
@@ -524,5 +527,24 @@ class EmployeeController extends AbstractController
 
         return $this->notFoundAction();
     }
+
+    public function addAttachmentsAction(){
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $data = $this->getRequest()->getPost();
+
+            $employee = $this->getEntityManager()->getRepository(EmployeeModel::class)->find($data['id']);
+            $fileManager = new FileManager();
+            $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
+
+            foreach ($files as $file) {
+                $file->setEmployee($employee);
+                $this->getEntityManager()->persist($file);
+            }
+        }
+
+        return $this->notFoundAction();
+    }
+
 
 }

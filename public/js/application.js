@@ -368,7 +368,11 @@ jQuery("#avatar_field").change(function(){
 /**
  * Show files list selected files in form employee
  */
-$("#attachments-input").change(function(){
+
+console.log('2222');
+$(".attachments-input").change(function(){
+
+    console.log('2222');
     var files = jQuery("#attachments-input")[0].files;
     var html = '';
     for (var i = 0; i < files.length; i++)
