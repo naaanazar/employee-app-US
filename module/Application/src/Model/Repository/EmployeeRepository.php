@@ -91,6 +91,10 @@ class EmployeeRepository extends EntityRepository
             ->addExpression('eq', 'drivingLicence', $params['driving_license'])
             ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($params['area_around']));
 
+        if (true === isset($params['lastSearch'])) {
+            $this->addExpression('gt', 'created', $params['lastSearch']);
+        }
+
 
         if (false === empty($post['start'])) {
             $this

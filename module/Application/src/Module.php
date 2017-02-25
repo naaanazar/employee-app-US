@@ -2,8 +2,7 @@
 
 namespace Application;
 
-use Application\View\Helper\Locale;
-use Application\View\Helper\Route;
+use Application\Back\Mail\Sender;
 use Doctrine\ORM\EntityManager;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\MvcEvent;
@@ -32,6 +31,11 @@ class Module
      * @var null|EntityManager
      */
     private static $entityManager;
+
+    /**
+     * @var null|Sender
+     */
+    private static $mailSender;
 
     /**
      * @return array
@@ -63,6 +67,7 @@ class Module
     {
         $this->setTranslator($event);
         $this->setEntityManager($event);
+        $this->setMailSender($event);
     }
 
     /**
@@ -79,6 +84,14 @@ class Module
     public static function entityManager()
     {
         return static::$entityManager;
+    }
+
+    /**
+     * @return Sender|null
+     */
+    public static function getMailSender()
+    {
+        return static::$mailSender;
     }
 
     /**
@@ -106,6 +119,17 @@ class Module
             ->getApplication()
             ->getServiceManager()
             ->get('Doctrine\ORM\EntityManager');
+    }
+
+    /**
+     * @param MvcEvent $event
+     */
+    public function setMailSender(MvcEvent $event)
+    {
+        static::$mailSender = $event
+            ->getApplication()
+            ->getServiceManager()
+            ->get('mail');
     }
 
 }
