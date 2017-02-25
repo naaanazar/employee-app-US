@@ -1,0 +1,15 @@
+<table>
+    <tr>
+        <th><?= $this->translate('Name') ?></th>
+        <th><?= $this->translate('Value') ?></th>
+    </tr>
+    <?php foreach ($this->searchRequest->getParams() as $name => $param) : ?>
+        <?php if (false === empty($param)) : ?>
+            <tr>
+                <td><?= $name ?></td>
+                <td><?= var_export($param, true) ?></td>
+            </tr>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</table>
+<?= $this->render('layout/concern/employees') ?>

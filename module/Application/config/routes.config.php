@@ -75,15 +75,25 @@ return [
             ],
         ],
     ],
+    'show-search-request' => [
+        'type'    => Segment::class,
+        'options' => [
+            'route' => '/dashboard/search-request/:id[/page/:page]',
+            'defaults' => [
+                'controller' => Controller\DashboardController::class,
+                'action'     => 'show-search-request'
+            ],
+        ]
+    ],
     'dashboard' => [
         'type' => Segment::class,
         'options' => [
-            'route' => '/dashboard[/][:action][/page/:page]',
+            'route' => '/dashboard[/:action][/page/:page]',
             'defaults' => [
                 'controller' => Controller\DashboardController::class,
                 'action' => 'search',
                 'page'   => 1
             ],
         ],
-    ]
+    ],
 ];

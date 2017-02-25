@@ -146,34 +146,6 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @return array|JsonModel
-     */
-    public function searchRequestAction()
-    {
-        if (true === $this->getRequest()->isXmlHttpRequest()) {
-            $response = new JsonModel();
-
-            $searchRequest = new SearchRequest();
-            $searchRequest->setParams($this->getRequest()->getPost('params', []));
-            $searchRequest->setFound(false);
-            $searchRequest->setUser($this->getUser());
-
-            try {
-                $this->getEntityManager()->persist($searchRequest);
-                $this->getEntityManager()->flush($searchRequest);
-
-                $response->setVariable('message', 'Successfully created search request');
-            } catch (\Exception $exception) {
-                $response->setVariable('message', 'Can not save search request');
-            }
-
-            return $response;
-        }
-
-        return $this->notFoundAction();
-    }
-
-    /**
      * Overview application action
      *
      * @return ViewModel
@@ -527,7 +499,83 @@ class DashboardController extends AbstractController
             return $result;
         }
 
-       // return $this->notFoundAction();
+       return $this->notFoundAction();
+    }
+
+    /**
+     * @return array|JsonModel
+     */
+    public function searchRequestAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $response = new JsonModel();
+
+            $searchRequest = new SearchRequest();
+            $searchRequest->setParams($this->getRequest()->getPost('params', []));
+            $searchRequest->setFound(false);
+            $searchRequest->setUser($this->getUser());
+
+            try {
+                $this->getEntityManager()->persist($searchRequest);
+                $this->getEntityManager()->flush($searchRequest);
+
+                $response->setVariable('message', 'Successfully created search request');
+            } catch (\Exception $exception) {
+                $response->setVariable('message', 'Can not save search request');
+            }
+
+            return $response;
+        }
+
+        return $this->notFoundAction();
+    }
+
+    public function searchRequestsAction()
+    {
+        $paginator = new Paginator(
+            new Doctrine(SearchRequest::class, [], ['found' => 'ASC'])
+        );
+        $paginator->setCurrentPageNumber($this->params('page', 1));
+
+        return new ViewModel(
+            [
+                'paginator' => $paginator
+            ]
+        );
+    }
+
+    /**
+     * @return array|ViewModel
+     */
+    public function showSearchRequestAction()
+    {
+        $id = $this->params('id');
+        $searchRequest = $this->getEntityManager()
+            ->getRepository(SearchRequest::class)
+            ->findOneBy(
+                [
+                    'id' => $id
+                ]
+            );
+
+        if (null === $searchRequest) {
+            return $this->notFoundAction();
+        } else {
+
+            /** @var Paginator $paginator */
+            $paginator = $this->getEntityManager()
+                ->getRepository(Employee::class)
+                ->searchByParams($searchRequest->getParams(), true);
+
+            $paginator->setCurrentPageNumber($this->params('page', 1));
+
+            return new ViewModel(
+                [
+                    'searchRequest' => $searchRequest,
+                    'paginator'     => $paginator
+                ]
+            );
+        }
     }
 
 }
