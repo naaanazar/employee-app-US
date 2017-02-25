@@ -399,7 +399,6 @@ class DashboardController extends AbstractController
         return $view;
     }
 
-
     /**
      * @return JsonModel
      */
