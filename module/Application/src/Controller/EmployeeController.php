@@ -10,7 +10,10 @@ use Application\Back\{
 use Application\Model\{
     Comment, Contract, Area, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
 };
+
 use Application\Module;
+use Application\Model\File;
+
 use Zend\View\Model\{
     JsonModel,
     ViewModel
@@ -357,8 +360,10 @@ class EmployeeController extends AbstractController
             $view->setVariables(
                 [
                     'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
+                    'files' =>  $this->getEntityManager()->getRepository(File::class)->findBy(['employee' => $employee]),
                     'employee' => $employee,
                     'comments' => $comments
+
                 ]
             );
         }
@@ -550,6 +555,105 @@ class EmployeeController extends AbstractController
                         )
                 ]
             );
+        }
+
+        return $this->notFoundAction();
+    }
+
+    public function addAttachmentsAction(){
+
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost();
+            $id = $data['id'];
+
+                $employee = $this->getEntityManager()
+                    ->getRepository(EmployeeModel::class)
+                    ->findOneBy(
+                        [
+                            'id' => $id
+                        ]
+                    );
+
+
+                $fileManager = new FileManager();
+                $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
+
+
+
+                foreach ($files as $file) {
+
+                    $file->setEmployee($employee);
+                    $this->getEntityManager()->persist($file);
+                    $this->getEntityManager()->flush();
+
+                }
+
+                $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+
+                $response->setVariables(
+                    [
+                        'id'       => $id,
+                        'redirect' => $url
+                    ]
+                );
+
+
+            return $response;
+        } else {
+            return $this->notFoundAction();
+        }
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function fileRemoveAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+           /$fileManager = new FileManager();
+            $files = $fileManager->remove(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
+
+            /*Remove dir*/
+            $path_parts = pathinfo(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
+            rmdir($path_parts['dirname']);
+
+            $file = $this->getEntityManager()
+                ->getRepository(File::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($file !== null) {
+
+                $this->getEntityManager()->remove($file);
+                $this->getEntityManager()->flush();
+
+                $result->setVariables(
+                    [
+                        'p' => $f1,
+                        'result' =>  $path_parts['dirname']
+                    ]
+                );
+
+                return $result;
+            }
         }
 
         return $this->notFoundAction();

@@ -24,7 +24,7 @@ class StartDay extends Element implements InputProviderInterface
 
         $validator = new StartDate(
             [
-                'format' => 'Y-m-d',
+                'format' => 'd-m-Y',
 
             ]
         );

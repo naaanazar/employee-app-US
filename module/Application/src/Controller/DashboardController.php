@@ -35,7 +35,6 @@ use Zend\Paginator\Paginator;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Model\{JsonModel, ViewModel};
 
-
 /**
  * Class DashboardController
  * @package Application\Controller

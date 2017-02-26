@@ -127,7 +127,7 @@ jQuery('document').ready(function () {
     jQuery('#sandbox-container .input-daterange').datepicker({
         autoclose: true,
         todayHighlight: true,
-        format: 'yyyy-mm-dd'
+        format: 'dd-mm-yyyy'
     });
 
     /**
@@ -136,7 +136,7 @@ jQuery('document').ready(function () {
     jQuery("#start_day_field_picker").datepicker({
             autoclose: true,
             todayBtn: "linked",
-            format: 'yyyy-mm-dd',
+            format: 'dd-mm-yyyy',
             todayHighlight: true
         }
     )
@@ -342,9 +342,9 @@ console.log(id);
 }
 
 /**
- * load image
+ * Show image in form employee
+ * @param input
  */
-
 function readURL(input) {
 
     if (input.files && input.files[0]) {
@@ -358,11 +358,20 @@ function readURL(input) {
     }
 }
 
-jQuery("#avatar_field").change(function(){
+/**
+ * Event Show image in form employee
+ */
+jQuery(document).on('change',"#avatar_field", function(){
     readURL(this);
 });
 
-$("#attachments-input").change(function(){
+/**
+ * Show files list selected files in form employee
+ */
+
+jQuery(document).on('change', ".attachments-input", function(){
+
+
     var files = jQuery("#attachments-input")[0].files;
     var html = '';
     for (var i = 0; i < files.length; i++)
@@ -373,3 +382,25 @@ $("#attachments-input").change(function(){
     jQuery('.upload-file-attach').html(html)
 });
 
+jQuery(document).on('change', "#attachments-input-show", function(){
+    console.log('455454454');
+    $( ".async" ).submit();
+});
+
+
+jQuery(document).on('click', '.attach-delete', function (event) {
+    deleteFile(event);
+});
+
+
+/**
+ * delete file
+ * @param event
+ */
+var deleteFile = function(event){
+    var id = jQuery(event.target).closest('a').data('id');
+    var path = jQuery(event.target).closest('a').data('path');
+    jQuery.post('/employee/file-remove', {id : id, path: path}, function( data ) {
+        jQuery(event.target).closest('.file-container').remove();
+    })
+}

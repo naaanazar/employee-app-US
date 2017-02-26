@@ -156,7 +156,7 @@
                             id="start_day_field"
                             name="start_date"
                             class="form-control input-md application-input"
-                            value="<?= isset($this->employee) && $this->employee->getStartDate() !== null ? $this->employee->getStartDate()->format('Y-m-d') : '' ?>"
+                            value="<?= isset($this->employee) && $this->employee->getStartDate() !== null ? $this->employee->getStartDate()->format('d-m-Y') : '' ?>"
                     >
                     <span class="input-group-addon batton-save"><i class="glyphicon glyphicon-th"></i></span>
                 </div>
@@ -241,7 +241,7 @@
                 </label>
 
                 <label class="btn button-sign-in btn-file">
-                    <?= $this->translate('Attachments') ?> <input type="file" name="attachments[]" id="attachments-input"  class=""  multiple style="display: none;">
+                    <?= $this->translate('Attachments') ?> <input type="file" name="attachments[]" id="attachments-input"  class="attachments-input"  multiple style="display: none;">
                 </label>
             </div>
 
@@ -255,7 +255,6 @@
                 type="hidden"
                 class="form-control input-md application-input"
                 value="<?= isset($this->coordinate) ? $this->coordinate->getLatitude() : '' ?>"
-
             >
             <input
                 id="longitude"
