@@ -482,6 +482,44 @@ class DashboardController extends AbstractController
     }
 
     /**
+     * @return array|JsonModel
+     */
+    public function searchRequestsSetFoundAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $response = new JsonModel();
+            $id = $this->getRequest()->getPost('id');
+
+            $searchRequest = $comment = $this->getEntityManager()
+                ->getRepository(SearchRequest::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            $searchRequest->setFound($this->getRequest()->getPost('found'));
+            $this->getEntityManager()->merge($searchRequest);
+            $this->getEntityManager()->flush($searchRequest);
+
+            $url = $this->url()->fromRoute('dashboard', ['action' => 'search-requests']);;
+
+            $response->setVariables(
+                [
+                    'redirect' => $url
+                ]
+            );
+
+            return $response;
+        }
+
+        return $this->notFoundAction();
+    }
+
+
+
+    /**
      * @return array|ViewModel
      */
     public function showSearchRequestAction()

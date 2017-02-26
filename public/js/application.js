@@ -404,3 +404,20 @@ var deleteFile = function(event){
         jQuery(event.target).closest('.file-container').remove();
     })
 }
+
+jQuery(document).on('click', '.disable-mail', function (event) {
+    event.defaultPrevented = true;
+    var id = jQuery(event.target).closest('a').data('id');
+    jQuery.post('/dashboard/search-requests-set-found', {id : id, found: 1}, function( data ) {
+        Validate.redirect(data.redirect);
+    })
+});
+
+jQuery(document).on('click', '.enable-mail', function (event) {
+    event.defaultPrevented = true;
+    var id = jQuery(event.target).closest('a').data('id');
+    jQuery.post('/dashboard/search-requests-set-found', {id : id, found: 0}, function( data ) {
+        Validate.redirect(data.redirect);
+    })
+});
+

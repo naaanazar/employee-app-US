@@ -560,9 +560,12 @@ class EmployeeController extends AbstractController
         return $this->notFoundAction();
     }
 
-    public function addAttachmentsAction(){
-
-
+    /**
+     * Add attachments in employee info
+     * @return array|JsonModel
+     */
+    public function addAttachmentsAction()
+    {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
 
             $response = new JsonModel();
@@ -585,18 +588,14 @@ class EmployeeController extends AbstractController
                         ]
                     );
 
-
                 $fileManager = new FileManager();
                 $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
-
-
 
                 foreach ($files as $file) {
 
                     $file->setEmployee($employee);
                     $this->getEntityManager()->persist($file);
                     $this->getEntityManager()->flush();
-
                 }
 
                 $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
@@ -608,9 +607,10 @@ class EmployeeController extends AbstractController
                     ]
                 );
 
-
             return $response;
+
         } else {
+
             return $this->notFoundAction();
         }
     }
@@ -641,7 +641,6 @@ class EmployeeController extends AbstractController
                 );
 
             if ($file !== null) {
-
                 $this->getEntityManager()->remove($file);
                 $this->getEntityManager()->flush();
 
