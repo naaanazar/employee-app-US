@@ -625,8 +625,8 @@ class EmployeeController extends AbstractController
 
             $result = new JsonModel();
 
-           /$fileManager = new FileManager();
-            $files = $fileManager->remove(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
+            $fileManager = new FileManager();
+            $fileRm = $fileManager->remove(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
 
             /*Remove dir*/
             $path_parts = pathinfo(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
@@ -647,8 +647,7 @@ class EmployeeController extends AbstractController
 
                 $result->setVariables(
                     [
-                        'p' => $f1,
-                        'result' =>  $path_parts['dirname']
+                        'result' =>  $fileRm
                     ]
                 );
 
