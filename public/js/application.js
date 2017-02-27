@@ -12,8 +12,22 @@ jQuery(document).on('submit', 'form.async', function (event) {
 
 jQuery(document).on('submit', 'form.create-employee', function (event) {
 
-    promise = jQuery.Deferred();
-    CheckCoords();
+    var promise = jQuery.Deferred();
+
+    if ('' === jQuery('#latitude').val() || '' === jQuery('#longitude').val()) {
+        Address.setAddress();
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': Address.fullAddress}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                document.getElementById('latitude').value = results[0].geometry.location.lat();
+                document.getElementById('longitude').value = results[0].geometry.location.lng();
+                promise.resolve('ok');
+            }
+        });
+
+    }
+
     jQuery.when(promise).then(
         function () {
             ajaxFormSubmit(event);
@@ -160,23 +174,6 @@ jQuery('document').ready(function () {
         }
     )
 });
-
-var CheckCoords = function() {
-
-    if ('' === jQuery('#latitude').val() || '' === jQuery('#longitude').val()) {
-        Address.setAddress();
-
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({'address': Address.fullAddress}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                document.getElementById('latitude').value = results[0].geometry.location.lat();
-                document.getElementById('longitude').value = results[0].geometry.location.lng();
-                promise.resolve('ok');
-            }
-        });
-
-    }
-};
 
 /**
  * @type {{showErrorsMassages: Validate.showErrorsMassages, redirect: Validate.redirect}}
