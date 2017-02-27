@@ -1,0 +1,5 @@
+<?php if ($this->paginator->count() === 0) : ?>
+    <div class="text-center">
+        <button class="btn btn-primary create-search-request" data-action="<?= $this->url('dashboard', ['action' => 'search-request']) ?>"><?= $this->translate('Create search request') ?></button>
+    </div>
+<?php endif; ?>

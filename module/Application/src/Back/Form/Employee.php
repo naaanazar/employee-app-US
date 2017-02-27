@@ -24,6 +24,7 @@ use Zend\Filter\File\RenameUpload;
 use Zend\Form\Element\Email;
 use Zend\Form\Element\File;
 use Zend\Form\Element\Text;
+use Zend\Form\Element\Number;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
@@ -150,8 +151,9 @@ class Employee extends Form
 
         $this->add(
             [
-                'type' => Text::class,
-                'name' => 'hourly_rate'
+                'type' => Number::class,
+                'name' => 'hourly_rate',
+                'step' => 0.1
             ]
         );
 

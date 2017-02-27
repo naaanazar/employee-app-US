@@ -10,7 +10,10 @@ use Application\Back\{
 use Application\Model\{
     Comment, Contract, Area, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
 };
+
 use Application\Module;
+use Application\Model\File;
+
 use Zend\View\Model\{
     JsonModel,
     ViewModel
@@ -29,7 +32,7 @@ class EmployeeController extends AbstractController
      */
     public function init()
     {
-        $this->restrictNonLoggedIn();
+//        $this->restrictNonLoggedIn();
     }
 
     /**
@@ -39,7 +42,7 @@ class EmployeeController extends AbstractController
      */
     public function indexAction()
     {
-        if ($this->getUser()->getRole() === User::ROLE_USER) {
+        if ($this->getUser() !== null && $this->getUser()->getRole() === User::ROLE_USER) {
 
             /** @var EmployeeModel $employee */
             $employee = $this->getEntityManager()
@@ -62,9 +65,12 @@ class EmployeeController extends AbstractController
 
         $view = new ViewModel();
 
+        if ($this->getUser() !== null) {
+            $view->setVariable('role', $this->getUser()->getRole());
+        }
+
         $view->setVariables(
             [
-                'role'        => $this->getUser()->getRole(),
                 'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
                 'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
@@ -76,11 +82,20 @@ class EmployeeController extends AbstractController
     }
 
     /**
+     * Information action
+     */
+    public function informationAction()
+    {
+    }
+
+    /**
      * @return ViewModel
      */
     public function editAction()
     {
-        $data  = $this->getRequest()->getPost();
+        if($this->getRequest()->getPost('id')) {
+            $data = $this->getRequest()->getPost();
+
             /** @var EmployeeModel $employee */
             $employee = $this->getEntityManager()
                 ->getRepository(EmployeeModel::class)
@@ -91,32 +106,35 @@ class EmployeeController extends AbstractController
                 );
 
             $coordinate = $this->getEntityManager()
-            ->getRepository(Coordinates::class)
-            ->findOneBy(
+                ->getRepository(Coordinates::class)
+                ->findOneBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
+
+            $view = new ViewModel();
+
+            $view->setVariables(
                 [
-                    'employee' => $employee
+                    'role' => $this->getUser()->getRole(),
+                    'sources' => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
+                    'coordinate' => $coordinate,
+                    'contracts' => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                    'areas' => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                    'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                    'employee' => $employee,
+                    'action' => 'edit',
+                    'id' => $employee->getId()
                 ]
             );
 
-        $view = new ViewModel();
+            $view->setTemplate('application/employee/index');
 
-        $view->setVariables(
-            [
-                'role'        => $this->getUser()->getRole(),
-                'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
-                'coordinate'  => $coordinate,
-                'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
-                'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
-                'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
-                'employee'    => $employee,
-                'action'      => 'edit',
-                'id'          => $employee->getId()
-            ]
-        );
+            return $view;
+        }
 
-        $view->setTemplate('application/employee/index');
-
-        return $view;
+        return $this->notFoundAction();
     }
 
     /**
@@ -229,6 +247,30 @@ class EmployeeController extends AbstractController
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
+                } else {
+                    $user = new User();
+                    $user->setEmail($employee->getEmail());
+                    $user->setName(implode(' ', [$employee->getSurname(), $employee->getName()]));
+                    $user->setRole(User::ROLE_USER);
+
+                    $password = substr(hash('sha512',rand()),0,12);
+                    $user->setPassword(User::hashPassword($password));
+
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush($user);
+
+                    $employee->setUser($user);
+
+                    Module::getMailSender()
+                        ->sendMail(
+                            Module::translator()->translate('Login details'),
+                            $user->getEmail(),
+                            'employee/login-details',
+                            [
+                                'email'    => $user->getEmail(),
+                                'password' => $password
+                            ]
+                        );
                 }
 
                 $this->getEntityManager()->persist($employee);
@@ -267,7 +309,11 @@ class EmployeeController extends AbstractController
 
                 if (true === $employee instanceof EmployeeModel) {
 
-                    $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+                    if (null !== $this->getUser()) {
+                        $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+                    } else {
+                        $url = $this->url()->fromRoute('employee', ['action' => 'information']);
+                    }
 
                     $response->setVariables(
                         [
@@ -352,8 +398,10 @@ class EmployeeController extends AbstractController
             $view->setVariables(
                 [
                     'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
+                    'files' =>  $this->getEntityManager()->getRepository(File::class)->findBy(['employee' => $employee]),
                     'employee' => $employee,
                     'comments' => $comments
+
                 ]
             );
         }
@@ -471,6 +519,7 @@ class EmployeeController extends AbstractController
 
             if ($comment !== null) {
 
+
                 $this->getEntityManager()->remove($comment);
                 $this->getEntityManager()->flush();
 
@@ -544,6 +593,103 @@ class EmployeeController extends AbstractController
                         )
                 ]
             );
+        }
+
+        return $this->notFoundAction();
+    }
+
+    /**
+     * Add attachments in employee info
+     * @return array|JsonModel
+     */
+    public function addAttachmentsAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost();
+            $id = $data['id'];
+
+                $employee = $this->getEntityManager()
+                    ->getRepository(EmployeeModel::class)
+                    ->findOneBy(
+                        [
+                            'id' => $id
+                        ]
+                    );
+
+                $fileManager = new FileManager();
+                $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
+
+                foreach ($files as $file) {
+
+                    $file->setEmployee($employee);
+                    $this->getEntityManager()->persist($file);
+                    $this->getEntityManager()->flush();
+                }
+
+                $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+
+                $response->setVariables(
+                    [
+                        'id'       => $id,
+                        'redirect' => $url
+                    ]
+                );
+
+            return $response;
+
+        } else {
+
+            return $this->notFoundAction();
+        }
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function fileRemoveAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $fileManager = new FileManager();
+            $fileRm = $fileManager->remove(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
+
+            /*Remove dir*/
+            $path_parts = pathinfo(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
+            rmdir($path_parts['dirname']);
+
+            $file = $this->getEntityManager()
+                ->getRepository(File::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($file !== null) {
+                $this->getEntityManager()->remove($file);
+                $this->getEntityManager()->flush();
+
+                $result->setVariables(
+                    [
+                        'result' =>  $fileRm
+                    ]
+                );
+
+                return $result;
+            }
         }
 
         return $this->notFoundAction();
