@@ -391,7 +391,6 @@ jQuery(document).on('click', '.attach-delete', function (event) {
     deleteFile(event);
 });
 
-
 /**
  * delete file
  * @param event
@@ -403,7 +402,6 @@ var deleteFile = function(event){
         jQuery(event.target).closest('.file-container').remove();
     })
 }
-
 
 /**
  * set found in search reuest
