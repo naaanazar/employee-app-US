@@ -1,13 +1,32 @@
 var ModalAction;
+
+var promise = jQuery.Deferred();
+
 /**
  * Submit form with ajax
  */
 jQuery(document).on('submit', 'form.async', function (event) {
+    ajaxFormSubmit(event);
+    return false;
+});
+
+jQuery(document).on('submit', 'form.create-employee', function (event) {
+
+    promise = jQuery.Deferred();
+    CheckCoords();
+    jQuery.when(promise).then(
+        function () {
+            ajaxFormSubmit(event);
+        }
+    );
+    return false;
+});
+
+var ajaxFormSubmit = function (event) {
     event.defaultPrevented = true;
 
-    CheckCoords();
+    var form  = jQuery(event.target);
 
-    var form           = jQuery(this);
     var formData       = new FormData;
     var serializedForm = form.serializeArray();
 
@@ -42,9 +61,7 @@ jQuery(document).on('submit', 'form.async', function (event) {
             }
         }
     );
-
-    return false;
-});
+};
 
 /**
  * Event of language change
@@ -154,6 +171,7 @@ var CheckCoords = function() {
             if (status == google.maps.GeocoderStatus.OK) {
                 document.getElementById('latitude').value = results[0].geometry.location.lat();
                 document.getElementById('longitude').value = results[0].geometry.location.lng();
+                promise.resolve('ok');
             }
         });
 
