@@ -1,0 +1,43 @@
+<?php if ($this->paginator->count() === 0) : ?>
+    <div class="text-center text-muted">
+        <h3><?= $this->translate('Nothing where found') ?></h3>
+        <div class="text-center">
+            <button class="btn btn-primary create-search-request" data-action="<?= $this->url('dashboard', ['action' => 'search-request']) ?>"><?= $this->translate('Create search request') ?></button>
+        </div>
+    </div>
+<?php else :?>
+
+    <table class="table" id="search_request_table">
+        <thead>
+        <tr>
+            <th data-column-name="id">#</th>
+            <th><?= $this->translate('Last searching') ?></th>
+            <th><?= $this->translate('Send result to Mail') ?></th>
+            <th><?= $this->translate('Actions') ?></th>
+        </tr>
+        </thead>
+        <?php foreach ($this->paginator as $request) : ?>
+
+            <tr>
+                <?php /** @var \Application\Model\SearchRequest $request */ ?>
+                <td><?= $request->getId() ?></td>
+                <td>
+                    <a href="<?= $this->url('show-search-request', ['id' => $request->getId()]) ?>">
+                        <?= $request->getLastSearch()->format('D, d M y H:i:s O') ?>
+                    </a>
+                </td>
+                <td><?= $this->translate((false === $request->isFound()) ? 'Yes' : 'No')  ?></td>
+                <td>
+                    <?php if ($request->isFound()) : ?>
+                        <a  href="#" class="enable-mail" data-id="<?= $request->getId() ?>"><?= $this->translate('Enable mail') ?></a>
+                    <?php else : ?>
+                        <a  href="#" class="disable-mail" data-id="<?= $request->getId() ?>"><?= $this->translate('Disable mail') ?></a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+<div class="text-right">
+    <?= $this->render('layout/helper/pagination') ?>
+</div>

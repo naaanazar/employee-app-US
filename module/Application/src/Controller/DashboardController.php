@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Back\Controller\Helper\ConfigureActions;
 use Application\Back\Form\Search\Dashboard\{
     Overview,
     Statistic,
@@ -104,6 +105,14 @@ class DashboardController extends AbstractController
                     ]
                 );
 
+            $viewHtml .= $this->getRenderer()
+                ->render(
+                    'layout/concern/search-request-create-button',
+                    [
+                        'paginator' => $paginator
+                    ]
+                );
+
             $coordinates = array_map(
                 function ($coordinate) {
                     /** @var Coordinates $coordinate */
@@ -146,34 +155,6 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * @return array|JsonModel
-     */
-    public function searchRequestAction()
-    {
-        if (true === $this->getRequest()->isXmlHttpRequest()) {
-            $response = new JsonModel();
-
-            $searchRequest = new SearchRequest();
-            $searchRequest->setParams($this->getRequest()->getPost('params', []));
-            $searchRequest->setFound(false);
-            $searchRequest->setUser($this->getUser());
-
-            try {
-                $this->getEntityManager()->persist($searchRequest);
-                $this->getEntityManager()->flush($searchRequest);
-
-                $response->setVariable('message', 'Successfully created search request');
-            } catch (\Exception $exception) {
-                $response->setVariable('message', 'Can not save search request');
-            }
-
-            return $response;
-        }
-
-        return $this->notFoundAction();
-    }
-
-    /**
      * Overview application action
      *
      * @return ViewModel
@@ -189,7 +170,6 @@ class DashboardController extends AbstractController
                 'fields'        => $this->getRequest()->getPost()
             ]
         );
-
     }
 
     /**
@@ -201,32 +181,14 @@ class DashboardController extends AbstractController
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
-            && null !== $this->getRequest()->getPost('area_value')
+            || (null !== $this->getRequest()->getPost('value' || null !== $this->getRequest()->getPost('id')))
         ){
-            $value = $this->getRequest()->getPost('area_value');
-            $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * 1000;
+            $redirect = $this->url()->fromRoute('dashboard', ['action' => 'areas']);
 
-            $json = new JsonModel();
-            $area = new Area();
-            $area->setIntValue($intValue);
-            $area->setValue($value);
-
-            try {
-                $this->getEntityManager()->persist($area);
-                $this->getEntityManager()->flush();
-
-                $json->setVariable(
-                    'redirect',
-                    $this->url()->fromRoute('dashboard', ['action' => 'areas']));
-            } catch (ORMInvalidArgumentException $exception) {
-                $json->setVariable('message', 'Invalid data to save area around');
-            } catch (OptimisticLockException $exception) {
-                $json->setVariable('message', 'Can not save area around to database');
-            }
-
-            return $json;
+            return  (new ConfigureActions)->store($this->getRequest()->getPost(), Area::class, $redirect, 'setNumberConfiguration', 1000);
 
         } else {
+
             $search = new Areas($post = $this->getRequest()->getPost());
 
             return new ViewModel(
@@ -297,30 +259,11 @@ class DashboardController extends AbstractController
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
-            && null !== $this->getRequest()->getPost('name')
+            || (null !== $this->getRequest()->getPost('value' || null !== $this->getRequest()->getPost('id')))
         ){
-            $name = $this->getRequest()->getPost('name');
-            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+            $redirect = $this->url()->fromRoute('dashboard', ['action' => 'contract']);
 
-            $json = new JsonModel();
-            $contract = new Contract();
-            $contract->setName($name);
-            $contract->setCode($code);
-
-            try {
-                $this->getEntityManager()->persist($contract);
-                $this->getEntityManager()->flush();
-
-                $json->setVariable(
-                    'redirect',
-                    $this->url()->fromRoute('dashboard', ['action' => 'contract']));
-            } catch (ORMInvalidArgumentException $exception) {
-                $json->setVariable('message', 'Invalid data to save contract type');
-            } catch (OptimisticLockException $exception) {
-                $json->setVariable('message', 'Can not save contract type to database');
-            }
-
-            return $json;
+            return  (new ConfigureActions)->store($this->getRequest()->getPost(), Contract::class, $redirect, 'setTextConfiguration');
 
         } else {
             $search = new ContractBack($post = $this->getRequest()->getPost());
@@ -342,30 +285,11 @@ class DashboardController extends AbstractController
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
-            && null !== $this->getRequest()->getPost('name')
+            || (null !== $this->getRequest()->getPost('value' || null !== $this->getRequest()->getPost('id')))
         ){
-            $name = $this->getRequest()->getPost('name');
-            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+            $redirect = $this->url()->fromRoute('dashboard', ['action' => 'source-application']);
 
-            $json = new JsonModel();
-            $source = new SourceApplicationModel();
-            $source->setName($name);
-            $source->setCode($code);
-
-            try {
-                $this->getEntityManager()->persist($source);
-                $this->getEntityManager()->flush();
-
-                $json->setVariable(
-                    'redirect',
-                    $this->url()->fromRoute('dashboard', ['action' => 'source-application']));
-            } catch (ORMInvalidArgumentException $exception) {
-                $json->setVariable('message', 'Invalid data to save source application');
-            } catch (OptimisticLockException $exception) {
-                $json->setVariable('message', 'Can not save source application to database');
-            }
-
-            return $json;
+            return  (new ConfigureActions)->store($this->getRequest()->getPost(), SourceApplicationModel::class, $redirect, 'setTextConfiguration');
 
         } else {
             $search = new SourceApplication($post = $this->getRequest()->getPost());
@@ -387,30 +311,11 @@ class DashboardController extends AbstractController
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
-            && null !== $this->getRequest()->getPost('name')
+            || (null !== $this->getRequest()->getPost('value' || null !== $this->getRequest()->getPost('id')))
         ){
-            $name = $this->getRequest()->getPost('name');
-            $code  = str_replace(" ", "-", preg_replace('/\s\s+/', ' ', $name));
+            $redirect = $this->url()->fromRoute('dashboard', ['action' => 'reason-removal']);
 
-            $json = new JsonModel();
-            $source = new ReasonRemovalModel();
-            $source->setName($name);
-            $source->setCode($code);
-
-            try {
-                $this->getEntityManager()->persist($source);
-                $this->getEntityManager()->flush();
-
-                $json->setVariable(
-                    'redirect',
-                    $this->url()->fromRoute('dashboard', ['action' => 'reason-removal']));
-            } catch (ORMInvalidArgumentException $exception) {
-                $json->setVariable('message', 'Invalid data to save why delete');
-            } catch (OptimisticLockException $exception) {
-                $json->setVariable('message', 'Can not save why delete to database');
-            }
-
-            return $json;
+            return  (new ConfigureActions)->store($this->getRequest()->getPost(), ReasonRemovalModel::class, $redirect, 'setTextConfiguration');
 
         } else {
             $search = new ReasonRemoval($post = $this->getRequest()->getPost());
@@ -432,30 +337,11 @@ class DashboardController extends AbstractController
     {
         if (true === $this->getRequest()->isPost()
             && true === $this->getRequest()->isXmlHttpRequest()
-            && null !== $this->getRequest()->getPost('value')
+            || (null !== $this->getRequest()->getPost('value' || null !== $this->getRequest()->getPost('id')))
         ){
-            $value = $this->getRequest()->getPost('value');
-            $intValue = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$value) * 3600;
+            $redirect = $this->url()->fromRoute('dashboard', ['action' => 'weekly-hours']);
 
-            $json = new JsonModel();
-            $WH = new WeeklyHours();
-            $WH->setIntValue($intValue);
-            $WH->setValue($value);
-
-            try {
-                $this->getEntityManager()->persist($WH);
-                $this->getEntityManager()->flush();
-
-                $json->setVariable(
-                    'redirect',
-                    $this->url()->fromRoute('dashboard', ['action' => 'weekly-hours']));
-            } catch (ORMInvalidArgumentException $exception) {
-                $json->setVariable('message', 'Invalid data to save weekly-hours');
-            } catch (OptimisticLockException $exception) {
-                $json->setVariable('message', 'Can not save weekly-hours to database');
-            }
-
-            return $json;
+            return  (new ConfigureActions)->store($this->getRequest()->getPost(), WeeklyHours::class, $redirect, 'setNumberConfiguration', 3600);
 
         } else {
             $search = new WeeklyHoursBack($post = $this->getRequest()->getPost());
@@ -492,42 +378,196 @@ class DashboardController extends AbstractController
         return $view;
     }
 
+    /**
+     * @return JsonModel
+     */
+    public function AreaDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(Area::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
 
     /**
      * @return JsonModel
      */
-    public function configureDeleteAction()
+    public function ContractDeleteAction()
     {
+
         if (true === $this->getRequest()->isXmlHttpRequest()) {
             $id = $this->getRequest()->getPost('id');
 
-            $result = new JsonModel();
+            return  (new ConfigureActions)->detete(Contract::class, $id);
+        }
 
-            $field = $this->getEntityManager()
-                ->getRepository(Area::class)
+        return $this->notFoundAction();
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function ReasonRemovalDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(\Application\Model\ReasonRemoval::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function SourceApplicationDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(\Application\Model\SourceApplication::class, $id);
+        }
+
+       return $this->notFoundAction();
+    }
+
+    /**
+     * @return array|JsonModel
+     */
+    public function searchRequestAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $response = new JsonModel();
+
+            $searchRequest = new SearchRequest();
+            $searchRequest->setParams($this->getRequest()->getPost('params', []));
+            $searchRequest->setFound(false);
+            $searchRequest->setUser($this->getUser());
+            $searchRequest->setLastSearch(new \DateTime());
+
+            try {
+                $this->getEntityManager()->persist($searchRequest);
+                $this->getEntityManager()->flush($searchRequest);
+
+                $response->setVariable('message', 'Successfully created search request');
+            } catch (\Exception $exception) {
+                $response->setVariable('message', 'Can not save search request');
+            }
+
+            return $response;
+        }
+
+        return $this->notFoundAction();
+    }
+
+    public function searchRequestsAction()
+    {
+        $paginator = new Paginator(
+            new Doctrine(SearchRequest::class, [], ['found' => 'ASC'])
+        );
+        $paginator->setCurrentPageNumber($this->params('page', 1));
+
+        return new ViewModel(
+            [
+                'paginator' => $paginator
+            ]
+        );
+    }
+
+    /**
+     * @return array|JsonModel
+     */
+    public function searchRequestsSetFoundAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $response = new JsonModel();
+            $id = $this->getRequest()->getPost('id');
+
+            $searchRequest = $comment = $this->getEntityManager()
+                ->getRepository(SearchRequest::class)
                 ->findOneBy(
                     [
                         'id' => $id
                     ]
                 );
 
-            if ($field !== null) {
+            $searchRequest->setFound($this->getRequest()->getPost('found'));
+            $this->getEntityManager()->merge($searchRequest);
+            $this->getEntityManager()->flush($searchRequest);
 
-                $this->getEntityManager()->remove($field);
-                $this->getEntityManager()->flush();
+            $url = $this->url()->fromRoute('dashboard', ['action' => 'search-requests']);;
 
-                $result->setVariables(
-                    [
-                        'result' => true
-                    ]
-                );
+            $response->setVariables(
+                [
+                    'redirect' => $url
+                ]
+            );
 
-            }
-
-            return $result;
+            return $response;
         }
 
-       // return $this->notFoundAction();
+        return $this->notFoundAction();
     }
+
+
+
+    /**
+     * @return array|ViewModel
+     */
+    public function showSearchRequestAction()
+    {
+        $id = $this->params('id');
+        $searchRequest = $this->getEntityManager()
+            ->getRepository(SearchRequest::class)
+            ->findOneBy(
+                [
+                    'id' => $id
+                ]
+            );
+
+        if (null === $searchRequest) {
+            return $this->notFoundAction();
+        } else {
+
+            /** @var Paginator $paginator */
+            $paginator = $this->getEntityManager()
+                ->getRepository(Employee::class)
+                ->searchByParams($searchRequest->getParams(), true);
+
+            $paginator->setCurrentPageNumber($this->params('page', 1));
+
+            return new ViewModel(
+                [
+                    'searchRequest' => $searchRequest,
+                    'paginator'     => $paginator
+                ]
+            );
+        }
+
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function WeeklyHoursDeleteAction()
+    {
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            return  (new ConfigureActions)->detete(\Application\Model\WeeklyHours::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
+
 
 }
