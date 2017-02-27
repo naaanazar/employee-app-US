@@ -35,8 +35,8 @@ class Employee extends ArraySerializable
     private $city;
 
     /**
-     * @var int
-     * @ORM\Column(length=10, type="integer",  nullable=true)
+     * @var string
+     * @ORM\Column(length=255, type="string", nullable=true)
      */
     private $zip;
 
@@ -220,7 +220,7 @@ class Employee extends ArraySerializable
     }
 
     /**
-     * @return int
+     * @return string/null
      */
     public function getZip()
     {

@@ -1,11 +1,46 @@
 var ModalAction;
+
+var promise = jQuery.Deferred();
+
 /**
  * Submit form with ajax
  */
 jQuery(document).on('submit', 'form.async', function (event) {
+    ajaxFormSubmit(event);
+    return false;
+});
+
+jQuery(document).on('submit', 'form.create-employee', function (event) {
+
+    var promise = jQuery.Deferred();
+
+    if ('' === jQuery('#latitude').val() || '' === jQuery('#longitude').val()) {
+        Address.setAddress();
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': Address.fullAddress}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                document.getElementById('latitude').value = results[0].geometry.location.lat();
+                document.getElementById('longitude').value = results[0].geometry.location.lng();
+                promise.resolve('ok');
+            }
+        });
+
+    }
+
+    jQuery.when(promise).then(
+        function () {
+            ajaxFormSubmit(event);
+        }
+    );
+    return false;
+});
+
+var ajaxFormSubmit = function (event) {
     event.defaultPrevented = true;
 
-    var form           = jQuery(this);
+    var form  = jQuery(event.target);
+
     var formData       = new FormData;
     var serializedForm = form.serializeArray();
 
@@ -40,9 +75,7 @@ jQuery(document).on('submit', 'form.async', function (event) {
             }
         }
     );
-
-    return false;
-});
+};
 
 /**
  * Event of language change

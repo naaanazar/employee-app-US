@@ -1,6 +1,7 @@
 'use strict';
 
 var GoogleMap;
+var Address;
 
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgpnt3A8evQvsgg&libraries=geometry'], function() {
 
@@ -105,7 +106,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
      *
      * @type {{fullAddress: string, marker: null, maps: null, finfCoords: Function, findAddress: Function, setAddress: Function}}
      */
-    var Address = {
+     Address = {
         mustache: null,
         fullAddress: '',
         marker: null,
@@ -148,7 +149,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     }
 
                     if (jQuery('input').is('#address_field')) {
-                        document.getElementById('zip_field').value = city[0];
+                        document.getElementById('zip_field').value = '0' + city[0];
                     }
 
                 }
