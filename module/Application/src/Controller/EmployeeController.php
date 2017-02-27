@@ -29,7 +29,7 @@ class EmployeeController extends AbstractController
      */
     public function init()
     {
-        $this->restrictNonLoggedIn();
+//        $this->restrictNonLoggedIn();
     }
 
     /**
@@ -39,7 +39,7 @@ class EmployeeController extends AbstractController
      */
     public function indexAction()
     {
-        if ($this->getUser()->getRole() === User::ROLE_USER) {
+        if ($this->getUser() !== null && $this->getUser()->getRole() === User::ROLE_USER) {
 
             /** @var EmployeeModel $employee */
             $employee = $this->getEntityManager()
@@ -62,9 +62,12 @@ class EmployeeController extends AbstractController
 
         $view = new ViewModel();
 
+        if ($this->getUser() !== null) {
+            $view->setVariable('role', $this->getUser()->getRole());
+        }
+
         $view->setVariables(
             [
-                'role'        => $this->getUser()->getRole(),
                 'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
                 'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
                 'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
@@ -73,6 +76,13 @@ class EmployeeController extends AbstractController
         );
 
         return $view;
+    }
+
+    /**
+     * Information action
+     */
+    public function informationAction()
+    {
     }
 
     /**
@@ -229,6 +239,30 @@ class EmployeeController extends AbstractController
 
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
+                } else {
+                    $user = new User();
+                    $user->setEmail($employee->getEmail());
+                    $user->setName(implode(' ', [$employee->getSurname(), $employee->getName()]));
+                    $user->setRole(User::ROLE_USER);
+
+                    $password = substr(hash('sha512',rand()),0,12);
+                    $user->setPassword(User::hashPassword($password));
+
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush($user);
+
+                    $employee->setUser($user);
+
+                    Module::getMailSender()
+                        ->sendMail(
+                            Module::translator()->translate('Login details'),
+                            $user->getEmail(),
+                            'employee/login-details',
+                            [
+                                'email'    => $user->getEmail(),
+                                'password' => $password
+                            ]
+                        );
                 }
 
                 $this->getEntityManager()->persist($employee);
@@ -267,7 +301,11 @@ class EmployeeController extends AbstractController
 
                 if (true === $employee instanceof EmployeeModel) {
 
-                    $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+                    if (null !== $this->getUser()) {
+                        $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+                    } else {
+                        $url = $this->url()->fromRoute('employee', ['action' => 'information']);
+                    }
 
                     $response->setVariables(
                         [

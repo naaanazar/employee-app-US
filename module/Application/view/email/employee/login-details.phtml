@@ -1,0 +1,5 @@
+<h2><?= $this->translate('Your login details') ?>:</h2>
+<h4><?= $this->translate('Login into website with details') ?></h4>
+<h4><?= $this->translate('Link') ?>:<a href="<?= $this->url('user', ['action' => 'login'], ['force_canonical' => true]) ?>"><?= $this->url('user', ['action' => 'login'], ['force_canonical' => true]) ?></a></h4>
+<h4><?= $this->translate('Email') ?>:&nbsp;<?= $this->email ?></h4>
+<h4><?= $this->translate('Password') ?>:&nbsp;<?= $this->password ?></h4>
