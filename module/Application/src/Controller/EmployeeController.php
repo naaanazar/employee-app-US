@@ -10,7 +10,10 @@ use Application\Back\{
 use Application\Model\{
     Comment, Contract, Area, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
 };
+
 use Application\Module;
+use Application\Model\File;
+
 use Zend\View\Model\{
     JsonModel,
     ViewModel
@@ -90,7 +93,9 @@ class EmployeeController extends AbstractController
      */
     public function editAction()
     {
-        $data  = $this->getRequest()->getPost();
+        if($this->getRequest()->getPost('id')) {
+            $data = $this->getRequest()->getPost();
+
             /** @var EmployeeModel $employee */
             $employee = $this->getEntityManager()
                 ->getRepository(EmployeeModel::class)
@@ -101,32 +106,35 @@ class EmployeeController extends AbstractController
                 );
 
             $coordinate = $this->getEntityManager()
-            ->getRepository(Coordinates::class)
-            ->findOneBy(
+                ->getRepository(Coordinates::class)
+                ->findOneBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
+
+            $view = new ViewModel();
+
+            $view->setVariables(
                 [
-                    'employee' => $employee
+                    'role' => $this->getUser()->getRole(),
+                    'sources' => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
+                    'coordinate' => $coordinate,
+                    'contracts' => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
+                    'areas' => $this->getEntityManager()->getRepository(Area::class)->findAll(),
+                    'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
+                    'employee' => $employee,
+                    'action' => 'edit',
+                    'id' => $employee->getId()
                 ]
             );
 
-        $view = new ViewModel();
+            $view->setTemplate('application/employee/index');
 
-        $view->setVariables(
-            [
-                'role'        => $this->getUser()->getRole(),
-                'sources'     => $this->getEntityManager()->getRepository(SourceApplication::class)->findAll(),
-                'coordinate'  => $coordinate,
-                'contracts'   => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
-                'areas'       => $this->getEntityManager()->getRepository(Area::class)->findAll(),
-                'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
-                'employee'    => $employee,
-                'action'      => 'edit',
-                'id'          => $employee->getId()
-            ]
-        );
+            return $view;
+        }
 
-        $view->setTemplate('application/employee/index');
-
-        return $view;
+        return $this->notFoundAction();
     }
 
     /**
@@ -390,8 +398,10 @@ class EmployeeController extends AbstractController
             $view->setVariables(
                 [
                     'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
+                    'files' =>  $this->getEntityManager()->getRepository(File::class)->findBy(['employee' => $employee]),
                     'employee' => $employee,
                     'comments' => $comments
+
                 ]
             );
         }
@@ -509,6 +519,7 @@ class EmployeeController extends AbstractController
 
             if ($comment !== null) {
 
+
                 $this->getEntityManager()->remove($comment);
                 $this->getEntityManager()->flush();
 
@@ -582,6 +593,103 @@ class EmployeeController extends AbstractController
                         )
                 ]
             );
+        }
+
+        return $this->notFoundAction();
+    }
+
+    /**
+     * Add attachments in employee info
+     * @return array|JsonModel
+     */
+    public function addAttachmentsAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost();
+            $id = $data['id'];
+
+                $employee = $this->getEntityManager()
+                    ->getRepository(EmployeeModel::class)
+                    ->findOneBy(
+                        [
+                            'id' => $id
+                        ]
+                    );
+
+                $fileManager = new FileManager();
+                $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
+
+                foreach ($files as $file) {
+
+                    $file->setEmployee($employee);
+                    $this->getEntityManager()->persist($file);
+                    $this->getEntityManager()->flush();
+                }
+
+                $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+
+                $response->setVariables(
+                    [
+                        'id'       => $id,
+                        'redirect' => $url
+                    ]
+                );
+
+            return $response;
+
+        } else {
+
+            return $this->notFoundAction();
+        }
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function fileRemoveAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $fileManager = new FileManager();
+            $fileRm = $fileManager->remove(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
+
+            /*Remove dir*/
+            $path_parts = pathinfo(BASE_PATH . DIRECTORY_SEPARATOR . $this->getRequest()->getPost('path'));
+            rmdir($path_parts['dirname']);
+
+            $file = $this->getEntityManager()
+                ->getRepository(File::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($file !== null) {
+                $this->getEntityManager()->remove($file);
+                $this->getEntityManager()->flush();
+
+                $result->setVariables(
+                    [
+                        'result' =>  $fileRm
+                    ]
+                );
+
+                return $result;
+            }
         }
 
         return $this->notFoundAction();

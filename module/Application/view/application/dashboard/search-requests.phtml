@@ -7,7 +7,7 @@
     </div>
 <?php else :?>
 
-    <table class="table" id="employee_table">
+    <table class="table" id="search_request_table">
         <thead>
         <tr>
             <th data-column-name="id">#</th>
@@ -29,9 +29,9 @@
                 <td><?= $this->translate((false === $request->isFound()) ? 'Yes' : 'No')  ?></td>
                 <td>
                     <?php if ($request->isFound()) : ?>
-                        <a href=""><?= $this->translate('Enable mail') ?></a>
+                        <a  href="#" class="enable-mail" data-id="<?= $request->getId() ?>"><?= $this->translate('Enable mail') ?></a>
                     <?php else : ?>
-                        <a href=""><?= $this->translate('Disable mail') ?></a>
+                        <a  href="#" class="disable-mail" data-id="<?= $request->getId() ?>"><?= $this->translate('Disable mail') ?></a>
                     <?php endif; ?>
                 </td>
             </tr>

@@ -7,7 +7,7 @@
     <div class="media-body">
         <div class="row">
             <div class="col-sm-6">
-                <h4 class="media-heading"><?= $this->employee->getName() ?>&nbsp;<?= $this->employee->getSurname() ?></h4>
+                <h4 class="media-heading"><?= $this->employee->getSurname() ?>&nbsp;<?= $this->employee->getName() ?></h4>
                 <a href="mailto:<?= $this->employee->getEmail() ?>" class="a-dashboard"><?= $this->employee->getEmail() ?></a>
                 <p><span class="glyphicon glyphicon-phone"></span> <?= $this->employee->getMobilePhone() ?></p>
                 <p><span class="glyphicon glyphicon-phone-alt"></span> <?= $this->employee->getLandlinePhone() ?></p>
@@ -85,7 +85,7 @@
         <?php endif; ?>
         <?php if ($this->employee->getStartDate() !== null) : ?>
             <li class="list-group-item">
-                <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('Y-m-d') ?>
+                <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('d-m-Y') ?>
             </li>
         <?php endif; ?>
         <li class="list-group-item">
@@ -120,6 +120,32 @@
                 <?= $this->employee->getSourceApplication()->getName() ?>
             <?php endif; ?>
         </li>
+        <li class="list-group-item">
+            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <?= $this->translate('Attachments') ?>
+            <div class="row">
+                <?php foreach($this->files as $file) : ?>
+                    <div class="file-container">
+                        <div class="col-xs-6 col-xs-offset-1">
+                            <a href="<?= $this->basePath($file->getPath()) ?>" class="a-dashboard" style="display: block" download><span class="glyphicon glyphicon-cloud-download"></span> <?= $file->getName()?></a>
+                        </div>
+                        <div class="col-xs-4 text-right">
+                            <a class="btn a-dashboard attach-delete" data-path="<?= $file->getPath()?>" data-id="<?= $file->getId() ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <form action="<?= $this->url('employee', ['action' => 'add-attachments']) ?>" method="post" class="async" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?= $this->employee->getId() ?>">
+                <div class="form-group" >
+                    <label class="btn button-sign-in btn-file">
+                        <?= $this->translate('Add Attachments') ?> <input type="file" name="attachments[]" id="attachments-input-show"  class="attachments-inpu"  multiple style="display: none;">
+                    </label>
+                </div>
+            </form>
+
+        </li>
+
     </ul>
 </div>
 <hr>

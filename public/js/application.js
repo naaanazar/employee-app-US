@@ -127,7 +127,7 @@ jQuery('document').ready(function () {
     jQuery('#sandbox-container .input-daterange').datepicker({
         autoclose: true,
         todayHighlight: true,
-        format: 'yyyy-mm-dd'
+        format: 'dd-mm-yyyy'
     });
 
     /**
@@ -136,7 +136,7 @@ jQuery('document').ready(function () {
     jQuery("#start_day_field_picker").datepicker({
             autoclose: true,
             todayBtn: "linked",
-            format: 'yyyy-mm-dd',
+            format: 'dd-mm-yyyy',
             todayHighlight: true
         }
     )
@@ -160,7 +160,6 @@ var Validate = {
                     $.each(errors[field], function( index, massage ) {
 
                         if (jQuery("input[name='" + field + "']").closest('.form-group').length === 0){
-                            console.log(jQuery("input[name='" + field + "']").closest('.form-group').length);
                             jQuery("input[name='" + field + "']").closest('.input-group').after('<div class="label errors-block label-danger" style="padding-top: -15px;">' + massage + '</div>');
                         }
 
@@ -283,21 +282,145 @@ jQuery(document).on('click', '#delete_employee_show', function () {
 
 });
 
-
 /**
- * delete comment
+ * actions configure
  */
 jQuery(document).on('click', '.configure-delete', function (event) {
-    var id = jQuery(event.target).closest('.configure-buttons').data('id');
-    var config = jQuery(event.target).closest('.configure-buttons').data('config');
-    console.log(id);
-    console.log(config);
-    jQuery.post( "/dashboard/configure-delete", {id : id, config : config}, function( data ) {
-        jQuery(event.target).closest('tr').remove();
-    })
+    configureDelete(event);
+});
+
+jQuery(document).on('click', '.configure-save', function (event) {
+    saveEdite(event);
+});
+
+jQuery(document).on('click', '.configure-edit', function (event) {
+    editShow(event);
 });
 
 
+/**
+ * @param event
+ */
+var configureDelete = function(event){
+    var id = jQuery(event.target).closest('.configure-buttons').data('id');
+    var action = jQuery(event.target).closest('.configure-buttons').data('action');
+    jQuery.post(action, {id : id}, function( data ) {
+        jQuery(event.target).closest('tr').remove();
+    })
+}
+
 jQuery('span').css('pointer-events', 'none');
 
+/**
+ * show edit configure
+ */
+var editShow = function(event){
+    var row = jQuery(event.target).closest('tr');
+    var value = row.find('.value-name').text();
+    var html = '<input name="body" class="form-control configure-edit-field" value = "' + value + '">';
+
+    row.find('.value-name').html(html);
+    row.find('.configure-buttons').append('<a class="btn a-dashboard configure-save"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</a>&nbsp;');
+    row.find('.configure-delete').hide();
+    row.find('.configure-edit').hide();
+}
+
+/**
+ *
+ * @param event
+ */
+var saveEdite = function (event){
+    var id = jQuery(event.target).closest('.configure-buttons').data('id');
+    var url = jQuery(event.target).closest('.configure-buttons').data('action-save');
+    var value = jQuery(event.target).closest('tr').find('.configure-edit-field').val();
+
+    jQuery.post(url, {value : value, id: id}, function( data ) {
+        Validate.redirect(data.redirect);
+
+    })
+}
+
+/**
+ * Show image in form employee
+ * @param input
+ */
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            jQuery('#image').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+/**
+ * Event Show image in form employee
+ */
+jQuery(document).on('change',"#avatar_field", function(){
+    readURL(this);
+});
+
+/**
+ * Show files list selected files in form employee
+ */
+
+jQuery(document).on('change', ".attachments-input", function(){
+
+
+    var files = jQuery("#attachments-input")[0].files;
+    var html = '';
+    for (var i = 0; i < files.length; i++)
+    {
+        html += '<div class="a-dashboard">' + files[i].name + '</div>';
+    }
+
+    jQuery('.upload-file-attach').html(html)
+});
+
+jQuery(document).on('change', "#attachments-input-show", function(){
+
+    $( ".async" ).submit();
+});
+
+
+jQuery(document).on('click', '.attach-delete', function (event) {
+    deleteFile(event);
+});
+
+
+/**
+ * delete file
+ * @param event
+ */
+var deleteFile = function(event){
+    var id = jQuery(event.target).closest('a').data('id');
+    var path = jQuery(event.target).closest('a').data('path');
+    jQuery.post('/employee/file-remove', {id : id, path: path}, function( data ) {
+        jQuery(event.target).closest('.file-container').remove();
+    })
+}
+
+
+/**
+ * set found in search reuest
+ */
+jQuery(document).on('click', '.disable-mail', function (event) {
+    event.defaultPrevented = true;
+    var id = jQuery(event.target).closest('a').data('id');
+    jQuery.post('/dashboard/search-requests-set-found', {id : id, found: 1}, function( data ) {
+        Validate.redirect(data.redirect);
+    })
+});
+
+jQuery(document).on('click', '.enable-mail', function (event) {
+    event.defaultPrevented = true;
+    var id = jQuery(event.target).closest('a').data('id');
+    jQuery.post('/dashboard/search-requests-set-found', {id : id, found: 0}, function( data ) {
+        Validate.redirect(data.redirect);
+    })
+});
 
