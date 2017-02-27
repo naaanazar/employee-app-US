@@ -5,6 +5,8 @@ var ModalAction;
 jQuery(document).on('submit', 'form.async', function (event) {
     event.defaultPrevented = true;
 
+    CheckCoords();
+
     var form           = jQuery(this);
     var formData       = new FormData;
     var serializedForm = form.serializeArray();
@@ -141,6 +143,22 @@ jQuery('document').ready(function () {
         }
     )
 });
+
+var CheckCoords = function() {
+
+    if ('' === jQuery('#latitude').val() || '' === jQuery('#longitude').val()) {
+        Address.setAddress();
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': Address.fullAddress}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                document.getElementById('latitude').value = results[0].geometry.location.lat();
+                document.getElementById('longitude').value = results[0].geometry.location.lng();
+            }
+        });
+
+    }
+};
 
 /**
  * @type {{showErrorsMassages: Validate.showErrorsMassages, redirect: Validate.redirect}}
