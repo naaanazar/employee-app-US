@@ -160,7 +160,6 @@ var Validate = {
                     $.each(errors[field], function( index, massage ) {
 
                         if (jQuery("input[name='" + field + "']").closest('.form-group').length === 0){
-                            console.log(jQuery("input[name='" + field + "']").closest('.form-group').length);
                             jQuery("input[name='" + field + "']").closest('.input-group').after('<div class="label errors-block label-danger" style="padding-top: -15px;">' + massage + '</div>');
                         }
 
@@ -334,7 +333,7 @@ var saveEdite = function (event){
     var id = jQuery(event.target).closest('.configure-buttons').data('id');
     var url = jQuery(event.target).closest('.configure-buttons').data('action-save');
     var value = jQuery(event.target).closest('tr').find('.configure-edit-field').val();
-console.log(id);
+
     jQuery.post(url, {value : value, id: id}, function( data ) {
         Validate.redirect(data.redirect);
 
@@ -383,7 +382,7 @@ jQuery(document).on('change', ".attachments-input", function(){
 });
 
 jQuery(document).on('change', "#attachments-input-show", function(){
-    console.log('455454454');
+
     $( ".async" ).submit();
 });
 
@@ -405,6 +404,10 @@ var deleteFile = function(event){
     })
 }
 
+
+/**
+ * set found in search reuest
+ */
 jQuery(document).on('click', '.disable-mail', function (event) {
     event.defaultPrevented = true;
     var id = jQuery(event.target).closest('a').data('id');

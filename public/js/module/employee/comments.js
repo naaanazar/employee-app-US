@@ -43,11 +43,8 @@ jQuery(document).on('click', '.comment-edit', function (event) {
     })
 });
 
-
-console.log('2222');
 $(".attachments-input").change(function(){
 
-    console.log('111');
     var files = jQuery(".attachments-input")[0].files;
     var html = '';
     for (var i = 0; i < files.length; i++)
