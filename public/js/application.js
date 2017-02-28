@@ -375,6 +375,11 @@ var saveEdite = function (event){
 
     })
 }
+/**
+ * allowed Types
+ * @type {[*]}
+ */
+var allowedTypes = ['g', 'jpeg', 'gif', 'bmp', 'txt', 'pdf', 'docx', 'doc', 'odt'];
 
 /**
  * Show image in form employee
@@ -406,21 +411,35 @@ jQuery(document).on('change',"#avatar_field", function(){
 
 jQuery(document).on('change', ".attachments-input", function(){
 
-
+    var error = '';
     var files = jQuery("#attachments-input")[0].files;
     var html = '';
     for (var i = 0; i < files.length; i++)
     {
-        html += '<div class="a-dashboard">' + files[i].name + '</div>';
+        var ext = files[i].name.split(".").pop();
+        if (jQuery.inArray(ext, allowedTypes)) {
+            error += files[i].name;
+        } else {
+            html += '<div class="a-dashboard">' + files[i].name + '</div>';
+        }
+    }
+    if (error.length > 0) {
+        alert('Invalid file format:' + error);
+        jQuery(".attachments-input").val('');
     }
 
     jQuery('.upload-file-attach').html(html)
 });
 
+/**
+ * event add attachmets in
+ */
 jQuery(document).on('change', "#attachments-input-show", function(){
-    $( ".async" ).submit();
-});
 
+    if (checkFile('#attachments-input-show')) {
+        $(".async").submit();
+    }
+});
 
 jQuery(document).on('click', '.attach-delete', function (event) {
     deleteFile(event);
@@ -436,6 +455,27 @@ var deleteFile = function(event){
     jQuery.post('/employee/file-remove', {id : id, path: path}, function( data ) {
         jQuery(event.target).closest('.file-container').remove();
     })
+}
+
+/**
+ * Check file name extension
+ * @param element
+ */
+var checkFile = function(element) {
+    var files = jQuery(element)[0].files;
+    var error = '';
+    for (var i = 0; i < files.length; i++)
+    {
+        var ext = files[i].name.split(".").pop();
+        if (jQuery.inArray(ext, allowedTypes)) {
+            error += files[i].name;
+        }
+    }
+    if (error.length > 0) {
+        alert('Invalid file format:' + error);
+        return false;
+    }
+    return true;
 }
 
 /**
