@@ -661,7 +661,7 @@ class EmployeeController extends AbstractController
     /**
      * @return ViewModel
      */
-    public function getContributoreEmployeeAction()
+    public function getContributorEmployeeAction()
     {
         $data = $this->getRequest()->getPost()->toArray();
         $data['user'] = $this->getUser();
