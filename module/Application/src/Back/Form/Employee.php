@@ -153,7 +153,9 @@ class Employee extends Form
             [
                 'type' => Number::class,
                 'name' => 'hourly_rate',
-                'step' => 0.1
+                'attributes' => [
+                    'step' => 'any'
+                ]
             ]
         );
 

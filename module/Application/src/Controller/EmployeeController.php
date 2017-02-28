@@ -18,6 +18,7 @@ use Zend\View\Model\{
     JsonModel,
     ViewModel
 };
+use Application\Back\Form\Search\Employee\GetContributorEmployee;
 use Zend\Http\Response;
 
 /**
@@ -695,4 +696,24 @@ class EmployeeController extends AbstractController
         return $this->notFoundAction();
     }
 
+    /**
+     * @return ViewModel
+     */
+    public function getContributorEmployeeAction()
+    {
+        $data = $this->getRequest()->getPost()->toArray();
+        $data['page'] = $this->params('page', 1);
+        $data['user'] = $this->getUser();
+        $search = new GetContributorEmployee($data);
+
+        $view = new ViewModel(
+            [
+                'paginator' => $search->getResult()
+            ]
+        );
+
+        $view->setTemplate('application/employee/contributor-employee');
+
+        return $view;
+    }
 }
