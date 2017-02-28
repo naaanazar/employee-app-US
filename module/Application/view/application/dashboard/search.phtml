@@ -56,9 +56,9 @@
         <div class="form-group col-md-3">
             <label class="control-label application-label" for="status_field"><?= $this->translate('Status') ?></label>
             <select id="status_field" name="status" class="form-control application-input">
-                <option </option>
-                <option value="active" selected>Active</option>
-                <option value="delete">Delete</option>
+                <option value=""><?= $this->translate('Any') ?></option>
+                <option value="active" selected><?= $this->translate('Active') ?></option>
+                <option value="delete"><?= $this->translate('Deleted') ?></option>
             </select>
         </div>
 
@@ -78,11 +78,10 @@
     </div>
     <div class="row">
         <div class="form-group">
-            <button class="btn batton-save" style="margin-left: 15px;">Search</button>
-            <div id="clear_marker" class="btn batton-save" style="margin-left: 15px;">Clear marker</div>
+            <button class="btn btn-default" style="margin-left: 15px"><?= $this->translate('Search') ?></button>
+            <div id="clear_marker" class="btn batton-save" style="margin-left: 15px;"><?= $this->translate('Clear marker') ?></div>
         </div>
     </div>
-
 </form>
 <div class="collapse in" id="map-container">
     <div id="map" class="map frame"></div>

@@ -8,17 +8,44 @@ msgstr ""
 msgid "Value is required and can't be empty"
 msgstr "Value is required and can't be empty"
 
+msgid "Login details"
+msgstr "Login details"
+
+msgid "Search request result"
+msgstr "Search request result"
+
 msgid "Successfully registered"
 msgstr "Successfully registered"
 
+msgid "Home"
+msgstr "Home"
+
 msgid "Set Area Around"
 msgstr "Set Area Around"
+
+msgid "Set area around"
+msgstr "Set area around"
+
+msgid "Text Value"
+msgstr "Text Value"
+
+msgid "Value in meters"
+msgstr "Value in meters"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
 
 msgid "Set Contract Type"
 msgstr "Set Contract Type"
 
 msgid "Name"
 msgstr "Name"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Surname"
 msgstr "Surname"
@@ -59,8 +86,50 @@ msgstr "Set Option Why Delete"
 msgid "Not used yet"
 msgstr "Not used yet"
 
+msgid "Create search request"
+msgstr "Create search request"
+
+msgid "Last searching"
+msgstr "Last searching"
+
+msgid "Send result to Mail"
+msgstr "Send result to Mail"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Enable mail"
+msgstr "Enable mail"
+
+msgid "Disable mail"
+msgstr "Disable mail"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Any"
+msgstr "Any"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Deleted"
+msgstr "Deleted"
+
 msgid "Area around"
 msgstr "Area around"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Clear marker"
+msgstr "Clear marker"
+
+msgid "Value"
+msgstr "Value"
 
 msgid "Set Source Application"
 msgstr "Set Source Application"
@@ -71,17 +140,14 @@ msgstr "Select statistic period"
 msgid "Set Weekly hours"
 msgstr "Set Weekly hours"
 
+msgid "Value in seconds"
+msgstr "Value in seconds"
+
 msgid "Edit Application"
 msgstr "Edit Application"
 
 msgid "Address"
 msgstr "Address"
-
-msgid "Update marker"
-msgstr "Update marker"
-
-msgid "Hide map"
-msgstr "Hide map"
 
 msgid "Mobile phone number"
 msgstr "Mobile phone number"
@@ -113,14 +179,23 @@ msgstr "Hourly rate"
 msgid "Experience in the job"
 msgstr "Experience in the job"
 
+msgid "Application Source"
+msgstr "Application Source"
+
 msgid "Upload user photo"
 msgstr "Upload user photo"
 
 msgid "Attachments"
 msgstr "Attachments"
 
-msgid "Edit"
-msgstr "Edit"
+msgid "File format"
+msgstr "File format"
+
+msgid "Check your email for login details"
+msgstr "Check your email for login details"
+
+msgid "Reason Delete"
+msgstr "Reason Delete"
 
 msgid "Germany"
 msgstr "Germany"
@@ -137,35 +212,53 @@ msgstr "Has experience"
 msgid "Driving license present"
 msgstr "Driving license present"
 
+msgid "Source Application"
+msgstr "Source Application"
+
+msgid "Add Attachments"
+msgstr "Add Attachments"
+
+msgid "You have created search request with params"
+msgstr "You have created search request with params"
+
+msgid "Just created employee"
+msgstr "Just created employee"
+
+msgid "Your login details"
+msgstr "Your login details"
+
+msgid "Login into website with details"
+msgstr "Login into website with details"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Password"
+msgstr "Password"
+
 msgid "Leave comment"
 msgstr "Leave comment"
-
-msgid "Create search request"
-msgstr "Create search request"
-
-msgid "Home"
-msgstr "Home"
-
-msgid "Logout"
-msgstr "Logout"
 
 msgid "Dashboard"
 msgstr "Dashboard"
 
-msgid "Search"
-msgstr "Search"
+msgid "Logout"
+msgstr "Logout"
 
 msgid "Create Employee"
 msgstr "Create Employee"
 
-msgid "Main"
-msgstr "Main"
+msgid "Applications"
+msgstr "Applications"
 
 msgid "Exit from dashboard"
 msgstr "Exit from dashboard"
 
 msgid "Search employee"
 msgstr "Search employee"
+
+msgid "Search requests"
+msgstr "Search requests"
 
 msgid "Configure Around Areas"
 msgstr "Configure Around Areas"
@@ -191,38 +284,35 @@ msgstr "Statistics"
 msgid "Sign In"
 msgstr "Sign In"
 
-msgid "Sign Up"
-msgstr "Sign Up"
+msgid "Incorrect value"
+msgstr "Incorrect value"
 
-msgid "'Incorrect value'"
-msgstr "'Incorrect value'"
+msgid "User with same email found"
+msgstr "User with same email found"
 
-msgid "'User with same email found'"
-msgstr "'User with same email found'"
+msgid "Invalid email or/and password"
+msgstr "Invalid email or/and password"
 
-msgid "'Invalid email or/and password'"
-msgstr "'Invalid email or/and password'"
+msgid "Some error occurred while logging in"
+msgstr "Some error occurred while logging in"
 
-msgid "'Some error occurred while logging in'"
-msgstr "'Some error occurred while logging in'"
+msgid "Invalid type given. String, integer or float expected"
+msgstr "Invalid type given. String, integer or float expected"
 
-msgid "'Invalid type given. String, integer or float expected'"
-msgstr "'Invalid type given. String, integer or float expected'"
+msgid "The input does not match against pattern "
+msgstr "The input does not match against pattern "
 
-msgid "'The input does not match against pattern '"
-msgstr "'The input does not match against pattern '"
+msgid "There was an internal error while using the pattern"
+msgstr "There was an internal error while using the pattern"
 
-msgid "'There was an internal error while using the pattern'"
-msgstr "'There was an internal error while using the pattern'"
+msgid "Invalid type given. String expected"
+msgstr "Invalid type given. String expected"
 
-msgid "'Invalid type given. String expected'"
-msgstr "'Invalid type given. String expected'"
+msgid "The input is less than %min% characters long"
+msgstr "The input is less than %min% characters long"
 
-msgid "'The input is less than %min% characters long'"
-msgstr "'The input is less than %min% characters long'"
-
-msgid "'The input is more than %max% characters long'"
-msgstr "'The input is more than %max% characters long'"
+msgid "The input is more than %max% characters long"
+msgstr "The input is more than %max% characters long"
 
 msgid "Full Name"
 msgstr "Full Name"
