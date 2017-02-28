@@ -59,7 +59,7 @@ var ajaxFormSubmit = function (event) {
         for (var i in files) {
             var file = files[i];
 
-            if (file instanceof File && file.type.match('image.*')) {
+            if (file instanceof File && file.type.match('.*')) {
                 formData.append($(fileInput).attr('name'), file);
             }
         }

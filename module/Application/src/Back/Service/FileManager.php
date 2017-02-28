@@ -2,7 +2,6 @@
 
 namespace Application\Back\Service;
 
-use Application\Model\Employee;
 use Application\Model\File;
 
 /**
@@ -11,6 +10,38 @@ use Application\Model\File;
  */
 class FileManager
 {
+
+    /**
+     * @var array
+     */
+    private $allowedTypes = [];
+
+    /**
+     * @return array
+     */
+    public function getAllowedTypes(): array
+    {
+        return $this->allowedTypes;
+    }
+
+    /**
+     * @param array $allowedTypes
+     */
+    public function setAllowedTypes(array $allowedTypes)
+    {
+        $this->allowedTypes = $allowedTypes;
+    }
+
+    /**
+     * FileManager constructor.
+     * @param array|null $allowedTypes
+     */
+    public function __construct($allowedTypes = null)
+    {
+        if (null !== $allowedTypes) {
+            $this->setAllowedTypes($allowedTypes);
+        }
+    }
 
     /**
      * @param $filePath
@@ -57,6 +88,9 @@ class FileManager
             || false === isset($file['type'])
             || false === isset($file['tmp_name'])
             || false === isset($file['size'])
+            || (false === empty($this->allowedTypes)
+                && false === in_array($file['type'], $this->getAllowedTypes())
+            )
         ) {
             return false;
         }
