@@ -14,7 +14,6 @@ class FileManager
     /**
      * @var array
      */
-
     private $allowedTypes = ['png', 'jpeg', 'gif', 'bmp', 'txt', 'pdf', 'docx', 'doc', 'odt'];
 
     /**
