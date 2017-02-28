@@ -196,7 +196,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
          */
         setAddress: function () {
 
-            //this.fullAddress = 'Germany,';
+            this.fullAddress = 'Germany,';
 
             if ('' != jQuery('#zip_field').val()) {
                 this.fullAddress = this.fullAddress + jQuery('#zip_field').val() + ',';
