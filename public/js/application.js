@@ -12,7 +12,7 @@ jQuery(document).on('submit', 'form.async', function (event) {
 
 jQuery(document).on('submit', 'form.create-employee', function (event) {
 
-    var promise = jQuery.Deferred();
+    promise = jQuery.Deferred();
 
     if ('' === jQuery('#latitude').val() || '' === jQuery('#longitude').val()) {
         Address.setAddress();
@@ -418,7 +418,6 @@ jQuery(document).on('change', ".attachments-input", function(){
 });
 
 jQuery(document).on('change', "#attachments-input-show", function(){
-
     $( ".async" ).submit();
 });
 
