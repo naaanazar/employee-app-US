@@ -375,11 +375,7 @@ var saveEdite = function (event){
 
     })
 }
-/**
- * allowed Types
- * @type {[*]}
- */
-var allowedTypes = ['g', 'jpeg', 'gif', 'bmp', 'txt', 'pdf', 'docx', 'doc', 'odt'];
+
 
 /**
  * Show image in form employee
@@ -411,36 +407,26 @@ jQuery(document).on('change',"#avatar_field", function(){
 
 jQuery(document).on('change', ".attachments-input", function(){
 
-    var error = '';
     var files = jQuery("#attachments-input")[0].files;
     var html = '';
     for (var i = 0; i < files.length; i++)
     {
-        var ext = files[i].name.split(".").pop();
-        if (jQuery.inArray(ext, allowedTypes)) {
-            error += files[i].name;
-        } else {
-            html += '<div class="a-dashboard">' + files[i].name + '</div>';
-        }
-    }
-    if (error.length > 0) {
-        alert('Invalid file format:' + error);
-        jQuery(".attachments-input").val('');
+        html += '<div class="a-dashboard">' + files[i].name + '</div>';
     }
 
     jQuery('.upload-file-attach').html(html)
 });
 
 /**
- * event add attachmets in
+ * event add attachmets in application info
  */
 jQuery(document).on('change', "#attachments-input-show", function(){
-
-    if (checkFile('#attachments-input-show')) {
-        $(".async").submit();
-    }
+    $(".async").submit();
 });
 
+/**
+ * event remove attachmet in application info
+ */
 jQuery(document).on('click', '.attach-delete', function (event) {
     deleteFile(event);
 });
@@ -479,7 +465,7 @@ var checkFile = function(element) {
 }
 
 /**
- * set found in search reuest
+ * set found in search reuest true
  */
 jQuery(document).on('click', '.disable-mail', function (event) {
     event.defaultPrevented = true;
@@ -489,6 +475,9 @@ jQuery(document).on('click', '.disable-mail', function (event) {
     })
 });
 
+/**
+ * set found in search reuest false
+ */
 jQuery(document).on('click', '.enable-mail', function (event) {
     event.defaultPrevented = true;
     var id = jQuery(event.target).closest('a').data('id');
