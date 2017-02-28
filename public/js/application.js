@@ -418,7 +418,6 @@ jQuery(document).on('change', ".attachments-input", function(){
 });
 
 jQuery(document).on('change', "#attachments-input-show", function(){
-
     $( ".async" ).submit();
 });
 
