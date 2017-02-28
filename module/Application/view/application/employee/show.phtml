@@ -70,7 +70,7 @@
     <h4 class="page-header"><?= $this->translate('Additional information') ?></h4>
     <ul class="list-group">
         <li class="list-group-item">
-            <?= $this->translate('Hourly rate') ?>: $<?= $this->employee->getHourlyRate() ?>
+            <?= $this->translate('Hourly rate') ?>: &euro;<?= $this->employee->getHourlyRate() ?>
         </li>
 
         <?php if ($this->employee->getContract() !== null) : ?>
@@ -139,7 +139,8 @@
                 <input type="hidden" name="id" value="<?= $this->employee->getId() ?>">
                 <div class="form-group" >
                     <label class="btn button-sign-in btn-file">
-                        <?= $this->translate('Add Attachments') ?> <input type="file" name="attachments[]" id="attachments-input-show"  class="attachments-inpu"  multiple style="display: none;">
+                        <?= $this->translate('Add Attachments') ?>
+                        <input type="file" name="attachments[]" id="attachments-input-show"  class="attachments-input-show"  multiple style="display: none;">
                     </label>
                 </div>
             </form>
