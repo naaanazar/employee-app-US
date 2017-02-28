@@ -2,7 +2,6 @@
 
 namespace Application\Model\Repository;
 
-use Application\Back\Map\Agregator;
 use Application\Model\Coordinates;
 use Application\ORM\Functions\CoordinateDistance;
 use Doctrine\ORM\EntityRepository;
@@ -20,12 +19,9 @@ class CoordinatesRepository extends EntityRepository
      */
     public function getCoordinatesInRange(Coordinates $coordinates)
     {
-        $agregator = new Agregator($coordinates);
         $this->getEntityManager()
             ->getConfiguration()
             ->addCustomStringFunction('coordinate_distance', CoordinateDistance::class);
-
-
 
         $dql = '
             SELECT coordinate, employee
@@ -43,13 +39,6 @@ class CoordinatesRepository extends EntityRepository
         $coordinatesModels = $this->getEntityManager()
             ->createQuery($dql)
             ->execute($params);
-
-        foreach ([] as $index => $coordinatesModel) {
-            /** @var Coordinates $coordinatesModel */
-            if ($agregator->getDistance($coordinatesModel) >= $coordinatesModel->getEmployee()->getAreaAround()->getIntValue()) {
-                unset($coordinatesModels[$index]);
-            }
-        }
 
         return $coordinatesModels;
     }

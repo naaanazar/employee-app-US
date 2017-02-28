@@ -12,7 +12,7 @@ jQuery(document).on('submit', 'form.async', function (event) {
 
 jQuery(document).on('submit', 'form.create-employee', function (event) {
 
-    var promise = jQuery.Deferred();
+    promise = jQuery.Deferred();
 
     if ('' === jQuery('#latitude').val() || '' === jQuery('#longitude').val()) {
         Address.setAddress();

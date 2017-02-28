@@ -185,9 +185,9 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     document.getElementById('latitude').value = results[0].geometry.location.lat();
                     document.getElementById('longitude').value = results[0].geometry.location.lng();
 
-                    depend.resolve('ok');
+                    promise.resolve('ok');
                 }
-                depend.resolve('ok');
+                promise.resolve('ok');
             });
         },
 
