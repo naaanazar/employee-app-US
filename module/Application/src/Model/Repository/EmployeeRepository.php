@@ -87,7 +87,7 @@ class EmployeeRepository extends EntityRepository
             ->addExpression('contains', 'city', $params['city'])
             ->addExpression('eq', 'jobStatus', $params['status'])
             ->addExpression('eq', 'id', $params['id'])
-            ->addExpression('contains', 'zip', $params['zip'])
+            //->addExpression('contains', 'zip', $params['zip'])
             ->addExpression('eq', 'carAvailable', $params['car_available'])
             ->addExpression('eq', 'drivingLicence', $params['driving_license'])
             ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($params['area_around']));
