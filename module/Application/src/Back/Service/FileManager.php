@@ -14,7 +14,7 @@ class FileManager
     /**
      * @var array
      */
-    private $allowedTypes = [];
+    private $allowedTypes = ['png', 'jpeg', 'gif', 'bmp', 'txt', 'pdf', 'docx', 'doc', 'odt'];
 
     /**
      * @return array
@@ -89,7 +89,7 @@ class FileManager
             || false === isset($file['tmp_name'])
             || false === isset($file['size'])
             || (false === empty($this->allowedTypes)
-                && false === in_array($file['type'], $this->getAllowedTypes())
+                && false === in_array(substr(strrchr($file['name'], '.'), 1) , $this->getAllowedTypes())
             )
         ) {
             return false;
