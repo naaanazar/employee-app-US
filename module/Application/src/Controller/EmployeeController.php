@@ -702,6 +702,7 @@ class EmployeeController extends AbstractController
     public function getContributorEmployeeAction()
     {
         $data = $this->getRequest()->getPost()->toArray();
+        $data['page'] = $this->params('page', 1);
         $data['user'] = $this->getUser();
         $search = new GetContributorEmployee($data);
 

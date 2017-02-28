@@ -65,10 +65,11 @@ return [
     'employee' => [
         'type' => Segment::class,
         'options' => [
-            'route' => '/employee[/][:action]',
+            'route' => '/employee[/][:action][/page/:page]',
             'defaults' => [
                 'controller' => Controller\EmployeeController::class,
-                'action' => 'index'
+                'action' => 'index',
+                'page'   => 1
             ],
             'constraints' => [
                 'action' => '[a-z\-]+'
