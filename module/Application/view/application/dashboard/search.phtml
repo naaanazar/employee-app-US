@@ -1,6 +1,10 @@
 <form action="<?= $this->url('dashboard', ['action' => 'search']) ?>" class="search-employees"  method="post" id="filter-employee-form">
     <div class="row">
         <div class="form-group col-md-3">
+            <label class="control-label application-label" for="Id_field"><?= $this->translate('ID') ?></label>
+            <input id="id_field" name="id" type="text" value="<?= isset($this->fields['id']) ? $this->fields['id'] : '' ?>" placeholder="" class="form-control input-md application-input">
+        </div>
+        <div class="form-group col-md-3">
             <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?></label>
             <input id="name_field" name="name" type="text" value="<?= isset($this->fields['name']) ? $this->fields['name'] : '' ?>" placeholder="" class="form-control input-md application-input">
         </div>
@@ -46,6 +50,15 @@
                 <option value="" selected></option>
                 <option value="1" <?= isset($this->fields['car_available']) && $this->fields['car_available'] == '1' ? 'selected' : '' ?>><?= $this->translate('Yes') ?></option>
                 <option value="0" <?= isset($this->fields['car_available']) && $this->fields['car_available'] == '0' ? 'selected' : '' ?>><?= $this->translate('No') ?></option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label class="control-label application-label" for="status_field"><?= $this->translate('Status') ?></label>
+            <select id="status_field" name="status" class="form-control application-input">
+                <option </option>
+                <option value="active" selected>Active</option>
+                <option value="delete">Delete</option>
             </select>
         </div>
 

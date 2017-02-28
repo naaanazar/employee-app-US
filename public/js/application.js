@@ -23,9 +23,12 @@ jQuery(document).on('submit', 'form.create-employee', function (event) {
                 document.getElementById('latitude').value = results[0].geometry.location.lat();
                 document.getElementById('longitude').value = results[0].geometry.location.lng();
                 promise.resolve('ok');
+            } else {
+                alert('Address is not valid or GOOGLE Maps API returns bad response');
             }
         });
-
+    } else {
+        promise.resolve('ok');
     }
 
     jQuery.when(promise).then(
@@ -424,7 +427,6 @@ jQuery(document).on('click', '.attach-delete', function (event) {
     deleteFile(event);
 });
 
-
 /**
  * delete file
  * @param event
@@ -436,7 +438,6 @@ var deleteFile = function(event){
         jQuery(event.target).closest('.file-container').remove();
     })
 }
-
 
 /**
  * set found in search reuest
