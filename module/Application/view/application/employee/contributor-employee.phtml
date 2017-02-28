@@ -1,0 +1,11 @@
+<form action="<?= $this->url('employee', ['action' => 'get-contributore-employee']) ?>" id="filter-employee-form" filter-employee-form class="statistics-form row search-employees" method="post" >
+    <input type="hidden" name="page" id="page-number">
+</form>
+<div class="row">
+    <h5>Total applications: 
+        <strong><?=$this->paginator->getTotalItemCount() ?></strong>
+    </h5>
+</div>
+<div id="employees-list">
+    <?= $this->render('layout/concern/employees') ?>
+</div>
