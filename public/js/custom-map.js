@@ -186,8 +186,10 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     document.getElementById('longitude').value = results[0].geometry.location.lng();
 
                     promise.resolve('ok');
+                } else {
+                    promise.reject('not ok');
                 }
-                promise.resolve('ok');
+
             });
         },
 
