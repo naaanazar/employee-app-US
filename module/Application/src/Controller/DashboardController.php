@@ -61,7 +61,6 @@ class DashboardController extends AbstractController
     {
     }
 
-
     /**
      * Search employees action
      *
@@ -73,7 +72,6 @@ class DashboardController extends AbstractController
             /** @var EmployeeRepository $employeeRepository */
             $employeeRepository = $this
                 ->getEntityManager()
-
                 ->getRepository(Employee::class);
 
             $paginator = $employeeRepository->searchByParams(

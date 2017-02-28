@@ -659,8 +659,6 @@ class EmployeeController extends AbstractController
     }
 
     /**
-     * Dashboard  show statistics action
-     *
      * @return ViewModel
      */
     public function getContributoreEmployeeAction()
@@ -679,5 +677,4 @@ class EmployeeController extends AbstractController
 
         return $view;
     }
-
 }
