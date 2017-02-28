@@ -1,5 +1,7 @@
 'use strict';
 
+var depend = jQuery.Deferred();
+
 var searchEmployee = function (event) {
     if (event) {
         event.defaultPrevented = true;
@@ -67,8 +69,14 @@ var searchEmployee = function (event) {
 
     };
 
-    var action = new AjaxAction(jQuery('.search-employees').attr('action'), jQuery('.search-employees').serializeArray(), callback);
-    action.execute();
+    Address.findAddress(Address.map);
+
+    jQuery.when(depend).then(
+        function () {
+            var action = new AjaxAction(jQuery('.search-employees').attr('action'), jQuery('.search-employees').serializeArray(), callback);
+            action.execute();
+        }
+    );
 
     return false;
 

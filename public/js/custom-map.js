@@ -149,7 +149,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     }
 
                     if (jQuery('input').is('#address_field')) {
-                        document.getElementById('zip_field').value = '0' + city[0];
+                        document.getElementById('zip_field').value = city[0];
                     }
 
                 }
@@ -180,10 +180,14 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     map.setZoom(16);
 
                     Address.marker = GoogleMap.addMarker(map, results[0].geometry.location.lat(), results[0].geometry.location.lng());
+                    Address.marker.setIcon('/img/marker_green.png');
 
                     document.getElementById('latitude').value = results[0].geometry.location.lat();
                     document.getElementById('longitude').value = results[0].geometry.location.lng();
+
+                    depend.resolve('ok');
                 }
+                depend.resolve('ok');
             });
         },
 
@@ -192,18 +196,17 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
          */
         setAddress: function () {
 
-            this.fullAddress = 'Germany,';
+            //this.fullAddress = 'Germany,';
 
             if ('' != jQuery('#zip_field').val()) {
                 this.fullAddress = this.fullAddress + jQuery('#zip_field').val() + ',';
             }
-            if ('' != jQuery('#city_field').val()) {
+            if ('' != jQuery('#city_field').val() && 'undefined' !== typeof jQuery('#city_field').val()) {
                 this.fullAddress = this.fullAddress + jQuery('#city_field').val() + ',';
             }
-            if ('' != jQuery('#address_field').val()) {
+            if ('' != jQuery('#address_field').val() && 'undefined' !== typeof jQuery('#address_field').val()) {
                 this.fullAddress = this.fullAddress + jQuery('#address_field').val();
             }
-
         },
 
         clickOnMap: function () {
@@ -225,8 +228,6 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 data: data,
                 response: 'json',
                 success: function (data) {
-                    console.log(data);
-                    //method(JSON.parse(data));
                 },
                 error: function (jqXHR) {
                     console.log(jqXHR.status);
