@@ -9,8 +9,8 @@
         <tr>
             <th data-column-name="id">#</th>
             <th data-column-name="created"><?= $this->translate('Date of application / entry') ?></th>
-            <th data-column-name="name"><?= $this->translate('Name') ?></th>
             <th data-column-name="surname"><?= $this->translate('Surname') ?></th>
+            <th data-column-name="name"><?= $this->translate('Name') ?></th>
             <th data-column-name="zip"><?= $this->translate('ZIP') ?></th>
             <th data-column-name="city"><?= $this->translate('City') ?></th>
             <th data-column-name="mobilePhone"><?= $this->translate('Mobile Phone') ?></th>
@@ -22,6 +22,7 @@
                 <?php /** @var \Application\Model\Employee $employee */ ?>
                 <td><?= $employee->getId() ?></td>
                 <td><?= $employee->getCreated()->format('d-m-Y') ?></td>
+                <td><?= $employee->getSurname() ?></td>
                 <td>
                     <a
                         href="#"
@@ -32,7 +33,6 @@
                         <?= $employee->getName() ?>
                     </a>
                 </td>
-                <td><?= $employee->getSurname() ?></td>
                 <td><?= $employee->getZip() ?></td>
                 <td><?= $employee->getCity() ?></td>
                 <td><?= $employee->getMobilePhone() ?></td>
