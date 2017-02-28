@@ -186,6 +186,8 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     document.getElementById('longitude').value = results[0].geometry.location.lng();
 
                     depend.resolve('ok');
+                } else {
+                    alert('Incorect Address !')
                 }
 
                 depend.resolve('ok');
@@ -229,8 +231,6 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                 data: data,
                 response: 'json',
                 success: function (data) {
-                    console.log(data);
-                    //method(JSON.parse(data));
                 },
                 error: function (jqXHR) {
                     console.log(jqXHR.status);
