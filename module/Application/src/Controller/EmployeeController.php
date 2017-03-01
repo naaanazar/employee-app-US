@@ -383,17 +383,20 @@ class EmployeeController extends AbstractController
             return $this->notFoundAction();
         } else {
             $view = new ViewModel();
-
-            $comments = $this->getEntityManager()
-                ->getRepository(Comment::class)
-                ->findBy(
-                    [
-                        'employee' => $employee
-                    ],
-                    [
-                        'created' => 'DESC'
-                    ]
-                );
+            if ($this->getUser() !== null && $this->getUser()->getRole() !== User::ROLE_USER) {
+                $comments = $this->getEntityManager()
+                    ->getRepository(Comment::class)
+                    ->findBy(
+                        [
+                            'employee' => $employee
+                        ],
+                        [
+                            'created' => 'DESC'
+                        ]
+                    );
+            } else {
+                $comments = null;
+            }
 
             $view->setTemplate('application/employee/show.phtml');
             $view->setVariables(
@@ -401,7 +404,8 @@ class EmployeeController extends AbstractController
                     'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
                     'files' =>  $this->getEntityManager()->getRepository(File::class)->findBy(['employee' => $employee]),
                     'employee' => $employee,
-                    'comments' => $comments
+                    'comments' => $comments,
+                    'user' => $this->getUser()
 
                 ]
             );
