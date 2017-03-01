@@ -2,15 +2,6 @@
 <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
     ->prependStylesheet($this->basePath('css/style.css'))
     ->prependStylesheet($this->basePath('css/jquery.loading.min.css'))
-    ->prependStylesheet($this->basePath('css/bootstrap-datepicker.css'));
-?>
-
-<?php
-
-    if ($this->route()->getParam('controller') !== \Application\Controller\DashboardController::class) {
-        echo $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])->prependStylesheet($this->basePath('css/bootstrap.min.css'));
-    } else {
-        echo $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])->prependStylesheet($this->basePath('css/bootstrap-admin.min.css'));
-    }
-
+    ->prependStylesheet($this->basePath('css/bootstrap-datepicker.css'))
+    ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
 ?>
