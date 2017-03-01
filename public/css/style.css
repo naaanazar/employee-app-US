@@ -139,48 +139,48 @@ fieldset[disabled] .button-sign-on.active {
 
 
 /*button save*/
-.batton-save {
+.button-save {
     color: #FFFFFF;
     background-color: #91BF2D;
     border-color: #c1e279;
 }
 
-.batton-save:hover,
-.batton-save:focus,
-.batton-save:active,
-.batton-save.active,
-.open .dropdown-toggle.batton-save {
+.button-save:hover,
+.button-save:focus,
+.button-save:active,
+.button-save.active,
+.open .dropdown-toggle.button-save {
     color: #FFFFFF;
     background-color: #A4D241;
     border-color: #c1e279;
 }
 
-.batton-save:active,
-.batton-save.active,
-.open .dropdown-toggle.batton-save {
+.button-save:active,
+.button-save.active,
+.open .dropdown-toggle.button-save {
     background-image: none;
 }
 
-.batton-save.disabled,
-.batton-save[disabled],
-fieldset[disabled] .batton-save,
-.batton-save.disabled:hover,
-.batton-save[disabled]:hover,
-fieldset[disabled] .batton-save:hover,
-.batton-save.disabled:focus,
-.batton-save[disabled]:focus,
-fieldset[disabled] .batton-save:focus,
-.batton-save.disabled:active,
-.batton-save[disabled]:active,
-fieldset[disabled] .batton-save:active,
-.batton-save.disabled.active,
-.batton-save[disabled].active,
-fieldset[disabled] .batton-save.active {
+.button-save.disabled,
+.button-save[disabled],
+fieldset[disabled] .button-save,
+.button-save.disabled:hover,
+.button-save[disabled]:hover,
+fieldset[disabled] .button-save:hover,
+.button-save.disabled:focus,
+.button-save[disabled]:focus,
+fieldset[disabled] .button-save:focus,
+.button-save.disabled:active,
+.button-save[disabled]:active,
+fieldset[disabled] .button-save:active,
+.button-save.disabled.active,
+.button-save[disabled].active,
+fieldset[disabled] .button-save.active {
     background-color: #91BF2D;
     border-color: #c1e279;
 }
 
-.batton-save .badge {
+.button-save .badge {
     color: #91BF2D;
     background-color: #FFFFFF;
 }

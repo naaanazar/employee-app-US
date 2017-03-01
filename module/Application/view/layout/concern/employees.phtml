@@ -22,17 +22,17 @@
                 <?php /** @var \Application\Model\Employee $employee */ ?>
                 <td><?= $employee->getId() ?></td>
                 <td><?= $employee->getCreated()->format('d-m-Y') ?></td>
-                <td><?= $employee->getSurname() ?></td>
                 <td>
                     <a
-                        href="#"
-                        class="modal-action"
-                        data-action="<?= $this->url('show-employee', ['hash' => $employee->getHash()] ) ?>"
-                        data-element="#modal-action"
+                            href="#"
+                            class="modal-action"
+                            data-action="<?= $this->url('show-employee', ['hash' => $employee->getHash()] ) ?>"
+                            data-element="#modal-action"
                     >
-                        <?= $employee->getName() ?>
+                        <?= $employee->getSurname() ?>
                     </a>
                 </td>
+                <td><?= $employee->getName() ?></td>
                 <td><?= $employee->getZip() ?></td>
                 <td><?= $employee->getCity() ?></td>
                 <td><?= $employee->getMobilePhone() ?></td>
