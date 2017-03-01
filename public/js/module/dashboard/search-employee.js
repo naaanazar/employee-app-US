@@ -1,7 +1,5 @@
 'use strict';
 
-var depend = jQuery.Deferred();
-
 var searchEmployee = function (event) {
     if (event) {
         event.defaultPrevented = true;
@@ -69,9 +67,15 @@ var searchEmployee = function (event) {
 
     };
 
-    Address.findAddress(Address.map);
+    promise = jQuery.Deferred();
 
-    jQuery.when(depend).then(
+    if (jQuery('[name="zip"]').val() !== '') {
+        Address.findAddress(Address.map);
+    } else {
+        promise.resolve();
+    }
+
+    jQuery.when(promise).then(
         function () {
             var action = new AjaxAction(jQuery('.search-employees').attr('action'), jQuery('.search-employees').serializeArray(), callback);
             action.execute();

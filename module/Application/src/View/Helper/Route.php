@@ -37,6 +37,16 @@ class Route extends AbstractHelper
     }
 
     /**
+     * @param $name
+     * @param null $default
+     * @return mixed
+     */
+    public function getParam($name, $default = null)
+    {
+        return $this->routeMatch->getParam($name, $default);
+    }
+
+    /**
      * @return string
      */
     public function getRoute()
