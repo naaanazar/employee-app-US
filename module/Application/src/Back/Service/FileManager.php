@@ -14,7 +14,18 @@ class FileManager
     /**
      * @var array
      */
-    private $allowedTypes = ['png', 'jpeg', 'gif', 'bmp', 'txt', 'pdf', 'docx', 'doc', 'odt'];
+    private $allowedTypes = [
+        'image/png',
+        'image/pjpeg',
+        'image/jpeg',
+        'image/gif',
+        'image/bmp',
+        'text/plain',
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/msword',
+        'application/vnd.oasis.opendocument.text'
+    ];
 
     /**
      * @return array
@@ -89,7 +100,7 @@ class FileManager
             || false === isset($file['tmp_name'])
             || false === isset($file['size'])
             || (false === empty($this->allowedTypes)
-                && false === in_array(substr(strrchr($file['name'], '.'), 1) , $this->getAllowedTypes())
+                && false === in_array($file['type'] , $this->getAllowedTypes())
             )
         ) {
             return false;
