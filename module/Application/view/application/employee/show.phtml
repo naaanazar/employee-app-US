@@ -177,7 +177,7 @@
     </ul>
 </div>
 <hr>
-<?php      if ($this->user !== null && $this->user->getRole() !== 'user')  : ?>
-<?= $this->render('layout/concern/comments') ?>
+<?php  if ($this->user !== null && $this->user->getRole() === \Application\Model\User::ROLE_ADMIN)  : ?>
+    <?= $this->render('layout/concern/comments') ?>
 <?php endif; ?>
 
