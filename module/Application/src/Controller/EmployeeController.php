@@ -401,8 +401,8 @@ class EmployeeController extends AbstractController
                     'reason' =>  $this->getEntityManager()->getRepository(ReasonRemoval::class)->findAll(),
                     'files' =>  $this->getEntityManager()->getRepository(File::class)->findBy(['employee' => $employee]),
                     'employee' => $employee,
-                    'comments' => $comments
-
+                    'comments' => $comments,
+                    'user' => $this->getUser()
                 ]
             );
         }
