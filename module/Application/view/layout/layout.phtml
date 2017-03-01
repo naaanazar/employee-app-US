@@ -7,11 +7,9 @@
         <?= $this->render('layout/header/meta') ?>
         <?= $this->render('layout/header/styles') ?>
         <?= $this->render('layout/header/scripts') ?>
-
-
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,14 +23,11 @@
                     <ul class="nav navbar-nav nav">
                         <li class="active"><a href="<?= $this->url('home') ?>"><?= $this->translate('Home') ?></a></li>
                     </ul>
-                    <ul class="nav navbar-nav nav navbar-right">
-                        <li><?= $this->render('layout/translate/switcher.phtml') ?></li>
-                        <li><?= $this->render('layout/menu/' . ($this->user === null ? 'guest' : $this->user->getRole()) . '.phtml') ?></li>
-                    </ul>
+                    <?= $this->render('layout/menu/' . ($this->user === null ? 'guest' : $this->user->getRole()) . '.phtml') ?>
+                    <?= $this->render('layout/translate/switcher.phtml') ?>
                 </div>
             </div>
         </nav>
-        <div class="page-header"></div>
         <div class="container">
             <?= $this->content ?>
             <hr>
@@ -47,9 +42,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">
-                    <p>One fine body&hellip;</p>
-                </div>
+                <div class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
