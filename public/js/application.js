@@ -138,6 +138,22 @@ jQuery(document).on('click', '#delete_employee', function(event) {
     return false;
 });
 
+jQuery(document).on('click', '.employed-unemployed', function(event) {
+    event.defaultPrevented = true;
+    var element = $(this);
+
+    jQuery.post(element.data('action'),
+        {
+        hash: element.data('hash'),
+        status: element.data('status'),
+        reason: jQuery('#delete-ask :selected').text()
+        }, function( data ) {
+            window.location.reload(true);
+    })
+
+    return false;
+});
+
 /**
  * On load event
  */
