@@ -376,6 +376,14 @@ var saveEdite = function (event){
     })
 }
 
+/**
+ * allowed Types
+ * @type {[*]}
+ */
+var allowedTypes = ['image/png', 'image/pjpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'text/plain', 'application/pdf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/msword',
+    'application/vnd.oasis.opendocument.text'];
 
 /**
  * Show image in form employee
@@ -402,26 +410,38 @@ jQuery(document).on('change',"#avatar_field", function(){
 });
 
 /**
- * Show files list selected files in form employee
+ * Show files list selected files in form employee,
+ * Alert invalid file format
  */
-
 jQuery(document).on('change', ".attachments-input", function(){
-
+    var error = '';
     var files = jQuery("#attachments-input")[0].files;
     var html = '';
-    for (var i = 0; i < files.length; i++)
-    {
-        html += '<div class="a-dashboard">' + files[i].name + '</div>';
+    for (var i = 0; i < files.length; i++) {
+
+        if (-1 === jQuery.inArray(files[i].type, allowedTypes)) {
+            error += files[i].name + '\n';
+        } else {
+            html += '<div class="a-dashboard">' + files[i].name + '</div>';
+        }
     }
 
-    jQuery('.upload-file-attach').html(html)
+    if (error.length > 0) {
+        alert('Invalid file format:\n' + error);
+        jQuery(".attachments-input").val('');
+    } else {
+        jQuery('.upload-file-attach').html(html)
+    }
 });
 
 /**
  * event add attachmets in application info
  */
 jQuery(document).on('change', "#attachments-input-show", function(){
-    $(".async").submit();
+
+    if (checkFile('#attachments-input-show')) {
+        $(".async").submit();
+    }
 });
 
 /**
@@ -452,13 +472,12 @@ var checkFile = function(element) {
     var error = '';
     for (var i = 0; i < files.length; i++)
     {
-        var ext = files[i].name.split(".").pop();
-        if (jQuery.inArray(ext, allowedTypes)) {
-            error += files[i].name;
+        if (-1 === jQuery.inArray(files[i].type, allowedTypes)) {
+            error += files[i].name + '\n';
         }
     }
     if (error.length > 0) {
-        alert('Invalid file format:' + error);
+        alert('Invalid file format:\n' + error );
         return false;
     }
     return true;
