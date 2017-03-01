@@ -9,7 +9,7 @@ var Sort = {
 
     initTable: function(tableId){
         jQuery(tableId + ' > thead > tr > th').each(function(){
-            jQuery(this).html(jQuery(this).text() + '<span style="color:#c1c1c1; float: right;" class="glyphicon glyphicon-sort span_no_event" aria-hidden="true"></span>');
+            jQuery(this).html(jQuery(this).text() + '<span style="color:#c1c1c1; float: right;" class="glyphicon glyphicon-sort" aria-hidden="true"></span>');
         })
         jQuery(tableId + ' > thead > tr > th').css( "cursor", "pointer" );
 
@@ -41,7 +41,7 @@ var Sort = {
     eventSort: function(tableId, formId) {
         jQuery(tableId).on('click', 'th', function (e) {
 
-            var element = jQuery(e.target);
+            var element = jQuery(e.target).closest('th');
             jQuery('#column-name').val(jQuery(element).data('column-name'));
 
             if (jQuery(element).hasClass('sorting_asc')){
