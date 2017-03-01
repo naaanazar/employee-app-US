@@ -429,9 +429,9 @@ jQuery(document).on('change', ".attachments-input", function(){
     if (error.length > 0) {
         alert('Invalid file format:\n' + error);
         jQuery(".attachments-input").val('');
+    } else {
+        jQuery('.upload-file-attach').html(html)
     }
-
-    jQuery('.upload-file-attach').html(html)
 });
 
 /**
