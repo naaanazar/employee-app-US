@@ -55,10 +55,8 @@ class CoordinatesRepository extends EntityRepository
             ->addCustomStringFunction('coordinate_distance', CoordinateDistance::class);
 
         $dql = '
-            SELECT coordinate, employee
+            SELECT coordinate
             FROM Application\Model\Coordinates coordinate
-            LEFT JOIN coordinate.employee employee
-            LEFT JOIN employee.areaAround area 
             WHERE coordinate_distance(:latitude, :longitude, coordinate.latitude, coordinate.longitude) <= ' . $range . '
         ';
 
