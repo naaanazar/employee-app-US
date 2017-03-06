@@ -34,7 +34,7 @@ foreach ($citiesFiles as $citiesFile) {
         $employee->setCreated(new DateTime());
         $employee->setHash(\Application\Model\Employee::hashKey());
         $employee->setImage($image);
-        $employee->setDeleted(false);
+        $employee->setJobStatus('active');
 
         $employee->setAreaAround($areaAround);
         $employee->setAddress($row['Region']);
