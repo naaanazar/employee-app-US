@@ -8,9 +8,9 @@ return [
                 'params' => [
                     'host'     => 'localhost',
                     'port'     => '3306',
-                    'user'     => 'employee-prod',
-                    'password' => '*(&BHN-0n%$ERT',
-                    'dbname'   => 'employee-prod',
+                    'user'     => 'jobdb',
+                    'password' => 'Coic06%5',
+                    'dbname'   => 'jobdb',
                     'encoding' => 'utf8',
                 ]
             ]
