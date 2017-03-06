@@ -15,7 +15,11 @@
 
         <div class="form-group col-md-3">
             <label class="control-label application-label" for="zip_field"><?= $this->translate('ZIP') ?></label>
-            <input id="zip_field" name="zip" type="text" value="<?= isset($this->fields['zip']) ? ($this->fields['zip']) : '' ?>" placeholder="" class="form-control input-md application-input">
+            <div class="input-group" id="">
+                <input id="zip_field" name="zip" type="text" value="<?= isset($this->fields['zip']) ? ($this->fields['zip']) : '' ?>" placeholder="" class="form-control input-md application-input">
+                <span class="input-group-addon button-save"><?= $this->translate('range') ?></span>
+                <input type="number" class="form-control input-md application-input" name="range" placeholder="<?= $this->translate('km')?>" title="<?= $this->translate('range in km')?>" step="0.1">
+            </div>
         </div>
 
         <div class="form-group col-md-3">
