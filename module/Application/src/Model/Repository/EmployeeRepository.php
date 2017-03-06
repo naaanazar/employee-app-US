@@ -90,7 +90,7 @@ class EmployeeRepository extends EntityRepository
             //->addExpression('contains', 'zip', $params['zip'])
             ->addExpression('eq', 'carAvailable', $params['car_available'])
             ->addExpression('eq', 'drivingLicence', $params['driving_license'])
-            ->addExpression('eq', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($params['area_around']));
+            ->addExpression('lte', 'areaAround', $this->getEntityManager()->getRepository(Area::class)->find($params['area_around']));
 
         if (true === isset($params['lastSearch'])) {
             $this->addExpression('gt', 'created', $params['lastSearch']);
@@ -123,7 +123,6 @@ class EmployeeRepository extends EntityRepository
 
             $this->addExpression('in', 'id', $employeesIds);
         }
-
 
         $criteria = $this->buildCriteria();
         $sortValue = (new Sort())->getSortValue($params['sort_name'], $params['sort_order']);
