@@ -43,4 +43,33 @@ class CoordinatesRepository extends EntityRepository
         return $coordinatesModels;
     }
 
+    /**
+     * @param Coordinates $coordinates
+     * @param $area
+     * @return array
+     */
+    public function getCoordinatesInRadius(Coordinates $coordinates, $range)
+    {
+        $this->getEntityManager()
+            ->getConfiguration()
+            ->addCustomStringFunction('coordinate_distance', CoordinateDistance::class);
+
+        $dql = '
+            SELECT coordinate
+            FROM Application\Model\Coordinates coordinate
+            WHERE coordinate_distance(:latitude, :longitude, coordinate.latitude, coordinate.longitude) <= ' . $range . '
+        ';
+
+        $params = [
+            'latitude'  => $coordinates->getLatitude(),
+            'longitude' => $coordinates->getLongitude()
+        ];
+
+        $coordinatesModels = $this->getEntityManager()
+            ->createQuery($dql)
+            ->execute($params);
+
+        return $coordinatesModels;
+    }
+
 }
