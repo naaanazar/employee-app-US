@@ -124,7 +124,6 @@ class EmployeeRepository extends EntityRepository
             $this->addExpression('in', 'id', $employeesIds);
         }
 
-
         $criteria = $this->buildCriteria();
         $sortValue = (new Sort())->getSortValue($params['sort_name'], $params['sort_order']);
 
