@@ -173,7 +173,7 @@
                         name="hourly_rate"
                         type="text"
                         class="form-control input-md application-input"
-                        value="<?= isset($this->employee) ? $this->employee->getHourlyRate() : '' ?>"
+                        value="<?= isset($this->employee) ? str_replace(".", ",", $this->employee->getHourlyRate()) : '' ?>"
                 >
             </div>
 

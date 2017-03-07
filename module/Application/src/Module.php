@@ -102,7 +102,7 @@ class Module
         /** @var ServiceManager $serviceManager */
         $serviceManager = $event->getApplication()->getServiceManager();
         $storage = new Container('language');
-        $locale = $storage->offsetExists('language') ? $storage->offsetGet('language') : 'en_US';
+        $locale = $storage->offsetExists('language') ? $storage->offsetGet('language') : 'de_DE';
 
         $translator = $serviceManager->get('translator')->setLocale($locale);
         AbstractValidator::setDefaultTranslator($translator);

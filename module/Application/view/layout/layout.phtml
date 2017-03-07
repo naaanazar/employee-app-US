@@ -17,12 +17,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Company</a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav nav">
-                        <li class="active"><a href="<?= $this->url('home') ?>"><?= $this->translate('Home') ?></a></li>
-                    </ul>
                     <?= $this->render('layout/menu/' . ($this->user === null ? 'guest' : $this->user->getRole()) . '.phtml') ?>
                     <?= $this->render('layout/translate/switcher.phtml') ?>
                 </div>

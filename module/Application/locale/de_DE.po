@@ -54,10 +54,10 @@ msgid "Code"
 msgstr "Code"
 
 msgid "Surname"
-msgstr "Familienname"
+msgstr "Vorname"
 
 msgid "ZIP"
-msgstr "ZIP"
+msgstr "PLZ"
 
 msgid "City"
 msgstr "Stadt"
@@ -75,7 +75,7 @@ msgid "No"
 msgstr "Keine"
 
 msgid "Car available"
-msgstr "Auto zur Verfügung"
+msgstr "Haben Sie ein Auto ?"
 
 msgid "Nothing where found"
 msgstr "Nichts gefunden, wo"
@@ -84,7 +84,7 @@ msgid "Date of application / entry"
 msgstr "Datum der Anwendung / Eintrag"
 
 msgid "Mobile Phone"
-msgstr "Handy"
+msgstr "Mobilnummer"
 
 msgid "Set Option Why Delete"
 msgstr "Setzen Sie Die Option Warum Löschen"
@@ -162,7 +162,7 @@ msgid "Edit Application"
 msgstr "Bearbeiten Anwendung"
 
 msgid "Address"
-msgstr "Adresse"
+msgstr "Strasse m. Hausnummer"
 
 msgid "Mobile phone number"
 msgstr "Handy-Nummer"
@@ -171,37 +171,37 @@ msgid "Landline number"
 msgstr "Festnetznummer"
 
 msgid "Email"
-msgstr "E-Mail"
+msgstr "Email"
 
 msgid "Area around home address willing to work"
-msgstr "Bereich, rund um Haus-Adresse bereit zu arbeiten"
+msgstr "In welchem Umkreis um Ihre Wohnung können Sie arbeiten ?"
 
 msgid "Type of contract"
-msgstr "Art des Vertrages"
+msgstr "gewünschte Vertragsart"
 
 msgid "Weekly hours available"
-msgstr "Wöchentliche Stunden zur Verfügung"
+msgstr "Wieviele Stunden pro Woche möchten Sie maximal arbeiten ?"
 
 msgid "Start day"
-msgstr "Start-Tag"
+msgstr "Wann möchten Sie anfangen ?"
 
 msgid "Comments"
-msgstr "Kommentare"
+msgstr "Anmerkungen"
 
 msgid "Hourly rate"
-msgstr "Stundensatz"
+msgstr "gewünschter Stundenlohn"
 
 msgid "Experience in the job"
-msgstr "Erfahrung in der Arbeit"
+msgstr "Haben Sie bereits Erfahrung als Haushaltshilfe ?"
 
 msgid "Application Source"
 msgstr "Anwendung Quelle"
 
 msgid "Upload user photo"
-msgstr "Hochladen user-Foto"
+msgstr "Bewerbungsfoto hochladen"
 
 msgid "Attachments"
-msgstr "Anlagen"
+msgstr "Lebenslauf / Zeugnisse hochladen"
 
 msgid "File format"
 msgstr "Datei-format"
@@ -228,7 +228,7 @@ msgid "Has experience"
 msgstr "Hat Erfahrung"
 
 msgid "Driving license present"
-msgstr "Führerschein vorhanden"
+msgstr "Haben Sie einen Führerschein ?"
 
 msgid "Source Application"
 msgstr "- Source-Anwendung"
@@ -297,7 +297,7 @@ msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Create Employee"
-msgstr ""Erstellen Sie Für Mitarbeiter"
+msgstr "Erstellen Sie Für Mitarbeiter"
 
 msgid "Exit from dashboard"
 msgstr "Ausfahrt aus dem dashboard"

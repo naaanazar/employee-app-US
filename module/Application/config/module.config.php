@@ -61,7 +61,7 @@ return [
         ),
     ],
     'translator' => [
-        'locale' => 'en_US',
+        'locale' => 'de_DE',
         'translation_file_patterns' => [
             [
                 'type' => 'gettext',
@@ -71,9 +71,9 @@ return [
         ],
     ],
     'locales' => [
+        'de_DE' => 'Deutsch',
         'en_US' => 'English',
         'fr_FR' => 'Francais',
-        'de_DE' => 'Deutsch',
     ],
     'fixtures' => [
         // Format below
