@@ -34,7 +34,7 @@ var searchEmployee = function (event) {
                     parseFloat(jQuery('#longitude').val())
                 );
 
-                GoogleMap.marker.setIcon('/img/marker_green.png');
+                GoogleMap.marker.setIcon(GoogleMap.images);
             }
 
             data.coordinates.forEach(

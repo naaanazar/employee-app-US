@@ -55,22 +55,6 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * Index action
-     */
-    public function indexAction()
-    {
-
-//        $helper = $this->getEvent()
-//            ->getApplication()
-//            ->getServiceManager()
-//            ->get('ViewHelperManager')
-//            ->get('BasePath');
-
-//        $helper($url);
-
-    }
-
-    /**
      * Search employees action
      *
      * @return ViewModel

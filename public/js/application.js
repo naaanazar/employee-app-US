@@ -1,6 +1,7 @@
 var ModalAction;
 
 var promise = jQuery.Deferred();
+var BasePath;
 
 /**
  * Submit form with ajax
@@ -149,7 +150,7 @@ jQuery(document).on('click', '.employed-unemployed', function(event) {
         reason: jQuery('#delete-ask :selected').text()
         }, function( data ) {
             window.location.reload(true);
-    })
+    });
 
     return false;
 });
@@ -193,6 +194,32 @@ jQuery('document').ready(function () {
         }
     )
 });
+
+/**
+ *
+ * @param $path
+ * @constructor
+ * return patch to file
+ */
+BasePath = function(path, callback) {
+    var success = function (response) {
+        callback(response.path);
+    };
+
+    jQuery.ajax(
+        {
+            url: '/basePath',
+            data: {path: path},
+            method: 'post',
+            success: success
+        }
+    );
+};
+
+var setImage = function (path) {
+    GoogleMap.images = path + 'img/marker_green.png';
+    GoogleMap.icon = path + 'img/marker.png';
+};
 
 /**
  * @type {{showErrorsMassages: Validate.showErrorsMassages, redirect: Validate.redirect}}
@@ -359,7 +386,7 @@ var configureDelete = function(event){
     jQuery.post(action, {id : id}, function( data ) {
         jQuery(event.target).closest('tr').remove();
     })
-}
+};
 
 jQuery('span').css('pointer-events', 'none');
 
@@ -375,7 +402,7 @@ var editShow = function(event){
     row.find('.configure-buttons').append('<a class="btn a-dashboard configure-save"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</a>&nbsp;');
     row.find('.configure-delete').hide();
     row.find('.configure-edit').hide();
-}
+};
 
 /**
  *
@@ -390,7 +417,7 @@ var saveEdite = function (event){
         Validate.redirect(data.redirect);
 
     })
-}
+};
 
 /**
  * allowed Types
