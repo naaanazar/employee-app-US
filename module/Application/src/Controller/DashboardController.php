@@ -57,7 +57,7 @@ class DashboardController extends AbstractController
     /**
      * return patch to file
      *
-     * @return array|JsonModel
+     * @return JsonModel
      */
     public function basePatchAction()
     {
