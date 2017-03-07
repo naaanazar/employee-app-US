@@ -48,7 +48,7 @@ class DashboardController extends AbstractController
     public function init()
     {
         if ($this->getUser() === null || $this->getUser()->getRole() !== User::ROLE_ADMIN) {
-            return $this->notFoundAction();
+//            return $this->notFoundAction();
         }
 
         $this->layout('layout/admin');
@@ -59,6 +59,15 @@ class DashboardController extends AbstractController
      */
     public function indexAction()
     {
+
+//        $helper = $this->getEvent()
+//            ->getApplication()
+//            ->getServiceManager()
+//            ->get('ViewHelperManager')
+//            ->get('BasePath');
+
+//        $helper($url);
+
     }
 
     /**
