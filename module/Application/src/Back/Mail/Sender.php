@@ -60,7 +60,7 @@ class Sender
         $message->setSubject($subject)
             ->setBody($body)
             ->setTo((array)$to)
-            ->setFrom('no-reply@employee-app');
+            ->setFrom('familia-haushaltshilfe.de<no-reply@employee-app>');
 
         try {
             $this->transport->send($message);
