@@ -55,19 +55,27 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * Index action
+     * return patch to file
+     *
+     * @return array|JsonModel
      */
-    public function indexAction()
+    public function basePatchAction()
     {
+        if (true === $this->getRequest()->isPost() && true === $this->getRequest()->isXmlHttpRequest()) {
+            $helper = $this->getEvent()
+                ->getApplication()
+                ->getServiceManager()
+                ->get('ViewHelperManager')
+                ->get('BasePath');
 
-//        $helper = $this->getEvent()
-//            ->getApplication()
-//            ->getServiceManager()
-//            ->get('ViewHelperManager')
-//            ->get('BasePath');
+            $patch = $helper($this->getRequest()->getPost('patch'));
 
-//        $helper($url);
+            $view = new JsonModel(['patch' => $patch]);
 
+            return $view;
+        }
+
+        return $this->notFoundAction();
     }
 
     /**
