@@ -201,17 +201,17 @@ jQuery('document').ready(function () {
  * @constructor
  * return patch to file
  */
-BasePath = function(patch, func) {
-    var callback = function (response) {
-        func(response.patch);
+BasePath = function(path, callback) {
+    var success = function (response) {
+        callback(response.path);
     };
 
     jQuery.ajax(
         {
             url: '/basePath',
-            data: {patch: patch},
+            data: {path: path},
             method: 'post',
-            success: callback
+            success: success
         }
     );
 };

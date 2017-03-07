@@ -79,9 +79,9 @@ class IndexController extends AbstractController
                 ->get('ViewHelperManager')
                 ->get('BasePath');
 
-            $patch = $helper($this->getRequest()->getPost('patch'));
+            $path = $helper($this->getRequest()->getPost('path'));
 
-            $view = new JsonModel(['patch' => $patch]);
+            $view = new JsonModel(['path' => $path]);
 
             return $view;
         }
