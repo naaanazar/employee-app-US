@@ -1,7 +1,8 @@
 var ModalAction;
 
 var promise = jQuery.Deferred();
-var BasePatch;
+var BasePath;
+
 /**
  * Submit form with ajax
  */
@@ -200,19 +201,24 @@ jQuery('document').ready(function () {
  * @constructor
  * return patch to file
  */
-BasePatch = function(patch) {
+BasePath = function(patch, func) {
     var callback = function (response) {
-        return response.patch;
+        func(response.patch);
     };
 
     jQuery.ajax(
         {
-            url: '/dashboard/basePatch',
+            url: '/basePath',
             data: {patch: patch},
             method: 'post',
             success: callback
         }
     );
+};
+
+var setImage = function (path) {
+    GoogleMap.images = path + 'img/marker_green.png';
+    GoogleMap.icon = path + 'img/marker.png';
 };
 
 /**
