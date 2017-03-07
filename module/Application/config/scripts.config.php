@@ -13,14 +13,14 @@ return [
     '((employee\/[a-z0-9]{40})|dashboard\/(|overview))' => [
         'js/module/employee/comments.js'
     ],
-    '^\/((employee(\/(index))?|(dashboard\/?(statistics|)(\/page\/[0-9]+)?)))$' => [
+    '\/((employee(\/(index))?|(dashboard\/?(statistics|)(\/page\/[0-9]+)?)))$' => [
         'js/module/dashboard/search-employee.js',
         'js/module/dashboard/create-search-request.js',
     ],
-    '^\/dashboard.+' => [
+    '\/dashboard.+' => [
         'js/module/dashboard/table-sort.js'
     ],
-    '^((\/dashboard\/?)|(\/employee\/?(edit)?))$' => [
+    '((\/dashboard\/?)|(\/employee\/?(edit)?))$' => [
         'js/custom-map.js',
     ]
 ];
