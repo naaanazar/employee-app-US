@@ -155,6 +155,7 @@ class EmployeeController extends AbstractController
             );
 
             $data  = $this->getRequest()->getPost()->toArray();
+            $data['hourly_rate'] = str_replace(",", ".", $data['hourly_rate']);
             $files = $this->getRequest()->getFiles()->toArray();
             $form = new Employee([]);
             $form->setData(
