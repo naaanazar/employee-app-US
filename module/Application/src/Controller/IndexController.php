@@ -7,6 +7,7 @@ use Application\Model\Repository\CoordinatesRepository;
 use Zend\Http\Header\Referer;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 /**
  * Class IndexController
@@ -47,5 +48,29 @@ class IndexController extends AbstractController
      */
     public function informationAction()
     {
+    }
+
+    /**
+     * return patch to file
+     *
+     * @return JsonModel
+     */
+    public function basePathAction()
+    {
+        if (true === $this->getRequest()->isPost() && true === $this->getRequest()->isXmlHttpRequest()) {
+            $helper = $this->getEvent()
+                ->getApplication()
+                ->getServiceManager()
+                ->get('ViewHelperManager')
+                ->get('BasePath');
+
+            $path = $helper($this->getRequest()->getPost('path'));
+
+            $view = new JsonModel(['path' => $path]);
+
+            return $view;
+        }
+
+        return $this->notFoundAction();
     }
 }

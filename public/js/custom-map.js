@@ -4,6 +4,7 @@ var GoogleMap;
 var Address;
 
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgpnt3A8evQvsgg&libraries=geometry'], function() {
+    BasePath('/', setImage);
 
     jQuery('document').ready(function () {
         /**
@@ -32,7 +33,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
         Address.clickOnMap();
         if('' !== jQuery('#latitude').val() && '' !== jQuery('#longitude').val()) {
             Address.marker = GoogleMap.addMarker(Address.map, parseFloat(jQuery('#latitude').val()), parseFloat(jQuery('#longitude').val()));
-            Address.marker.setIcon('/img/marker_green.png');
+            Address.marker.setIcon(GoogleMap.images);
         } else {
             Address.findAddress(Address.map);
         }
@@ -51,7 +52,8 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
     });
 
     GoogleMap = {
-        images: '/img/marker.png',
+        images: '',
+        icon: '',
         marker: null,
         markers: [],
 
@@ -70,7 +72,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             var marker = new google.maps.Marker({
                 position: {lat: lat, lng: lng},
                 map: map,
-                icon: this.images
+                icon: this.icon
             });
             GoogleMap.markers.push(marker);
             return marker;
@@ -156,7 +158,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
             });
 
             GoogleMap.marker = this.marker = GoogleMap.addMarker(map, event.latLng.lat(), event.latLng.lng());
-            this.marker.setIcon('/img/marker_green.png');
+            this.marker.setIcon(GoogleMap.images);
             document.getElementById('latitude').value = event.latLng.lat();
             document.getElementById('longitude').value = event.latLng.lng();
         },
@@ -180,7 +182,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
                     map.setZoom(16);
 
                     Address.marker = GoogleMap.addMarker(map, results[0].geometry.location.lat(), results[0].geometry.location.lng());
-                    Address.marker.setIcon('/img/marker_green.png');
+                    Address.marker.setIcon(GoogleMap.images);
 
                     document.getElementById('latitude').value = results[0].geometry.location.lat();
                     document.getElementById('longitude').value = results[0].geometry.location.lng();
@@ -224,7 +226,7 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDMgnsp7HMAHLR_ntjubgp
          * @param method
          */
         ajax: function (url, data, method) {
-            $.ajax({
+            jQuery.ajax({
                 type: 'post',
                 url: url,
                 data: data,
