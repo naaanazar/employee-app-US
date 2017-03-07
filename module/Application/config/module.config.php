@@ -55,8 +55,8 @@ return [
         'port'              => 587, // Notice port change for TLS is 587
         'connection_class'  => 'plain',
         'connection_config' => array(
-            'username' => 'vitalii.krushelnytskyi@gmail.com',
-            'password' => 'phgtrsbetvdoqcxr',
+            'username' => 'noreply@familia-haushaltshilfe.de',
+            'password' => 'familia2017',
             'ssl'      => 'tls',
         ),
     ],
