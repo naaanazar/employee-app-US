@@ -51,7 +51,7 @@ class IndexController extends AbstractController
     }
 
     /**
-     * return patch to file
+     * return path to file
      *
      * @return JsonModel
      */

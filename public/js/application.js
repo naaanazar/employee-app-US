@@ -197,7 +197,7 @@ jQuery('document').ready(function () {
 
 /**
  *
- * @param $patch
+ * @param $path
  * @constructor
  * return patch to file
  */
