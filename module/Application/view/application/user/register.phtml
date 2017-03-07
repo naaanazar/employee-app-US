@@ -1,28 +1,26 @@
-
 <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-success panel-login-register" >
         <div class="panel-heading head-login-register">
-            <div class="panel-title">Sign Up</div>
-            <div class="forgot-password" ><a href="#">Forgot password?</a></div>
+            <div class="panel-title"><?= $this->translate('Sign up') ?></div>
         </div>
 
         <div class="panel-body panel-body-login-register">
             <form form method="post" class="async">
-                <label for="email_field">Email</label>
+                <label for="email_field"><?= $this->translate('Email') ?></label>
                 <div class="input-group ">
                     <span  class="input-group-addon addon-style"><i class="glyphicon glyphicon-exclamation-sign"></i></span>
                     <input type="text" name="email" id="email_field" class="form-control">
                 </div>
                 <br>
 
-                <label for="name_field">Name</label>
+                <label for="name_field"><?= $this->translate('Name') ?></label>
                 <div class="input-group ">
                     <span  class="input-group-addon addon-style"><i class="glyphicon glyphicon-user"></i></span>
                     <input type="text" name="name" id="name_field" class="form-control">
                 </div>
                 <br>
 
-                <div><label for="password_field">Password</label></div>
+                <div><label for="password_field"><?= $this->translate('Password') ?></label></div>
                 <div  class="input-group">
                     <span class="input-group-addon addon-style"><i class="glyphicon glyphicon-lock"></i></span>
                     <input type="password" name="password" id="password_field" class="form-control">
@@ -31,7 +29,7 @@
                 <div class="input-group">
                     <div class="form-group button-block">
                         <div class="col-sm-12 controls">
-                            <button class="btn button-save">Sign Up</button>
+                            <button class="btn button-save"><?= $this->translate('Sign up') ?></button>
                         </div>
                     </div>
             </form>

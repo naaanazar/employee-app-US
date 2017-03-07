@@ -18,7 +18,7 @@ class RegexValidator extends Regex
      */
     protected $messageTemplates = [
         self::INVALID   => /*translate*/'Invalid type given. String, integer or float expected'/*translate*/,
-        self::NOT_MATCH => /*translate*/'The input does not match against pattern '/*translate*/,
+        self::NOT_MATCH => /*translate*/'The input does not match against pattern'/*translate*/,
         self::ERROROUS  => /*translate*/'There was an internal error while using the pattern'/*translate*/,
     ];
 }
