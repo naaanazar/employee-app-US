@@ -37,7 +37,7 @@ class Manager
     public function getCurrentLocale()
     {
         $storage = (new Container('language'));
-        return $storage->offsetExists('language') ? $storage->offsetGet('language') : 'en_US';
+        return $storage->offsetExists('language') ? $storage->offsetGet('language') : 'de_DE';
     }
 
 }
