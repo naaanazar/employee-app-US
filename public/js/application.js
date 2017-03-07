@@ -195,27 +195,6 @@ jQuery('document').ready(function () {
     )
 });
 
-/**
- *
- * @param $path
- * @constructor
- * return patch to file
- */
-BasePath = function(path, callback) {
-    var success = function (response) {
-        callback(response.path);
-    };
-
-    jQuery.ajax(
-        {
-            url: '/basePath',
-            data: {path: path},
-            method: 'post',
-            success: success
-        }
-    );
-};
-
 var setImage = function (path) {
     GoogleMap.images = path + 'img/marker_green.png';
     GoogleMap.icon = path + 'img/marker.png';
