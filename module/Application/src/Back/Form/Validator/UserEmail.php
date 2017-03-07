@@ -3,7 +3,6 @@
 namespace Application\Back\Form\Validator;
 
 use Application\Module;
-use Application\Model\Area;
 use Doctrine\ORM\EntityRepository;
 use Zend\Validator\AbstractValidator;
 
@@ -11,7 +10,7 @@ use Zend\Validator\AbstractValidator;
  * Class Password
  * @package Application\Back\Form\Validator
  */
-class AreaAround extends AbstractValidator
+class UserEmail extends AbstractValidator
 {
     /**
      * Messages keys
@@ -23,7 +22,8 @@ class AreaAround extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = [
-        self::NOT_FOUND => /*translate*/'Incorrect value'/*translate*/
+        self::NOT_FOUND => /*translate*/'User with such email does not exist'/*translate*/,
+        self::EXCEPTION => /*translate*/'Some error occurred while validating email'/*translate*/
     ];
 
     /**
@@ -36,9 +36,11 @@ class AreaAround extends AbstractValidator
 
         try {
             /** @var EntityRepository $repository */
-            $repository = Module::entityManager()->getRepository(Area::class);
+            $repository = Module::entityManager()->getRepository($this->getOption('entity'));
 
-            $areaAround = $repository->find($value);
+            $areaAround = $repository->findOneBy(
+                ['email' => $value]
+            );
 
             if($areaAround !== null){
                 $result = true;

@@ -17,6 +17,12 @@ msgstr "Recherche résultat de la demande"
 msgid "Successfully registered"
 msgstr "Enregistré avec succès"
 
+msgid "Password recovery"
+msgstr "Récupération de mot de passe"
+
+msgid "Recovery password link is not valid"
+msgstr "Mot de passe de récupération lien n'est pas valide"
+
 msgid "Home"
 msgstr "La maison"
 
@@ -107,6 +113,12 @@ msgstr "Désactiver mail"
 msgid "ID"
 msgstr "ID"
 
+msgid "range"
+msgstr "gamme"
+
+msgid "km"
+msgstr "km"
+
 msgid "Status"
 msgstr "Statut"
 
@@ -118,6 +130,9 @@ msgstr "Active"
 
 msgid "Deleted"
 msgstr "Supprimé"
+
+msgid "Employed"
+msgstr "Emploi"
 
 msgid "Area around"
 msgstr "La zone autour de"
@@ -191,8 +206,11 @@ msgstr "Les pièces jointes"
 msgid "File format"
 msgstr "Format de fichier"
 
-msgid "Check your email for login details"
-msgstr "Vérifiez votre e-mail pour les détails de connexion"
+msgid "Fire"
+msgstr "Feu"
+
+msgid "Employ"
+msgstr "Employer"
 
 msgid "Reason Delete"
 msgstr "Pourquoi Supprimer"
@@ -218,6 +236,30 @@ msgstr "Source De L'Application"
 msgid "Add Attachments"
 msgstr "Ajouter Des Pièces Jointes"
 
+msgid "Check your email box"
+msgstr "Vérifiez votre boîte e-mail"
+
+msgid "Send me recovery link to email"
+msgstr "Envoyez-moi lien de récupération de courrier électronique"
+
+msgid "Log In"
+msgstr "Journal En"
+
+msgid "Forgot password"
+msgstr "Mot de passe oublié"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "New Password"
+msgstr "Nouveau Mot De Passe"
+
+msgid "Change password"
+msgstr "Changer de mot de passe"
+
+msgid "Sign up"
+msgstr "Inscrivez -"
+
 msgid "You have created search request with params"
 msgstr "Vous avez créé à la demande de recherche avec les params"
 
@@ -233,23 +275,29 @@ msgstr "Connectez-vous site avec des détails"
 msgid "Link"
 msgstr "Lien"
 
-msgid "Password"
-msgstr "Mot de passe"
+msgid "You have requested password recovery option for email"
+msgstr "Vous avez l'option de récupération de mot de passe demandé par e-mail"
+
+msgid "To recover password go to"
+msgstr "Pour récupérer le mot de passe, allez à"
+
+msgid "url"
+msgstr "url"
+
+msgid "If you did not request a password recovery follow"
+msgstr "Si vous n'avez pas de demande de récupération de mot de passe, suivez"
 
 msgid "Leave comment"
 msgstr "Laisser un commentaire"
 
-msgid "Dashboard"
-msgstr "Tableau de bord"
-
 msgid "Logout"
 msgstr "Déconnexion"
 
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
 msgid "Create Employee"
 msgstr "Créer Employé"
-
-msgid "Applications"
-msgstr "Applications"
 
 msgid "Exit from dashboard"
 msgstr "La sortie de tableau de bord"
@@ -299,8 +347,8 @@ msgstr "Une erreur s'est produite lors de la connexion à"
 msgid "Invalid type given. String, integer or float expected"
 msgstr "Non valides type de donnée. String, integer ou float prévu"
 
-msgid "The input does not match against pattern "
-msgstr "L'entrée ne correspond pas à l'encontre de modèle "
+msgid "The input does not match against pattern"
+msgstr "L'entrée ne correspond pas à l'encontre de modèle"
 
 msgid "There was an internal error while using the pattern"
 msgstr "Il y avait une erreur interne lors de l'utilisation du modèle"
@@ -313,6 +361,12 @@ msgstr "L'entrée est à moins de %min% caractères"
 
 msgid "The input is more than %max% characters long"
 msgstr "L'entrée est plus qu' %max% caractères"
+
+msgid "User with such email does not exist"
+msgstr "Utilisateur avec un tel email n'existe pas"
+
+msgid "Some error occurred while validating email"
+msgstr "Une erreur s'est produite lors de la validation de l'email"
 
 msgid "Full Name"
 msgstr "Nom Complet"

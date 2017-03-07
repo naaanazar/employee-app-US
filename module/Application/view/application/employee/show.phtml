@@ -23,7 +23,7 @@
                             <button
                                     class="btn btn-danger employed-unemployed"
                                     id="unemployed"
-                                    data-action="/employee/delete"
+                                    data-action="<?= $this->url('employee', ['action' => 'delete']) ?>"
                                     data-status="active"
                                     data-hash="<?= $this->employee->getHash() ?>"
                             >
@@ -33,7 +33,7 @@
                             <button
                                     class="btn btn-success employed-unemployed"
                                     id="employed"
-                                    data-action="/employee/delete"
+                                    data-action="<?= $this->url('employee', ['action' => 'delete']) ?>"
                                     data-status="employed"
                                     data-hash="<?= $this->employee->getHash() ?>"
                             >
@@ -48,7 +48,7 @@
                                 type="submit"
                                 class="btn btn-primary"
                                 id="delete_employee"
-                                data-action="/employee/delete"
+                                data-action="<?= $this->url('employee', ['action' => 'delete']) ?>"
                                 data-status="active"
                                 data-hash="<?= $this->employee->getHash() ?>"
                         >
@@ -97,7 +97,7 @@
     <h4 class="page-header"><?= $this->translate('Additional information') ?></h4>
     <ul class="list-group">
         <li class="list-group-item">
-            <?= $this->translate('Hourly rate') ?>: &euro;<?= $this->employee->getHourlyRate() ?>
+            <?= $this->translate('Hourly rate') ?>: &euro;<?= str_replace(".", ",", $this->employee->getHourlyRate()) ?>
         </li>
 
         <?php if ($this->employee->getContract() !== null) : ?>

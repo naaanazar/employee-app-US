@@ -17,6 +17,12 @@ msgstr "Suche nach Anfrage-Ergebnis"
 msgid "Successfully registered"
 msgstr "Erfolgreich registriert"
 
+msgid "Password recovery"
+msgstr "Password recovery"
+
+msgid "Recovery password link is not valid"
+msgstr "Recovery über den link " Kennwort ist nicht gültig"
+
 msgid "Home"
 msgstr "Home"
 
@@ -48,10 +54,10 @@ msgid "Code"
 msgstr "Code"
 
 msgid "Surname"
-msgstr "Familienname"
+msgstr "Vorname"
 
 msgid "ZIP"
-msgstr "ZIP"
+msgstr "PLZ"
 
 msgid "City"
 msgstr "Stadt"
@@ -69,7 +75,7 @@ msgid "No"
 msgstr "Keine"
 
 msgid "Car available"
-msgstr "Auto zur Verfügung"
+msgstr "Haben Sie ein Auto ?"
 
 msgid "Nothing where found"
 msgstr "Nichts gefunden, wo"
@@ -78,7 +84,7 @@ msgid "Date of application / entry"
 msgstr "Datum der Anwendung / Eintrag"
 
 msgid "Mobile Phone"
-msgstr "Handy"
+msgstr "Mobilnummer"
 
 msgid "Set Option Why Delete"
 msgstr "Setzen Sie Die Option Warum Löschen"
@@ -107,6 +113,12 @@ msgstr "Deaktivieren Sie E-mail"
 msgid "ID"
 msgstr "ID"
 
+msgid "range"
+msgstr "Angebot"
+
+msgid "km"
+msgstr "km"
+
 msgid "Status"
 msgstr "Status"
 
@@ -118,6 +130,9 @@ msgstr "Aktiv"
 
 msgid "Deleted"
 msgstr "Gelöscht"
+
+msgid "Employed"
+msgstr "Beschäftigt"
 
 msgid "Area around"
 msgstr "Bereich um"
@@ -147,7 +162,7 @@ msgid "Edit Application"
 msgstr "Bearbeiten Anwendung"
 
 msgid "Address"
-msgstr "Adresse"
+msgstr "Strasse m. Hausnummer"
 
 msgid "Mobile phone number"
 msgstr "Handy-Nummer"
@@ -156,43 +171,46 @@ msgid "Landline number"
 msgstr "Festnetznummer"
 
 msgid "Email"
-msgstr "E-Mail"
+msgstr "Email"
 
 msgid "Area around home address willing to work"
-msgstr "Bereich, rund um Haus-Adresse bereit zu arbeiten"
+msgstr "In welchem Umkreis um Ihre Wohnung können Sie arbeiten ?"
 
 msgid "Type of contract"
-msgstr "Art des Vertrages"
+msgstr "gewünschte Vertragsart"
 
 msgid "Weekly hours available"
-msgstr "Wöchentliche Stunden zur Verfügung"
+msgstr "Wieviele Stunden pro Woche möchten Sie maximal arbeiten ?"
 
 msgid "Start day"
-msgstr "Start-Tag"
+msgstr "Wann möchten Sie anfangen ?"
 
 msgid "Comments"
-msgstr "Kommentare"
+msgstr "Anmerkungen"
 
 msgid "Hourly rate"
-msgstr "Stundensatz"
+msgstr "gewünschter Stundenlohn"
 
 msgid "Experience in the job"
-msgstr "Erfahrung in der Arbeit"
+msgstr "Haben Sie bereits Erfahrung als Haushaltshilfe ?"
 
 msgid "Application Source"
 msgstr "Anwendung Quelle"
 
 msgid "Upload user photo"
-msgstr "Hochladen user-Foto"
+msgstr "Bewerbungsfoto hochladen"
 
 msgid "Attachments"
-msgstr "Anlagen"
+msgstr "Lebenslauf / Zeugnisse hochladen"
 
 msgid "File format"
 msgstr "Datei-format"
 
-msgid "Check your email for login details"
-msgstr "Überprüfen Sie Ihre E-Mail-login-details"
+msgid "Fire"
+msgstr "Feuer"
+
+msgid "Employ"
+msgstr "Beschäftigen"
 
 msgid "Reason Delete"
 msgstr "Grund Löschen"
@@ -210,13 +228,37 @@ msgid "Has experience"
 msgstr "Hat Erfahrung"
 
 msgid "Driving license present"
-msgstr "Führerschein vorhanden"
+msgstr "Haben Sie einen Führerschein ?"
 
 msgid "Source Application"
 msgstr "- Source-Anwendung"
 
 msgid "Add Attachments"
 msgstr "Hinzufügen Von Anlagen"
+
+msgid "Check your email box"
+msgstr "Überprüfen Sie Ihre E-Mail-box"
+
+msgid "Send me recovery link to email"
+msgstr "Senden Sie mir recovery-link zu E-Mail"
+
+msgid "Log In"
+msgstr "Log-In"
+
+msgid "Forgot password"
+msgstr "Passwort vergessen"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "New Password"
+msgstr "Neues Passwort"
+
+msgid "Change password"
+msgstr "Passwort ändern"
+
+msgid "Sign up"
+msgstr "Anmelden"
 
 msgid "You have created search request with params"
 msgstr "Sie haben erstellt Suchanfrage mit params"
@@ -233,23 +275,29 @@ msgstr "Login auf website mit details"
 msgid "Link"
 msgstr "Link"
 
-msgid "Password"
-msgstr "Passwort"
+msgid "You have requested password recovery option for email"
+msgstr "Sie haben angefordert Passwort-recovery-option für E-Mail"
+
+msgid "To recover password go to"
+msgstr "Um Passwort wiederherzustellen, gehen Sie zu"
+
+msgid "url"
+msgstr "url"
+
+msgid "If you did not request a password recovery follow"
+msgstr "Wenn du nicht angefordert hast, ein Passwort-recovery-Folgen"
 
 msgid "Leave comment"
 msgstr "Kommentar hinterlassen"
 
-msgid "Dashboard"
-msgstr "Dashboard"
-
 msgid "Logout"
 msgstr "Logout"
 
-msgid "Create Employee"
-msgstr ""Erstellen Sie Für Mitarbeiter"
+msgid "Dashboard"
+msgstr "Dashboard"
 
-msgid "Applications"
-msgstr "Anwendungen"
+msgid "Create Employee"
+msgstr "Erstellen Sie Für Mitarbeiter"
 
 msgid "Exit from dashboard"
 msgstr "Ausfahrt aus dem dashboard"
@@ -299,8 +347,8 @@ msgstr "Einige Fehler beim einloggen"
 msgid "Invalid type given. String, integer or float expected"
 msgstr "Ungültiger Typ angegeben. String, integer oder float erwartet"
 
-msgid "The input does not match against pattern "
-msgstr "Die Eingabe ist nicht match gegen Muster "
+msgid "The input does not match against pattern"
+msgstr "Die Eingabe ist nicht match gegen Muster"
 
 msgid "There was an internal error while using the pattern"
 msgstr "Es ist ein interner Fehler bei der Verwendung der Muster"
@@ -313,6 +361,12 @@ msgstr "Der Eingang ist weniger als %min% Zeichen lang sein"
 
 msgid "The input is more than %max% characters long"
 msgstr "Der Eingang ist mehr als %max% Zeichen lang sein"
+
+msgid "User with such email does not exist"
+msgstr "Benutzer mit dieser E-Mail existiert nicht"
+
+msgid "Some error occurred while validating email"
+msgstr "Einige Fehler beim überprüfen der E-Mail"
 
 msgid "Full Name"
 msgstr "Vollständiger Name"

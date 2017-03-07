@@ -40,6 +40,26 @@ return [
             'action' => '(?!show)'
         ]
     ],
+    'recovery-password' => [
+        'type' => Segment::class,
+        'options' => [
+            'route' => '/recover-password/:hash',
+            'defaults' => [
+                'controller' => Controller\UserController::class,
+                'action' => 'recover-password'
+            ],
+        ],
+    ],
+    'recovery-password-cancel' => [
+        'type' => Segment::class,
+        'options' => [
+            'route' => '/recover-password-cancel/:hash',
+            'defaults' => [
+                'controller' => Controller\UserController::class,
+                'action' => 'recover-password-cancel'
+            ],
+        ],
+    ],
     'show-user' => [
         'type'    => Regex::class,
         'options' => [

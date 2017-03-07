@@ -83,13 +83,6 @@ class EmployeeController extends AbstractController
     }
 
     /**
-     * Information action
-     */
-    public function informationAction()
-    {
-    }
-
-    /**
      * @return ViewModel
      */
     public function editAction()
@@ -155,6 +148,7 @@ class EmployeeController extends AbstractController
             );
 
             $data  = $this->getRequest()->getPost()->toArray();
+            $data['hourly_rate'] = str_replace(",", ".", $data['hourly_rate']);
             $files = $this->getRequest()->getFiles()->toArray();
             $form = new Employee([]);
             $form->setData(
@@ -313,7 +307,7 @@ class EmployeeController extends AbstractController
                     if (null !== $this->getUser()) {
                         $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
                     } else {
-                        $url = $this->url()->fromRoute('employee', ['action' => 'information']);
+                        $url = $this->url()->fromRoute('index', ['action' => 'information']);
                     }
 
                     $response->setVariables(
