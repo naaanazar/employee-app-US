@@ -98,14 +98,6 @@ class DashboardController extends AbstractController
                     ]
                 );
 
-            $viewHtml .= $this->getRenderer()
-                ->render(
-                    'layout/concern/search-request-create-button',
-                    [
-                        'paginator' => $paginator
-                    ]
-                );
-
             $coordinates = array_map(
                 function ($coordinate) {
                     /** @var Coordinates $coordinate */

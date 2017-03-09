@@ -3,7 +3,9 @@
         <h3><?= $this->translate('Nothing where found') ?></h3>
     </div>
 <?php else :?>
-
+    <div class="text-center">
+        <button class="btn btn-primary create-search-request" data-action="<?= $this->url('dashboard', ['action' => 'search-request']) ?>"><?= $this->translate('Create search request') ?></button>
+    </div>
     <table class="table" id="employee_table">
         <thead>
         <tr>
