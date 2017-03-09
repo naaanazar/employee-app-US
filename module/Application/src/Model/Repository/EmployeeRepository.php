@@ -33,7 +33,10 @@ class EmployeeRepository extends EntityRepository
 
         foreach ($this->expressions as $expression) {
 
-            if ((false === $expression['value'] || false === empty($expression['value'])) || $expression['expression'] === 'in') {
+            if (
+                (false === $expression['value'] || false === empty($expression['value'] || '0' === $expression['value']))
+                || $expression['expression'] === 'in'
+            ) {
 
                 $criteriaExpression = $criteria->expr()
                     ->{$expression['expression']}($expression['name'], $expression['value']);
@@ -97,7 +100,7 @@ class EmployeeRepository extends EntityRepository
         }
 
 
-        if (false === empty($post['start'])) {
+        if (false === empty($params['start'])) {
             $this
                 ->addExpression('gt', 'startDate', (new \DateTime ($params['start'])))
                 ->addExpression('lt', 'startDate', (new \DateTime ($params['end'])));
