@@ -562,5 +562,51 @@ class DashboardController extends AbstractController
         return $this->notFoundAction();
     }
 
+    /**
+     * @return JsonModel
+     */
+    public function BlockedUserAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $registerKey = $this->getEntityManager()
+                ->getRepository(RegisterKey::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($registerKey !== null) {
+
+                $user = $registerKey->getUser();
+
+                if ($user !== null) {
+
+                    $user->setRole(User::ROLE_BLOCKED);
+
+                    $this->getEntityManager()->merge($user);
+                    $this->getEntityManager()->flush();
+
+                    $result->setVariables(
+                        [
+                            'result' => $user->getName()
+                        ]
+                    );
+                }
+
+                $this->getEntityManager()->remove($registerKey);
+                $this->getEntityManager()->flush();
+            }
+
+            return $result;
+        }
+
+        return $this->notFoundAction();
+    }
+
 
 }
