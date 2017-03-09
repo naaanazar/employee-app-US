@@ -97,7 +97,7 @@ class EmployeeRepository extends EntityRepository
         }
 
 
-        if (false === empty($post['start'])) {
+        if (false === empty($params['start'])) {
             $this
                 ->addExpression('gt', 'startDate', (new \DateTime ($params['start'])))
                 ->addExpression('lt', 'startDate', (new \DateTime ($params['end'])));
