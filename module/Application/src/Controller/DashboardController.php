@@ -565,7 +565,7 @@ class DashboardController extends AbstractController
     /**
      * @return JsonModel
      */
-    public function BlockedUserAction()
+    public function blockedUserAction()
     {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
             $id = $this->getRequest()->getPost('id');
