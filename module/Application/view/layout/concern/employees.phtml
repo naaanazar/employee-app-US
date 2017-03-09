@@ -14,6 +14,7 @@
             <th data-column-name="zip"><?= $this->translate('ZIP') ?></th>
             <th data-column-name="city"><?= $this->translate('City') ?></th>
             <th data-column-name="mobilePhone"><?= $this->translate('Mobile Phone') ?></th>
+            <th data-column-name="jobStatus"><?= $this->translate('Status') ?></th>
         </tr>
         </thead>
         <?php foreach ($this->paginator as $employee) : ?>
@@ -36,6 +37,7 @@
                 <td><?= $employee->getZip() ?></td>
                 <td><?= $employee->getCity() ?></td>
                 <td><?= $employee->getMobilePhone() ?></td>
+                <td><?= $employee->getJobStatus() ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

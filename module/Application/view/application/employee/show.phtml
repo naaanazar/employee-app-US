@@ -43,7 +43,7 @@
                         <?php endif;?>
                     <?php endif;?>
 
-                    <?php if ('delete' == $this->employee->getJobStatus()) :?>
+                    <?php if ('deleted' == $this->employee->getJobStatus()) :?>
                         <button
                                 type="submit"
                                 class="btn btn-primary"
@@ -75,7 +75,7 @@
                                     class="btn btn-danger"
                                     id="delete_employee"
                                     data-action="<?= $this->url('employee', ['action' => 'delete']) ?>"
-                                    data-status="delete"
+                                    data-status="deleted"
                                     data-hash="<?= $this->employee->getHash() ?>"
                             >
                                 Delete
