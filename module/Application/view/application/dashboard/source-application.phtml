@@ -22,7 +22,7 @@
                 <td class="value-name"><?= $source->getName() ?></td>
                 <td><?= $source->getCode() ?></td>
                 <td>
-                    <div class="text-right configure-buttons" data-id="<?= $source->getId() ?>" data-action="/dashboard/source-application-delete" data-action-save="/dashboard/source-application">
+                    <div class="text-right configure-buttons" data-id="<?= $source->getId() ?>" data-action="<?= $this->url('dashboard', ['action' => 'source-application-delete']) ?>" data-action-save="<?= $this->url('dashboard', ['action' => 'source-application']) ?>">
                         <a class="btn a-dashboard  configure-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> <?= $this->translate('Edit')?></a>&nbsp;
                         <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> <?= $this->translate('Delete')?></a>
                     </div>

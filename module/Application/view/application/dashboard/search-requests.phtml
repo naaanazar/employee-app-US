@@ -29,9 +29,19 @@
                 <td><?= $this->translate((false === $request->isFound()) ? 'Yes' : 'No')  ?></td>
                 <td>
                     <?php if ($request->isFound()) : ?>
-                        <a  href="#" class="enable-mail" data-id="<?= $request->getId() ?>"><?= $this->translate('Enable mail') ?></a>
+                        <a
+                            href="#"
+                            class="enable-mail"
+                            data-id="<?= $request->getId() ?>"
+                            data-action="<?= $this->url('dashboard', ['action' => 'search-requests-set-found']) ?>"
+                        ><?= $this->translate('Enable mail') ?></a>
                     <?php else : ?>
-                        <a  href="#" class="disable-mail" data-id="<?= $request->getId() ?>"><?= $this->translate('Disable mail') ?></a>
+                        <a
+                            href="#"
+                            class="disable-mail"
+                            data-id="<?= $request->getId() ?>"
+                            data-action="<?= $this->url('dashboard', ['action' => 'search-requests-set-found']) ?>"
+                        ><?= $this->translate('Disable mail') ?></a>
                     <?php endif; ?>
                 </td>
             </tr>
