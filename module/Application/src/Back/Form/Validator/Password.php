@@ -27,7 +27,7 @@ class Password extends AbstractValidator
     const FOUND     = 'found';
     const NOT_FOUND = 'not_found';
     const EXCEPTION = 'exception';
-    const BLOCKED = 'User is deleted';
+    const BLOCKED = 'blocked';
 
     /**
      * Messages templates
