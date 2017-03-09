@@ -1,6 +1,28 @@
 <script src="<?= $this->basePath('js/vendor/require.js') ?>"></script>
 <script>
 
+    /**
+     *
+     * @param path
+     * @param callback
+     * @constructor
+     * return patch to file
+     */
+    BasePath = function(path, callback) {
+        var success = function (response) {
+            callback(response.path);
+        };
+
+        jQuery.ajax(
+            {
+                url: '<?= $this->url('index', ['action' => 'base-path']) ?>',
+                data: {path: path},
+                method: 'post',
+                success: success
+            }
+        );
+    };
+
     'use strict';
 
     var Globals = {};
