@@ -99,7 +99,7 @@ class UserController extends AbstractController
                 $user->setRole(0);
 
                 if (false !== ($registerKey = $this->params('key', false))
-                    && $registerKey = $repo->findOneBy(['value' => $registerKey])
+                    && $registerKey = $repo->findOneBy(['value' => $registerKey, 'user' => null])
                 ) {
                     /** @var RegisterKey $role */
                     $role = $registerKey->getRole();
