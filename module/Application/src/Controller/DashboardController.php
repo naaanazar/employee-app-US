@@ -98,14 +98,6 @@ class DashboardController extends AbstractController
                     ]
                 );
 
-            $viewHtml .= $this->getRenderer()
-                ->render(
-                    'layout/concern/search-request-create-button',
-                    [
-                        'paginator' => $paginator
-                    ]
-                );
-
             $coordinates = array_map(
                 function ($coordinate) {
                     /** @var Coordinates $coordinate */
@@ -557,6 +549,52 @@ class DashboardController extends AbstractController
             $id = $this->getRequest()->getPost('id');
 
             return  (new ConfigureActions)->detete(\Application\Model\WeeklyHours::class, $id);
+        }
+
+        return $this->notFoundAction();
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function blockedUserAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $id = $this->getRequest()->getPost('id');
+
+            $result = new JsonModel();
+
+            $registerKey = $this->getEntityManager()
+                ->getRepository(RegisterKey::class)
+                ->findOneBy(
+                    [
+                        'id' => $id
+                    ]
+                );
+
+            if ($registerKey !== null) {
+
+                $user = $registerKey->getUser();
+
+                if ($user !== null) {
+
+                    $user->setRole(User::ROLE_BLOCKED);
+
+                    $this->getEntityManager()->merge($user);
+                    $this->getEntityManager()->flush();
+
+                    $result->setVariables(
+                        [
+                            'result' => $user->getName()
+                        ]
+                    );
+                }
+
+                $this->getEntityManager()->remove($registerKey);
+                $this->getEntityManager()->flush();
+            }
+
+            return $result;
         }
 
         return $this->notFoundAction();

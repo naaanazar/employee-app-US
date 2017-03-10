@@ -23,6 +23,7 @@
         <th>Link</th>
         <th>Role</th>
         <th>User</th>
+        <th></th>
     </tr>
     <?php foreach ($this->paginator as $registerKey) : ?>
         <?php /** @var \Application\Model\RegisterKey $registerKey */ ?>
@@ -43,6 +44,11 @@
                         <?= $registerKey->getUser()->getName() ?>
                     </a>
                 <?php endif; ?>
+            </td>
+            <td>
+                <div class="text-right configure-buttons" data-id="<?= $registerKey->getId() ?>" data-action="<?= $this->url('dashboard', ['action' => 'blocked-user']) ?>">
+                 <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> <?= $this->translate('Delete')?></a>
+                </div>
             </td>
         </tr>
     <?php endforeach; ?>

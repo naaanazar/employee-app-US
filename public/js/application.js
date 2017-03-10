@@ -506,24 +506,30 @@ var checkFile = function(element) {
 }
 
 /**
- * set found in search reuest true
+ * event set found in search reuest true
  */
 jQuery(document).on('click', '.disable-mail', function (event) {
-    event.defaultPrevented = true;
-    var id = jQuery(event.target).closest('a').data('id');
-    jQuery.post('/dashboard/search-requests-set-found', {id : id, found: 1}, function( data ) {
-        Validate.redirect(data.redirect);
-    })
+    setFound(event, 1);
 });
 
 /**
- * set found in search reuest false
+ * event set found in search reuest false
  */
 jQuery(document).on('click', '.enable-mail', function (event) {
+    setFound(event, 0);
+});
+
+/**
+ * set found in search reuest
+ * @param event
+ * @param data
+ */
+var setFound = function(event, data){
     event.defaultPrevented = true;
     var id = jQuery(event.target).closest('a').data('id');
-    jQuery.post('/dashboard/search-requests-set-found', {id : id, found: 0}, function( data ) {
+    var url = jQuery(event.target).closest('a').data('action');
+    jQuery.post(url, {id : id, found: data}, function( data ) {
         Validate.redirect(data.redirect);
     })
-});
+}
 

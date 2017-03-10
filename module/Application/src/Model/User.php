@@ -20,6 +20,7 @@ class User
     const ROLE_USER        = 'user';
     const ROLE_CONTRIBUTOR = 'contributor';
     const ROLE_ADMIN       = 'admin';
+    const ROLE_BLOCKED     = 'blocked';
 
     use Constants;
 
