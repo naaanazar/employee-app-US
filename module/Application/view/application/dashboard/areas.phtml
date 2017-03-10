@@ -24,7 +24,7 @@
                 <td class="value-name"><?= $area->getValue() ?></td>
                 <td><?= $area->getIntValue() ?></td>
                 <td>
-                    <div class="text-right configure-buttons" data-id="<?= $area->getId() ?>" data-action="/dashboard/area-delete" data-action-save="/dashboard/areas">
+                    <div class="text-right configure-buttons" data-id="<?= $area->getId() ?>" data-action="<?= $this->url('dashboard', ['action' => 'area-delete']) ?>" data-action-save="<?= $this->url('dashboard', ['action' => 'areas']) ?>">
                         <a class="btn a-dashboard  configure-edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> <?= $this->translate('Edit')?></a>&nbsp;
                         <a class="btn a-dashboard configure-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"> <?= $this->translate('Delete')?></a>
                     </div>

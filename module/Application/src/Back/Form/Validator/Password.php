@@ -27,6 +27,7 @@ class Password extends AbstractValidator
     const FOUND     = 'found';
     const NOT_FOUND = 'not_found';
     const EXCEPTION = 'exception';
+    const BLOCKED = 'blocked';
 
     /**
      * Messages templates
@@ -36,6 +37,7 @@ class Password extends AbstractValidator
         self::FOUND     => /*translate*/'User with same email found'/*translate*/,
         self::NOT_FOUND => /*translate*/'Invalid email or/and password'/*translate*/,
         self::EXCEPTION => /*translate*/'Some error occurred while logging in'/*translate*/,
+        self::BLOCKED   => /*translate*/'User is deleted'/*translate*/,
     ];
 
     /**
@@ -69,6 +71,10 @@ class Password extends AbstractValidator
                 $user = $repository->findOneBy($criteria);
 
                 switch (true) {
+                    case $user !== null && $user->getRole() === User::ROLE_BLOCKED:
+                        /** @var Login $form */
+                        $this->error(static::BLOCKED);
+                        break;
                     case $user !== null && $check === static::CHECK_LOGIN:
                         /** @var Login $form */
                         $form = $this->getOption('form');
