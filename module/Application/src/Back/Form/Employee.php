@@ -2,28 +2,30 @@
 
 namespace Application\Back\Form;
 
-use Application\Back\Form\Element\Employee\Latitude;
-use Application\Back\Form\Element\Employee\Longitude;
-use Application\Back\Form\Element\Employee\Name;
-use Application\Back\Form\Element\Employee\Surname;
-use Application\Back\Form\Element\Employee\City;
-use Application\Back\Form\Element\Employee\Address;
-use Application\Back\Form\Element\Employee\MobileNumber;
-use Application\Back\Form\Element\Employee\LandlineNumber;
-use Application\Back\Form\Element\Employee\ZIP;
-use Application\Back\Form\Element\Employee\DrivingLicence;
-use Application\Back\Form\Element\Employee\CarAvailable;
-use Application\Back\Form\Element\Employee\Comments;
-use Application\Back\Form\Element\Employee\Experience;
-use Application\Back\Form\Element\Employee\AreaAround;
-use Application\Back\Form\Element\Employee\ContractType;
-use Application\Back\Form\Element\Employee\WeeklyHours;
-use Application\Back\Form\Element\Employee\StartDay;
-use Application\Back\Form\Element\Employee\SourceApplication;
+use Application\Back\Form\Element\Email;
+use Application\Back\Form\Element\Employee\{
+    Latitude,
+    Longitude,
+    Name,
+    Surname,
+    City,
+    Address,
+    MobileNumber,
+    LandlineNumber,
+    ZIP,
+    DrivingLicence,
+    CarAvailable,
+    Comments,
+    Experience,
+    AreaAround,
+    ContractType,
+    WeeklyHours,
+    StartDay,
+    SourceApplication
+};
 use Zend\Filter\File\RenameUpload;
-use Zend\Form\Element\Email;
 use Zend\Form\Element\File;
-use Zend\Form\Element\Text;
+use Application\Model\Employee as EmployeeModel;
 use Zend\Form\Element\Number;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
@@ -88,10 +90,17 @@ class Employee extends Form
             ]
         );
 
+        $allowedEmails = $this->options['allowed_emails'] ?? [];
+
         $this->add(
             [
                 'type' => Email::class,
-                'name' => 'email'
+                'name' => 'email',
+                'options' => [
+                    'check_database' => EmployeeModel::class,
+                    'direction' => false,
+                    'allowed_emails' => $allowedEmails
+                ]
             ]
         );
 

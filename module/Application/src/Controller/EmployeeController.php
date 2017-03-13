@@ -150,7 +150,23 @@ class EmployeeController extends AbstractController
             $data  = $this->getRequest()->getPost()->toArray();
             $data['hourly_rate'] = str_replace(",", ".", $data['hourly_rate']);
             $files = $this->getRequest()->getFiles()->toArray();
-            $form = new Employee([]);
+
+            /** @var EmployeeRepository $employeeRepository */
+            $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
+
+            if (true === isset($data['id'])) {
+                $employee = $employeeRepository->find($data['id']);
+            } else {
+                $employee = new EmployeeModel();
+                $employee->setHash(EmployeeModel::hashKey())
+                    ->setCreated(new \DateTime());
+            }
+
+            $form = new Employee(
+                [
+                    'allowed_emails' => [$employee->getEmail()]
+                ]
+            );
             $form->setData(
                 array_merge_recursive($data, $files)
             );
@@ -180,17 +196,6 @@ class EmployeeController extends AbstractController
                 $sourceApplication = $this->getEntityManager()
                     ->getRepository(SourceApplication::class)
                     ->find($form->get('source')->getValue());
-
-                /** @var EmployeeRepository $employeeRepository */
-                $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
-
-                if (true === isset($data['id'])) {
-                    $employee = $employeeRepository->find($data['id']);
-                } else {
-                    $employee = new EmployeeModel();
-                    $employee->setHash(EmployeeModel::hashKey())
-                        ->setCreated(new \DateTime());
-                }
 
                 $image = new Image();
 
