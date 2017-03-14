@@ -57,13 +57,10 @@ class IndexController extends AbstractController
             $lang = $storage->offsetGet('language');
         }
 
-
         $view = new JsonModel(['lang' => $lang]);
 
         return $view;
     }
-
-
 
     /**
      * Information action

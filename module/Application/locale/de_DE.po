@@ -21,7 +21,7 @@ msgid "Password recovery"
 msgstr "Password recovery"
 
 msgid "Recovery password link is not valid"
-msgstr "Recovery ï¿½ber den link Kennwort ist nicht gï¿½ltig"
+msgstr "Recovery über den link Kennwort ist nicht gültig"
 
 msgid "Home"
 msgstr "Startseite"
@@ -42,7 +42,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 msgid "Delete"
-msgstr "Lï¿½schen"
+msgstr "Löschen"
 
 msgid "Set Contract Type"
 msgstr "Vertragstypen festlegen"
@@ -87,7 +87,7 @@ msgid "Mobile Phone"
 msgstr "Mobilnummer"
 
 msgid "Set Option Why Delete"
-msgstr "Grï¿½nde fï¿½rs Lï¿½schen festlegen"
+msgstr "Gründe fürs Löschen festlegen"
 
 msgid "Not used yet"
 msgstr "Noch nicht verwendet"
@@ -129,7 +129,7 @@ msgid "Active"
 msgstr "Aktiv"
 
 msgid "Deleted"
-msgstr "Gelï¿½scht"
+msgstr "Gelöscht"
 
 msgid "Employed"
 msgstr "Mitarbeiter"
@@ -141,7 +141,7 @@ msgid "Search"
 msgstr "Suche"
 
 msgid "Clear marker"
-msgstr "Marker lï¿½schen"
+msgstr "Marker löschen"
 
 msgid "Value"
 msgstr "Wert"
@@ -150,10 +150,10 @@ msgid "Set Source Application"
 msgstr "Festlegen der Bewerbungsquellen"
 
 msgid "Select statistic period"
-msgstr "Wï¿½hlen Sie den Statistik Zeitraum"
+msgstr "Wählen Sie den Statistik Zeitraum"
 
 msgid "Set Weekly hours"
-msgstr "Wï¿½chentliche Stunden festlegen"
+msgstr "Wöchentliche Stunden festlegen"
 
 msgid "Value in seconds"
 msgstr "Wert in Sekunden"
@@ -174,22 +174,22 @@ msgid "Email"
 msgstr "Email"
 
 msgid "Area around home address willing to work"
-msgstr "In welchem Umkreis um Ihre Wohnung mï¿½chten Sie arbeiten ?"
+msgstr "In welchem Umkreis um Ihre Wohnung möchten Sie arbeiten ?"
 
 msgid "Type of contract"
-msgstr "gewï¿½nschte Vertragsart"
+msgstr "gewünschte Vertragsart"
 
 msgid "Weekly hours available"
-msgstr "Wieviele Stunden pro Woche mï¿½chten Sie maximal arbeiten ?"
+msgstr "Wieviele Stunden pro Woche möchten Sie maximal arbeiten ?"
 
 msgid "Start day"
-msgstr "Wann mï¿½chten Sie anfangen ?"
+msgstr "Wann möchten Sie anfangen ?"
 
 msgid "Comments"
 msgstr "Anmerkungen"
 
 msgid "Hourly rate"
-msgstr "gewï¿½nschter Stundenlohn"
+msgstr "gewünschter Stundenlohn"
 
 msgid "Experience in the job"
 msgstr "Haben Sie bereits Erfahrung als Haushaltshilfe ?"
@@ -207,13 +207,13 @@ msgid "File format"
 msgstr "Datei-Format"
 
 msgid "Fire"
-msgstr "MA Status lï¿½scjem"
+msgstr "MA Status löscjem"
 
 msgid "Employ"
 msgstr "als MA kennzeichnen"
 
 msgid "Reason Delete"
-msgstr "Warum wird die Bewerbung gelï¿½scht ?"
+msgstr "Warum wird die Bewerbung gelöscht ?"
 
 msgid "Germany"
 msgstr "Deutschland"
@@ -228,16 +228,16 @@ msgid "Has experience"
 msgstr "Hat Erfahrung"
 
 msgid "Driving license present"
-msgstr "Haben Sie einen Fï¿½hrerschein ?"
+msgstr "Haben Sie einen Führerschein ?"
 
 msgid "Source Application"
 msgstr "- Herkunft der Bewerbung"
 
 msgid "Add Attachments"
-msgstr "Hinzufï¿½gen von Anlagen"
+msgstr "Hinzufügen von Anlagen"
 
 msgid "Check your email box"
-msgstr "Ihre Bewerbung war erfolgreich. Bitte ï¿½berprï¿½fen Sie Ihr Emailpostfach"
+msgstr "Ihre Bewerbung war erfolgreich. Bitte überprüfen Sie Ihr Emailpostfach"
 
 msgid "Send me recovery link to email"
 msgstr "Passwort-Wiederherstellen - Link erhalten"
@@ -255,7 +255,7 @@ msgid "New Password"
 msgstr "Neues Passwort"
 
 msgid "Change password"
-msgstr "Passwort ï¿½ndern"
+msgstr "Passwort ändern"
 
 msgid "Sign up"
 msgstr "Anmelden"
@@ -264,7 +264,7 @@ msgid "You have created search request with params"
 msgstr "Sie haben eine Suchanfrage mit diesen Parametern erstellt"
 
 msgid "Just created employee"
-msgstr "Gerade hinzugefï¿½gte Mitarbeiter"
+msgstr "Gerade hinzugefügte Mitarbeiter"
 
 msgid "Your login details"
 msgstr "Ihre Logindaten"
@@ -276,7 +276,7 @@ msgid "Link"
 msgstr "Link"
 
 msgid "You have requested password recovery option for email"
-msgstr "Sie haben einen Link fï¿½r die Passwortwiederherstellung angefordert"
+msgstr "Sie haben einen Link für die Passwortwiederherstellung angefordert"
 
 msgid "To recover password go to"
 msgstr "Um Ihr Passwort wiederherzustellen, gehen Sie zu"
@@ -318,10 +318,10 @@ msgid "Configure Source Application"
 msgstr "Bewerberunsquellen konfigurieren"
 
 msgid "Configure List Why Delete"
-msgstr "Lï¿½schgrï¿½nde konfigurieren"
+msgstr "Löschgründe konfigurieren"
 
 msgid "Configure Weekly Hours"
-msgstr "wï¿½chtenliche Stunden konfigurieren"
+msgstr "wöchtenliche Stunden konfigurieren"
 
 msgid "Configure Register keys"
 msgstr "Registerkeys konfigurieren"
@@ -339,22 +339,22 @@ msgid "User with same email found"
 msgstr "Benutzer mit der gleichen E-Mail gefunden"
 
 msgid "Invalid email or/and password"
-msgstr "Ungï¿½ltige E-Mail und/oder Passwort"
+msgstr "Ungültige E-Mail und/oder Passwort"
 
 msgid "Some error occurred while logging in"
 msgstr "Es gab einen Fehler beim Login"
 
 msgid "Invalid type given. String, integer or float expected"
-msgstr "Ungï¿½ltiger Wert angegeben."
+msgstr "Ungültiger Wert angegeben."
 
 msgid "The input does not match against pattern"
-msgstr "Die Eingabe stimmt nicht ï¿½berein"
+msgstr "Die Eingabe stimmt nicht überein"
 
 msgid "There was an internal error while using the pattern"
 msgstr "Es ist ein interner Fehler aufgetreten"
 
 msgid "Invalid type given. String expected"
-msgstr "Ungï¿½ltiger Wert angegeben."
+msgstr "Ungültiger Wert angegeben."
 
 msgid "The input is less than %min% characters long"
 msgstr "Der Eingang ist weniger als %min% Zeichen lang"
@@ -366,10 +366,10 @@ msgid "User with such email does not exist"
 msgstr "Benutzer mit dieser E-Mail existiert nicht"
 
 msgid "Some error occurred while validating email"
-msgstr "Fehler beim ï¿½berprï¿½fen der E-Mail"
+msgstr "Fehler beim überprüfen der E-Mail"
 
 msgid "Full Name"
-msgstr "Vollstï¿½ndiger Name"
+msgstr "Vollständiger Name"
 
 msgid "Create Application"
 msgstr "Anwendung erstellen"

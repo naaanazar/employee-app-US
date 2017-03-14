@@ -572,6 +572,3 @@ var setFound = function(event, data){
         Validate.redirect(data.redirect);
     })
 }
-
-
-
