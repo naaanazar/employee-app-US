@@ -227,7 +227,7 @@ var setDatapicker = function(data) {
 
 var getPath = function(data){
 
-    jQuery('body').loading('toggle');
+    jQuery('body').loading('stop');
 
     jQuery.post(data, function(lang){
         langDatapicker = lang;
