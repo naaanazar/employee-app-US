@@ -200,6 +200,7 @@ var setDatapicker = function(data) {
     /**
      * set datapicker range search form
      */
+    jQuery('body').loading('tuggle');
     localeDataPicker = "";
     if (data.lang == "de_DE"){
         localeDataPicker = "de";
