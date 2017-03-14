@@ -200,7 +200,6 @@ var setDatapicker = function(data) {
     /**
      * set datapicker range search form
      */
-    jQuery('body').loading('tuggle');
     localeDataPicker = "";
     if (data.lang == "de_DE"){
         localeDataPicker = "de";
@@ -224,9 +223,12 @@ var setDatapicker = function(data) {
             todayHighlight: true
         }
     )
-}
+};
 
 var getPath = function(data){
+
+    jQuery('body').loading('toggle');
+
     jQuery.post(data, function(lang){
         langDatapicker = lang;
         setDatapicker(lang);
