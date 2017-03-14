@@ -100,7 +100,7 @@ $(document).ajaxStart(function() {
 });
 
 $(document).ajaxComplete(function() {
-    $('body').loading('toggle');
+    $('body').loading('stop');
 });
 
 /**
