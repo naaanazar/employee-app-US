@@ -156,7 +156,7 @@
                             <a href="<?= $this->basePath($file->getPath()) ?>" class="a-dashboard" style="display: block" download><span class="glyphicon glyphicon-cloud-download"></span> <?= $file->getName()?></a>
                         </div>
                         <div class="col-xs-4 text-right">
-                            <a class="btn a-dashboard attach-delete" data-path="<?= $file->getPath()?>" data-id="<?= $file->getId() ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"> Delete</a>
+                            <a class="btn a-dashboard attach-delete" data-path="<?= $file->getPath()?>" data-id="<?= $file->getId() ?>"><span class="glyphicon glyphicon-trash" aria-hidden="true"><?= $this->translate('Delete') ?></a>
                         </div>
                     </div>
                 <?php endforeach; ?>
