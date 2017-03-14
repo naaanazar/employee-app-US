@@ -4,7 +4,9 @@ var GoogleMap;
 var Address;
 
 define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyBEND-cYXAct1WZ83D9rDOvLEOZzncIHHw&libraries=geometry'], function() {
-    BasePath('/', setImage);
+    if (0 !== jQuery('#map').length) {
+        BasePath('/', setImage);
+    }
 
     jQuery('document').ready(function () {
         /**
