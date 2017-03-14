@@ -296,8 +296,8 @@ msgstr "Logout"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-msgid "Create Employee"
-msgstr "Create Employee"
+msgid "Create Applications"
+msgstr "Create Applications"
 
 msgid "Exit from dashboard"
 msgstr "Exit from dashboard"
