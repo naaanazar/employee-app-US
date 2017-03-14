@@ -200,7 +200,6 @@ var setDatapicker = function(data) {
     /**
      * set datapicker range search form
      */
-    console.log(data);
     localeDataPicker = "";
     if (data.lang == "de_DE"){
         localeDataPicker = "de";
