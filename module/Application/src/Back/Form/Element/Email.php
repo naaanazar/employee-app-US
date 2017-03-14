@@ -20,10 +20,14 @@ class Email extends EmailElement
     {
         $validators[] = new RegexValidator('/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/');
 
+
+
         if (true === isset($this->options['check_database']) && true === class_exists($entityName = $this->getOption('check_database'))) {
             $validators[] = new UserEmail(
                 [
-                    'entity' => $entityName
+                    'entity' => $entityName,
+                    'allowed_emails' => $this->options['allowed_emails'] ?? $this->getOption('allowed_email'),
+                    'direction' => $this->options['direction'] ?? true
                 ]
             );
         }
