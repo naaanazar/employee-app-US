@@ -172,12 +172,42 @@ jQuery('document').ready(function () {
     /**
      * init datapicker
      */
-    jQuery('input .input-group.date').datepicker({});
+    jQuery('input .input-group.date').datepicker({
+    });
+
+    /**
+     * German translation for bootstrap-datepicker
+     * Sam Zurcher <sam@orelias.ch>
+     */
+    (function($){
+        $.fn.datepicker.dates['de'] = {
+            days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+            daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"],
+            daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+            months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+            monthsShort: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+            today: "Heute",
+            monthsTitle: "Monate",
+            clear: "Löschen",
+            weekStart: 1,
+            format: "dd.mm.yyyy"
+        };
+    }(jQuery));
+});
+
+var setDatapicker = function(data) {
 
     /**
      * set datapicker range search form
      */
+    console.log(data);
+    localeDataPicker = "";
+    if (data.lang == "de_DE"){
+        localeDataPicker = "de";
+    };
+
     jQuery('#sandbox-container .input-daterange').datepicker({
+        language: localeDataPicker,
         autoclose: true,
         todayHighlight: true,
         format: 'dd-mm-yyyy'
@@ -187,13 +217,23 @@ jQuery('document').ready(function () {
      * set datapicker employee form
      */
     jQuery("#start_day_field_picker").datepicker({
+            language: localeDataPicker,
             autoclose: true,
             todayBtn: "linked",
             format: 'dd-mm-yyyy',
             todayHighlight: true
         }
     )
-});
+}
+
+var getPath = function(data){
+    jQuery.post(data, function(lang){
+        langDatapicker = lang;
+        setDatapicker(lang);
+    })
+};
+
+BasePath('get-lang', getPath);
 
 var setImage = function (path) {
     GoogleMap.images = path + 'img/marker_green.png';
@@ -532,4 +572,6 @@ var setFound = function(event, data){
         Validate.redirect(data.redirect);
     })
 }
+
+
 
