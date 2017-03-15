@@ -42,7 +42,7 @@ var searchEmployee = function (event) {
                 function (coordinate) {
 
                     points.push({lat: parseFloat(coordinate.latitude), lng: parseFloat(coordinate.longitude)});
-
+                    console.log(coordinate);
                     var marker = GoogleMap.addMarker(map, parseFloat(coordinate.latitude), parseFloat(coordinate.longitude));
                     var content = coordinate.employee;
 
