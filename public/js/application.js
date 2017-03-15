@@ -36,6 +36,11 @@ jQuery(document).on('submit', 'form.create-employee', function (event) {
         function () {
             ajaxFormSubmit(event);
         }
+    ).then(
+        function () {
+            jQuery('#latitude').val('');
+            jQuery('#longitude').val('');
+        }
     );
     return false;
 });
@@ -159,6 +164,9 @@ jQuery(document).on('click', '.employed-unemployed', function(event) {
  * On load event
  */
 jQuery('document').ready(function () {
+
+    jQuery('#latitude').val('');
+    jQuery('#longitude').val('');
 
    var modalParams = window.location.href.match(/#modal-action(.+)&#modal-element(.+)/);
 
