@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?= $this->headTitle('Employee Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?= $this->headTitle($this->translate('FAMILIA - Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
         <?= $this->render('layout/header/meta') ?>
         <?= $this->render('layout/header/styles') ?>
         <?= $this->render('layout/header/scripts') ?>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?= $this->translate('Close') ?></button>
                 </div>
             </div>
         </div>

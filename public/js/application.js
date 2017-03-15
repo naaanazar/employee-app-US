@@ -237,13 +237,13 @@ var getPath = function(data){
 
     jQuery('body').loading('stop');
 
-    jQuery.post(data, function(lang){
-        langDatapicker = lang;
+    jQuery.post(data + 'get-lang', function(lang){
+        path = lang;
         setDatapicker(lang);
     })
 };
 
-BasePath('get-lang', getPath);
+BasePath('/', getPath);
 
 var setImage = function (path) {
     GoogleMap.images = path + 'img/marker_green.png';

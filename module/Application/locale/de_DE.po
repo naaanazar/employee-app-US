@@ -291,10 +291,10 @@ msgid "Leave comment"
 msgstr "Kommentar hinterlassen"
 
 msgid "Logout"
-msgstr "Logout"
+msgstr "Ausloggen"
 
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Instrumententafel"
 
 msgid "Create Employee"
 msgstr "Mitarbeiter anlegen"
@@ -373,3 +373,20 @@ msgstr "Vollständiger Name"
 
 msgid "Create Application"
 msgstr "Anwendung erstellen"
+
+msgid "Save"
+msgstr "Sparen"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "FAMILIA - Application"
+msgstr "FAMILIA - Bewerberportal"
+
+msgid "Edited"
+msgstr "Bearbeitet"
+
+

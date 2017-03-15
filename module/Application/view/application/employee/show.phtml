@@ -69,7 +69,7 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="btn btn-link a-dashboard" id="delete_employee_show" data-toggle="collapse" data-target="#show-ask-delete">< Back </div>
+                            <div class="btn btn-link a-dashboard" id="delete_employee_show" data-toggle="collapse" data-target="#show-ask-delete">< <?= $this->translate('Back') ?> </div>
                             <button
                                     type="submit"
                                     class="btn btn-danger"
@@ -78,7 +78,7 @@
                                     data-status="deleted"
                                     data-hash="<?= $this->employee->getHash() ?>"
                             >
-                                Delete
+                                <?= $this->translate('Delete') ?>
                             </button>
                         </div>
                     <?php endif;?>
