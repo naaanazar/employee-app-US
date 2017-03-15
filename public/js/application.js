@@ -36,6 +36,11 @@ jQuery(document).on('submit', 'form.create-employee', function (event) {
         function () {
             ajaxFormSubmit(event);
         }
+    ).then(
+        function () {
+            jQuery('#latitude').val('');
+            jQuery('#longitude').val('');
+        }
     );
     return false;
 });
@@ -160,6 +165,9 @@ jQuery(document).on('click', '.employed-unemployed', function(event) {
  */
 jQuery('document').ready(function () {
 
+    jQuery('#latitude').val('');
+    jQuery('#longitude').val('');
+
    var modalParams = window.location.href.match(/#modal-action(.+)&#modal-element(.+)/);
 
    if (modalParams !== null && modalParams.length === 3) {
@@ -229,13 +237,13 @@ var getPath = function(data){
 
     jQuery('body').loading('stop');
 
-    jQuery.post(data, function(lang){
-        langDatapicker = lang;
+    jQuery.post(data + 'get-lang', function(lang){
+        path = lang;
         setDatapicker(lang);
     })
 };
 
-BasePath('get-lang', getPath);
+BasePath('/', getPath);
 
 var setImage = function (path) {
     GoogleMap.images = path + 'img/marker_green.png';

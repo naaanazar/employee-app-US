@@ -371,3 +371,5 @@ msgstr "Some error occurred while validating email"
 msgid "Full Name"
 msgstr "Full Name"
 
+msgid "Save"
+msgstr "Sparen"

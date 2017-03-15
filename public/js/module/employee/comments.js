@@ -13,7 +13,9 @@ jQuery(document).on('submit', 'form.leave-comment', function (event) {
  */
 jQuery(document).on('click', '.comment-delete', function (event) {
     var id = jQuery(event.target).closest('.comment-block').data('id');
-    jQuery.post( "/employee/comment-delete", {id : id}, function( data ) {
+    var action = jQuery(event.target).closest('.comment-buttons').data('action-delete');
+
+    jQuery.post( action, {id : id}, function( data ) {
         jQuery(event.target).closest('.comment-block').remove();
     })
 });
@@ -24,9 +26,10 @@ jQuery(document).on('click', '.comment-delete', function (event) {
 jQuery(document).on('click', '.comment-edit-save', function (event) {
     var id = jQuery(event.target).closest('.comment-block').data('id');
     var commentText = jQuery(event.target).closest('.comment-block').find('.comment-edit-field').val();
+    var action = jQuery(event.target).closest('a').data('action-save');
     jQuery(event.target).closest('.comment-block').find('.comment-buttons').show();
 
-    jQuery.post( "/employee/comment-edit", {body : commentText, id: id}, function( data ) {
+    jQuery.post(action, {body : commentText, id: id}, function( data ) {
         jQuery(event.target).closest('.comment-block').find('.comment-body').html(commentText);
     })
 });
@@ -36,14 +39,16 @@ jQuery(document).on('click', '.comment-edit-save', function (event) {
  */
 jQuery(document).on('click', '.comment-edit', function (event) {
     var commentText = jQuery(event.target).closest('.comment-block').find('.comment-body').text();
+    var action = jQuery(event.target).closest('.comment-buttons').data('action-edit');
+    console.log(action);
 
-    jQuery.post( "/employee/show-comment-edit", {body : commentText}, function( data ) {
+    jQuery.post(action, {body : commentText}, function( data ) {
         jQuery(event.target).closest('.comment-block').find('.comment-body').html(data.html);
         jQuery(event.target).closest('.comment-buttons').hide();
     })
 });
 
-$(".attachments-input").change(function(){
+jQuery(".attachments-input").change(function(){
 
     var files = jQuery(".attachments-input")[0].files;
     var html = '';
