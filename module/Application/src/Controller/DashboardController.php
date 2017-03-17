@@ -502,7 +502,37 @@ class DashboardController extends AbstractController
         return $this->notFoundAction();
     }
 
+    /**
+     * @return array|JsonModel
+     */
+    public function deleteRequestAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+            $response = new JsonModel();
+            $id = $this->getRequest()->getPost('id');
 
+            $request = $this->getEntityManager()
+                ->getRepository(SearchRequest::class)
+                ->findOneBy([
+                    'id' => $id
+                ]);
+
+            $this->getEntityManager()->remove($request);
+            $this->getEntityManager()->flush();
+
+            $url = $this->url()->fromRoute('dashboard', ['action' => 'search-requests']);;
+
+            $response->setVariables(
+                [
+                    'redirect' => $url
+                ]
+            );
+
+            return $response;
+        }
+
+        return $this->notFoundAction();
+    }
 
     /**
      * @return array|ViewModel
