@@ -43,6 +43,24 @@
                             data-action="<?= $this->url('dashboard', ['action' => 'search-requests-set-found']) ?>"
                         ><?= $this->translate('Disable mail') ?></a>
                     <?php endif; ?>
+                        <a
+                           class="btn btn-link delete-request"
+                           href="#"
+                           ><?= $this->translate('Delete') ?>
+                        </a>
+                    <div class="popup-for-delete" style="display: none">
+                        <p class="confirm-delete"><?= $this->translate('Do you want to delete the record?') ?></p>
+                        <a
+                            class="approve btn"
+                            href="#"
+                            data-id="<?= $request->getId() ?>"
+                            data-action="<?= $this->url('dashboard', ['action' => 'delete-request']) ?>"
+                        ><?= $this->translate('Yes') ?></a>
+                        <a
+                            href="#"
+                            class="cansel btn"
+                        ><?= $this->translate('No') ?></a>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>
