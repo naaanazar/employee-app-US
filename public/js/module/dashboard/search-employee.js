@@ -70,7 +70,9 @@ var searchEmployee = function (event) {
     promise = jQuery.Deferred();
 
     if (jQuery('[name="zip"]').val() !== '') {
-        Address.findAddress(Address.map);
+        if (typeof Address !== 'undefined') {
+            Address.findAddress(Address.map);
+        }
     } else {
         promise.resolve();
     }
