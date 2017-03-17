@@ -553,7 +553,7 @@ var checkFile = function(element) {
         return false;
     }
     return true;
-}
+};
 
 /**
  * event set found in search reuest true
@@ -569,6 +569,21 @@ jQuery(document).on('click', '.enable-mail', function (event) {
     setFound(event, 0);
 });
 
+jQuery(document).on('click', '.delete-request', function (event) {
+    event.preventDefault();
+    jQuery('.popup-for-delete').css('display', 'block');
+});
+
+jQuery(document).on('click', '.approve', function (event) {
+    event.preventDefault();
+    deleteRequest(event);
+});
+
+jQuery(document).on('click', '.cansel', function (event) {
+    event.preventDefault();
+    jQuery('.popup-for-delete').css('display', 'none');
+});
+
 /**
  * set found in search reuest
  * @param event
@@ -581,4 +596,16 @@ var setFound = function(event, data){
     jQuery.post(url, {id : id, found: data}, function( data ) {
         Validate.redirect(data.redirect);
     })
-}
+};
+
+/**
+ * delete search reuest
+ * @param event
+ */
+var deleteRequest = function(event) {
+    var id = jQuery(event.target).closest('a').data('id');
+    var url = jQuery(event.target).closest('a').data('action');
+    jQuery.post(url, {id : id}, function( data ) {
+        Validate.redirect(data.redirect);
+    })
+};
