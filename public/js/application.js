@@ -578,7 +578,8 @@ jQuery(document).on('click', '.enable-mail', function (event) {
 
 jQuery(document).on('click', '.delete-request', function (event) {
     event.preventDefault();
-    jQuery('.popup-for-delete').css('display', 'block');
+    var id = jQuery(event.target).data('id');
+    jQuery('#' + id + '').css('display', 'block');
 });
 
 jQuery(document).on('click', '.approve', function (event) {

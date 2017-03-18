@@ -248,23 +248,21 @@ fieldset[disabled] .button-save.active {
 
 .popup-for-delete{
     position: absolute;
-    top: 40px;
-    left: 520px;
+    top: 5px;
     background-color: white;
-    width: 350px;
-    height: 100px;
     border: 2px solid gray;
     border-radius: 5px;
+    z-index: 10;
 }
 
 .confirm-delete{
     margin: 10px 10px;
 }
 
-.cansel{
-    margin-left: 10px;
+.approve, .cansel{
+    margin: 5px 10px;
 }
 
-.approve, .cansel{
-    margin-top: 15px;
+.relative{
+    position: relative;
 }
