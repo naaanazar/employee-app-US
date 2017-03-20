@@ -93,13 +93,6 @@ jQuery(document).on('change', '#select-language', function () {
  */
 jQuery(document).on('change', '.statistic', function () {
     jQuery('.statistics-form').submit();
-    /*var data = jQuery('#statistic_date :selected').val();
-    var action = jQuery('#statistic_date').data('action');
-    console.log(action);
-    console.log(data);
-    jQuery.post(action, {statistic_date : data}, function( data ) {
-
-    })*/
 });
 
 $(document).ajaxStart(function() {
