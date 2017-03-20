@@ -36,6 +36,11 @@ jQuery(document).on('submit', 'form.create-employee', function (event) {
         function () {
             ajaxFormSubmit(event);
         }
+    ).then(
+        function () {
+            jQuery('#latitude').val('');
+            jQuery('#longitude').val('');
+        }
     );
     return false;
 });
@@ -159,6 +164,9 @@ jQuery(document).on('click', '.employed-unemployed', function(event) {
  * On load event
  */
 jQuery('document').ready(function () {
+
+    jQuery('#latitude').val('');
+    jQuery('#longitude').val('');
 
    var modalParams = window.location.href.match(/#modal-action(.+)&#modal-element(.+)/);
 
@@ -545,7 +553,7 @@ var checkFile = function(element) {
         return false;
     }
     return true;
-}
+};
 
 /**
  * event set found in search reuest true
@@ -561,6 +569,22 @@ jQuery(document).on('click', '.enable-mail', function (event) {
     setFound(event, 0);
 });
 
+jQuery(document).on('click', '.delete-request', function (event) {
+    event.preventDefault();
+    var id = jQuery(event.target).data('id');
+    jQuery('#' + id + '').css('display', 'block');
+});
+
+jQuery(document).on('click', '.approve', function (event) {
+    event.preventDefault();
+    deleteRequest(event);
+});
+
+jQuery(document).on('click', '.cansel', function (event) {
+    event.preventDefault();
+    jQuery('.popup-for-delete').css('display', 'none');
+});
+
 /**
  * set found in search reuest
  * @param event
@@ -573,4 +597,16 @@ var setFound = function(event, data){
     jQuery.post(url, {id : id, found: data}, function( data ) {
         Validate.redirect(data.redirect);
     })
-}
+};
+
+/**
+ * delete search reuest
+ * @param event
+ */
+var deleteRequest = function(event) {
+    var id = jQuery(event.target).closest('a').data('id');
+    var url = jQuery(event.target).closest('a').data('action');
+    jQuery.post(url, {id : id}, function( data ) {
+        Validate.redirect(data.redirect);
+    })
+};

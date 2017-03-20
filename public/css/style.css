@@ -245,3 +245,24 @@ fieldset[disabled] .button-save.active {
 .panel-login-register{
     border-color: #91BF2D!important;
 }
+
+.popup-for-delete{
+    position: absolute;
+    top: 5px;
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.confirm-delete{
+    margin: 10px 10px;
+}
+
+.approve, .cansel{
+    margin: 5px 10px;
+}
+
+.relative{
+    position: relative;
+}

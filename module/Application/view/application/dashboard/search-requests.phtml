@@ -27,7 +27,7 @@
                     </a>
                 </td>
                 <td><?= $this->translate((false === $request->isFound()) ? 'Yes' : 'No')  ?></td>
-                <td>
+                <td class="relative">
                     <?php if ($request->isFound()) : ?>
                         <a
                             href="#"
@@ -43,6 +43,30 @@
                             data-action="<?= $this->url('dashboard', ['action' => 'search-requests-set-found']) ?>"
                         ><?= $this->translate('Disable mail') ?></a>
                     <?php endif; ?>
+                        <a
+                           id="123"
+                           class="btn btn-link delete-request"
+                           data-id="<?= $request->getId() ?>"
+                           href="#"
+                           ><?= $this->translate('Delete') ?>
+                        </a>
+                    <div
+                            class="popup-for-delete"
+                            style="display: none"
+                            id="<?= $request->getId() ?>">
+                        <p class="confirm-delete"><?= $this->translate('Do you want to delete the record?') ?></p>
+                        <p class="confirm-delete"><?= $request->getLastSearch()->format('D, d M y H:i:s O') ?></p>
+                        <a
+                            class="approve btn"
+                            href="#"
+                            data-id="<?= $request->getId() ?>"
+                            data-action="<?= $this->url('dashboard', ['action' => 'delete-request']) ?>"
+                        ><?= $this->translate('Yes') ?></a>
+                        <a
+                            href="#"
+                            class="cansel btn"
+                        ><?= $this->translate('No') ?></a>
+                    </div>
                 </td>
             </tr>
         <?php endforeach; ?>
