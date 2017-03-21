@@ -437,6 +437,7 @@ class DashboardController extends AbstractController
             $searchRequest->setFound(false);
             $searchRequest->setUser($this->getUser());
             $searchRequest->setLastSearch(new \DateTime());
+            $searchRequest->setCreated(new \DateTime());
 
             try {
                 $this->getEntityManager()->persist($searchRequest);
