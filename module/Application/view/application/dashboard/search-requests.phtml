@@ -11,6 +11,7 @@
         <thead>
         <tr>
             <th data-column-name="id">#</th>
+            <th><?= $this->translate('Date creation') ?></th>
             <th><?= $this->translate('Last searching') ?></th>
             <th><?= $this->translate('Send result to Mail') ?></th>
             <th><?= $this->translate('Actions') ?></th>
@@ -21,6 +22,11 @@
             <tr>
                 <?php /** @var \Application\Model\SearchRequest $request */ ?>
                 <td><?= $request->getId() ?></td>
+                <td>
+                    <a href="<?= $this->url('show-search-request', ['id' => $request->getId()]) ?>">
+                        <?= $request->getCreated()->format('D, d M y H:i:s O') ?>
+                    </a>
+                </td>
                 <td>
                     <a href="<?= $this->url('show-search-request', ['id' => $request->getId()]) ?>">
                         <?= $request->getLastSearch()->format('D, d M y H:i:s O') ?>

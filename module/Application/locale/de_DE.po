@@ -391,3 +391,6 @@ msgstr "Bearbeitet"
 
 msgid "Do you want to delete the record?"
 msgstr "Möchten Sie den Datensatz löschen?"
+
+msgid "Date creation"
+msgstr "Datumserstellung"
