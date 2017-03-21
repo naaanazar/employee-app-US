@@ -263,8 +263,8 @@ msgstr "Sign up"
 msgid "You have created search request with params"
 msgstr "You have created search request with params"
 
-msgid "Just created employee"
-msgstr "Just created employee"
+msgid "Just created application"
+msgstr "Just created application"
 
 msgid "Your login details"
 msgstr "Your login details"
@@ -372,4 +372,31 @@ msgid "Full Name"
 msgstr "Full Name"
 
 msgid "Save"
-msgstr "Sparen"
+msgstr "Save"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "FAMILIA - Application"
+msgstr "FAMILIA - Application"
+
+msgid "Edited"
+msgstr "Edited"
+
+msgid "Total applications"
+msgstr "Total applications"
+
+msgid "where recieved within the last"
+msgstr "where recieved within the last"
+
+msgid "days"
+msgstr "days"
+
+msgid "Last"
+msgstr "Last"
+
+msgid "All"
+msgstr "All"

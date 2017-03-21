@@ -389,6 +389,21 @@ msgstr "FAMILIA - Bewerberportal"
 msgid "Edited"
 msgstr "Bearbeitet"
 
+msgid "Total applications"
+msgstr "Gesamtanwendungen"
+
+msgid "where recieved within the last"
+msgstr "wo in der letzten empfangen"
+
+msgid "days"
+msgstr "tage"
+
+msgid "Last"
+msgstr "Letzte"
+
+msgid "All"
+msgstr "Alle"
+
 msgid "Do you want to delete the record?"
 msgstr "Möchten Sie den Datensatz löschen?"
 

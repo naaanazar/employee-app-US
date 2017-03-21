@@ -352,7 +352,8 @@ class DashboardController extends AbstractController
 
         $view = new ViewModel(
             [
-                'paginator' => $search->getResult()
+                'paginator' => $search->getResult(),
+                'post'      => $this->getRequest()->getPost()
             ]
         );
 

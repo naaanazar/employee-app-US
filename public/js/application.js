@@ -96,8 +96,8 @@ jQuery(document).on('change', '#select-language', function () {
 /**
  * Event of statistic last date change
  */
-jQuery(document).on('change', '.statistics-form', function () {
-    $(".statistics-form").submit();
+jQuery(document).on('change', '.statistic', function () {
+    jQuery('.statistics-form').submit();
 });
 
 $(document).ajaxStart(function() {
