@@ -47,11 +47,25 @@ class SearchRequest
     private $found;
 
     /**
+     * @var /Datetime
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created;
+
+    /**
      * @return int
      */
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return date
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 
     /**
@@ -84,6 +98,14 @@ class SearchRequest
     public function isFound(): bool
     {
         return $this->found;
+    }
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 
     /**
