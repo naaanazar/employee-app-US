@@ -217,6 +217,8 @@ var setDatapicker = function(data) {
         language: localeDataPicker,
         autoclose: true,
         todayHighlight: true,
+        startView: 1,
+        todayBtn: true,
         format: 'dd-mm-yyyy'
     });
 

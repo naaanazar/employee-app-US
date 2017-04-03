@@ -22,5 +22,6 @@ return [
     ],
     '((\/dashboard\/?)|(\/employee\/?(edit)?))$' => [
         'js/custom-map.js',
+        'js/typing-test.js',
     ]
 ];
