@@ -5,13 +5,107 @@ jQuery(document).on('click', '.step1-next', function(e){
 
 })
 
+
+
+
+/*jQuery(document).on('submit', 'form.async', function (event) {
+    ajaxFormSubmit(event, callback);
+    return false;
+});*/
+
+jQuery(document).on('click', '.step2-next', function(e){
+    e.preventDefault();
+    promise = jQuery.Deferred();
+
+    if ('' === jQuery('#latitude').val() || '' === jQuery('#longitude').val()) {
+        Address.setAddress();
+
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': Address.fullAddress}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                document.getElementById('latitude').value = results[0].geometry.location.lat();
+                document.getElementById('longitude').value = results[0].geometry.location.lng();
+                promise.resolve('ok');
+            } else {
+                alert('Address is not valid or GOOGLE Maps API returns bad response');
+            }
+        });
+    } else {
+        promise.resolve('ok');
+    }
+
+    jQuery.when(promise).then(
+        function () {
+            ajaxFormSubmitByClass('.form-step2', stepNext, 'step_3');
+        }
+    ).then(
+        function () {
+            jQuery('#latitude').val('');
+            jQuery('#longitude').val('');
+        }
+    );
+})
+
+jQuery(document).on('submit', 'form.form-step2', function (event) {
+
+
+    return false;
+});
+
+jQuery(document).on('click', '.step3-next', function(e){
+    setActivTab('step_4');
+})
+
+jQuery(document).on('click', '.step4-next', function(e){
+    setActivTab('step_5');
+})
+
+
+
+
+jQuery(document).on('click', '.step2-prev', function(e){
+    setActivTab('step_1');
+})
+
+jQuery(document).on('click', '.step3-prev', function(e){
+    setActivTab('step_2');
+})
+
+jQuery(document).on('click', '.step4-prev', function(e){
+    setActivTab('step_3');
+})
+
+jQuery(document).on('click', '.step5-prev', function(){
+    setActivTab('step_4');
+})
+
+
+
+/**
+ * show tab
+ * @param tab
+ */
+var setActivTab = function(tab){
+    jQuery('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
+
+/**
+ *
+ * @param error
+ * @param step
+ */
 var stepNext = function(error, step){
     if(error === true) {
         setActivTab(step);
     }
 };
 
-
+/**
+ *
+ * @param element
+ * @param callback
+ * @param step
+ */
 var ajaxFormSubmitByClass = function (element, callback, step) {
 
 
@@ -47,60 +141,13 @@ var ajaxFormSubmitByClass = function (element, callback, step) {
             method: 'post',
             success: function (response) {
                 Validate.showErrorsMassages(response.errors);
-                 if (callback !== undefined) {
-                     callback(response.errors, step);
-                 }
+                if (callback !== undefined) {
+                    callback(response.errors, step);
+                }
 
                 Validate.redirect(response.redirect);
 
             }
         }
     );
-};
-
-
-/*jQuery(document).on('submit', 'form.async', function (event) {
-    ajaxFormSubmit(event, callback);
-    return false;
-});*/
-
-jQuery(document).on('click', '.step2-next', function(){
-    setActivTab('step_3');
-})
-
-jQuery(document).on('click', '.step3-next', function(){
-    setActivTab('step_4');
-})
-
-jQuery(document).on('click', '.step4-next', function(){
-    setActivTab('step_5');
-})
-
-
-
-
-jQuery(document).on('click', '.step2-prev', function(){
-    setActivTab('step_1');
-})
-
-jQuery(document).on('click', '.step3-prev', function(){
-    setActivTab('step_2');
-})
-
-jQuery(document).on('click', '.step4-prev', function(){
-    setActivTab('step_3');
-})
-
-jQuery(document).on('click', '.step5-prev', function(){
-    setActivTab('step_4');
-})
-
-
-
-/**
- * show tab
- * @param tab
- */
-function setActivTab(tab){
-    jQuery('.nav-tabs a[href="#' + tab + '"]').tab('show');
 };

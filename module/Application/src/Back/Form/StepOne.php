@@ -51,40 +51,8 @@ class StepOne extends Form
             ]
         );
 
-        $this->addInputFilter();
+
     }
 
-    /**
-     * Add input filter
-     */
-    public function addInputFilter()
-    {
-        $inputFilter = new InputFilter();
 
-        $hash = \Application\Model\Employee::hashKey();
-        $image = 'img/employee/' . $hash . '.png';
-        $this->setOption('image', $image);
-
-        $inputFilter->add
-        (
-            [
-                'type'     => 'Zend\InputFilter\FileInput',
-                'name'     => 'image',
-                'required' => false,
-                'filters'  => [
-                    [
-                        'name'    => RenameUpload::class,
-                        'options' => [
-                            'target'            => BASE_PATH . DIRECTORY_SEPARATOR . $image,
-                            'overwrite'         => true,
-                            'randomize'         => false
-                        ]
-                    ]
-                ],
-            ]
-        );
-
-        $this->setInputFilter($inputFilter);
-    }
-    
 }

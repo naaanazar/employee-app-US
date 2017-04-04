@@ -3,10 +3,8 @@
 namespace Application\Controller;
 
 use Application\Back\{
-    Form\StepOne, Service\FileManager, Service\ImageManager, Form\Employee
+    Form\StepOne, Form\StepTwo, Service\FileManager, Service\ImageManager, Form\Employee
 };
-
-//use Application\Back\Form\StepOne;
 
 use Application\Model\{
     Comment, Contract, Area, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
@@ -28,6 +26,7 @@ use Zend\Http\Response;
  */
 class EmployeeController extends AbstractController
 {
+    protected $formData = [];
 
     /**
      * @inheritdoc
@@ -717,10 +716,11 @@ class EmployeeController extends AbstractController
         return $view;
     }
 
+    /**
+     * @return array|JsonModel
+     */
     public function stepOneCheckAction()
     {
-
-
         if (true === $this->getRequest()->isXmlHttpRequest()) {
 
            $response = new JsonModel();
@@ -733,18 +733,6 @@ class EmployeeController extends AbstractController
             );
 
             $data  = $this->getRequest()->getPost();
-//
-//            /** @var EmployeeRepository $employeeRepository */
-//            $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
-//
-//            if (true === isset($data['id'])) {
-//                $employee = $employeeRepository->find($data['id']);
-//            } else {
-//                $employee = new EmployeeModel();
-//                $employee->setHash(EmployeeModel::hashKey())
-//                    ->setCreated(new \DateTime());
-//            }
-//
             $form = new StepOne([]);
             $form->setData($data);
 
@@ -752,10 +740,62 @@ class EmployeeController extends AbstractController
                 $response->setVariable('errors', $form->getMessages());
             } else {
                 $response->setVariable('errors',true);
+
+                $formData['step1'] = $form->getData();
+
             }
 
+            return $response;
+        } else {
+            return $this->notFoundAction();
+        }
+    }
 
 
+    public function stepTwoCheckAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost();
+
+            /** @var EmployeeRepository $employeeRepository */
+            $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
+
+            if (true === isset($data['id'])) {
+                $employee = $employeeRepository->find($data['id']);
+            } else {
+                $employee = new EmployeeModel();
+                $employee->setHash(EmployeeModel::hashKey())
+                    ->setCreated(new \DateTime());
+            }
+
+            $form = new StepTwo(
+                [
+                    'allowed_emails' => [$employee->getEmail()]
+                ]
+            );
+
+            //$form = new StepTwo([]);
+            $form->setData($data);
+
+            if (false === $form->isValid()) {
+                $response->setVariable('errors', $form->getMessages());
+            } else {
+                $response->setVariable('errors',true);
+                $response->setVariable('tra',$form->getData());
+
+                $formData['step2'] = $form->getData();
+
+            }
 
             return $response;
         } else {
