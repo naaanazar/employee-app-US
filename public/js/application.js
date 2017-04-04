@@ -46,10 +46,11 @@ jQuery(document).on('submit', 'form.create-employee', function (event) {
 });
 
 var ajaxFormSubmit = function (event) {
+
     event.defaultPrevented = true;
 
     var form  = jQuery(event.target);
-
+    console.log(form);
     var formData       = new FormData;
     var serializedForm = form.serializeArray();
 
@@ -80,7 +81,12 @@ var ajaxFormSubmit = function (event) {
             method: 'post',
             success: function (response) {
                 Validate.showErrorsMassages(response.errors);
+                // if (callback !== undefined) {
+                //     callback(response);
+                // }
+
                 Validate.redirect(response.redirect);
+
             }
         }
     );

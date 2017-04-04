@@ -131,7 +131,7 @@ function endTest()
     var aftReport = "<b>Detailed Summary:</b><br><font color=\"DarkGreen\">";
 
     //Enable the printing button
-    document.getElementById("printB").disabled = false;
+    //document.getElementById("printB").disabled = false;
 
     //Loop through the valid words that were possible (those in the test baseline of needing to be typed)
     var str;
@@ -176,7 +176,7 @@ function endTest()
     //Set the statistical label variables with what we found (errors, words per minute, time taken, etc)
     tErr.innerText = badWords + " Errors";
     tStat.innerText= (wpmType-badWords) + " WPM / " + wpmType + " WPM";
-    tTT.innerText = totalTime.toFixed(2) + " sec. elapsed";
+    tTT.innerText = totalTime.toFixed(0) + " sec. elapsed";
 
     //Calculate the accuracy score based on good words typed versus total expected words -- and only show the percentage as ###.##
     tscore.innerText = ((goodWords / (goodWords+badWords)) * 100).toFixed(2) + "%";
@@ -192,7 +192,7 @@ function endTest()
 
     //Notify the user of their testing status via a JavaScript Alert
     //Update: There isn't any need in showing this popup now that we are hiding the typing area and showing a scoring area
-    //alert("You typed " + (document.JobOp.typed.value.split(" ").length) + " words in " + totalTime + " seconds, a speed of about " + wpmType + " words per minute.\n\nYou also had " + badWords + " errors, and " + goodWords + " correct words, giving scoring of " + ((goodWords / (goodWords+badWords)) * 100).toFixed(2) + "%.");
+    alert("You typed " + (document.JobOp.typed.value.split(" ").length) + " words in " + totalTime + " seconds, a speed of about " + wpmType + " words per minute.\n\nYou also had " + badWords + " errors, and " + goodWords + " correct words, giving scoring of " + ((goodWords / (goodWords+badWords)) * 100).toFixed(2) + "%.");
 }
 
 //calcStat is a function called as the user types to dynamically update the statistical information
@@ -240,22 +240,22 @@ function calcStat()
         //Colorize it based on the time left (red if less than 5 seconds, orange if less than 15)
         if (Number(120-totalTime) < 5)
         {
-            tTT.innerHTML="<font color=\"Red\">" + String(totalTime.toFixed(2)) + " sec. / " + String(Number(120-totalTime).toFixed(2)) + " sec.</font>";
+            tTT.innerHTML="<font color=\"Red\">" + String(totalTime.toFixed()) + " sec. / " + String(Number(120-totalTime).toFixed()) + " sec.</font>";
         }
         else
         {
             if (Number(120-totalTime) < 15)
             {
-                tTT.innerHTML="<font color=\"Orange\">" + String(totalTime.toFixed(2)) + " sec. / " + String(Number(120-totalTime).toFixed(2)) + " sec.</font>";
+                tTT.innerHTML="<font color=\"Orange\">" + String(totalTime.toFixed()) + " sec. / " + String(Number(120-totalTime).toFixed()) + " sec.</font>";
             }
             else
             {
-                tTT.innerHTML=String(totalTime.toFixed(2)) + " sec. / " + String(Number(120-totalTime).toFixed(2)) + " sec.";
+                tTT.innerHTML=String(totalTime.toFixed()) + " sec. / " + String(Number(120-totalTime).toFixed()) + " sec.";
             }
         }
 
         //Determine if the user has typed all of the words expected
-        if ((((thisTyped.split(" ").length)/word)*100).toFixed(2) >= 100)
+        if ((((thisTyped.split(" ").length)/word)*100).toFixed() >= 100)
         {
             tProg.width="100%";
 
@@ -264,7 +264,7 @@ function calcStat()
         else
         {
             //Set the progress bar with the exact percentage of the test completed
-            tProg.width=String((((thisTyped.split(" ").length)/word)*100).toFixed(2))+"%";
+            tProg.width=String((((thisTyped.split(" ").length)/word)*100).toFixed())+"%";
 
             tProgt.innerText = tProg.width;
         }

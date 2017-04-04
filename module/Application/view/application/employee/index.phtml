@@ -19,74 +19,77 @@
 
                     <div class="col-md-6 col-md-offset-3">
 
-                        <div class="form-group">
-                            <label class="control-label application-label" for="position_you_are_applying"><?= $this->translate('Select the position you are applying for') ?>*</label>
-                            <select id="position_you_are_applying" name="position_applying" class="form-control application-input">
-                                <option selected> </option>
-                                <option>Part-Time Clerk</option>
-                                <option>Full-Time Clerk</option>
-                                <option>Traveling Clerk</option>
-                                <option>Assistant Manager</option>
-                                <option>Office Manager</option>
-                                <option>Contract Manager</option>
-                                <option>Regional Manager</option>
-                            </select>
-                        </div>
+                        <form action="<?= $this->url('employee', ['action' => 'step-one-check']) ?>" method="post" class="form-step1" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="control-label application-label" for="position_you_are_applying"><?= $this->translate('Select the position you are applying for') ?>*</label>
+                                <select id="position_you_are_applying" name="position_applying" class="form-control application-input">
+                                    <option selected> </option>
+                                    <option>Part-Time Clerk</option>
+                                    <option>Full-Time Clerk</option>
+                                    <option>Traveling Clerk</option>
+                                    <option>Assistant Manager</option>
+                                    <option>Office Manager</option>
+                                    <option>Contract Manager</option>
+                                    <option>Regional Manager</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="control-label application-label" for="location"><?= $this->translate('Location') ?>*</label>
-                            <select id="location" name="location" class="form-control application-input">
-                                <option selected> </option>
-                                <option>Branson West</option>
-                                <option>Carthage</option>
-                                <option>Cassville</option>
-                                <option>Clayton</option>
-                                <option>Clinton</option>
-                                <option>Creve Coeur</option>
-                                <option>Des Peres</option>
-                                <option>Eldon</option>
-                                <option>Imperial</option>
-                                <option>Lees Summit</option>
-                                <option>Marshfield</option>
-                                <option>Nevada</option>
-                                <option>Poplar Bluff</option>
-                                <option>Rolla</option>
-                                <option>Springfield</option>
-                                <option>Warrensburg</option>
-                                <option>Union</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label application-label" for="location"><?= $this->translate('Location') ?>*</label>
+                                <select id="location" name="location" class="form-control application-input">
+                                    <option selected> </option>
+                                    <option>Branson West</option>
+                                    <option>Carthage</option>
+                                    <option>Cassville</option>
+                                    <option>Clayton</option>
+                                    <option>Clinton</option>
+                                    <option>Creve Coeur</option>
+                                    <option>Des Peres</option>
+                                    <option>Eldon</option>
+                                    <option>Imperial</option>
+                                    <option>Lees Summit</option>
+                                    <option>Marshfield</option>
+                                    <option>Nevada</option>
+                                    <option>Poplar Bluff</option>
+                                    <option>Rolla</option>
+                                    <option>Springfield</option>
+                                    <option>Warrensburg</option>
+                                    <option>Union</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="control-label application-label" for="area_around"><?= $this->translate('Max distance from home address you are willing to work') ?>*</label>
-                            <select id="area_around_field" name="area_around" class="form-control application-input">
-                                <?php foreach ($this->areas as $area) : ?>
-                                    <?php /** @var \Application\Model\Area $area */ ?>
-                                    <option
-                                            value="<?= $area->getId() ?>"
-                                        <?= (isset($this->employee) && $this->employee->getAreaAround() !== null && $this->employee->getAreaAround()->getId() === $area->getId()) ? 'selected' : '' ?>
-                                    >
-                                        <?= $area->getValue() ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label application-label" for="area_around"><?= $this->translate('Max distance from home address you are willing to work') ?>*</label>
+                                <select id="area_around_field" name="area_around" class="form-control application-input">
+                                    <?php foreach ($this->areas as $area) : ?>
+                                        <?php /** @var \Application\Model\Area $area */ ?>
+                                        <option
+                                                value="<?= $area->getId() ?>"
+                                            <?= (isset($this->employee) && $this->employee->getAreaAround() !== null && $this->employee->getAreaAround()->getId() === $area->getId()) ? 'selected' : '' ?>
+                                        >
+                                            <?= $area->getValue() ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="control-label application-label" for="worked_mlob"><?= $this->translate('Have you worked in a Missouri License Office Before?') ?>*</label>
-                            <select id="worked_mlob" name="worked_mlob" class="form-control application-input">
-                                <option selected> </option>
-                                <option>Yes</option>
-                                <option>No</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label application-label" for="worked_mlob"><?= $this->translate('Have you worked in a Missouri License Office Before?') ?>*</label>
+                                <select id="worked_mlob" name="worked_mlob" class="form-control application-input">
+                                    <option selected> </option>
+                                    <option value="1">Yes</option>
+                                    <option value="0" >No</option>
+                                </select>
+                            </div>
+
 
                         <div class="form-group">
 
                             <div style="display: inline-block; float:right" >
-                                <button class="btn button-save  "><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
+                                <button class="btn button-save  step1-next"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
                             </div>
                         </div>
+                        </form>
 
                     </div>
 
@@ -102,7 +105,7 @@
 
                     <div class="col-md-6 col-md-offset-3">
 
-                        <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="create-employee" enctype="multipart/form-data">
+                        <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="" enctype="multipart/form-data">
 
                             <div class="form-group">
                                 <label class="control-label application-label" for="name_field"><?= $this->translate('First Name') ?>*</label>
@@ -235,10 +238,10 @@
 
                         <div class="form-group">
                             <div style="display: inline-block">
-                                <button class="btn button-save  "><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
+                                <button class="btn button-save  step2-prev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
                             </div>
                             <div style="display: inline-block; float:right" >
-                                <button class="btn button-save  "><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
+                                <button class="btn button-save  step2-next"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
                             </div>
                         </div>
 
@@ -401,10 +404,10 @@
 
                         <div class="form-group">
                             <div style="display: inline-block">
-                                <button class="btn button-save  "><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
+                                <button class="btn button-save  step3-prev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
                             </div>
                             <div style="display: inline-block; float:right" >
-                                <button class="btn button-save  "><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
+                                <button class="btn button-save step3-next"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
                             </div>
                         </div>
 
@@ -427,7 +430,7 @@
 
                             </legend>
 
-                            <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="create-employee" enctype="multipart/form-data">
+                            <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="" enctype="multipart/form-data">
 
                                 <div class="form-group">
                                     <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
@@ -583,10 +586,10 @@
 
                     <div class="form-group">
                         <div style="display: inline-block">
-                            <button class="btn button-save  "><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
+                            <button class="btn button-save  step4-prev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
                         </div>
                         <div style="display: inline-block; float:right" >
-                            <button class="btn button-save  "><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
+                            <button class="btn button-save  step4-next"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
                         </div>
                     </div>
                 </div>
@@ -695,13 +698,13 @@
                                                         </tr>
                                                         <tr>
                                                             <td align="center"><font size="2" face="Arial">
-                                                                    <div id="stat_wpm">Not Started</div></font></td>
+                                                                    <div id="stat_wpm">Waiting...</div></font></td>
                                                             <td style="border-left: 1px dotted #8794C7; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
                                                                 <font size="2" face="Arial"><div id="stat_errors">Waiting...</div></font></td>
                                                             <td style="border-left-width: 1px; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
                                                                 <font size="2" face="Arial"><div id="stat_score">Waiting...</div></font></td>
                                                             <td align="center"><font size="2" face="Arial">
-                                                                    <div id="stat_timeleft">0:00</div></font></td>
+                                                                    <div id="stat_timeleft">120</div></font></td>
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -766,7 +769,7 @@
 
                         <div class="form-group">
                             <div style="display: inline-block">
-                                <button class="btn button-save  "><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
+                                <button class="btn button-save  step5-prev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
                             </div>
                             <div style="display: inline-block; float:right" >
                                 <button class="btn button-save btn-lg"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit') : $this->translate('Save') ?></button>

@@ -3,10 +3,11 @@
 namespace Application\Controller;
 
 use Application\Back\{
-    Service\FileManager,
-    Service\ImageManager,
-    Form\Employee
+    Form\StepOne, Service\FileManager, Service\ImageManager, Form\Employee
 };
+
+//use Application\Back\Form\StepOne;
+
 use Application\Model\{
     Comment, Contract, Area, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
 };
@@ -714,5 +715,51 @@ class EmployeeController extends AbstractController
         $view->setTemplate('application/employee/contributor-employee');
 
         return $view;
+    }
+
+    public function stepOneCheckAction()
+    {
+
+
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+           $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost();
+//
+//            /** @var EmployeeRepository $employeeRepository */
+//            $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
+//
+//            if (true === isset($data['id'])) {
+//                $employee = $employeeRepository->find($data['id']);
+//            } else {
+//                $employee = new EmployeeModel();
+//                $employee->setHash(EmployeeModel::hashKey())
+//                    ->setCreated(new \DateTime());
+//            }
+//
+            $form = new StepOne([]);
+            $form->setData($data);
+
+            if (false === $form->isValid()) {
+                $response->setVariable('errors', $form->getMessages());
+            } else {
+                $response->setVariable('errors',true);
+            }
+
+
+
+
+            return $response;
+        } else {
+            return $this->notFoundAction();
+        }
     }
 }
