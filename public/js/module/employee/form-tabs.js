@@ -49,8 +49,9 @@ jQuery(document).on('click', '.step3-next', function(e){
 
 })
 
-jQuery(document).on('click', '.step4-next', function(e){
-    setActivTab('step_5');
+jQuery(document).on('click', '.step5', function(e){
+    e.preventDefault();
+    ajaxFormSubmitByClass('.form-step5');
 })
 
 

@@ -656,7 +656,7 @@
                     <div class="col-md-6 col-md-offset-3">
 
 
-                        <form>
+                        <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="form-step5" enctype="multipart/form-data">
 
                             <div class="form-group">
                                 <label class="control-label application-label" for="hourly_rate_field"><?= $this->translate('Wage/Pay Expectation (per hour)') ?>*</label>
@@ -700,6 +700,8 @@
                             <?php if (isset($this->action) && $this->action == 'edit') :?>
                                 <input type="hidden" name="action" value="edit">
                             <?php endif;?>
+
+                            <button class="btn" style="display:none"></button>
 
 
 
@@ -824,7 +826,7 @@
                                 <button class="btn button-save  step5-prev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
                             </div>
                             <div style="display: inline-block; float:right" >
-                                <button class="btn button-save btn-lg"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit') : $this->translate('Save') ?></button>
+                                <button class="btn button-save btn-lg step5"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit') : $this->translate('Save') ?></button>
                             </div>
                         </div>
 
