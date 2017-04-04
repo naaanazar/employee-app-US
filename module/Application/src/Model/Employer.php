@@ -23,6 +23,13 @@ class Employer
     private $id;
 
     /**
+     * @var Employee
+     * @ORM\ManyToOne(targetEntity="Employee")
+     * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
+     */
+    private $employee;
+
+    /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
@@ -129,6 +136,14 @@ class Employer
     }
 
     /**
+     * @return Employee
+     */
+    public function getEmployee(): Employee
+    {
+        return $this->employee;
+    }
+
+    /**
      * @param string $name
      * @return $this
      */
@@ -205,5 +220,15 @@ class Employer
         return $this;
     }
 
+    /**
+     * @param Employee $employee
+     * @return $this
+     */
+    public function setEmployee(Employee $employee)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
 
 }

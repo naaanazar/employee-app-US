@@ -17,6 +17,8 @@ use Zend\View\Model\{
     JsonModel,
     ViewModel
 };
+
+use Zend\Session\Container;
 use Application\Back\Form\Search\Employee\GetContributorEmployee;
 use Zend\Http\Response;
 
@@ -26,7 +28,7 @@ use Zend\Http\Response;
  */
 class EmployeeController extends AbstractController
 {
-    protected  $formData;
+    public static  $formData;
 
     /**
      * @inheritdoc
@@ -741,9 +743,11 @@ class EmployeeController extends AbstractController
             } else {
                 $response->setVariable('errors',true);
 
-                $formData['step1'] = $form->getData();
-
+                $storage = new Container('stepOne');
+                $storage->offsetSet('stepOne', $form->getData());
             }
+
+
 
             return $response;
         } else {
@@ -792,7 +796,8 @@ class EmployeeController extends AbstractController
             } else {
                 $response->setVariable('errors',true);
 
-                $formData['step2'] = $form->getData();
+                $storage = new Container('stepTwo');
+                $storage->offsetSet('stepTwo', $form->getData());
             }
 
             return $response;
@@ -819,11 +824,20 @@ class EmployeeController extends AbstractController
             $form->setData($data);
 
             if (false === $form->isValid()) {
+//                $storage = new Container('stepOne');
+//                $data = $storage->offsetExists('stepOne') ? $storage->offsetGet('stepOne') : '';
+//
+//                $storage = new Container('stepTwo');
+//                $data2 = $storage->offsetExists('stepTwo') ? $storage->offsetGet('stepTwo') : '';
+//
+//                $response->setVariable('data2',$data2);
+//                $response->setVariable('data',$data);
                 $response->setVariable('errors', $form->getMessages());
             } else {
                 $response->setVariable('errors',true);
 
-                $formData['step3'] = $form->getData();
+                $storage = new Container('stepThree');
+                $storage->offsetSet('stepThree', $form->getData());
             }
 
             return $response;
@@ -831,4 +845,6 @@ class EmployeeController extends AbstractController
             return $this->notFoundAction();
         }
     }
+
+
 }

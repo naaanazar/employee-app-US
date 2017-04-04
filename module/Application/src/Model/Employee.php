@@ -47,12 +47,6 @@ class Employee extends ArraySerializable
      */
     private $user;
 
-    /**
-     * @var Employer
-     * @ORM\ManyToOne(targetEntity="Employer")
-     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
-     */
-    private $employer;
 
     /**
      * @var ReasonRemoval
@@ -187,6 +181,90 @@ class Employee extends ArraySerializable
     private $jobStatus;
 
     /**
+     * @var string
+     * @ORM\Column(name="position_applying", length=1023, type="string", nullable=true)
+     */
+    private $positionApplying;
+
+    /**
+     * @var string
+     * @ORM\Column(length=1023, type="string", nullable=true)
+     */
+    private $location;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="worked_mlob", type="boolean")
+     */
+    private $workedMlob = false;
+
+    /**
+     * @var string
+     * @ORM\Column(name="address_two", length=1023, type="string", nullable=true)
+     */
+    private $addressTwo;
+
+    /**
+     * @var string
+     * @ORM\Column(length=255, type="string", nullable=true)
+     */
+    private $state;
+
+    /**
+     * @var string
+     * @ORM\Column(name="work_weekends", length=255, type="string", nullable=true)
+     */
+    private $workWeekends;
+
+    /**
+     * @var string
+     * @ORM\Column(name="customer_service_expierence", length=255, type="string", nullable=true)
+     */
+    private $customerServiceExpierence;
+
+    /**
+     * @var string
+     * @ORM\Column(name="business_operations_expierence", length=255, type="string", nullable=true)
+     */
+    private $businessOperationsExpierence;
+
+    /**
+     * @var string
+     * @ORM\Column(name="management_expierence", length=255, type="string", nullable=true)
+     */
+    private $managementExpierence;
+
+    /**
+     * @var string
+     * @ORM\Column(name="expierence_word", length=255, type="string", nullable=true)
+     */
+    private $expierenceWord;
+
+    /**
+     * @var string
+     * @ORM\Column(name="expierence_exel", length=255, type="string", nullable=true)
+     */
+    private $expierenceExel;
+
+    /**
+     * @var string
+     * @ORM\Column(name="expierence_keypad", length=255, type="string", nullable=true)
+     */
+    private $expierenceKeypad;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="delinquent_or_waived", type="boolean")
+     */
+    private $delinquentOrWaived = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="criminal_background", type="boolean")
+     */
+    private $criminalBackground = false;
+
+    /**
      * @return int
      */
     public function getId()
@@ -242,13 +320,6 @@ class Employee extends ArraySerializable
         return $this->user;
     }
 
-    /**
-     * @return Employer
-     */
-    public function getEmployer(): Employer
-    {
-        return $this->employer;
-    }
 
     /**
      * @return ReasonRemoval
@@ -403,6 +474,118 @@ class Employee extends ArraySerializable
     }
 
     /**
+     * @return string
+     */
+    public function getPositionApplying(): string
+    {
+        return $this->positionApplying;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWorkedMlob(): bool
+    {
+        return $this->workedMlob;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddressTwo(): string
+    {
+        return $this->addressTwo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWorkWeekends(): string
+    {
+        return $this->workWeekends;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerServiceExpierence(): string
+    {
+        return $this->customerServiceExpierence;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusinessOperationsExpierence(): string
+    {
+        return $this->businessOperationsExpierence;
+    }
+
+    /**
+     * @return string
+     */
+    public function getManagementExpierence(): string
+    {
+        return $this->managementExpierence;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpierenceWord(): string
+    {
+        return $this->expierenceWord;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpierenceExel(): string
+    {
+        return $this->expierenceExel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpierenceKeypad(): string
+    {
+        return $this->expierenceKeypad;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDelinquentOrWaived(): bool
+    {
+        return $this->delinquentOrWaived;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCriminalBackground(): bool
+    {
+        return $this->criminalBackground;
+    }
+
+    /**
      * @param string $jobStatus
      * @return $this
      */
@@ -431,17 +614,6 @@ class Employee extends ArraySerializable
     public function setUser($user)
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @param Employer $employer
-     * @return $this
-     */
-    public function setEmployer(Employer $employer)
-    {
-        $this->employer = $employer;
 
         return $this;
     }
@@ -682,6 +854,160 @@ class Employee extends ArraySerializable
     public function setImage(Image $image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * @param string $positionApplying
+     * @return $this
+     */
+    public function setPositionApplying(string $positionApplying)
+    {
+        $this->positionApplying = $positionApplying;
+
+        return $this;
+    }
+
+    /**
+     * @param string $location
+     * @return $this
+     */
+    public function setLocation(string $location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $workedMlob
+     * @return $this
+     */
+    public function setWorkedMlob(bool $workedMlob)
+    {
+        $this->workedMlob = $workedMlob;
+
+        return $this;
+    }
+
+    /**
+     * @param string $addressTwo
+     * @return $this
+     */
+    public function setAddressTwo(string $addressTwo)
+    {
+        $this->addressTwo = $addressTwo;
+
+        return $this;
+    }
+
+    /**
+     * @param string $state
+     * @return $this
+     */
+    public function setState(string $state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @param string $workWeekends
+     * @return $this
+     */
+    public function setWorkWeekends(string $workWeekends)
+    {
+        $this->workWeekends = $workWeekends;
+
+        return $this;
+    }
+
+    /**
+     * @param string $customerServiceExpierence
+     * @return $this
+     */
+    public function setCustomerServiceExpierence(string $customerServiceExpierence)
+    {
+        $this->customerServiceExpierence = $customerServiceExpierence;
+
+        return $this;
+    }
+
+    /**
+     * @param string $businessOperationsExpierence
+     * @return $this
+     */
+    public function setBusinessOperationsExpierence(string $businessOperationsExpierence)
+    {
+        $this->businessOperationsExpierence = $businessOperationsExpierence;
+
+        return $this;
+    }
+
+    /**
+     * @param string $managementExpierence
+     * @return $this
+     */
+    public function setManagementExpierence(string $managementExpierence)
+    {
+        $this->managementExpierence = $managementExpierence;
+
+        return $this;
+    }
+
+    /**
+     * @param string $expierenceWord
+     * @return $this
+     */
+    public function setExpierenceWord(string $expierenceWord)
+    {
+        $this->expierenceWord = $expierenceWord;
+
+        return $this;
+    }
+
+    /**
+     * @param string $expierenceExel
+     * @return $this
+     */
+    public function setExpierenceExel(string $expierenceExel)
+    {
+        $this->expierenceExel = $expierenceExel;
+
+        return $this;
+    }
+
+    /**
+     * @param string $expierenceKeypad
+     * @return $this
+     */
+    public function setExpierenceKeypad(string $expierenceKeypad)
+    {
+        $this->expierenceKeypad = $expierenceKeypad;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $delinquentOrWaived
+     * @return $this
+     */
+    public function setDelinquentOrWaived(bool $delinquentOrWaived)
+    {
+        $this->delinquentOrWaived = $delinquentOrWaived;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $criminalBackground
+     * @return $this
+     */
+    public function setCriminalBackground(bool $criminalBackground)
+    {
+        $this->criminalBackground = $criminalBackground;
+
+        return $this;
     }
 
     /**
