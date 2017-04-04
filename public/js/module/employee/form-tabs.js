@@ -1,18 +1,15 @@
-
+/**
+ * STEP1
+ */
 jQuery(document).on('click', '.step1-next', function(e){
     e.preventDefault();
     ajaxFormSubmitByClass('.form-step1', stepNext, 'step_2');
 
 })
 
-
-
-
-/*jQuery(document).on('submit', 'form.async', function (event) {
-    ajaxFormSubmit(event, callback);
-    return false;
-});*/
-
+/**
+ * STEP2
+ */
 jQuery(document).on('click', '.step2-next', function(e){
     e.preventDefault();
     promise = jQuery.Deferred();
@@ -46,14 +43,10 @@ jQuery(document).on('click', '.step2-next', function(e){
     );
 })
 
-jQuery(document).on('submit', 'form.form-step2', function (event) {
-
-
-    return false;
-});
-
 jQuery(document).on('click', '.step3-next', function(e){
-    setActivTab('step_4');
+    e.preventDefault();
+    ajaxFormSubmitByClass('.form-step3', stepNext, 'step_4');
+
 })
 
 jQuery(document).on('click', '.step4-next', function(e){

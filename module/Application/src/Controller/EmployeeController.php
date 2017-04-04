@@ -3,7 +3,7 @@
 namespace Application\Controller;
 
 use Application\Back\{
-    Form\StepOne, Form\StepTwo, Service\FileManager, Service\ImageManager, Form\Employee
+    Form\StepOne, Form\StepTwo, Form\StepThree, Service\FileManager, Service\ImageManager, Form\Employee
 };
 
 use Application\Model\{
@@ -26,7 +26,7 @@ use Zend\Http\Response;
  */
 class EmployeeController extends AbstractController
 {
-    protected $formData = [];
+    protected  $formData;
 
     /**
      * @inheritdoc
@@ -791,10 +791,39 @@ class EmployeeController extends AbstractController
                 $response->setVariable('errors', $form->getMessages());
             } else {
                 $response->setVariable('errors',true);
-                $response->setVariable('tra',$form->getData());
 
                 $formData['step2'] = $form->getData();
+            }
 
+            return $response;
+        } else {
+            return $this->notFoundAction();
+        }
+    }
+
+    public function stepThreeCheckAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost();
+            $form = new StepThree([]);
+            $form->setData($data);
+
+            if (false === $form->isValid()) {
+                $response->setVariable('errors', $form->getMessages());
+            } else {
+                $response->setVariable('errors',true);
+
+                $formData['step3'] = $form->getData();
             }
 
             return $response;

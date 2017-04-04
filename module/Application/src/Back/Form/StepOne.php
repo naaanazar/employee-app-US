@@ -2,7 +2,7 @@
 
 namespace Application\Back\Form;
 
-use Application\Back\Form\Element\StepOne\WorkedMlob;
+use Application\Back\Form\Element\StepOne\Rating;
 use Application\Back\Form\Element\Employee\Name;
 use Application\Back\Form\Element\Employee\AreaAround;
 use Zend\Filter\File\RenameUpload;
@@ -46,7 +46,7 @@ class StepOne extends Form
 
         $this->add(
             [
-                'type' => WorkedMlob::class,
+                'type' => Rating::class,
                 'name' => 'worked_mlob'
             ]
         );
