@@ -3,7 +3,7 @@
 namespace Application\Controller;
 
 use Application\Back\{
-    Form\StepOne, Form\StepTwo, Form\StepThree, Service\FileManager, Service\ImageManager, Form\Employee
+    Form\StepOne, Form\StepTwo,Form\StepThree, Service\FileManager, Service\ImageManager, Form\Employee
 };
 
 use Application\Model\{

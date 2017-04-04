@@ -48,6 +48,13 @@ class Employee extends ArraySerializable
     private $user;
 
     /**
+     * @var Employer
+     * @ORM\ManyToOne(targetEntity="Employer")
+     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
+     */
+    private $employer;
+
+    /**
      * @var ReasonRemoval
      * @ORM\ManyToOne(targetEntity="ReasonRemoval")
      * @ORM\JoinColumn(name="reason_removal_id", referencedColumnName="id")
@@ -236,6 +243,14 @@ class Employee extends ArraySerializable
     }
 
     /**
+     * @return Employer
+     */
+    public function getEmployer(): Employer
+    {
+        return $this->employer;
+    }
+
+    /**
      * @return ReasonRemoval
      */
     public function getReasonRemoval(): ReasonRemoval
@@ -416,6 +431,17 @@ class Employee extends ArraySerializable
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param Employer $employer
+     * @return $this
+     */
+    public function setEmployer(Employer $employer)
+    {
+        $this->employer = $employer;
 
         return $this;
     }
