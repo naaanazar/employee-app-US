@@ -422,6 +422,23 @@ class EmployeeController extends AbstractController
                     ]
                 );
 
+            $employerList = $this->getEntityManager()
+                ->getRepository(Employer::class)
+                ->findBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
+
+            $testList = $this->getEntityManager()
+                ->getRepository(Test::class)
+                ->findBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
+
+
             $view->setTemplate('application/employee/show.phtml');
             $view->setVariables(
                 [
@@ -429,7 +446,9 @@ class EmployeeController extends AbstractController
                     'files' =>  $this->getEntityManager()->getRepository(File::class)->findBy(['employee' => $employee]),
                     'employee' => $employee,
                     'comments' => $comments,
-                    'user' => $this->getUser()
+                    'user' => $this->getUser(),
+                    'employerList' => $employerList,
+                    'testList' => $testList
                 ]
             );
         }
@@ -1159,11 +1178,11 @@ class EmployeeController extends AbstractController
                     $coordinates = new Coordinates();
                     $coordinates
                         ->setEmployee($employee)
-                        ->setLongitude($step1['longitude'])
-                        ->setLatitude($step1['latitude']);
+                        ->setLongitude($step2['longitude'])
+                        ->setLatitude($step2['latitude']);
                 } else {
-                    $coordinates->setLongitude($step1['longitude'])
-                        ->setLatitude($step1['latitude']);
+                    $coordinates->setLongitude($step2['longitude'])
+                        ->setLatitude($step2['latitude']);
                 }
 
                 $this->getEntityManager()->persist($coordinates);

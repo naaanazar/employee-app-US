@@ -89,22 +89,37 @@
     </div>
     <h4>
         <?= $this->translate('Address') ?>:
-        <?= $this->translate('Germany') ?>,
+        <?= $this->translate('USA') ?>,
+        <?= $this->employee->getState() ?>,
         <?= $this->employee->getCity() ?>,
         <?= $this->employee->getZip() ?>,
         <?= $this->employee->getAddress() ?>
+        <?php if (false === empty($this->employee->getAddressTwo())) :?>
+            (<?= $this->employee->getAddressTwo() ?>)
+        <?php endif;?>
     </h4>
-    <h4 class="page-header"><?= $this->translate('Additional information') ?></h4>
+
+    <h4 class=""><?= $this->translate('Overview') ?></h4>
     <ul class="list-group">
         <li class="list-group-item">
-            <?= $this->translate('Hourly rate') ?>: &euro;<?= str_replace(".", ",", $this->employee->getHourlyRate()) ?>
+            <?= $this->translate('Please select the position you are applying for') ?>: <?= $this->employee->getPositionApplying() ?>
         </li>
-
-        <?php if ($this->employee->getContract() !== null) : ?>
+        <li class="list-group-item">
+            <?= $this->translate('Office location') ?>: <?= $this->employee->getLocation() ?>
+        </li>
+        <?php if ($this->employee->getAreaAround() !== null) : ?>
             <li class="list-group-item">
-            <?= $this->translate('Type of contract') ?>: <?= $this->employee->getContract()->getName() ?>
+                <?= $this->translate('Max distance from home address you are willing to work') ?>: <?= $this->employee->getAreaAround()->getValue() ?>
             </li>
         <?php endif; ?>
+        <li class="list-group-item">
+            <?= $this->translate('Have you worked in a Missouri License Office Before?') ?> <?= (true === $this->employee->isWorkedMlob()) ? 'Yes' : 'No' ?>
+        </li>
+    </ul>
+
+    <h4 class=""><?= $this->translate('Availability') ?></h4>
+    <ul class="list-group">
+
         <?php if ($this->employee->getWeeklyHoursAvailable() !== null) : ?>
             <li class="list-group-item">
                 <?= $this->translate('Weekly hours available') ?>: <?= $this->employee->getWeeklyHoursAvailable()->getValue() ?>
@@ -112,33 +127,186 @@
         <?php endif; ?>
         <?php if ($this->employee->getStartDate() !== null) : ?>
             <li class="list-group-item">
-                <?= $this->translate('Start day') ?>: <?= $this->employee->getStartDate()->format('d-m-Y') ?>
+                <?= $this->translate('First date you are available to work') ?>: <?= $this->employee->getStartDate()->format('d-m-Y') ?>
             </li>
         <?php endif; ?>
         <li class="list-group-item">
-            <?= $this->translate('Area around home address willing to work') ?>: <?= $this->employee->getAreaAround()->getValue() ?>
+            <?= $this->translate('Can you work weekends?') ?> <?= $this->employee->getWorkWeekends() ?>
         </li>
         <li class="list-group-item">
-            <?= $this->translate('Comment') ?>
-            <div class="well">
-                <?= $this->employee->getComments() ?>
-            </div>
+            <ul class="list-group">
+                <h5><?= $this->translate('Expierence') ?>:</h5>
+
+                <li class="list-group-item">
+                    <?= $this->translate('Customer service') ?>: <?= $this->employee->getCustomerServiceExpierence() ?>
+                </li>
+                <li class="list-group-item">
+                    <?= $this->translate('Business operations') ?>: <?= $this->employee->getBusinessOperationsExpierence() ?>
+                </li>
+                <li class="list-group-item">
+                    <?= $this->translate('Management') ?>: <?= $this->employee->getManagementExpierence() ?>
+                </li>
+                <li class="list-group-item">
+                    <?= $this->translate('MS Word') ?>: <?= $this->employee->getExpierenceWord() ?>
+                </li>
+                <li class="list-group-item">
+                    <?= $this->translate('MS Exel') ?>: <?= $this->employee->getExpierenceExel() ?>
+                </li>
+                <li class="list-group-item">
+                    <?= $this->translate('10-digit keypad') ?>: <?= $this->employee->getExpierenceKeypad() ?>
+                </li>
+            </ul>
         </li>
-        <?php if (true === $this->employee->isExperience()) : ?>
+    </ul>
+    <h4 class=""><?= $this->translate('Employment History') ?></h4>
+    <ul class="list-group">
             <li class="list-group-item">
-                <?= $this->translate('Has experience') ?>
-            </li>
-        <?php endif; ?>
-        <?php if (true === $this->employee->isCarAvailable()) : ?>
-            <li class="list-group-item">
-                <?= $this->translate('Car available') ?>
-            </li>
-        <?php endif; ?>
-        <?php if (true === $this->employee->isDrivingLicence()) : ?>
-            <li class="list-group-item">
-                <?= $this->translate('Driving license present') ?>
-            </li>
-        <?php endif; ?>
+
+                <?php if (isset($this->employerList) && false === empty($this->employerList)) :?>
+
+                <table class="employer-resul-table" style="width: 100%">
+                    <tr class="employer-tr">
+                        <th class="application-label">
+                            #
+                        </th>
+                        <th class="application-label">
+                            Name
+                        </th>
+                        <th class="application-label">
+                            City
+                        </th>
+                        <th class="application-label">
+                            State
+                        </th>
+                        <th class="application-label">
+                            Years Employed
+                        </th>
+                        <th class="application-label">
+                            Starting Wage
+                        </th>
+                        <th class="application-label">
+                            Ending Wage
+                        </th>
+                        <th class="application-label">
+                            Position Overview
+                        </th>
+                    </tr>
+
+
+                    <?php $count= 1?>
+
+                    <?php foreach ($this->employerList as $employ) : ?>
+
+                        <tr class="employer-tr" data-id="<?= $employ->getId() ?>">
+                            <td>
+                                <?= $count++ ?>
+                            </td>
+                            <td>
+                                <?= $employ->getName() ?>
+                            </td>
+                            <td>
+                                <?= $employ->getCity() ?>
+                            </td>
+                            <td>
+                                <?= $employ->getState() ?>
+                            </td>
+                            <td>
+                                <?= $employ->getYearsEmployed() ?>
+                            </td>
+                            <td>
+                                <?= $employ->getStart()->format('d-m-Y') ?>
+                            </td>
+                            <td>
+                                <?= $employ->getEnd()->format('d-m-Y') ?>
+                            </td>
+                            <td>
+                                <?= $employ->getComments() ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <?php else :?>
+                        No Results
+                    <?php endif;?>
+
+                </table>
+
+
+        </li>
+    </ul>
+    <h4 class=""><?= $this->translate('Skills Assessment') ?></h4>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <?= $this->translate('Wage/Pay Expectation') ?>: $<?= str_replace(".", ",", $this->employee->getHourlyRate()) ?>
+        </li>
+        <li class="list-group-item">
+            <?= $this->translate('Delinquent or waived from any Missouri tax liabilities?') ?>  <?= (true === $this->employee->isDelinquentOrWaived()) ? 'Yes' : 'No' ?>
+        </li>
+        <li class="list-group-item">
+            <?= $this->translate('Are you able to pass a criminal background check?') ?>  <?= (true === $this->employee->isCriminalBackground()) ? 'Yes' : 'No' ?>
+        </li>
+
+        <li class="list-group-item">
+            <?= $this->translate('Typing Tests') ?>:
+
+
+                <?php if (isset($this->testList) && false === empty($this->testList)) :?>
+
+                <table class="employer-resul-table" style="width: 100%">
+                    <tr class="employer-tr">
+                        <th class="application-label">
+                            #
+                        </th>
+                        <th class="application-label">
+                            Net WPM
+                        </th>
+                        <th class="application-label">
+                            Gross WPM
+                        </th>
+                        <th class="application-label">
+                            Entry Errors
+                        </th>
+                        <th class="application-label">
+                            Accuracy
+                        </th>
+                        <th class="application-label">
+                            Elapsed
+                        </th>
+                    </tr>
+
+
+                    <?php $count= 1?>
+
+                    <?php foreach ($this->testList as $test) : ?>
+
+                        <tr class="employer-tr" data-id="<?= $test->getId() ?>">
+                            <td>
+                                <?= $count++ ?>
+                            </td>
+                            <td>
+                                <?= $test->getNetWPM() ?>
+                            </td>
+                            <td>
+                                <?= $test->getGrossWPM() ?>
+                            </td>
+                            <td>
+                                <?= $test->getErrors() ?>
+                            </td>
+                            <td>
+                                <?= $test->getAccuracy() ?>%
+                            </td>
+                            <td>
+                                <?= $test->getTime() ?> sec.
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <?php else :?>
+                        No Results
+                    <?php endif;?>
+
+                </table>
+        </li>
+    </ul>
+    <ul class="list-group">
         <li class="list-group-item">
             <?= $this->translate('Source Application') ?>:
             <?php if ($this->employee->getSourceApplication() === null) :?>
