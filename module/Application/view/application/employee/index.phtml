@@ -498,7 +498,9 @@
 
 
 
-                        <div class="employer-result-conteiner col-md-10 col-md-offset-1" style="margin-bottom: 20px; display:none">
+                        <div class="employer-result-conteiner col-md-10 col-md-offset-1"
+                             style="margin-bottom: 20px; display:<?= (isset($this->action) && $this->action == 'edit') ? 'block': 'none' ?>"
+                        >
                             <table class="employer-resul-table" style="width: 100%">
                                 <tr class="employer-tr">
                                     <th class="application-label">
@@ -527,6 +529,45 @@
                                     </th>
                                 </tr>
 
+
+                                <?php if (isset($this->action) && $this->action == 'edit' && isset($this->employerList)) :?>
+
+                                    <?php $count= 1?>
+
+                                        <?php foreach ($this->employerList as $employ) : ?>
+
+                                            <tr class="employer-tr" data-id="<?= $employ->getId() ?>">
+                                                <td>
+                                                    <?= $count++ ?>
+                                                </td>
+                                                <td>
+                                                    <?= $employ->getName() ?>
+                                                </td>
+                                                <td>
+                                                    <?= $employ->getCity() ?>
+                                                </td>
+                                                <td>
+                                                    <?= $employ->getState() ?>
+                                                </td>
+                                                <td>
+                                                    <?= $employ->getYearsEmployed() ?>
+                                                </td>
+                                                <td>
+                                                    <?= $employ->getStart()->format('d-m-Y') ?>
+                                                </td>
+                                                <td>
+                                                    <?= $employ->getEnd()->format('d-m-Y') ?>
+                                                </td>
+                                                <td>
+                                                    <?= $employ->getComments() ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+
+                                <?php endif;?>
+
+
+
                             </table>
                         </div>
 
@@ -536,13 +577,11 @@
 
                     <div class="row">
 
-
-
                         <form action="<?= $this->url('employee', ['action' => 'step-four-check']) ?>" method="post" class="form-step4" enctype="multipart/form-data">
 
                             <div class="col-md-6  col-md-offset-3"">
 
-                            <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Employer #') ?>
+                            <legend  style="color:#8f8f8f"><?= $this->translate('Employer #') ?>
                                 <span class="employer-number-legend"> 1 </span>
 
                             </legend>
@@ -722,119 +761,117 @@
 
 
 
+                        <?php if (false === isset($this->action) && $this->action !== 'edit' && false ===($this->role === 'admin' || $this->role === 'contributor')) :?>
 
 
+                           <!-- <div align="center">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td style="border-bottom: 2px solid #354562; padding: 4px" class="titlec">
+                                            <input disabled id="printB" onclick="window.print();" type="button" value="Print Results" name="printB" style="float: right; font-size: 8pt; font-family: Arial"><input onclick="document.getElementById('AfterAction').style.display='none';document.getElementById('expectedArea').style.display='block';document.getElementById('typeArea').style.display='block';document.JobOp.typed.value='';document.JobOp.typed.disabled=false;randNum = Math.floor((Math.random() * 10)) % intToTestCnt;strToTestType = strToTest[randNum];document.JobOp.given.value = strToTestType;" type="button" value="New Test" name="newtest" style="float: right; font-size: 8pt; font-family: Arial">ITS Typing Test System</td>
+                                    </tr>
+                                </table>
+                            </div> -->
+                            <div class="test-action" data-action="<?= $this->url('employee', ['action' => 'typing-test']) ?>">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td style="padding: 4px" class="titlea"  width="4120">
+                                            <label class="control-label application-label" ><?= $this->translate('2-Minute Typing Test') ?>*</label>
+                                        </td>
+                                       <!-- <td style="border-bottom: 1px dotted #8120E36; padding: 4px" class="titlea" background="Images/Lt_Red_Back.gif" width="190">
+                                            <p align="right">v1.0</td>-->
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px" class="bodya" colspan="2">
 
-
-
-                       <!-- <div align="center">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td style="border-bottom: 2px solid #354562; padding: 4px" class="titlec">
-                                        <input disabled id="printB" onclick="window.print();" type="button" value="Print Results" name="printB" style="float: right; font-size: 8pt; font-family: Arial"><input onclick="document.getElementById('AfterAction').style.display='none';document.getElementById('expectedArea').style.display='block';document.getElementById('typeArea').style.display='block';document.JobOp.typed.value='';document.JobOp.typed.disabled=false;randNum = Math.floor((Math.random() * 10)) % intToTestCnt;strToTestType = strToTest[randNum];document.JobOp.given.value = strToTestType;" type="button" value="New Test" name="newtest" style="float: right; font-size: 8pt; font-family: Arial">ITS Typing Test System</td>
-                                </tr>
-                            </table>
-                        </div> -->
-                        <div class="test-action" data-action="<?= $this->url('employee', ['action' => 'typing-test']) ?>">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td style="padding: 4px" class="titlea"  width="4120">
-                                        <label class="control-label application-label" ><?= $this->translate('2-Minute Typing Test') ?>*</label>
-                                    </td>
-                                   <!-- <td style="border-bottom: 1px dotted #8120E36; padding: 4px" class="titlea" background="Images/Lt_Red_Back.gif" width="190">
-                                        <p align="right">v1.0</td>-->
-                                </tr>
-                                <tr>
-                                    <td style="padding: 4px" class="bodya" colspan="2">
-
-                                        <FORM name="JobOp">
-                                            <table border="0" cellpadding="5" width="100%">
-                                                <tr>
-                                                    <td>
-                                                        <table border="0" cellpadding="5" width="100%">
-                                                            <tr>
-                                                                <td align="center" class="table-test-th" >
-                                                                    <b>Net / Gross WPM</b></td>
-                                                                <td align="center" class="table-test-th">
-                                                                    <b>Entry Errors</b></td>
-                                                                <td align="center" class="table-test-th">
-                                                                    <b>Accuracy</b></td>
-                                                                <td align="center" class="table-test-th">
-                                                                    <b>Elapsed / Remaining</b></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center">
-                                                                    <label class="control-label application-label" >
-                                                                        <div id="stat_wpm">Waiting...</div>
-                                                                    </label></td>
-                                                                <td style="border-left: 1px dotted #8794C7; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
-                                                                    <label class="control-label application-label" >
-                                                                          <div id="stat_errors">Waiting...</div>
-                                                                    </label></td>
-                                                                <td style="border-left-width: 1px; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
-                                                                    <label class="control-label application-label" >
-                                                                        <div id="stat_score">Waiting...</div>
-                                                                    </label></td>
-                                                                <td align="center">
-                                                                    <label class="control-label application-label" >
-                                                                        <div id="stat_timeleft">120</div></td>
-                                                                    </label>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div id="expectedArea" style="display:block">
-                                                            <p style="margin-top: 0; margin-bottom: 0">
-
-                                                                    <textarea name="given" cols=53 rows=10 wrap=on onFocus="deterCPProtect();" class="application-input" style="width: 100%; padding: 5px;border-radius: 5px; ">Click on the button below to start the typing test.  What you will be expected to type will appear here.</textarea>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p align="center" style="margin-top: 0; margin-bottom: 2px">
-                                                            <label class="control-label application-label" >
-                                                                attempt #<span class="attempt-test"> 1</span>
-                                                            </label> <input type=button value="&gt;&gt; Start Typing Test &lt;&lt;" name="start" onClick="beginTest()" class="button-save "><p align="center" style="margin-top: 0; margin-bottom: 0">
-                                                           <input disabled type=button value="&gt;&gt; End Typing Test &lt;&lt;" name="stop" onClick="endTest()" style="display:none; border-left:1px solid #293358; border-right:2px solid #293358; border-top:1px solid #293358; border-bottom:2px solid #293358; width: 100%; background-color: #F05959; color:#FFFFFF;"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div id="typeArea" style="display:block">
-                                                            <table border="0" width="100%" cellspacing="1">
+                                            <FORM name="JobOp">
+                                                <table border="0" cellpadding="5" width="100%">
+                                                    <tr>
+                                                        <td>
+                                                            <table border="0" cellpadding="5" width="100%">
                                                                 <tr>
-                                                                    <td style="border: 1px solid #c1e279; background-color: #e6f4e5">
-                                                                        <div align="left">
-                                                                            <table id="stProg" border="0" width="0%" cellspacing="1">
-                                                                                <tr>
-                                                                                    <td style="border: 1px solid #c1e279; background-color: #91BF2D; color:#FFFFFF" align="right">
-                                                                                        <div id="thisProg">0%</div></td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </div>
-                                                                    </td>
+                                                                    <td align="center" class="table-test-th" >
+                                                                        <b>Net / Gross WPM</b></td>
+                                                                    <td align="center" class="table-test-th">
+                                                                        <b>Entry Errors</b></td>
+                                                                    <td align="center" class="table-test-th">
+                                                                        <b>Accuracy</b></td>
+                                                                    <td align="center" class="table-test-th">
+                                                                        <b>Elapsed / Remaining</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center">
+                                                                        <label class="control-label application-label" >
+                                                                            <div id="stat_wpm">Waiting...</div>
+                                                                        </label></td>
+                                                                    <td style="border-left: 1px dotted #8794C7; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
+                                                                        <label class="control-label application-label" >
+                                                                              <div id="stat_errors">Waiting...</div>
+                                                                        </label></td>
+                                                                    <td style="border-left-width: 1px; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
+                                                                        <label class="control-label application-label" >
+                                                                            <div id="stat_score">Waiting...</div>
+                                                                        </label></td>
+                                                                    <td align="center">
+                                                                        <label class="control-label application-label" >
+                                                                            <div id="stat_timeleft">120</div></td>
+                                                                        </label>
                                                                 </tr>
                                                             </table>
-                                                            <p style="margin-top: 0; margin-bottom: 0">
-                                                                    <textarea onkeypress="doCheck();" onkeydown="//calcStat()" name="typed" cols=53 rows=10 wrap=on class="application-input" style="width: 100%; padding: 5px; border-radius: 5px"></textarea>
-                                                        </div>
-                                                        <div id="afterAction" style="display:none">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div id="expectedArea" style="display:block">
+                                                                <p style="margin-top: 0; margin-bottom: 0">
 
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <script>
+                                                                        <textarea name="given" cols=53 rows=10 wrap=on onFocus="deterCPProtect();" class="application-input" style="width: 100%; padding: 5px;border-radius: 5px; ">Click on the button below to start the typing test.  What you will be expected to type will appear here.</textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p align="center" style="margin-top: 0; margin-bottom: 2px">
+                                                                <label class="control-label application-label" >
+                                                                    attempt #<span class="attempt-test"> 1</span>
+                                                                </label> <input type=button value="&gt;&gt; Start Typing Test &lt;&lt;" name="start" onClick="beginTest()" class="button-save "><p align="center" style="margin-top: 0; margin-bottom: 0">
+                                                               <input disabled type=button value="&gt;&gt; End Typing Test &lt;&lt;" name="stop" onClick="endTest()" style="display:none; border-left:1px solid #293358; border-right:2px solid #293358; border-top:1px solid #293358; border-bottom:2px solid #293358; width: 100%; background-color: #F05959; color:#FFFFFF;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div id="typeArea" style="display:block">
+                                                                <table border="0" width="100%" cellspacing="1">
+                                                                    <tr>
+                                                                        <td style="border: 1px solid #c1e279; background-color: #e6f4e5">
+                                                                            <div align="left">
+                                                                                <table id="stProg" border="0" width="0%" cellspacing="1">
+                                                                                    <tr>
+                                                                                        <td style="border: 1px solid #c1e279; background-color: #91BF2D; color:#FFFFFF" align="right">
+                                                                                            <div id="thisProg">0%</div></td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                <p style="margin-top: 0; margin-bottom: 0">
+                                                                        <textarea onkeypress="doCheck();" onkeydown="//calcStat()" name="typed" cols=53 rows=10 wrap=on class="application-input" style="width: 100%; padding: 5px; border-radius: 5px"></textarea>
+                                                            </div>
+                                                            <div id="afterAction" style="display:none">
 
-                                                </script>
-                                            </table>
-                                        </FORM>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <script>
 
+                                                    </script>
+                                                </table>
+                                            </FORM>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        <?php endif; ?>
 
 
 

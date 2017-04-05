@@ -125,6 +125,14 @@ class EmployeeController extends AbstractController
                     ]
                 );
 
+            $employerList = $this->getEntityManager()
+                ->getRepository(Employer::class)
+                ->findBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
+
             $view = new ViewModel();
 
             $view->setVariables(
@@ -137,7 +145,9 @@ class EmployeeController extends AbstractController
                     'weeklyHours' => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
                     'employee' => $employee,
                     'action' => 'edit',
-                    'id' => $employee->getId()
+                    'id' => $employee->getId(),
+                    'employerList' => $employerList
+
                 ]
             );
 
