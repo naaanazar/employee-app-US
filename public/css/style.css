@@ -266,3 +266,11 @@ fieldset[disabled] .button-save.active {
 .relative{
     position: relative;
 }
+
+.table-test-th{
+    padding: 5px; background-color: #91BF2D; color:#ffffff; border:1px solid #c1e279;
+}
+
+.employer-tr{
+    border-bottom: 1px solid #c1e279;
+}

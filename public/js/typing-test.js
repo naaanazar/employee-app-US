@@ -45,7 +45,7 @@ function beginTest()
     hasStarted = true;
 ////////////////////////////////////////////////////////
     wpmType = '';
-    countTest++;
+    ++countTest;
 
     //Generate a date value for the current time as a baseline
     day = new Date();
@@ -112,9 +112,10 @@ function endTest()
 
     //Flip the starting and stopping buttons around since the test is complete
     document.JobOp.stop.style.display="none";
-
+///////////////////////////
     if(countTest < 3) {
         document.JobOp.start.style.display = "block";
+        jQuery('.attempt-test').html(countTest + 1);
     }
 
     //Declare an array of valid words for what NEEDED to be typed and what WAS typed
@@ -209,6 +210,8 @@ function endTest()
         function( data ) {
 
     });
+
+
 
     tErr.innerText = badWords + " Errors";
     tStat.innerText= (wpmType-badWords) + " WPM / " + wpmType + " WPM";

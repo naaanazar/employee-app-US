@@ -49,11 +49,87 @@ jQuery(document).on('click', '.step3-next', function(e){
 
 })
 
-jQuery(document).on('click', '.form-ex-add', function(e){
+
+
+var countEmployer = 0;
+
+jQuery(document).on('click', '.step4-next', function(e){
     e.preventDefault();
-    ajaxFormSubmitByClass('.form-step4');
+
+    if(countEmployer < 2){
+        $('#employerModal').modal('show');
+    } else {
+        setActivTab('step_5');
+    }
+
+});
+
+jQuery(document).on('click', '.modal-next', function(e){
+    e.preventDefault();
+    setActivTab('step_5');
 })
 
+
+
+jQuery(document).on('click', '.form-ex-add', function(e){
+    e.preventDefault();
+    ajaxFormSubmitByClass('.form-step4', addEmployer);
+})
+
+var addEmployer = function(error){
+    if(error === true) {
+
+        var data = jQuery('.form-step4').serializeArray();
+        console.log(data);
+        var html = '' +
+            '<tr class="employer-number' + countEmployer + ' employer-tr">' +
+            '<td>' +
+            (countEmployer + 1) +
+            '</td>' +
+            '<td>' +
+            jQuery("input[name='" + 'name_ex' + "']").val() +
+            '</td>' +
+            '<td>' +
+            jQuery("input[name='" + 'city_ex' + "']").val() +
+            '</td>' +
+            '<td>' +
+            jQuery("input[name='" + 'state_ex' + "']").val() +
+            '</td>' +
+            '<td>' +
+            jQuery("select[name='" + 'years_employed_ex' + "']").val() +
+            '</td>' +
+            '<td>' +
+            jQuery("input[name='" + 'start_ex' + "']").val() +
+            '</td>' +
+            '<td>' +
+            jQuery("input[name='" + 'end_ex' + "']").val() +
+            '</td>' +
+            '<td>' +
+            jQuery("textarea#commenst_field").val() +
+            '</td>' +
+            '</tr>';
+        jQuery('.employer-result-conteiner').css('display', 'block');
+
+        jQuery('.employer-resul-table').append(html);
+
+        jQuery(':input','.form-step4')
+            .not(':button, :submit, :reset, :hidden')
+            .val('')
+            .removeAttr('checked')
+            .removeAttr('selected');
+
+        ++countEmployer;
+
+        jQuery("input[name='" + 'id_ex' + "']").val(countEmployer);
+        jQuery(".employer-number-legend").html(countEmployer + 1);
+
+
+    }
+    return false;
+
+
+
+}
 
 
 jQuery(document).on('click', '.step5', function(e){

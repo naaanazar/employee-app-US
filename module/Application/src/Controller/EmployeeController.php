@@ -980,7 +980,7 @@ class EmployeeController extends AbstractController
             $form = new StepFive([]);
             $form->setData($data);
 
-            if (false === $form->isValid() || false == $typingTest || false == $step1 || false == $step2 || false == $step3 || false == $step4) {
+            if (false === $form->isValid() || false == $typingTest || false == $step1 || false == $step2 || false == $step3) {
                 $massage = $form->getMessages();
 
                 if( false === $typingTest){

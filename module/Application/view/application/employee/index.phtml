@@ -471,6 +471,24 @@
                 <!-- STEP 4-->
                 <div id="step_4" class="tab-pane fade">
 
+
+                    <!-- Modal -->
+                    <div id="employerModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+                                    <p>Потрібно вказати двох роботодавців.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn button-save" data-dismiss="modal" >Вказати</button>
+                                    <button type="button" class="btn btn-danger modal-next"  data-dismiss="modal">Пропустити</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Create Application Step #4') ?>
                         <br>
                         <?= $this->translate('Please provide information for you past two employers') ?>
@@ -478,13 +496,56 @@
                     </legend>
                     <div class="row">
 
-                        <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Employer #1') ?>
 
-                        </legend>
+
+                        <div class="employer-result-conteiner col-md-10 col-md-offset-1" style="margin-bottom: 20px; display:none">
+                            <table class="employer-resul-table" style="width: 100%">
+                                <tr class="employer-tr">
+                                    <th class="application-label">
+                                        #
+                                    </th>
+                                    <th class="application-label">
+                                        Name
+                                    </th>
+                                    <th class="application-label">
+                                        City
+                                    </th>
+                                    <th class="application-label">
+                                        State
+                                    </th>
+                                    <th class="application-label">
+                                        Years Employed
+                                    </th>
+                                    <th class="application-label">
+                                        Starting Wage
+                                    </th>
+                                    <th class="application-label">
+                                        Ending Wage
+                                    </th>
+                                    <th class="application-label">
+                                        Description
+                                    </th>
+                                </tr>
+
+                            </table>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row">
+
+
 
                         <form action="<?= $this->url('employee', ['action' => 'step-four-check']) ?>" method="post" class="form-step4" enctype="multipart/form-data">
 
                             <div class="col-md-6  col-md-offset-3"">
+
+                            <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Employer #') ?>
+                                <span class="employer-number-legend"> 1 </span>
+
+                            </legend>
 
                                 <div class="form-group">
                                     <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
@@ -535,24 +596,34 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group ">
-                                    <label class="control-label application-label" for="start_day_field"><?= $this->translate('Starting - Ending Wage') ?></label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label application-label" for="start_day_field"><?= $this->translate('Starting Wage') ?></label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label application-label" for="start_day_field"><?= $this->translate('Ending Wage') ?></label>
+                                    </div>
 
                                     <div class="" id="sandbox-container">
-                                        <div class="input-daterange input-group" id="datepicker">
-                                            <input type="text" class="form-control input-md application-input" name="start_ex" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
-                                            <span class="input-group-addon button-save">to</span>
-                                            <input type="text" class="form-control input-md application-input" name="end_ex" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
+                                        <div class="input-daterange" id="datepicker">
+                                            <div class="col-md-6 form-group">
+                                                <input type="text" class="form-control input-md application-input" name="start_ex" style="border-radius: 3px;" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <input type="text" class="form-control input-md application-input" name="end_ex" style="border-radius: 3px;" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label application-label" for="commenst_field"><?= $this->translate('Description') ?></label>
-                                    <textarea id="commenst_field" name="comments_ex" class="form-control application-input"  rows="4" style="resize: vertical;"><?= isset($this->employee) ? $this->employee->getComments() : '' ?></textarea>
-                                </div>
 
-                                <input type="hidden" name="id_ex">
+                                    <div class="form-group">
+                                        <label class="control-label application-label" for="commenst_field"><?= $this->translate('Description') ?></label>
+                                        <textarea id="commenst_field" name="comments_ex" class="form-control application-input"  rows="4" style="resize: vertical;"><?= isset($this->employee) ? $this->employee->getComments() : '' ?></textarea>
+                                    </div>
+
+
+                                <input type="hidden" name="id_ex" value="0">
 
                                 <button class="btn button-save  form-ex-add"></span> Add</button>
 
@@ -560,6 +631,8 @@
 
                         </form>
                     </div>
+
+
 
                     <div class="form-group">
                         <div style="display: inline-block">
@@ -669,7 +742,7 @@
                         <div class="test-action" data-action="<?= $this->url('employee', ['action' => 'typing-test']) ?>">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td style="border-bottom: 1px dotted #860E36; padding: 4px" class="titlea" background="Images/Lt_Red_Back.gif" width="4120">
+                                    <td style="padding: 4px" class="titlea"  width="4120">
                                         <label class="control-label application-label" ><?= $this->translate('2-Minute Typing Test') ?>*</label>
                                     </td>
                                    <!-- <td style="border-bottom: 1px dotted #8120E36; padding: 4px" class="titlea" background="Images/Lt_Red_Back.gif" width="190">
@@ -684,54 +757,63 @@
                                                     <td>
                                                         <table border="0" cellpadding="5" width="100%">
                                                             <tr>
-                                                                <td align="center" style="border-left: 1px solid #344270; border-right: 2px solid #344270; border-top: 1px solid #344270; border-bottom: 2px solid #344270; padding: 5px; background-color: #CED3E8" background="/Images/Blue_Back.png">
-                                                                    <b><font face="Arial" size="2" color="#FFFFFF">Net / Gross WPM</font></b></td>
-                                                                <td align="center" style="border-left: 1px solid #344270; border-right: 2px solid #344270; border-top: 1px solid #344270; border-bottom: 2px solid #344270; padding: 5px; background-color: #CED3E8" background="/Images/Blue_Back.png">
-                                                                    <b><font face="Arial" size="2" color="#FFFFFF">Entry Errors</font></b></td>
-                                                                <td align="center" style="border-left: 1px solid #344270; border-right: 2px solid #344270; border-top: 1px solid #344270; border-bottom: 2px solid #344270; padding: 5px; background-color: #CED3E8" background="/Images/Blue_Back.png">
-                                                                    <b><font face="Arial" size="2" color="#FFFFFF">Accuracy</font></b></td>
-                                                                <td align="center" style="border-left: 1px solid #344270; border-right: 2px solid #344270; border-top: 1px solid #344270; border-bottom: 2px solid #344270; padding: 5px; background-color: #CED3E8" background="/Images/Blue_Back.png">
-                                                                    <b><font face="Arial" size="2" color="#FFFFFF">Elapsed /
-                                                                            Remaining</font></b></td>
+                                                                <td align="center" class="table-test-th" >
+                                                                    <b>Net / Gross WPM</b></td>
+                                                                <td align="center" class="table-test-th">
+                                                                    <b>Entry Errors</b></td>
+                                                                <td align="center" class="table-test-th">
+                                                                    <b>Accuracy</b></td>
+                                                                <td align="center" class="table-test-th">
+                                                                    <b>Elapsed / Remaining</b></td>
                                                             </tr>
                                                             <tr>
-                                                                <td align="center"><font size="2" face="Arial">
-                                                                        <div id="stat_wpm">Waiting...</div></font></td>
+                                                                <td align="center">
+                                                                    <label class="control-label application-label" >
+                                                                        <div id="stat_wpm">Waiting...</div>
+                                                                    </label></td>
                                                                 <td style="border-left: 1px dotted #8794C7; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
-                                                                    <font size="2" face="Arial"><div id="stat_errors">Waiting...</div></font></td>
+                                                                    <label class="control-label application-label" >
+                                                                          <div id="stat_errors">Waiting...</div>
+                                                                    </label></td>
                                                                 <td style="border-left-width: 1px; border-right: 1px dotted #8794C7; border-top-width: 1px; border-bottom-width: 1px" align="center">
-                                                                    <font size="2" face="Arial"><div id="stat_score">Waiting...</div></font></td>
-                                                                <td align="center"><font size="2" face="Arial">
-                                                                        <div id="stat_timeleft">120</div></font></td>
+                                                                    <label class="control-label application-label" >
+                                                                        <div id="stat_score">Waiting...</div>
+                                                                    </label></td>
+                                                                <td align="center">
+                                                                    <label class="control-label application-label" >
+                                                                        <div id="stat_timeleft">120</div></td>
+                                                                    </label>
                                                             </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="border-left-width: 1px; border-right-width: 1px; border-top: 1px solid #344270; border-bottom-width: 1px">
+                                                    <td>
                                                         <div id="expectedArea" style="display:block">
                                                             <p style="margin-top: 0; margin-bottom: 0">
-                                                                <font color="#7A88C0" face="Arial" size="1">
-                                                                    <textarea name="given" cols=53 rows=10 wrap=on onFocus="deterCPProtect();" style="width: 100%; border: 1px solid #344270; padding: 2px; font-family:Arial; font-size:9pt">Click on the button below to start the typing test.  What you will be expected to type will appear here.</textarea></font>
+
+                                                                    <textarea name="given" cols=53 rows=10 wrap=on onFocus="deterCPProtect();" class="application-input" style="width: 100%; padding: 5px;border-radius: 5px; ">Click on the button below to start the typing test.  What you will be expected to type will appear here.</textarea>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <p align="center" style="margin-top: 0; margin-bottom: 2px">
-                                                            <input type=button value="&gt;&gt; Start Typing Test &lt;&lt;" name="start" onClick="beginTest()" style="display:block; border-left:1px solid #293358; border-right:2px solid #293358; border-top:1px solid #293358; border-bottom:2px solid #293358; width: 100%; background-color: #9BB892; color:#FFFFFF; background-image:url('/Images/Green_Back.png')"><p align="center" style="margin-top: 0; margin-bottom: 0">
-                                                            <input disabled type=button value="&gt;&gt; End Typing Test &lt;&lt;" name="stop" onClick="endTest()" style="display:none; border-left:1px solid #293358; border-right:2px solid #293358; border-top:1px solid #293358; border-bottom:2px solid #293358; width: 100%; background-color: #F05959; color:#FFFFFF; background-image:url('/Images/Red_Back.png')"></td>
+                                                            <label class="control-label application-label" >
+                                                                attempt #<span class="attempt-test"> 1</span>
+                                                            </label> <input type=button value="&gt;&gt; Start Typing Test &lt;&lt;" name="start" onClick="beginTest()" class="button-save "><p align="center" style="margin-top: 0; margin-bottom: 0">
+                                                           <input disabled type=button value="&gt;&gt; End Typing Test &lt;&lt;" name="stop" onClick="endTest()" style="display:none; border-left:1px solid #293358; border-right:2px solid #293358; border-top:1px solid #293358; border-bottom:2px solid #293358; width: 100%; background-color: #F05959; color:#FFFFFF;"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="font-family: Arial; font-size: 9pt">
+                                                    <td>
                                                         <div id="typeArea" style="display:block">
                                                             <table border="0" width="100%" cellspacing="1">
                                                                 <tr>
-                                                                    <td style="border: 1px solid #9CA8D1; background-color: #EAECF4">
+                                                                    <td style="border: 1px solid #c1e279; background-color: #e6f4e5">
                                                                         <div align="left">
                                                                             <table id="stProg" border="0" width="0%" cellspacing="1">
                                                                                 <tr>
-                                                                                    <td style="border: 1px solid #344270; background-color: #8F9BCB; font-family:Arial; font-size:8pt; color:#FFFFFF" align="right" background="/Images/Blue_Back.png">
+                                                                                    <td style="border: 1px solid #c1e279; background-color: #91BF2D; color:#FFFFFF" align="right">
                                                                                         <div id="thisProg">0%</div></td>
                                                                                 </tr>
                                                                             </table>
@@ -740,8 +822,7 @@
                                                                 </tr>
                                                             </table>
                                                             <p style="margin-top: 0; margin-bottom: 0">
-                                                                <font color="#7A88C0" face="Arial" size="1">
-                                                                    <textarea onkeypress="doCheck();" onkeydown="//calcStat()" name="typed" cols=53 rows=10 wrap=on style="width: 100%; border: 1px solid #344270; padding: 2px; font-family:Arial; font-size:9pt"></textarea></font>
+                                                                    <textarea onkeypress="doCheck();" onkeydown="//calcStat()" name="typed" cols=53 rows=10 wrap=on class="application-input" style="width: 100%; padding: 5px; border-radius: 5px"></textarea>
                                                         </div>
                                                         <div id="afterAction" style="display:none">
 
