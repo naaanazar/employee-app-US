@@ -21,7 +21,7 @@ use Application\Back\Form\Element\Employee\{
     StartDay,
     SourceApplication
 };
-use Application\Back\Form\Element\StepOne\Rating;
+use Application\Back\Form\Element\StepThree\Rating;
 use Zend\Filter\File\RenameUpload;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
@@ -40,49 +40,49 @@ class StepFour extends Form
         $this->add(
             [
                 'type' => Name::class,
-                'name' => 'name'
+                'name' => 'name_ex'
             ]
         );
 
         $this->add(
             [
                 'type' => City::class,
-                'name' => 'city'
+                'name' => 'city_ex'
             ]
         );
 
         $this->add(
             [
                 'type' => City::class,
-                'name' => 'state'
+                'name' => 'state_ex'
             ]
         );
 
         $this->add(
             [
                 'type' => Rating::class,
-                'name' => 'years_employed'
+                'name' => 'years_employed_ex'
             ]
         );
 
         $this->add(
             [
                 'type' => StartDay::class,
-                'name' => 'start'
+                'name' => 'start_ex'
             ]
         );
 
         $this->add(
             [
                 'type' => StartDay::class,
-                'name' => 'end'
+                'name' => 'end_ex'
             ]
         );
 
         $this->add(
             [
                 'type' => Comments::class,
-                'name' => 'comments'
+                'name' => 'comments_ex'
             ]
         );
 

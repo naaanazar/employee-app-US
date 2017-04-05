@@ -49,6 +49,13 @@ jQuery(document).on('click', '.step3-next', function(e){
 
 })
 
+jQuery(document).on('click', '.form-ex-add', function(e){
+    e.preventDefault();
+    ajaxFormSubmitByClass('.form-step4');
+})
+
+
+
 jQuery(document).on('click', '.step5', function(e){
     e.preventDefault();
     ajaxFormSubmitByClass('.form-step5');
