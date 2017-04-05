@@ -863,6 +863,7 @@ class EmployeeController extends AbstractController
             );
 
             $data  = $this->getRequest()->getPost();
+            $data['hourly_rate'] = str_replace(",", ".", $data['hourly_rate']);
             $form = new StepFive([]);
             $form->setData($data);
 
@@ -873,6 +874,251 @@ class EmployeeController extends AbstractController
 
                 $storage = new Container('stepFive');
                 $storage->offsetSet('stepFive', $form->getData());
+
+                $storageStep1 = new Container('stepOne');
+                $step1 = $storageStep1->offsetExists('stepOne') ? $storageStep1->offsetGet('stepOne') : false;
+
+                $storageStep2 = new Container('stepTwo');
+                $step2 = $storageStep2->offsetExists('stepTwo') ? $storageStep2->offsetGet('stepTwo') : false;
+
+                $storageStep3 = new Container('stepThree');
+                $step3 = $storageStep3->offsetExists('stepThree') ? $storageStep3->offsetGet('stepThree') : false;
+
+
+            }
+
+            return $response;
+        } else {
+            return $this->notFoundAction();
+        }
+    }
+
+
+    /**
+     * @return array|JsonModel
+     */
+    public function store2Action()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost()->toArray();
+            $data['hourly_rate'] = str_replace(",", ".", $data['hourly_rate']);
+            $files = $this->getRequest()->getFiles()->toArray();
+
+            /** @var EmployeeRepository $employeeRepository */
+            $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
+
+            if (true === isset($data['id'])) {
+                $employee = $employeeRepository->find($data['id']);
+            } else {
+                $employee = new EmployeeModel();
+                $employee->setHash(EmployeeModel::hashKey())
+                    ->setCreated(new \DateTime());
+            }
+
+            $form = new Employee(
+                [
+                    'allowed_emails' => [$employee->getEmail()]
+                ]
+            );
+            $form->setData(
+                array_merge_recursive($data, $files)
+            );
+
+            if (false === $form->isValid()) {
+                $response->setVariable('errors', $form->getMessages());
+            } else {
+
+                $form->getData();
+
+                /** @var Area $areaAround */
+                $areaAround = $this->getEntityManager()
+                    ->getRepository(Area::class)
+                    ->find($form->get('area_around')->getValue());
+
+                /** @var Contract $contractType */
+                $contractType = $this->getEntityManager()
+                    ->getRepository(Contract::class)
+                    ->find($form->get('contract_type')->getValue());
+
+                /** @var WeeklyHours $weeklyHours */
+                $weeklyHours = $this->getEntityManager()
+                    ->getRepository(WeeklyHours::class)
+                    ->find($form->get('weekly_hours')->getValue());
+
+                /** @var SourceApplication $sourceApplication */
+                $sourceApplication = $this->getEntityManager()
+                    ->getRepository(SourceApplication::class)
+                    ->find($form->get('source')->getValue());
+
+                $image = new Image();
+
+                    if (null !== $form->get('image')->getValue()) {
+                        $imageManager = new ImageManager();
+                        $imageName = $form->getOption('image');
+
+                        $image->setOriginal($imageName);
+                        $image->setThumbnail($imageManager->resizeImage(
+                            BASE_PATH . DIRECTORY_SEPARATOR . $imageName,
+                            128,
+                            BASE_PATH . '/img/employee/thumb/' . basename($imageName)
+                        ));
+                    } else {
+                        $image->setOriginal(Image::DEFAULT_IMAGE);
+                        $image->setThumbnail(Image::DEFAULT_THUMB);
+                    }
+
+                $this->getEntityManager()->persist($image);
+                $this->getEntityManager()->flush();
+
+                $employee->setName           ($form->get('name')->getValue())
+                    ->setSurname             ($form->get('surname')->getValue())
+                    ->setEmail               ($form->get('email')->getValue())
+                    ->setAddress             ($form->get('address')->getValue())
+                    ->setCity                ($form->get('city')->getValue())
+                    ->setZip                 ($form->get('zip')->getValue())
+                    ->setMobilePhone         ($form->get('mobile_phone')->getValue())
+                    ->setLandlinePhone       ($form->get('landline_phone')->getValue())
+                    ->setAreaAround          ($areaAround)
+                    ->setContract            ($contractType)
+                    ->setWeeklyHoursAvailable($weeklyHours)
+                    ->setSourceApplication   ($sourceApplication)
+                    ->setStartDate           ((new \DateTime($form->get('start_date')->getValue())))
+                    ->setComments            ($form->get('comments')->getValue())
+                    ->setHourlyRate          ($form->get('hourly_rate')->getValue())
+                    ->setExperience          ((bool)$form->get('experience')->getValue())
+                    ->setCarAvailable        ((bool)$form->get('car_available')->getValue())
+                    ->setDrivingLicence      ((bool)$form->get('driving_license')->getValue())
+                    ->setUpdated(new \DateTime());
+
+                if (null === $employee->getJobStatus()) {
+                    $employee->setJobStatus('active');
+                }
+
+                if (false === (isset($data['id']) && null == $form->get('image')->getValue())) {
+                    $employee->setImage($image);
+                }
+
+                if (null !== $this->getUser()) {
+                    $employee->setUser($this->getUser());
+                } else {
+                    $user = new User();
+                    $user->setEmail($employee->getEmail());
+                    $user->setName(implode(' ', [$employee->getSurname(), $employee->getName()]));
+                    $user->setRole(User::ROLE_USER);
+
+                    $password = substr(hash('sha512',rand()),0,12);
+                    $user->setPassword(User::hashPassword($password));
+
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush($user);
+
+                    $employee->setUser($user);
+
+                    Module::getMailSender()
+                        ->sendMail(
+                            Module::translator()->translate('Login details'),
+                            $user->getEmail(),
+                            'employee/login-details',
+                            [
+                                'email'    => $user->getEmail(),
+                                'password' => $password
+                            ]
+                        );
+                }
+
+                $this->getEntityManager()->persist($employee);
+
+                $fileManager = new FileManager();
+                $files = $fileManager->storeFiles($this->getRequest()->getFiles('attachments', []), 'files/employee/' . EmployeeModel::hashKey());
+
+                foreach ($files as $file) {
+                    $file->setEmployee($employee);
+                    $this->getEntityManager()->persist($file);
+                }
+
+                /** @var Coordinates $coordinates */
+                $coordinates = $this->getEntityManager()
+                    ->getRepository(Coordinates::class)
+                    ->findOneBy(
+                    [
+                        'employee' => $employee
+                    ]
+                );
+
+                if ($coordinates === null) {
+                    $coordinates = new Coordinates();
+                    $coordinates
+                        ->setEmployee($employee)
+                        ->setLongitude($form->get('longitude')->getValue())
+                        ->setLatitude($form->get('latitude')->getValue());
+                } else {
+                    $coordinates->setLongitude($form->get('longitude')->getValue())
+                        ->setLatitude($form->get('latitude')->getValue());
+                }
+
+                $this->getEntityManager()->persist($coordinates);
+
+                $this->getEntityManager()->flush();
+
+                if (true === $employee instanceof EmployeeModel) {
+
+                    if (null !== $this->getUser()) {
+                        $url = $this->url()->fromRoute('show-employee', ['hash' => $employee->getHash()]);
+                    } else {
+                        $url = $this->url()->fromRoute('index', ['action' => 'information']);
+                    }
+
+                    $response->setVariables(
+                        [
+                            'id'       => $employee->getId(),
+                            'redirect' => $url
+                        ]
+                    );
+                }
+
+                if (false === isset($data['id'])) {
+                    $requestsRepository = $this->getEntityManager()
+                        ->getRepository(SearchRequest::class);
+
+                    $requests = $requestsRepository->findBy(
+                        [
+                            'found' => false
+                        ]
+                    );
+
+                    foreach ($requests as $request) {
+                        /** @var SearchRequest $request */
+                        $params = $request->getParams();
+                        $params['lastSearch'] = $request->getLastSearch();
+
+                        if (false === empty($employeesInSearch = $employeeRepository->searchByParams($params))) {
+                            Module::getMailSender()->sendMail(
+                                Module::translator()->translate('Search request result'),
+                                $request->getUser()->getEmail(),
+                                'dashboard/search-request-result',
+                                [
+                                    'employees' => $employeesInSearch,
+                                    'searchRequest' => $request
+                                ]
+                            );
+                        }
+
+                        $request->setLastSearch(new \DateTime());
+                        $this->getEntityManager()->persist($request);
+                    }
+
+                    $this->getEntityManager()->flush();
+                }
             }
 
             return $response;
