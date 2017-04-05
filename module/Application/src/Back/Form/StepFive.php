@@ -63,6 +63,16 @@ class StepFive extends Form
             ]
         );
 
+        $this->add(
+            [
+                'type' => SourceApplication::class,
+                'name' => 'source',
+                'options' => [
+                    'entityManager' => $this->getOption('entityManager'),
+                ]
+            ]
+        );
+
 
 
     }
