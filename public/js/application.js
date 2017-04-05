@@ -281,6 +281,7 @@ var Validate = {
 
                       jQuery("input[name='" + field + "']").closest('.form-group').append('<div class="label errors-block label-danger">' + massage + '</div>');
                         jQuery("select[name='" + field + "']").after('<span class="label errors-block label-danger">' + massage + '</span>');
+                        jQuery("textarea[name='" + field + "']").after('<span class="label errors-block label-danger">' + massage + '</span>');
                     });
                 }
             }

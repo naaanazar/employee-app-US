@@ -12,6 +12,8 @@ var strToTest = new Array("Innovative Technical Solutions, LLC (ITS) is a Native
     "With our years of experience, we completely understand document management and technology. We know the importance of deadlines and we know the importance of production without error.  We refuse to over-commit to deadlines that can not be met.  Dedication to excellence in providing quality products and services through innovative ideas and processes.  Steadfast resolve to a positive working environment that allows for the personal and professional development of all employees, while sustaining project service, and customer satisfaction.  Commitment to the highest ethical management practices that recognize client satisfaction as a top priority.")
 var strToTestType = "";
 
+/////////////////////////////////////////
+var countTest = 0;
 var checkStatusInt;
 
 //General functions to allow for left and right trimming / selection of a string
@@ -33,12 +35,17 @@ function Right(str, n){
         return String(str).substring(iLen, iLen - n);
     }
 }
+//////////////////////////////////////////////////
+var wpmType;
 
 //beginTest Function/Sub initializes the test and starts the timers to determine the WPM and Accuracy
 function beginTest()
 {
     //We're starting the test, so set the variable to true
     hasStarted = true;
+////////////////////////////////////////////////////////
+    wpmType = '';
+    countTest++;
 
     //Generate a date value for the current time as a baseline
     day = new Date();
@@ -66,6 +73,8 @@ function beginTest()
     //Apply focus to the text box the user will type the test into
     document.JobOp.typed.focus();
     document.JobOp.typed.select();
+//////////////////////////////////
+    document.JobOp.typed.disabled=false;
 }
 
 //User to deter from Copy and Paste, also acting as a testing protection system
@@ -97,11 +106,16 @@ function endTest()
 
     //Set the start test button label and enabled state
     //document.JobOp.start.value = ">> Re-Start Typing Test <<";
+
+
     document.JobOp.start.disabled = false;
 
     //Flip the starting and stopping buttons around since the test is complete
     document.JobOp.stop.style.display="none";
-    document.JobOp.start.style.display="block";
+
+    if(countTest < 3) {
+        document.JobOp.start.style.display = "block";
+    }
 
     //Declare an array of valid words for what NEEDED to be typed and what WAS typed
     //Again, refer to the above statement on removing the double spaces globally (1A)
@@ -174,12 +188,34 @@ function endTest()
     aftReport = "<b>Typing Summary:</b><br>You typed " + (document.JobOp.typed.value.replace(/  /g, " ").split(" ").length) + " words in " + totalTime + " seconds, a speed of about " + wpmType + " words per minute.\n\nYou also had " + badWords + " errors, and " + goodWords + " correct words, giving scoring of " + ((goodWords / (goodWords+badWords)) * 100).toFixed(2) + "%.<br><br>" + aftReport;
 
     //Set the statistical label variables with what we found (errors, words per minute, time taken, etc)
+
+    console.log('err.' + badWords);
+    console.log('wpmType' + wpmType);
+    console.log('tscore' + ((goodWords / (goodWords+badWords)) * 100).toFixed() + "%");
+    console.log('bad' + (wpmType-badWords));
+    console.log('time' + totalTime.toFixed(0));
+    var accuracy = ((goodWords / (goodWords+badWords)) * 100).toFixed()
+
+    $.post(
+        jQuery('.test-action').data('action'),
+        {
+            id_test:countTest,
+            net_wpm: wpmType-badWords,
+            gross_wpm: wpmType,
+            errors :badWords,
+            accuracy: accuracy,
+            time: totalTime.toFixed(0)},
+
+        function( data ) {
+
+    });
+
     tErr.innerText = badWords + " Errors";
     tStat.innerText= (wpmType-badWords) + " WPM / " + wpmType + " WPM";
     tTT.innerText = totalTime.toFixed(0) + " sec. elapsed";
 
     //Calculate the accuracy score based on good words typed versus total expected words -- and only show the percentage as ###.##
-    tscore.innerText = ((goodWords / (goodWords+badWords)) * 100).toFixed(2) + "%";
+    tscore.innerText = ((goodWords / (goodWords+badWords)) * 100).toFixed() + "%";
 
     //Flip the display of the typing area and the expected area with the after action display area
     aArea.style.display = "block";
@@ -192,7 +228,8 @@ function endTest()
 
     //Notify the user of their testing status via a JavaScript Alert
     //Update: There isn't any need in showing this popup now that we are hiding the typing area and showing a scoring area
-    alert("You typed " + (document.JobOp.typed.value.split(" ").length) + " words in " + totalTime + " seconds, a speed of about " + wpmType + " words per minute.\n\nYou also had " + badWords + " errors, and " + goodWords + " correct words, giving scoring of " + ((goodWords / (goodWords+badWords)) * 100).toFixed(2) + "%.");
+    //alert("You typed " + (document.JobOp.typed.value.split(" ").length) + " words in " + totalTime + " seconds, a speed of about " + wpmType + " words per minute.\n\nYou also had " + badWords + " errors, and " + goodWords + " correct words, giving scoring of " + ((goodWords / (goodWords+badWords)) * 100).toFixed(2) + "%.");
+
 }
 
 //calcStat is a function called as the user types to dynamically update the statistical information

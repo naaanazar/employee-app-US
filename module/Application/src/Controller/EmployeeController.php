@@ -7,7 +7,7 @@ use Application\Back\{
 };
 
 use Application\Model\{
-    Comment, Contract, Area, Employer, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
+    Comment, Contract, Area, Employer, Image, ReasonRemoval, Repository\EmployeeRepository, SearchRequest, Test, User, SourceApplication, WeeklyHours, Coordinates, Employee as EmployeeModel
 };
 
 use Application\Module;
@@ -65,6 +65,22 @@ class EmployeeController extends AbstractController
                 );
             }
         }
+
+        $typingTest = new Container('typingTest');
+        $typingTest->offsetUnset('typingTest');
+
+        $storageStep1 = new Container('stepOne');
+        $storageStep1->offsetUnset('stepOne');
+
+        $storageStep2 = new Container('stepTwo');
+        $storageStep2->offsetUnset('stepTwo');
+
+        $storageStep3 = new Container('stepThree');
+        $storageStep3->offsetUnset('stepThree');
+
+        $storageStep4 = new Container('StepFour');
+        $storageStep4->offsetUnset('StepFour');
+
 
         $view = new ViewModel();
 
@@ -879,6 +895,40 @@ class EmployeeController extends AbstractController
         }
     }
 
+    public function typingTestAction()
+    {
+        if (true === $this->getRequest()->isXmlHttpRequest()) {
+
+            $response = new JsonModel();
+
+            $response->setVariables(
+                [
+                    'errors' => [],
+                    'id'     => 0,
+                ]
+            );
+
+            $data  = $this->getRequest()->getPost();
+
+
+            $response->setVariable('errors',true);
+
+            $storage = new Container('typingTest');
+            $formData = $storage->offsetExists('typingTest') ? $storage->offsetGet('typingTest') : [];
+
+            $formData[$data['id_test']] = $data;
+
+            $storage->offsetSet('typingTest', $formData);
+
+            $response->setVariable('errors',$formData);
+
+
+            return $response;
+        } else {
+            return $this->notFoundAction();
+        }
+    }
+
     /**
      * @return JsonModel|array
      */
@@ -911,33 +961,35 @@ class EmployeeController extends AbstractController
                     ->setCreated(new \DateTime());;
             }
 
+            $storageTypingTest = new Container('typingTest');
+            $typingTest = $storageTypingTest->offsetExists('typingTest') ? $storageTypingTest->offsetGet('typingTest') : false;
+
+            $storageStep1 = new Container('stepOne');
+            $step1 = $storageStep1->offsetExists('stepOne') ? $storageStep1->offsetGet('stepOne') : false;
+
+            $storageStep2 = new Container('stepTwo');
+            $step2 = $storageStep2->offsetExists('stepTwo') ? $storageStep2->offsetGet('stepTwo') : false;
+
+            $storageStep3 = new Container('stepThree');
+            $step3 = $storageStep3->offsetExists('stepThree') ? $storageStep3->offsetGet('stepThree') : false;
+
+            $storageStep4 = new Container('StepFour');
+            $step4 = $storageStep4->offsetExists('StepFour') ? $storageStep4->offsetGet('StepFour') : false;
+
 
             $form = new StepFive([]);
             $form->setData($data);
 
-            if (false === $form->isValid()) {
-                $response->setVariable('errors', $form->getMessages());
+            if (false === $form->isValid() || false == $typingTest || false == $step1 || false == $step2 || false == $step3 || false == $step4) {
+                $massage = $form->getMessages();
+
+                if( false === $typingTest){
+                    $massage['typed']['test'] = 'Take a typing test please.';
+                }
+
+                $response->setVariable('errors', $massage);
             } else {
                 $response->setVariable('errors',true);
-
-                $storage = new Container('stepFive');
-                $storage->offsetSet('stepFive', $form->getData());
-
-                $storageStep1 = new Container('stepOne');
-                $step1 = $storageStep1->offsetExists('stepOne') ? $storageStep1->offsetGet('stepOne') : false;
-
-                $storageStep2 = new Container('stepTwo');
-                $step2 = $storageStep2->offsetExists('stepTwo') ? $storageStep2->offsetGet('stepTwo') : false;
-
-                $storageStep3 = new Container('stepThree');
-                $step3 = $storageStep3->offsetExists('stepThree') ? $storageStep3->offsetGet('stepThree') : false;
-
-
-
-                $storageStep4 = new Container('StepFour');
-                $step4 = $storageStep4->offsetExists('StepFour') ? $storageStep4->offsetGet('StepFour') : false;
-
-
 
                 $form->getData();
 
@@ -1062,6 +1114,27 @@ class EmployeeController extends AbstractController
                         $this->getEntityManager()->flush($employer);
                     }
                 }
+
+                if(false !== $typingTest) {
+
+                    foreach ($typingTest as $key) {
+
+                        $test = new Test();
+
+                        $test->setEmployee($employee)
+                            ->setNetWPM($key['net_wpm'])
+                            ->setGrossWPM($key['gross_wpm'])
+                            ->setErrors($key['errors'])
+                            ->setAccuracy($key['accuracy'])
+                            ->setCreated(new \DateTime())
+                            ->setTime($key['time']);
+
+
+                        $this->getEntityManager()->persist($test);
+                        $this->getEntityManager()->flush($test);
+                    }
+                }
+
 
                 /** @var Coordinates $coordinates */
                 $coordinates = $this->getEntityManager()
