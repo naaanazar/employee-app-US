@@ -4,16 +4,8 @@ namespace Application\Back\Form;
 
 use Application\Back\Form\Element\Email;
 use Application\Back\Form\Element\Employee\{
-    Latitude,
-    Longitude,
-    Name,
-    Surname,
-    City,
-    Address,
-    MobileNumber,
-    LandlineNumber,
-    ZIP
-   };
+    AddressTwo, Latitude, Longitude, Name, Surname, City, Address, MobileNumber, LandlineNumber, ZIP
+};
 
 use Application\Model\Employee as EmployeeModel;
 use Zend\Form\Form;
@@ -66,7 +58,7 @@ class StepTwo extends Form
 
         $this->add(
             [
-                'type' => Address::class,
+                'type' => AddressTwo::class,
                 'name' => 'address_two'
             ]
         );

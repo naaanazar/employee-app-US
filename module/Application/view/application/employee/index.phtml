@@ -2,11 +2,11 @@
 
 
         <ul class="nav nav-tabs nav-justified">
-            <li class="active"><a data-toggle="tab" href="#step_1">Step 1</a></li>
-            <li><a data-toggle="tab" href="#step_2">Step 2</a></li>
-            <li><a data-toggle="tab" href="#step_3">Step 3</a></li>
-            <li><a data-toggle="tab" href="#step_4">Step 4</a></li>
-            <li><a data-toggle="tab" href="#step_5">Step 5</a></li>
+            <li class="active"><a data-toggle="tab" href="#step_1" style="color:#91BF2D">Overview</a></li>
+            <li><a data-toggle="tab" href="#step_2" style="color:#91BF2D">Contact Information</a></li>
+            <li><a data-toggle="tab" href="#step_3" style="color:#91BF2D">Availability</a></li>
+            <li><a data-toggle="tab" href="#step_4" style="color:#91BF2D">Employment History</a></li>
+            <li><a data-toggle="tab" href="#step_5" style="color:#91BF2D">Skills Assessment</a></li>
         </ul>
 
             <div class="tab-content">
@@ -21,7 +21,7 @@
 
                         <form action="<?= $this->url('employee', ['action' => 'step-one-check']) ?>" method="post" class="form-step1" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label class="control-label application-label" for="position_you_are_applying"><?= $this->translate('Select the position you are applying for') ?>*</label>
+                                <label class="control-label application-label" for="position_you_are_applying"><?= $this->translate('Please select the position you are applying for') ?>*</label>
                                 <select id="position_you_are_applying" name="position_applying" class="form-control application-input">
                                     <option selected> </option>
                                     <option>Part-Time Clerk</option>
@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label application-label" for="location"><?= $this->translate('Location') ?>*</label>
+                                <label class="control-label application-label" for="location"><?= $this->translate('Office location') ?>*</label>
                                 <select id="location" name="location" class="form-control application-input">
                                     <option selected> </option>
                                     <option>Branson West</option>
@@ -140,7 +140,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label application-label" for="address_field_2"><?= $this->translate('Address Line 2') ?>*</label>
+                                <label class="control-label application-label" for="address_field_2"><?= $this->translate('Address Line 2') ?></label>
                                 <input
                                         id="address_field_2"
                                         name="address_two"
@@ -327,7 +327,7 @@
                             </div>
 
                             <div class="form-group ">
-                                <label class="control-label application-label" for="start_day_field"><?= $this->translate('Start day') ?>*</label>
+                                <label class="control-label application-label" for="start_day_field"><?= $this->translate('First date you are available to work') ?>*</label>
 
                                 <div class="input-group date" id="start_day_field_picker">
                                     <input
@@ -403,7 +403,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label application-label" for="expierence_word"><?= $this->translate('Years of management expierence with MS Word') ?>*</label>
+                                <label class="control-label application-label" for="expierence_word"><?= $this->translate('Years of expierence with MS Word') ?>*</label>
                                 <select id="expierence_word" name="expierence_word" class="form-control application-input">
                                     <option selected> </option>
                                     <option>less than one</option>
@@ -420,7 +420,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label application-label" for="expierence_exel"><?= $this->translate('Years of management expierence with MS Excel') ?>*</label>
+                                <label class="control-label application-label" for="expierence_exel"><?= $this->translate('Years of expierence with MS Excel') ?>*</label>
                                 <select id="expierence_exel" name="expierence_exel" class="form-control application-input">
                                     <option selected> </option>
                                     <option>less than one</option>
@@ -437,7 +437,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label application-label" for="expierence_keypad"><?= $this->translate('Years of management expierence with 10-digit keypad') ?>*</label>
+                                <label class="control-label application-label" for="expierence_keypad"><?= $this->translate('Years of expierence with 10-digit keypad') ?>*</label>
                                 <select id="expierence_keypad" name="expierence_keypad" class="form-control application-input">
                                     <option selected> </option>
                                     <option>less than one</option>
@@ -597,19 +597,15 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label class="control-label application-label" for="start_day_field"><?= $this->translate('Starting Wage') ?></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="control-label application-label" for="start_day_field"><?= $this->translate('Ending Wage') ?></label>
-                                    </div>
 
                                     <div class="" id="sandbox-container">
                                         <div class="input-daterange" id="datepicker">
                                             <div class="col-md-6 form-group">
+                                                <label class="control-label application-label" for="start_day_field"><?= $this->translate('Starting Wage') ?></label>
                                                 <input type="text" class="form-control input-md application-input" name="start_ex" style="border-radius: 3px;" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
                                             </div>
                                             <div class="col-md-6 form-group">
+                                                <label class="control-label application-label" for="start_day_field"><?= $this->translate('Ending Wage') ?></label>
                                                 <input type="text" class="form-control input-md application-input" name="end_ex" style="border-radius: 3px;" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
                                             </div>
                                         </div>
@@ -618,7 +614,7 @@
 
 
                                     <div class="form-group">
-                                        <label class="control-label application-label" for="commenst_field"><?= $this->translate('Description') ?></label>
+                                        <label class="control-label application-label" for="commenst_field"><?= $this->translate('Position Overview') ?></label>
                                         <textarea id="commenst_field" name="comments_ex" class="form-control application-input"  rows="4" style="resize: vertical;"><?= isset($this->employee) ? $this->employee->getComments() : '' ?></textarea>
                                     </div>
 
