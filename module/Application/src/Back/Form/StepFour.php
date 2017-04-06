@@ -22,6 +22,7 @@ use Application\Back\Form\Element\Employee\{
     SourceApplication
 };
 use Application\Back\Form\Element\StepThree\Rating;
+use Zend\Form\Element\Number;
 use Zend\Filter\File\RenameUpload;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
@@ -67,15 +68,21 @@ class StepFour extends Form
 
         $this->add(
             [
-                'type' => StartDay::class,
-                'name' => 'start_ex'
+                'type' => Number::class,
+                'name' => 'start_ex',
+                'attributes' => [
+                    'step' => 'any'
+                ]
             ]
         );
 
         $this->add(
             [
-                'type' => StartDay::class,
-                'name' => 'end_ex'
+                'type' => Number::class,
+                'name' => 'end_ex',
+                'attributes' => [
+                    'step' => 'any'
+                ]
             ]
         );
 

@@ -5,12 +5,9 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content employer-modal-content">
-
-
             </div>
         </div>
     </div>
-
 
         <ul class="nav nav-tabs nav-justified">
             <li class="active"><a data-toggle="tab" href="#step_1" style="color:#91BF2D">Overview</a></li>
@@ -89,7 +86,6 @@
                                 </select>
                             </div>
 
-
                         <div class="form-group">
 
                             <div style="display: inline-block; float:right" >
@@ -97,23 +93,15 @@
                             </div>
                         </div>
                         </form>
-
                     </div>
-
-
-
                 </div>
 
                 <!-- STEP 2-->
                 <div id="step_2" class="tab-pane fade">
-
                     <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Create Application Step #2') ?>
                     </legend>
-
                     <div class="col-md-6 col-md-offset-3">
-
                         <form action="<?= $this->url('employee', ['action' => 'step-two-check']) ?>" method="post" class="form-step2" enctype="multipart/form-data">
-
                             <div class="form-group">
                                 <label class="control-label application-label" for="name_field"><?= $this->translate('First Name') ?>*</label>
                                 <input
@@ -263,23 +251,17 @@
                             <?php if (isset($this->id)) : ?>
                                 <input type="hidden" name="id" value="<?= $this->id ?>">
                             <?php endif; ?>
-
                         </form>
-
                     </div>
-
                 </div>
+
 
                 <!-- STEP 3-->
                 <div id="step_3" class="tab-pane fade">
-
                     <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Create Application Step #3') ?>
                     </legend>
-
                     <div class="col-md-6 col-md-offset-3">
-
                         <form action="<?= $this->url('employee', ['action' => 'step-three-check']) ?>" method="post" class="form-step3" enctype="multipart/form-data">
-
                             <div class="form-group">
                                 <label class="control-label application-label" for="weekly_hours_field"><?= $this->translate('Weekly hours available') ?>*</label>
                                 <select id="weekly_hours_field" name="weekly_hours" class="form-control application-input">
@@ -427,9 +409,7 @@
                                 <button class="btn button-save step3-next"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Next</button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
 
 
@@ -439,11 +419,8 @@
                     <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Create Application Step #4') ?>
                         <br>
                         <?= $this->translate('Please provide information for you past two employers') ?>
-
                     </legend>
                     <div class="row">
-
-
                         <div class="employer-result-conteiner col-md-10 col-md-offset-1"
                              style="margin-bottom: 20px; display:<?= (isset($this->action) && $this->action == 'edit') ? 'block': 'none' ?>"
                         >
@@ -475,41 +452,39 @@
                                     </th>
                                 </tr>
 
-
                                 <?php if (isset($this->action) && $this->action == 'edit' && isset($this->employerList)) :?>
 
                                     <?php $count= 1?>
 
-                                        <?php foreach ($this->employerList as $employ) : ?>
+                                    <?php foreach ($this->employerList as $employ) : ?>
 
-                                            <tr class="employer-tr" data-id="<?= $employ->getId() ?>">
-                                                <td>
-                                                    <?= $count++ ?>
-                                                </td>
-                                                <td>
-                                                    <?= $employ->getName() ?>
-                                                </td>
-                                                <td>
-                                                    <?= $employ->getCity() ?>
-                                                </td>
-                                                <td>
-                                                    <?= $employ->getState() ?>
-                                                </td>
-                                                <td>
-                                                    <?= $employ->getYearsEmployed() ?>
-                                                </td>
-                                                <td>
-                                                    <?= $employ->getStart()->format('d-m-Y') ?>
-                                                </td>
-                                                <td>
-                                                    <?= $employ->getEnd()->format('d-m-Y') ?>
-                                                </td>
-                                                <td>
-                                                    <?= $employ->getComments() ?>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-
+                                        <tr class="employer-tr" data-id="<?= $employ->getId() ?>">
+                                            <td>
+                                                <?= $count++ ?>
+                                            </td>
+                                            <td>
+                                                <?= $employ->getName() ?>
+                                            </td>
+                                            <td>
+                                                <?= $employ->getCity() ?>
+                                            </td>
+                                            <td>
+                                                <?= $employ->getState() ?>
+                                            </td>
+                                            <td>
+                                                <?= $employ->getYearsEmployed() ?>
+                                            </td>
+                                            <td>
+                                                <?= $employ->getStart() ?>
+                                            </td>
+                                            <td>
+                                                <?= $employ->getEnd() ?>
+                                            </td>
+                                            <td>
+                                                <?= $employ->getComments() ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 <?php endif;?>
                             </table>
                         </div>
@@ -582,16 +557,15 @@
                                 </div>
 
                                 <div class="row">
-
                                     <div class="" id="sandbox-container">
-                                        <div class="input-daterange" id="datepicker">
+                                        <div>
                                             <div class="col-md-6 form-group">
                                                 <label class="control-label application-label" for="start_day_field"><?= $this->translate('Starting Wage') ?></label>
-                                                <input type="text" class="form-control input-md application-input" name="start_ex" style="border-radius: 3px;" value="<?= isset($this->fields['start']) ? ($this->fields['start']) : '' ?>">
+                                                <input type="text" class="form-control input-md application-input" name="start_ex" style="border-radius: 3px;">
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label class="control-label application-label" for="start_day_field"><?= $this->translate('Ending Wage') ?></label>
-                                                <input type="text" class="form-control input-md application-input" name="end_ex" style="border-radius: 3px;" value="<?= isset($this->fields['end']) ? ($this->fields['end']) : '' ?>">
+                                                <input type="text" class="form-control input-md application-input" name="end_ex" style="border-radius: 3px;" >
                                             </div>
                                         </div>
                                     </div>
@@ -608,7 +582,6 @@
 
                             </form>
                             <br>
-
                             <div class="form-group" >
                                 <div style="display: inline-block">
                                     <button class="btn button-save  step4-prev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Previous</button>
@@ -627,12 +600,8 @@
 
                     <legend  style="color:#8f8f8f"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit Application') : $this->translate('Create Application Step #5') ?>
                     </legend>
-
                     <div class="col-md-6 col-md-offset-3">
-
-
                         <form action="<?= $this->url('employee', ['action' => 'store']) ?>" method="post" class="form-step5" enctype="multipart/form-data">
-
                             <div class="form-group">
                                 <label class="control-label application-label" for="hourly_rate_field"><?= $this->translate('Wage/Pay Expectation (per hour)') ?>*</label>
                                 <div class="input-group">
@@ -669,7 +638,6 @@
                                 </select>
                             </div>
 
-
                             <?php if ($this->role === 'admin' || $this->role === 'contributor') :?>
                                 <div class="form-group">
                                     <label class="control-label application-label" for="source-field"><?= $this->translate('Application Source') ?>*</label>
@@ -689,7 +657,6 @@
                                 <input type="hidden" name="source">
                             <?php endif; ?>
 
-
                             <?php if (isset($this->id)) : ?>
                                 <input type="hidden" name="id" value="<?= $this->id ?>">
                             <?php endif; ?>
@@ -700,36 +667,19 @@
 
                             <button class="btn" style="display:none"></button>
 
-
-
                         </form>
-
-
-
 
                         <?php if (false === isset($this->action) && $this->action !== 'edit' && false ===($this->role === 'admin' || $this->role === 'contributor')) :?>
 
-
-                           <!-- <div align="center">
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                    <tr>
-                                        <td style="border-bottom: 2px solid #354562; padding: 4px" class="titlec">
-                                            <input disabled id="printB" onclick="window.print();" type="button" value="Print Results" name="printB" style="float: right; font-size: 8pt; font-family: Arial"><input onclick="document.getElementById('AfterAction').style.display='none';document.getElementById('expectedArea').style.display='block';document.getElementById('typeArea').style.display='block';document.JobOp.typed.value='';document.JobOp.typed.disabled=false;randNum = Math.floor((Math.random() * 10)) % intToTestCnt;strToTestType = strToTest[randNum];document.JobOp.given.value = strToTestType;" type="button" value="New Test" name="newtest" style="float: right; font-size: 8pt; font-family: Arial">ITS Typing Test System</td>
-                                    </tr>
-                                </table>
-                            </div> -->
                             <div class="test-action" data-action="<?= $this->url('employee', ['action' => 'typing-test']) ?>">
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <td style="padding: 4px" class="titlea"  width="4120">
                                             <label class="control-label application-label" ><?= $this->translate('2-Minute Typing Test') ?>*</label>
                                         </td>
-                                       <!-- <td style="border-bottom: 1px dotted #8120E36; padding: 4px" class="titlea" background="Images/Lt_Red_Back.gif" width="190">
-                                            <p align="right">v1.0</td>-->
                                     </tr>
                                     <tr>
                                         <td style="padding: 4px" class="bodya" colspan="2">
-
                                             <FORM name="JobOp">
                                                 <table border="0" cellpadding="5" width="100%">
                                                     <tr>
@@ -781,7 +731,8 @@
                                                                 <label class="control-label application-label" >
                                                                     attempt #<span class="attempt-test"> 1</span>
                                                                 </label> <input type=button value="&gt;&gt; Start Typing Test &lt;&lt;" name="start" onClick="beginTest()" class="button-save "><p align="center" style="margin-top: 0; margin-bottom: 0">
-                                                               <input disabled type=button value="&gt;&gt; End Typing Test &lt;&lt;" name="stop" onClick="endTest()" style="display:none; border-left:1px solid #293358; border-right:2px solid #293358; border-top:1px solid #293358; border-bottom:2px solid #293358; width: 100%; background-color: #F05959; color:#FFFFFF;"></td>
+                                                               <input disabled type=button value="&gt;&gt; End Typing Test &lt;&lt;" name="stop" onClick="endTest()" style="display:none; border-left:1px solid #293358; border-right:2px solid #293358; border-top:1px solid #293358; border-bottom:2px solid #293358; width: 100%; background-color: #F05959; color:#FFFFFF;">
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -808,9 +759,6 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <script>
-
-                                                    </script>
                                                 </table>
                                             </FORM>
                                         </td>
@@ -818,13 +766,6 @@
                                 </table>
                             </div>
                         <?php endif; ?>
-
-
-
-
-
-
-
 
                         <div class="form-group">
                             <div style="display: inline-block">
@@ -834,17 +775,8 @@
                                 <button class="btn button-save btn-lg step5"><?= (isset($this->action) && $this->action == 'edit') ? $this->translate('Edit') : $this->translate('Save') ?></button>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
 </div>

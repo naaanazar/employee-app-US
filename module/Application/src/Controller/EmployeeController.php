@@ -815,9 +815,6 @@ class EmployeeController extends AbstractController
                 $this->getEntityManager()->persist($image);
                 $this->getEntityManager()->flush($image);
 
-
-
-
                 $employee->setName           ($step2['name'])
                     ->setSurname             ($step2['surname'])
                     ->setAddress             ($step2['address'])
@@ -904,8 +901,8 @@ class EmployeeController extends AbstractController
                             ->setCity($key['city_ex'])
                             ->setState($key['state_ex'])
                             ->setYearsEmployed($key['years_employed_ex'])
-                            ->setStart(new \DateTime($key['start_ex']))
-                            ->setEnd(new \DateTime($key['end_ex']))
+                            ->setStart($key['start_ex'])
+                            ->setEnd($key['end_ex'])
                             ->setComments($key['comments_ex']);
 
                         $this->getEntityManager()->persist($employer);
@@ -1011,7 +1008,18 @@ class EmployeeController extends AbstractController
                     $this->getEntityManager()->flush();
                 }
 
+                $storageTypingTest->offsetUnset('typingTest');
+
+                $storageStep1->offsetUnset('stepOne');
+
+                $storageStep2->offsetUnset('stepTwo');
+
+                $storageStep3->offsetUnset('stepThree');
+
+                $storageStep4->offsetUnset('StepFour');
             }
+
+
 
             return $response;
         } else {

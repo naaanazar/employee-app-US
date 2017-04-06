@@ -54,14 +54,14 @@ class Employer
     private $yearsEmployed;
 
     /**
-     * @var /Datetime
-     * @ORM\Column(type="datetime",  nullable=true)
+     * @var float
+     * @ORM\Column(precision=5, scale=2, type="decimal",  nullable=true)
      */
     private $start;
 
     /**
-     * @var /Datetime
-     * @ORM\Column(type="datetime",  nullable=true)
+     * @var float
+     * @ORM\Column(precision=5, scale=2, type="decimal",  nullable=true)
      */
     private $end;
 

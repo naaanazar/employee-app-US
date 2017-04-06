@@ -161,74 +161,69 @@
     <h4 class=""><?= $this->translate('Employment History') ?></h4>
     <ul class="list-group">
             <li class="list-group-item">
-
                 <?php if (isset($this->employerList) && false === empty($this->employerList)) :?>
-
-                <table class="employer-resul-table" style="width: 100%">
-                    <tr class="employer-tr">
-                        <th class="application-label">
-                            #
-                        </th>
-                        <th class="application-label">
-                            Name
-                        </th>
-                        <th class="application-label">
-                            City
-                        </th>
-                        <th class="application-label">
-                            State
-                        </th>
-                        <th class="application-label">
-                            Years Employed
-                        </th>
-                        <th class="application-label th-date">
-                            Starting Wage
-                        </th>
-                        <th class="application-label th-date">
-                            Ending Wage
-                        </th>
-                        <th class="application-label">
-                            Position Overview
-                        </th>
-                    </tr>
-
-
-                    <?php $count= 1?>
-
-                    <?php foreach ($this->employerList as $employ) : ?>
-
-                        <tr class="employer-tr" data-id="<?= $employ->getId() ?>">
-                            <td>
-                                <?= $count++ ?>
-                            </td>
-                            <td>
-                                <?= $employ->getName() ?>
-                            </td>
-                            <td>
-                                <?= $employ->getCity() ?>
-                            </td>
-                            <td>
-                                <?= $employ->getState() ?>
-                            </td>
-                            <td>
-                                <?= $employ->getYearsEmployed() ?>
-                            </td>
-                            <td>
-                                <?= $employ->getStart()->format('d-m-Y') ?>
-                            </td>
-                            <td>
-                                <?= $employ->getEnd()->format('d-m-Y') ?>
-                            </td>
-                            <td>
-                                <?= $employ->getComments() ?>
-                            </td>
+                    <table class="employer-resul-table" style="width: 100%">
+                        <tr class="employer-tr">
+                            <th class="application-label">
+                                #
+                            </th>
+                            <th class="application-label">
+                                Name
+                            </th>
+                            <th class="application-label">
+                                City
+                            </th>
+                            <th class="application-label">
+                                State
+                            </th>
+                            <th class="application-label">
+                                Years Employed
+                            </th>
+                            <th class="application-label th-date">
+                                Starting Wage
+                            </th>
+                            <th class="application-label th-date">
+                                Ending Wage
+                            </th>
+                            <th class="application-label">
+                                Position Overview
+                            </th>
                         </tr>
-                    <?php endforeach; ?>
-                    <?php else :?>
-                        No Results
-                    <?php endif;?>
+                        <?php $count= 1?>
 
-                </table>
+                        <?php foreach ($this->employerList as $employ) : ?>
+
+                            <tr class="employer-tr" data-id="<?= $employ->getId() ?>">
+                                <td>
+                                    <?= $count++ ?>
+                                </td>
+                                <td>
+                                    <?= $employ->getName() ?>
+                                </td>
+                                <td>
+                                    <?= $employ->getCity() ?>
+                                </td>
+                                <td>
+                                    <?= $employ->getState() ?>
+                                </td>
+                                <td>
+                                    <?= $employ->getYearsEmployed() ?>
+                                </td>
+                                <td>
+                                    <?= $employ->getStart() ?>
+                                </td>
+                                <td>
+                                    <?= $employ->getEnd() ?>
+                                </td>
+                                <td>
+                                    <?= $employ->getComments() ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                <?php else :?>
+                    No Results
+                <?php endif;?>
 
 
         </li>
