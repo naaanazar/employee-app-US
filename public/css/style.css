@@ -274,3 +274,14 @@ fieldset[disabled] .button-save.active {
 .employer-tr{
     border-bottom: 1px solid #c1e279;
 }
+
+.employer-tr td{
+    padding:3px 4px 3px 4px ;
+}
+.employer-tr th{
+    padding:3px 4px 3px 4px ;
+}
+
+.th-date{
+    min-width: 85px;
+}

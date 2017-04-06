@@ -35,7 +35,7 @@ class IndexController extends AbstractController
     public function langAction()
     {
         $storage = new Container('language');
-        $storage->offsetSet('language', $this->getRequest()->getQuery('language', 'de_DE'));
+        $storage->offsetSet('language', $this->getRequest()->getQuery('language', 'en_US'));
 
         /** @var Referer $referer */
         $referer = $this->getRequest()->getHeader('Referer');
@@ -52,7 +52,7 @@ class IndexController extends AbstractController
 
 
         if (false === $storage->offsetExists('language')) {
-            $lang = 'de_DE';
+            $lang = 'en_US';
         } else {
             $lang = $storage->offsetGet('language');
         }

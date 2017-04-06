@@ -61,7 +61,7 @@ return [
         ),
     ],
     'translator' => [
-        'locale' => 'de_DE',
+        'locale' => 'en_US',
         'translation_file_patterns' => [
             [
                 'type' => 'gettext',

@@ -14,6 +14,96 @@ use Doctrine\ORM\Mapping as ORM;
 class Employee extends ArraySerializable
 {
 
+    const EXPIRIENCE_SELECT = ['less than one', '2', '3', '4', '5','6', '7', '8', '9', '10+'];
+
+    const POSITION_APPLING_SELECT  = [
+        'Part-Time Clerk',
+        'Full-Time Clerk',
+        'Traveling Clerk',
+        'Assistant Manager',
+        'Office Manager',
+        'Contract Manager',
+        'Regional Manager'
+    ];
+
+    const LOCATION_SELECT  = [
+        'Branson West',
+        'Carthage',
+        'Cassville',
+        'Clayton',
+        'Clinton',
+        'Creve Coeur',
+        'Des Peres',
+        'Eldon',
+        'Imperial',
+        'Lees Summit',
+        'Marshfield',
+        'Nevada',
+        'Poplar Bluff',
+        'Rolla',
+        'Springfield',
+        'Warrensburg',
+        'Union'
+    ];
+
+    const STATES_SELECT = [
+        "Alaska",
+        "Alabama",
+        "Arkansas",
+        "American Samoa",
+        "Arizona",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "District of Columbia",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Guam",
+        "Hawaii",
+        "Iowa",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Massachusetts",
+        "Maryland",
+        "Maine",
+        "Michigan",
+        "Minnesota",
+        "Missouri",
+        "Mississippi",
+        "Montana",
+        "North Carolina",
+        " North Dakota",
+        "Nebraska",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "Nevada",
+        "New York",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Puerto Rico",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Virginia",
+        "Virgin Islands",
+        "Vermont",
+        "Washington",
+        "Wisconsin",
+        "West Virginia",
+        "Wyoming"
+    ];
+
     /**
      * @var int
      * @ORM\Id

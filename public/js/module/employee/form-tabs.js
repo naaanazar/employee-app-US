@@ -53,11 +53,30 @@ jQuery(document).on('click', '.step3-next', function(e){
 
 var countEmployer = 0;
 
+$( document ).ready(function() {
+    countEmployer = (jQuery('.employer-resul-table tr').length) -1;
+    if(countEmployer > 0) {
+        jQuery(".employer-number-legend").html(countEmployer + 1);
+    }
+
+});
+
+
 jQuery(document).on('click', '.step4-next', function(e){
     e.preventDefault();
 
-    if(countEmployer < 2){
-        $('#employerModal').modal('show');
+    if(countEmployer < 2 && jQuery('.tab-content-action').data('action-edite') !== 'edite'){
+        var html = '' +
+            '<div class="modal-body">' +
+                '<p>Потрібно вказати двох роботодавців.</p>' +
+            '</div>' +
+            '<div class="modal-footer">' +
+                '<button type="button" class="btn button-save" data-dismiss="modal" >Вказати</button>' +
+                '<button type="button" class="btn btn-danger modal-next"  data-dismiss="modal">Пропустити</button>' +
+            '</div>';
+
+        jQuery('.employer-modal-content').html(html);
+        jQuery('#employerModal').modal('show');
     } else {
         setActivTab('step_5');
     }
@@ -126,16 +145,30 @@ var addEmployer = function(error){
 
     }
     return false;
-
-
-
 }
-
 
 jQuery(document).on('click', '.step5', function(e){
     e.preventDefault();
-    ajaxFormSubmitByClass('.form-step5');
+    if(countTest < 1 && jQuery('.tab-content-action').data('action-edite') !== 'edite'){
+        var html = '' +
+            '<div class="modal-body">' +
+            '<p>Take a typing test please..</p>' +
+            '</div>' +
+            '<div class="modal-footer">' +
+            '<button class="btn button-save" data-dismiss="modal">Close</button>' +
+        '</div>';
+
+        jQuery('.employer-modal-content').html(html);
+        jQuery('#employerModal').modal('show');
+    } else {
+        ajaxFormSubmitByClass('.form-step5');
+    }
+
 })
+
+
+
+
 
 
 
