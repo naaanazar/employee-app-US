@@ -128,10 +128,13 @@ class DashboardController extends AbstractController
             $view->setVariables(
                 [
                     'paginator'     => $paginator,
-                    'contracts'     => $this->getEntityManager()->getRepository(Contract::class)->findAll(),
                     'areas'         => $this->getEntityManager()->getRepository(Area::class)->findAll(),
                     'weeklyHours'   => $this->getEntityManager()->getRepository(WeeklyHours::class)->findAll(),
-                    'fields'        => $this->getRequest()->getPost()
+                    'fields'        => $this->getRequest()->getPost(),
+                    'expireenceSelect' => Employee::EXPIRIENCE_SELECT,
+                    'positionApplyingSelect' => Employee::POSITION_APPLING_SELECT,
+                    'locationSelect' => Employee::LOCATION_SELECT,
+                    'sratesSelect' => Employee::STATES_SELECT
                 ]
             );
         }

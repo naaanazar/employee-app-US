@@ -115,7 +115,7 @@ class EmployeeRepository extends EntityRepository
             $coordinatesRepo = $this->getEntityManager()->getRepository(Coordinates::class);
 
             if (false === empty($params['range'])) {
-                $coordinates = $coordinatesRepo->getCoordinatesInRadius($coordinates, $params['range'] * 1000);
+                $coordinates = $coordinatesRepo->getCoordinatesInRadius($coordinates, $params['range'] * 1609);
             } else {
                 $coordinates = $coordinatesRepo->getCoordinatesInRange($coordinates);
             }

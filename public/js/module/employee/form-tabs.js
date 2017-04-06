@@ -68,11 +68,11 @@ jQuery(document).on('click', '.step4-next', function(e){
     if(countEmployer < 2 && jQuery('.tab-content-action').data('action-edite') !== 'edite'){
         var html = '' +
             '<div class="modal-body">' +
-                '<p>Потрібно вказати двох роботодавців.</p>' +
+                '<p>Mention, please, 2 your previous employers</p>' +
             '</div>' +
             '<div class="modal-footer">' +
-                '<button type="button" class="btn button-save" data-dismiss="modal" >Вказати</button>' +
-                '<button type="button" class="btn btn-danger modal-next"  data-dismiss="modal">Пропустити</button>' +
+                '<button type="button" class="btn button-save" data-dismiss="modal" >Ok</button>' +
+                '<button type="button" class="btn btn-danger modal-next"  data-dismiss="modal">Skip</button>' +
             '</div>';
 
         jQuery('.employer-modal-content').html(html);
@@ -149,7 +149,10 @@ var addEmployer = function(error){
 
 jQuery(document).on('click', '.step5', function(e){
     e.preventDefault();
-    if(countTest < 1 && jQuery('.tab-content-action').data('action-edite') !== 'edite'){
+
+    var role = jQuery('.tab-content-action').data('role');
+    console.log(role);
+    if(countTest < 1 && jQuery('.tab-content-action').data('action-edite') !== 'edite' && false === (role == 'admin' || role == 'contributor' )){
         var html = '' +
             '<div class="modal-body">' +
             '<p>Take a typing test please..</p>' +

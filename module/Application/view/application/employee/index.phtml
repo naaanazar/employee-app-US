@@ -17,7 +17,8 @@
             <li><a data-toggle="tab" href="#step_5" style="color:#91BF2D">Skills Assessment</a></li>
         </ul>
 
-            <div class="tab-content tab-content-action" data-action-edite="<?= (isset($this->action) && $this->action == 'edit') ? 'edite': '' ?>">
+            <div class="tab-content tab-content-action"
+                 data-action-edite="<?= (isset($this->action) && $this->action == 'edit') ? 'edite': '' ?>" data-role="<?= $this->role ?>">
 
                 <!-- STEP 1-->
                 <div id="step_1" class="tab-pane fade in active">
@@ -263,7 +264,7 @@
                     <div class="col-md-6 col-md-offset-3">
                         <form action="<?= $this->url('employee', ['action' => 'step-three-check']) ?>" method="post" class="form-step3" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label class="control-label application-label" for="weekly_hours_field"><?= $this->translate('Weekly hours available') ?>*</label>
+                                <label class="control-label application-label" for="weekly_hours_field"><?= $this->translate('Hours availiable per week') ?>*</label>
                                 <select id="weekly_hours_field" name="weekly_hours" class="form-control application-input">
                                     <?php foreach ($this->weeklyHours as $weeklyHour) : ?>
                                         <?php /** @var \Application\Model\WeeklyHours $weeklyHour */ ?>
@@ -300,7 +301,7 @@
                                     <?php endif;?>
                                     <option <?= (isset($this->employee) && ( $this->employee->getWorkWeekends() === 'No')) ? 'selected' : '' ?>>No</option>
                                     <option <?= (isset($this->employee) && ( $this->employee->getWorkWeekends() === 'Every other')) ? 'selected' : '' ?>>Every other</option>
-                                    <option <?= (isset($this->employee) && ( $this->employee->getWorkWeekends() === 'All')) ? 'selected' : '' ?> >All </option>
+                                    <option <?= (isset($this->employee) && ( $this->employee->getWorkWeekends() === 'All')) ? 'selected' : '' ?> >All</option>
                                 </select>
                             </div>
 
@@ -505,7 +506,7 @@
                                 <div class="form-group">
                                     <label class="control-label application-label" for="name_field"><?= $this->translate('Name') ?>*</label>
                                     <input
-                                            id="name_field"
+                                            id="name_field_ex"
                                             name="name_ex" type="text"
                                             class="form-control input-md application-input"
                                     >
@@ -514,7 +515,7 @@
                                 <div class="form-group">
                                     <label class="control-label application-label" for="city_field"><?= $this->translate('City') ?>*</label>
                                     <input
-                                            id="city_field"
+                                            id="city_field_ex"
                                             name="city_ex"
                                             type="text"
                                             class="form-control input-md application-input"
@@ -524,7 +525,7 @@
                                 <div class="form-group">
                                     <label class="control-label application-label" for="state_field"><?= $this->translate('State') ?>*</label>
                                     <select
-                                            id="state_field"
+                                            id="state_field_ex"
                                             name="state_ex"
                                             type="text"
                                             class="form-control input-md application-input"

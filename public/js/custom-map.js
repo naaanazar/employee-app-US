@@ -3,7 +3,7 @@
 var GoogleMap;
 var Address;
 
-define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyBEND-cYXAct1WZ83D9rDOvLEOZzncIHHw&libraries=geometry'], function() {
+define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyDgXXG3wglHSkP3zTJGEr8RIz3QOx_tD_4&libraries=geometry'], function() {
     if (0 !== jQuery('#map').length) {
         BasePath('/', setImage);
     }
@@ -66,8 +66,8 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyBEND-cYXAct1WZ83D9rDO
 
         init: function () {
             return GoogleMap.instance = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 50.98609893339354, lng: 10.39306640625},
-                zoom: 6
+                center: {lat: 42.293564192170095, lng: -104.0625},
+                zoom: 4
             });
         },
         addMarker: function (map, lat, lng) {
@@ -201,10 +201,13 @@ define(['https://maps.googleapis.com/maps/api/js?key=AIzaSyBEND-cYXAct1WZ83D9rDO
          */
         setAddress: function () {
 
-            this.fullAddress = 'Germany,';
+            this.fullAddress = 'USA,';
 
             if ('' != jQuery('#zip_field').val()) {
                 this.fullAddress = this.fullAddress + jQuery('#zip_field').val() + ',';
+            }
+            if ('' != jQuery('#state_field').val() && 'undefined' !== typeof jQuery('#state_field').val()) {
+                this.fullAddress = this.fullAddress + jQuery('#state_field').val() + ',';
             }
             if ('' != jQuery('#city_field').val() && 'undefined' !== typeof jQuery('#city_field').val()) {
                 this.fullAddress = this.fullAddress + jQuery('#city_field').val() + ',';
