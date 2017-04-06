@@ -567,15 +567,15 @@ class EmployeeController extends AbstractController
                 $storage->offsetSet('stepOne', $form->getData());
             }
 
-
-
             return $response;
         } else {
             return $this->notFoundAction();
         }
     }
 
-
+    /**
+     * @return array|JsonModel
+     */
     public function stepTwoCheckAction()
     {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
@@ -626,6 +626,9 @@ class EmployeeController extends AbstractController
         }
     }
 
+    /**
+     * @return array|JsonModel
+     */
     public function stepThreeCheckAction()
     {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
@@ -658,6 +661,9 @@ class EmployeeController extends AbstractController
         }
     }
 
+    /**
+     * @return array|JsonModel
+     */
     public function stepFourCheckAction()
     {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
@@ -686,11 +692,6 @@ class EmployeeController extends AbstractController
                 $formData[$data['id_ex']] = $form->getData();
 
                 $storage->offsetSet('StepFour', $formData);
-
-
-
-
-               // $response->setVariable('er',$formData);
             }
 
             return $response;
@@ -699,6 +700,9 @@ class EmployeeController extends AbstractController
         }
     }
 
+    /**
+     * @return array|JsonModel
+     */
     public function typingTestAction()
     {
         if (true === $this->getRequest()->isXmlHttpRequest()) {
@@ -713,7 +717,6 @@ class EmployeeController extends AbstractController
             );
 
             $data  = $this->getRequest()->getPost();
-
 
             $response->setVariable('errors',true);
 
@@ -751,8 +754,6 @@ class EmployeeController extends AbstractController
 
             $data  = $this->getRequest()->getPost();
             $data['hourly_rate'] = str_replace(",", ".", $data['hourly_rate']);
-
-
 
             /** @var EmployeeRepository $employeeRepository */
             $employeeRepository = $this->getEntityManager()->getRepository(EmployeeModel::class);
@@ -860,7 +861,6 @@ class EmployeeController extends AbstractController
                     $employee->setImage($image);
                 }
 
-
                 if (null !== $this->getUser()) {
                     $employee->setUser($this->getUser());
                 } else {
@@ -933,7 +933,6 @@ class EmployeeController extends AbstractController
                     }
                 }
 
-
                 /** @var Coordinates $coordinates */
                 $coordinates = $this->getEntityManager()
                     ->getRepository(Coordinates::class)
@@ -955,7 +954,6 @@ class EmployeeController extends AbstractController
                 }
 
                 $this->getEntityManager()->persist($coordinates);
-
                 $this->getEntityManager()->flush();
 
                 if (true === $employee instanceof EmployeeModel) {
@@ -1009,26 +1007,15 @@ class EmployeeController extends AbstractController
                 }
 
                 $storageTypingTest->offsetUnset('typingTest');
-
                 $storageStep1->offsetUnset('stepOne');
-
                 $storageStep2->offsetUnset('stepTwo');
-
                 $storageStep3->offsetUnset('stepThree');
-
                 $storageStep4->offsetUnset('StepFour');
             }
-
-
 
             return $response;
         } else {
             return $this->notFoundAction();
         }
     }
-
-
-
-
-
 }
